@@ -24,9 +24,9 @@
 # You can create any custom variable you would like, and they will be accessible
 # in the templates via {{ site.myvariable }}.
 
-title: 보쨩의 블로그 🧀 
+title: 보승의 깃블로그 🧀 
 email: gda05189@gmail.com
-author: boseung
+author: Boseung
 
 # Copyright setting
 # You can use any html code, currently below placeholders are available:
@@ -40,11 +40,11 @@ author: boseung
 #   "Copyright (c) 2017-{currentYear} <a href="https://example.com">{author}</a>"
 #   "Copyright © 2017-2021 Foobar"
 #
-copyright: "Unpublished Work (cleft) 2017-{currentYear} {author}"
+copyright: " 2022-{currentYear} (cleft) {author} 🧀"
 
 description: > #this means to ignore newlines until "baseurl:"
-  보쨩의 GitBlog
-  아ㅋㅋ 슈디나 개로피고 싶다. - 보쨩
+  강보승의 깃블로그 🧀 
+  
 
 baseurl: "" # the subpath of your site, e.g. /blog
 url: "" # the base hostname & protocol for your site, e.g. https://example.com
@@ -153,10 +153,10 @@ yat:
 #   - about.md
 
 # Page default value
-# defaults:
-#   home:
-#     heading: "Your awesome heading"
-#     subheading: "Your awesome subheading"
+defaults:
+  home:
+    heading: "보승의 깃블로그"
+    subheading: "알은 세계이다, 태어나려는 자는 세계를 깨뜨려야 한다 - 데미안"
 #     banner: "Your image url"
 
 # Banner default settings
