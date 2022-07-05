@@ -6,9 +6,9 @@ categories: mysql
 tags: [mysql, 명령어]
 ---
 
-## mysql 명령어
+## MYSQL 명령어
 
-### 데이터베이스 
+### 데이터베이스 CRUD
 
 1. 데이터베이스 생성 <br>
     mysql > `CREATE DATABASE dbname;`
@@ -22,7 +22,7 @@ tags: [mysql, 명령어]
 4. 데이터베이스 삭제하기 <br>
     mysql > `DROP DATABASE [IF EXISTS] dbname;` 
 
-### 테이블
+### 테이블 CRUD
 
 1. 테이블 생성 <br>
     mysql > `CREATE TABLE tablename();` <br>
@@ -57,7 +57,7 @@ tags: [mysql, 명령어]
 9. 테이블 컬럼 삭제<br>
     mysql > `ALTER COLUMN tablename DROP COLUMN [기존의 컬럼명] [삭제할 컬럼명];`
 
-### 데이터 
+### 데이터 CRUD
 
 1. 데이터 생성
    1. mysql > `INSERT INTO tablename VALES(123, '값1' ...);` // 전체 컬럼
