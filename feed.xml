@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.2">Jekyll</generator><link href="/jekyll-theme-yat/feed.xml" rel="self" type="application/atom+xml" /><link href="/jekyll-theme-yat/" rel="alternate" type="text/html" /><updated>2022-07-05T13:31:39+00:00</updated><id>/jekyll-theme-yat/feed.xml</id><title type="html">보승의 깃블로그 🧀</title><subtitle>강보승의 깃블로그 🧀 
+</subtitle><author><name>Boseung</name></author><entry><title type="html">MYSQL 명령어</title><link href="/jekyll-theme-yat/mysql/2022/07/05/mysql-command.html" rel="alternate" type="text/html" title="MYSQL 명령어" /><published>2022-07-05T00:00:00+00:00</published><updated>2022-07-05T00:00:00+00:00</updated><id>/jekyll-theme-yat/mysql/2022/07/05/mysql-command</id><content type="html" xml:base="/jekyll-theme-yat/mysql/2022/07/05/mysql-command.html">&lt;h2 id=&quot;mysql-명령어&quot;&gt;mysql 명령어&lt;/h2&gt;
+
+&lt;h3 id=&quot;데이터베이스-crud&quot;&gt;데이터베이스 CRUD&lt;/h3&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;
+    &lt;p&gt;데이터베이스 생성 &lt;br /&gt;
+ mysql &amp;gt; &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;CREATE DATABASE dbname;&lt;/code&gt;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;데이터베이스 목록 보기 &lt;br /&gt;
+ mysql &amp;gt; &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;SHOW DATABASES;&lt;/code&gt;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;데이터베이스 사용하기 &lt;br /&gt;
+ mysql &amp;gt; &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;USE dbname;&lt;/code&gt;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;데이터베이스 삭제하기 &lt;br /&gt;
+ mysql &amp;gt; &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;DROP DATABASE [IF EXISTS] dbname;&lt;/code&gt;&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h3 id=&quot;테이블-crud&quot;&gt;테이블 CRUD&lt;/h3&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;
+    &lt;p&gt;테이블 생성 &lt;br /&gt;
+ mysql &amp;gt; &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;CREATE TABLE tablename();&lt;/code&gt; &lt;br /&gt;
+ ex) CREATE TABLE mytable(&lt;br /&gt;
+     id INT UNSIGNED NOT NULL AUTO_INCREMENT, &lt;br /&gt;
+     name VARCHAR, &lt;br /&gt;
+     &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;PRIMARY KEY(id)&lt;/code&gt; &lt;br /&gt;
+ ); // 소문자는 임의지정(column), 대문자는 명령어&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;테이블 보기 &lt;br /&gt;
+ mysql &amp;gt; &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;SHOW TABLES;&lt;/code&gt;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;테이블 목록 보기 &lt;br /&gt;
+ mysql &amp;gt; &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;DESC tablename;&lt;/code&gt;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;테이블 사용하기 &lt;br /&gt;
+ mysql &amp;gt; &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Use tablename;&lt;/code&gt;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;테이블 삭제하기 &lt;br /&gt;
+ mysql &amp;gt; &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;DROP TABLE [IF EXISTS] tablename;&lt;/code&gt;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;테이블 새로운 컬럼 추가 &lt;br /&gt;
+ mysql &amp;gt; &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ALTER TABLE tablename ADD COLUMN [추가할 컬럼] [추가할 컬럼 데이터타입];&lt;/code&gt; &lt;br /&gt;
+ ex) ALTER TABLE mytable ADD COLUMN model_type varchar(10) NOT NULL;&lt;br /&gt;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;테이블 데이터 타입 변경 &lt;br /&gt;
+ mysql &amp;gt; &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ALTER TABLE tablename MODIFY COLUMN [변경할 컬럼명] [변경할 컬럼 데이터타입];&lt;/code&gt;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;테이블 이름 / 데이터 타입 변경 &lt;br /&gt;
+ mysql &amp;gt; &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ALTER TABLE tablename CHANGE COLUMN [기존의 컬럼명] [변경할 컬럼명] [변경할 컬럼 데이터타입];&lt;/code&gt;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;테이블 컬럼 삭제&lt;br /&gt;
+ mysql &amp;gt; &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ALTER COLUMN tablename DROP COLUMN [기존의 컬럼명] [삭제할 컬럼명];&lt;/code&gt;&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h3 id=&quot;데이터-crud&quot;&gt;데이터 CRUD&lt;/h3&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;데이터 생성
+    &lt;ol&gt;
+      &lt;li&gt;mysql &amp;gt; &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;INSERT INTO tablename VALES(123, '값1' ...);&lt;/code&gt; // 전체 컬럼&lt;/li&gt;
+      &lt;li&gt;mysql &amp;gt; &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;INSERT INTO tablename (column1, column2 ...) VALUES(123, '값1' ...);&lt;/code&gt; // 대응 컬럼&lt;/li&gt;
+    &lt;/ol&gt;
+  &lt;/li&gt;
+  &lt;li&gt;데이터 조회
+    &lt;ol&gt;
+      &lt;li&gt;mysql &amp;gt; &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;SELECT * FROM tablename;&lt;/code&gt; // 전체 데이터&lt;/li&gt;
+      &lt;li&gt;mysql &amp;gt; &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;SELECT column1, column2 ... FROM tablename;&lt;/code&gt; // 대응 컬럼&lt;/li&gt;
+    &lt;/ol&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;데이터 조회 시 표시되는 컬럼명 변경
+ mysql &amp;gt; &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;SELECT beforename1 AS aftername1, beforename2 AS aftername2 From tablename;&lt;/code&gt;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;데이터 정렬해서 조회 &lt;br /&gt;
+ DESC는 내림차순, ASC는 오름차순
+    &lt;ol&gt;
+      &lt;li&gt;mysql &amp;gt; &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;SELECT * FROM tablename ORDER BY column DESC&lt;/code&gt;// column은 정렬기준&lt;/li&gt;
+      &lt;li&gt;mysql &amp;gt; &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;SELECT column1, column2 ... FROM tablename ORDER BY column ASC&lt;/code&gt; // column은 정렬기준&lt;/li&gt;
+    &lt;/ol&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;OR과 AND 조건 연산자로 데이터 조회&lt;br /&gt;
+ mysql &amp;gt; &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;SELECT * FROM tablename WHERE column1 &amp;lt; '값' OR column2 &amp;gt; 2 OR colum3 = 3;&lt;/code&gt;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;LIKE로 부분일치(%, _ 연산자) 데이터 조회&lt;br /&gt;
+    &lt;ol&gt;
+      &lt;li&gt;mysql &amp;gt; &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;SELECT * FROM tablename WHERE column LIKE '%값%';&lt;/code&gt;&lt;/li&gt;
+      &lt;li&gt;mysql &amp;gt; &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;SELECT * FROM tablename WHERE column LIKE '값__'&lt;/code&gt;// 뒤에 두글자 붙을 경우&lt;/li&gt;
+    &lt;/ol&gt;
+  &lt;/li&gt;
+  &lt;li&gt;LIMIT로 데이터 수 제한해서 데이터 조회&lt;br /&gt;
+    &lt;ol&gt;
+      &lt;li&gt;mysql &amp;gt; &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;SELECT * FROM tablename LIMIT 10;&lt;/code&gt; // 처음부터 10개 데이터 조회&lt;/li&gt;
+      &lt;li&gt;mysql &amp;gt; &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;SELECT * FROM tablename  10 LIMIT 20;&lt;/code&gt; // 10부터 20개 데이터 조회&lt;/li&gt;
+    &lt;/ol&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;조건 조합해서 데이터 조회 &lt;br /&gt;
+ 조합순서 SELECT FROM WHERE ORDER BY LIMIT
+ mysql &amp;gt; &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;SELECT column1, column2 FROM tablename WEHERE column1 &amp;lt; 2 AND column2 LIKE %값% ORDER BY column1 DESC LIMIT 10;&lt;/code&gt;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;데이터 수정&lt;br /&gt;
+ mysql &amp;gt; &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;UPDATE tablename SET 수정하고싶은 columnname1 = '수정하고 싶은 값1', ... WHERE column = '값';&lt;/code&gt;&lt;br /&gt;
+ ex) 
+ —-+——+———–+————+ | id | name | model_num | model_type |&lt;/p&gt;
+
+    &lt;table&gt;
+      &lt;tbody&gt;
+        &lt;tr&gt;
+          &lt;td&gt;—-+——+———–+————+&lt;/td&gt;
+          &lt;td&gt;3&lt;/td&gt;
+          &lt;td&gt;i7&lt;/td&gt;
+          &lt;td&gt;7700&lt;/td&gt;
+          &lt;td&gt;Kaby Lake&lt;/td&gt;
+        &lt;/tr&gt;
+      &lt;/tbody&gt;
+    &lt;/table&gt;
+
+    &lt;p&gt;—-+——+———–+————+ mysql&amp;gt; UPDATE mytable SET name = ‘i5’, model_num = ‘5500’ WHERE id = 3; mysql&amp;gt; SELECT * FROM mytable;&lt;/p&gt;
+
+    &lt;table&gt;
+      &lt;tbody&gt;
+        &lt;tr&gt;
+          &lt;td&gt;—-+——+———–+————+&lt;/td&gt;
+          &lt;td&gt;id&lt;/td&gt;
+          &lt;td&gt;name&lt;/td&gt;
+          &lt;td&gt;model_num&lt;/td&gt;
+          &lt;td&gt;model_type&lt;/td&gt;
+        &lt;/tr&gt;
+      &lt;/tbody&gt;
+    &lt;/table&gt;
+
+    &lt;table&gt;
+      &lt;tbody&gt;
+        &lt;tr&gt;
+          &lt;td&gt;—-+——+———–+————+&lt;/td&gt;
+          &lt;td&gt;3&lt;/td&gt;
+          &lt;td&gt;i5&lt;/td&gt;
+          &lt;td&gt;5500&lt;/td&gt;
+          &lt;td&gt;Kaby Lake&lt;/td&gt;
+        &lt;/tr&gt;
+      &lt;/tbody&gt;
+    &lt;/table&gt;
+
+    &lt;p&gt;—-+——+———–+————+&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;데이터 삭제 &lt;br /&gt;
+    &lt;ol&gt;
+      &lt;li&gt;mysql &amp;gt; &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;DELETE FROM tablename WHERE 특정 column = '값';&lt;/code&gt;&lt;/li&gt;
+      &lt;li&gt;mysql &amp;gt; &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;DELETE FROM tablename;&lt;/code&gt;&lt;/li&gt;
+    &lt;/ol&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;</content><author><name>Boseung</name></author><category term="mysql" /><category term="mysql" /><category term="명령어" /><summary type="html">mysql 명령어</summary></entry></feed>
