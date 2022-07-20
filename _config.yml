@@ -157,7 +157,7 @@ yat:
 defaults:
   home:
     heading: "보승의 깃블로그"
-    subheading: "알은 세계이다, 태어나려는 자는 세계를 깨뜨려야 한다 - 데미안"
+    subheading: "공부했던 것들을 정리하는 블로그, TIL(Today I learned) blog"
 #     banner: "Your image url"
 
 # Banner default settings
