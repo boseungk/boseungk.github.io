@@ -20,16 +20,16 @@ tags: [github, sitemap]
 
 먼저 이 [www.xml-sitemaps.com](https://www.xml-sitemaps.com/)에 접속한다.
 <br><br>
-![sitmaps](../assets/img/xml-sitemaps.jpg)
+![sitmaps](https://user-images.githubusercontent.com/95980754/184798618-ce526e0d-6352-4c87-9e63-75e731d65f0c.jpg)
 
 해당 사이트에서 자신의 url을 입력한다.
 
-![sitempas-parse](../assets/img/xml-sitemaps-parse.jpg)
+![sitempas-parse](https://user-images.githubusercontent.com/95980754/184798717-6e5c88b3-e108-4f9a-8560-dc65572b8873.jpg)
 
 그리고 `DOWNLOAD YOUR XML SITEMAP FILE`을 다운로드한다.
 <br><br>
 그 후 _config.yml과 같은 위치에 다운받은 sitemap.xml 파일을 붙여놓은 후 commit하고 push!
 
-![google-sitemap](../assets/img/google-sitemap.jpg)
+![google-sitemap](https://user-images.githubusercontent.com/95980754/184798512-e9e48161-0848-406f-8465-92b871e18545.jpg)
 
 그리고 `사이트맵 URL 입력`에 sitemap.xml 입력하면 끝!
