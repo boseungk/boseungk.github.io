@@ -206,8 +206,10 @@ defaults:
 #   follow_site_theme: true
 
 # Build settings
-markdown: kramdown
+highlightjs_version: "11.7.0"
+highlightjs_theme: "base16/railscasts"
 highlighter: rouge
+markdown: kramdown
 kramdown:
   input: GFM
   syntax_highlighter: rouge

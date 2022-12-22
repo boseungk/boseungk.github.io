@@ -1,20 +1,24 @@
-<link rel="stylesheet"
-      href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/styles/default.min.css">
-<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/highlight.min.js"></script>
+<!-- head.html -->
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/{{ site.highlightjs_version }}/styles/{{ site.highlightjs_theme }}.min.css">
+...
+
+<!-- footer.html -->
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/{{ site.highlightjs_version }}/highlight.min.js"></script>
+
 <!-- and it's easy to individually load additional languages -->
 <script charset="UTF-8"
-        src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/languages/go.min.js"></script>
+        src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/{{ site.highlightjs_version }}/languages/go.min.js"></script>
 
 {%- assign name = 'code_badge.enabled' -%}
 {%- include functions.html func='get_value' default='true' -%}
 {%- assign badge_enabled = return -%}
 
 {%- assign name = 'code_badge.color' -%}
-{%- include functions.html func='get_value' default='#fff' -%}
+{%- include functions.html func='get_value' default='#dddddd' -%}
 {%- assign badge_color = return -%}
 
 {%- assign name = 'code_badge.background_color' -%}
-{%- include functions.html func='get_value' default='#ff4e00' -%}
+{%- include functions.html func='get_value' default='#555555' -%}
 {%- assign badge_background_color = return -%}
 
 {%- assign name = 'code_badge.text_transform' -%}
@@ -79,6 +83,7 @@ document.addEventListener('DOMContentLoaded', function(event) {
     text-transform: {{badge_text_transform}};
     text-align: center;
     min-width: 32px;
+    font-weight: bold;
     display: inline-block;
     position: absolute;
     right: 0;
