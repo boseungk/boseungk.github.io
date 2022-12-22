@@ -2,8 +2,8 @@
 layout: post
 title: PRG(Post-Redirect-Get) Pattern
 subtitle: PRG Pattern에 대해 알아보자
-categories: web mvc
-tags: [web mvc]
+categories: Web MVC
+tags: [Web MVC]
 ---
 
 ## PRG Pattern

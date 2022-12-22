@@ -2,8 +2,8 @@
 layout: post
 title: Github blog 구글 등록과 sitemap 오류
 subtitle: sitemap 오류 해결
-categories: github
-tags: [github, sitemap]
+categories: GitHub
+tags: [GitHub, SiteMap]
 ---
 
 ## github blog 구글 검색에 등록하기 

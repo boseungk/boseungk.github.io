@@ -2,8 +2,8 @@
 layout: post
 title: MYSQL 명령어
 subtitle: MYSQL 명령어 정리
-categories: mysql
-tags: [mysql, 명령어]
+categories: MySQL
+tags: [MySQL, 명령어]
 ---
 
 ## MYSQL 명령어
