@@ -206,9 +206,9 @@ defaults:
 #   follow_site_theme: true
 
 # Build settings
-# highlighter: none
 markdown: kramdown
-kmarkdown:
+highlighter: rouge
+kramdown:
   input: GFM
   syntax_highlighter: rouge
 

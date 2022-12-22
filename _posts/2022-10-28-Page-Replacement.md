@@ -2,8 +2,8 @@
 layout: post
 title: 페이지 교체 알고리즘(Page Replacement)
 subtitle: FIFO, LRU, OPT
-categories: 자료구조, 알고리즘
-tags: [알고리즘, 자료구조]
+categories: Algorithm
+tags: [Algorithm]
 ---
 
 ## 페이지 교체 알고리즘

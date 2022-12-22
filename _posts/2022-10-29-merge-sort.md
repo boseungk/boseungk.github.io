@@ -2,8 +2,8 @@
 layout: post
 title: Merge Sort(합병 정렬)
 subtitle: Merge Sort에 대해 이해해보기
-categories: 자료구조, 알고리즘
-tags: [알고리즘, 자료구조]
+categories: Data structure
+tags: [Data structure]
 ---
 
 ## Merge Sort(합병 정렬)
