@@ -210,6 +210,7 @@ defaults:
 markdown: kramdown
 kmarkdown:
   input: GFM
+  syntax_highlighter: rouge
 
 plugins:
   - jekyll-feed
