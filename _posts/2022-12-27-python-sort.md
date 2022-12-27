@@ -1,11 +1,11 @@
 ---
 layout: post
-title: Python lambda, sort 함수
+title: [Python] lambda, sort 함수
 subtitle: lambda, sort 함수에 대해 이해해보기
 categories: Python
 tags: [Python]
 ---
-## lambda 
+## lambda 표현식
 ### lambda x: (x)
 lambda는 함수의 선언이나 식별자 없이 하나의 식으로 함수를 표현하는 방법이다
 다음의 함수는 
