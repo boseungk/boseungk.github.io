@@ -2,8 +2,8 @@
 layout: post
 title: Merge Sort(합병 정렬)
 subtitle: Merge Sort에 대해 이해해보기
-categories: Data Structure
-tags: [Data Structure]
+categories: DataStructure
+tags: [DataStructure]
 ---
 
 ## Merge Sort(합병 정렬)
