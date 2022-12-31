@@ -1,6 +1,6 @@
 ---
 layout: post
-title: [Python] lambda, sort 함수
+title: Python lambda, sort 함수
 subtitle: lambda, sort 함수에 대해 이해해보기
 categories: Python
 tags: [Python]
