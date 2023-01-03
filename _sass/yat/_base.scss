@@ -107,6 +107,7 @@ h1, h2, h3, h4, h5, h6 {
 a {
   color: $brand-color;
   text-decoration: none;
+  font-weight: 520;
 
   &:hover {
     text-decoration: underline;
@@ -151,14 +152,15 @@ code {
 *:not(pre) > code {
   padding: 3px 6px;
   border-radius: 3px;
-  background-color: #000000;
+  font-weight: bold;
+  background-color: #FDF5D2;
   margin: 0 5px;
 }
 
 pre {
   overflow-x: auto;
   position: relative;
-  background-color: #000000;
+  background-color: #FDF5D2;
 
   > code {
     display: inline-block;

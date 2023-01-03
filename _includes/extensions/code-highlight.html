@@ -1,5 +1,5 @@
 <!-- head.html -->
-<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/{{ site.highlightjs_version }}/styles/{{ site.highlightjs_theme }}.min.css">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/{{ site.highlightjs_version }}/styles/monokai-sublime.min.css">
 
 <!-- footer.html -->
 <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/{{ site.highlightjs_version }}/highlight.min.js"></script>
@@ -13,7 +13,7 @@
 {%- assign badge_enabled = return -%}
 
 {%- assign name = 'code_badge.color' -%}
-{%- include functions.html func='get_value' default='#dddddd' -%}
+{%- include functions.html func='get_value' default='#FDF5D2' -%}
 {%- assign badge_color = return -%}
 
 {%- assign name = 'code_badge.background_color' -%}

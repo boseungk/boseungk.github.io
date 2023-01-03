@@ -12,14 +12,14 @@ $theme-colors: (
 // Default brand colors
 $brand-colors: (
   "orangered": #ff5100,
-  "greatgold": #f2cb05,
+  "greatgold": #fad621,
   "greenblue": #389092,
 );
 
 $theme-name: "{{ site.theme_color }}";
 $brand-name: "{{ site.brand_color }}";
 $theme-color: map-get($theme-colors, "snowwhite");
-$brand-color: map-get($brand-colors, "orangered");
+$brand-color: map-get($brand-colors, "greatgold");
 
 @if map-has-key($theme-colors, $theme-name) {
   $theme-color: map-get($theme-colors, $theme-name);
@@ -30,11 +30,9 @@ $brand-color: map-get($brand-colors, "orangered");
 @if map-has-key($brand-colors, $brand-name) {
   $brand-color: map-get($brand-colors, $brand-name);
 } @else if str-index($brand-name, "#") == 1 {
-  $brand-color: {{ site.brand_color | default: '#ff5100' }};
+  $brand-color: {{ site.brand_color | default: '#fad621' }};
 }
 
 $content-width: {{ site.content_width | default: '920px' }};
 
 @import "yat";
-@import url(monokai.css);
-@import url(syntax.css);

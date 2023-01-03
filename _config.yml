@@ -207,9 +207,8 @@ defaults:
 
 # Build settings
 highlightjs_version: "11.7.0"
-highlightjs_theme: "base16/railscasts"
 highlighter: rouge
-markdown: kramdown
+markdown: 
 kramdown:
   input: GFM
   syntax_highlighter: rouge
