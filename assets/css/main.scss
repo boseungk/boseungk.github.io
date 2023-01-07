@@ -36,3 +36,6 @@ $brand-color: map-get($brand-colors, "greatgold");
 $content-width: {{ site.content_width | default: '920px' }};
 
 @import "yat";
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Hahmlet:wght@500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap');
