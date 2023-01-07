@@ -5,7 +5,7 @@ subtitle: LeetCode 42번
 categories: Algorithm
 tags: [Algorithm]
 ---
-## 빗물 트래핑 
+## 빗물 트래핑(Trapping Rain Water) 
 
 ### 문제
 
