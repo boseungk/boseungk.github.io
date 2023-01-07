@@ -29,7 +29,6 @@ sitemap :
       {% else %}
         <priority>{{ post.sitemap.priority }}</priority>
       {% endif %}
-
     </url>
   {% endfor %}
 </urlset>
