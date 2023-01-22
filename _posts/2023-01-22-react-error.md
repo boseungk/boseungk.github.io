@@ -1,6 +1,6 @@
 ---
 layout: post
-title: React 오류(npm ERR! Missing script: "start")
+title: React 오류(npm ERR! Missing script:"start")
 subtitle: React 오류 처리
 categories: React
 tags: [React]
