@@ -24,9 +24,9 @@ tags: [Algorithm]
    1. l1.next = self.mergeTwoLists(l1.next, l2)
       1. self.mergeTwoLists(l1.next, l2)의 경우 l1 다음노드와 l2의 비교를 의미한다.
       2. self.mergeTwoLists(l1.next, l2)의 리턴값은 미래에서 l1에서 비교가 끝난 후 연결이 이뤄진 노드들이다
-3. 노드의 이동이 끝나고 None처리도 해줘야 한다.
-   1. if not l1
-   2. if l1
+3. 노드의 이동이 끝나고 None처리도 해줘야 한다.<br>
+    if not l1<br>
+    if l1
       1. 이렇게 마지막 노드 처리까지 해준다.
 
 ### 풀이
