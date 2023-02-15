@@ -1,11 +1,11 @@
 ---
 layout: post
 title: 빗물 트래핑(Trapping Rain Water)
-subtitle: LeetCode 42번 
+subtitle: 파이썬 알고리즘 
 categories: Algorithm
 tags: [Algorithm]
 ---
-## 빗물 트래핑
+## 빗물 트래핑 - leetcode 8번
 
 ### 문제
 

@@ -5,9 +5,10 @@ subtitle: 파이썬 알고리즘
 categories: Algorithm
 tags: [Algorithm]
 ---
-## 단어공부 
+## 단어공부 - 백준 1157번
+### 문제
 
-### 단어공부 - 백준 1157번
+[단어공부 - 백준 1157번](https://www.acmicpc.net/problem/1157)
 
 ### 알고리즘
 
