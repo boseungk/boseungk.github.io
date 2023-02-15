@@ -6,6 +6,7 @@ categories: Algorithm
 tags: [Algorithm]
 ---
 ## 두 정렬 리스트의 병합 - leetcode 21번
+### 문제
 
 [21. Merge Two Sorted Lists](https://leetcode.com/problems/merge-two-sorted-lists/)
 
