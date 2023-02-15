@@ -13,7 +13,7 @@ tags: [Algorithm]
 
 출력값 1->1->2->3->4->4
 
-### 알고리즘
+### 해설
 
 1. 입력값을 한쪽으로 모으는 것에서 시작한다.
    1. 크기를 비교해서 작은쪽으로 모으기로 하자.
@@ -27,6 +27,9 @@ tags: [Algorithm]
    1. if not l1
    2. if l1
       1. 이렇게 마지막 노드 처리까지 해준다.
+
+### 풀이
+
 ```python
     class ListNode:
     def __init__(self, val=0, next=None):
