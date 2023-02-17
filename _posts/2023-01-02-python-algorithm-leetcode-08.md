@@ -48,6 +48,8 @@ tags: [Algorithm]
 
 양쪽으로 나눈 중앙의 각 변수를 ``포인터``라고 부르기로 하자 또 빗물을 결정하는 양쪽의 최솟값은 중앙값보단 항상 크기 때문에 left_max, right_max라고 하자
 
+이것을 간단하게 말하면 결과에 영향을 미치는 변수가 3개인데 이 중 한 변수를 최댓값으로 고정시켜서 변수를 두 개로 만들어서 간단히 했다. 그리고 탐색하기 위해서 투 포인터를 이용했다.
+
 
 ```python
 def trap(self, height: List[int]) -> int:
@@ -74,6 +76,8 @@ def trap(self, height: List[int]) -> int:
 그리고 `스택`에 `인덱스`를 담아서 이전의 높이를 표현할 수 있다. 
 
 현재 높이가 이전의 높이보다 높을때, 물웅덩이가 카운팅 된다.
+
+여기서는 변수가 총 3개이다.(왼쪽/stack[-1], 중간값/top=stack.pop(), 오른쪽/현재 인덱스 i)
 
 ```python
 def trap(self, height: List[int]) -> int:
