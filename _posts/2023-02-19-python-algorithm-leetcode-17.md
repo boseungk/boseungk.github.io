@@ -17,7 +17,7 @@ tags: [Algorithm]
 ### 해설
 1. dfs(시작노드, str)로 시작
 2. dfs 정의는 for문으로 재귀적으로 다음 노드를 탐색할 수 있도록 호출 + 문자열 누적(노드 방문)
-   1. index는 시작 노드, len(digits)는 노드 계층 최대 개수
+   1. index가 커지는건 방문한 노드를 기록하는 역할, len(digits)는 방문할 노드의 총 개수
 3. 문자열의 길이로 dfs 종료 후 result에 최종 결과 추가
 
 ```python
