@@ -6,6 +6,7 @@ categories: Algorithm
 tags: [Algorithm]
 ---
 ## 전위, 중위 순회 결과로 이진 트리 구축 - leetcode 105번
+[105. Construct Binary Tree from Preorder and Inorder Traversal](https://leetcode.com/problems/construct-binary-tree-from-preorder-and-inorder-traversal/)
 
 ### 해설
 1. 분할정복이 발상의 시작
