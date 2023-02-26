@@ -8,7 +8,7 @@ tags: [Algorithm]
 ## 회전 정렬된 배열 검색 - leetcode 33번
 
 ### 문제
-[179. Largest Number](https://leetcode.com/problems/search-in-rotated-sorted-array/)
+[33. Search in Rotated Sorted Array](https://leetcode.com/problems/search-in-rotated-sorted-array/)
 
 ### 해설
 ```python
