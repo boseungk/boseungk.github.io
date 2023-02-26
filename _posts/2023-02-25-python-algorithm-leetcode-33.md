@@ -1,14 +1,14 @@
 ---
 layout: post
-title: 가장 큰 수
+title: 회전 정렬된 배열 검색
 subtitle: 파이썬 알고리즘 
 categories: Algorithm
 tags: [Algorithm]
 ---
-## 리스트 정렬 - leetcode 148번
+## 회전 정렬된 배열 검색 - leetcode 33번
 
 ### 문제
-[179. Largest Number](https://leetcode.com/problems/largest-number/)
+[179. Largest Number](https://leetcode.com/problems/search-in-rotated-sorted-array/)
 
 ### 해설
 ```python
