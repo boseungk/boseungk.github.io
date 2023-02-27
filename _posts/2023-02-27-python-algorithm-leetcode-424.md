@@ -18,6 +18,7 @@ tags: [Algorithm]
 
 ```python
 
+            def solution(self, s, k):
         count = collections.Counter()
         left = 0
         for right, char in enumerate(s, 1):
@@ -28,4 +29,10 @@ tags: [Algorithm]
                 count[s[left]] -= 1
                 left += 1
         return right - left
+
+
+n = "AABABBA"
+t = 1
+result = Solution().solution(n, t)
+print(result)
 ```
