@@ -26,5 +26,6 @@ class Solution:
         a = self.solution(nums[:mid])
         b = self.solution(nums[mid:])
         return [b, a][nums.count(a) > mid]
+        # 1. 과반수 문제 처리 아이디어
 ```
 
