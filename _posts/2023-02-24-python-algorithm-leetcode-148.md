@@ -10,7 +10,7 @@ tags: [Algorithm]
 ### 문제
 [148. Sort List](https://leetcode.com/problems/sort-list/)
 
-### 해설(분할정복)
+### 풀이(분할정복)
 ```python
 class ListNode:
     def __init__(self, val=0, next=None):
