@@ -10,8 +10,8 @@ tags: [Algorithm]
 ### 문제
 [179. Largest Number](https://leetcode.com/problems/largest-number/)
 
+### 풀이
 ```python
-
 class Solution:
     @staticmethod
     def swap(n1: int, n2: int) -> bool:
