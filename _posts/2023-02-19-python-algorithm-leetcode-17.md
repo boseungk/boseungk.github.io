@@ -19,7 +19,7 @@ tags: [Algorithm]
 2. dfs 정의는 for문으로 재귀적으로 다음 노드를 탐색할 수 있도록 호출 + 문자열 누적(노드 방문)
    1. index가 커지는건 방문한 노드를 기록하는 역할, len(digits)는 방문할 노드의 총 개수
 3. 문자열의 길이로 dfs 종료 후 result에 최종 결과 추가
-
+### 풀이
 ```python
 class Solution:
     def solution(self, digits: str) -> list[str]:
