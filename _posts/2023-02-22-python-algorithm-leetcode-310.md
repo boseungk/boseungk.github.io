@@ -10,10 +10,10 @@ tags: [Algorithm]
 ### 문제
 [110. Balanced Binary Tree](https://leetcode.com/problems/balanced-binary-tree/description/)
 
-1. 무뱡항이라서 모든 노드들이 동등함
-   1. 따라서 dictionary로 모든 노드들에서 접근 가능한 노드 리스트 만들어주기
-2. leaf 노드들을 계속 제거하면 최종 루트 노드를 구할 수 있음
-3. 코드 짜다가 변수가 많아서 헷갈렸는데, 변수명의 중요성에 대해서 깨닫게 됨..
+* 무방향이라서 모든 노드들이 동등함
+   * 따라서 dictionary로 모든 노드들에서 접근 가능한 노드 리스트 만들어주기
+* leaf 노드들을 계속 제거하면 최종 루트 노드를 구할 수 있음
+* 코드 짜다가 변수가 많아서 헷갈렸는데, 변수명의 중요성에 대해서 깨닫게 됨..
 
 ```python
 class Solution:
