@@ -21,6 +21,8 @@ tags: [Algorithm]
    2. left를 증가시키면서 -1해준 값들을 복구 시켜야 함(그래야 미래 찾는 문자들에 영향을 안 미침)
    3. left를 증가시키면서 Counter가 0인 지점까지 줄여주면 됨
 3. 투 포인터의 인덱스 길이 비교해서 최소값 최종적으로 리턴하기
+
+### 풀이
 ```python
     def solution(self, s, t):
         counter = collections.Counter(t)
