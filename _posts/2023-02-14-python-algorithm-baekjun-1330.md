@@ -10,7 +10,7 @@ tags: [Algorithm]
 
 [단어공부 - 백준 1157번](https://www.acmicpc.net/problem/1157)
 
-### 알고리즘
+### 해설
 
 1. 입출력 -> 대문자로 → 카운팅 리스트 필요
 2. 카운팅 리스트
