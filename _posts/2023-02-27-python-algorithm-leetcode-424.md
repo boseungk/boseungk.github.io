@@ -16,6 +16,7 @@ tags: [Algorithm]
 3. 따라서 right를 1 늘렸을때, 윈도우 - max_char > k가 발생하면 left를 줄여주어야 함
 4. max()함수로 최댓값을 비교해주어야 할 것 같지만 right -left만으로도 윈도우 내의 연속문자의 최댓값은 보장되지 않아도 전체 문자내에서의 최댓값은 보장됨
 
+### 풀이
 ```python
 
             def solution(self, s, k):
