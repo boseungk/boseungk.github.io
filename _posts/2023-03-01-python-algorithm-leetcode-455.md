@@ -11,10 +11,11 @@ tags: [Algorithm]
 [455. Assign Cookies](https://leetcode.com/problems/assign-cookies/description/)
 
 ### 해설
-1. for문을 2번 써야 할때 + 정렬해서 풀 수 있을때 -> 투포인터 풀이
-2. 투포인터 풀이 Tip
-   1. 문제 조건 주어진 조건 기준으로 만족하지 못하면 다른 포인터 인덱스에 +1 
-   2. if문 / while문을 적절히 활용
+* for문을 2번 써야 할때 + 정렬해서 풀 수 있을때 -> 투포인터 풀이
+
+* 투포인터 풀이 Tip
+1. 문제 조건 주어진 조건 기준으로 만족하지 못하면 다른 포인터 인덱스에 +1 
+2. if문 / while문을 적절히 활용
 
 ```python
 class Solution:
@@ -28,5 +29,5 @@ class Solution:
                 cnt += 1
             index_s += 1
         return cnt    
-        # 1. for보다 while이 적절할때: 제한조건을 섞어서 사용해야할때
+        # 1. for보다 while이 적절할때: 제한조건을 섞어서 사용해야할 때
 ```
