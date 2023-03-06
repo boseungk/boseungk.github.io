@@ -17,6 +17,7 @@ tags: [Algorithm]
 1. 문제 조건 주어진 조건 기준으로 만족하지 못하면 다른 포인터 인덱스에 +1 
 2. if문 / while문을 적절히 활용
 
+### 풀이
 ```python
 class Solution:
     def findContentChildren(self, g: List[int], s: List[int]) -> int:
