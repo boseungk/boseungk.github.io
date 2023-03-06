@@ -5,7 +5,7 @@ subtitle: 파이썬 알고리즘
 categories: Algorithm
 tags: [Algorithm]
 ---
-## 리스트 정렬 - leetcode 148번
+## 가장 큰 수 - leetcode 179번
 
 ### 문제
 [179. Largest Number](https://leetcode.com/problems/largest-number/)
