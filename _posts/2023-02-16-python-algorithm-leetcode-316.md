@@ -15,7 +15,7 @@ tags: [Algorithm]
 
 출력: "abc"
 
-### 해설 1 (반복)
+### 해설 (반복)
 1. 앞에서부터 중복된 문자는 제거하면서 사전식 순서로 쌓아감
    1. 중복된 문자 제거를 앞 뒤로 비교하기 위해서는 Counter함수 사용하는게 좋음
    2. 문자열은 쌓아가면서 중복은 제거할때 스택 사용하는것도 괜찮음(사실 리스트..)
@@ -24,6 +24,7 @@ tags: [Algorithm]
    1. 중복이거나 사전식으로 쌓인게 아니면 while문으로 전부 stack 제거
 4. stack에 쌓인 단어 리턴
 
+### 풀이
 ```python
 class Solution:
     def solution(self, s: str):
