@@ -10,7 +10,7 @@ tags: [Algorithm]
 ### 문제
 [241. Different Ways to Add Parentheses](https://leetcode.com/problems/different-ways-to-add-parentheses/)
 
-### 해설
+### 풀이
 ```python
 class Solution:
     def solution(self, input):  # 2*3-4*5
