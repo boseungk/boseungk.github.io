@@ -24,7 +24,7 @@ tags: [Algorithm]
       1. 배열에 먼저 append 후 result를 조작하는 방법이 있다.
       2. 아니면 값을 조작하고 if로 다음 인덱스 값에서 대입해주는 방법이 있다.
 3. 변수가 많아서 머리속으로만 생각하다가 너무 오래걸렸는데. 이렇게 복잡할때는 차라리 사고과정을 자세하게 적어가면서 접근하는게 훨씬 빠름
-### 풀이 1
+### 풀이
 ```python
 
 class Solution:
@@ -42,8 +42,6 @@ class Solution:
                 out[j] *= result
             result *= nums[j]
         return out
-
-
 s = [1, 2, 3, 4]
 result = Solution().solution(s)
 print(result)
