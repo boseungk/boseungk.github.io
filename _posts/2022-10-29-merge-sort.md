@@ -22,7 +22,7 @@ tags: [DataStructure]
 4. 결국엔 모든 해들이 합쳐져서 정렬과정이 완료된다.
 
 ### Merge Sort(합병 정렬) 알고리즘
-```
+```pseudo
 MergeSort(int l, int h){
     int m;
     if(l >= h) return 0; // 순환함수의 끝
