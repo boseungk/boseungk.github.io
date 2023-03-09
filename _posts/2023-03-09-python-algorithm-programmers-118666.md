@@ -14,6 +14,7 @@ tags: [Algorithm]
 * '은 총알은 없다(No Silver Bullet)' 라더니 defaultdict를 사용하다가 예외처리에 당황했다.
 * 결국 딕셔너리에 초기값을 0으로 정해서 시작해야하는 것을 깨달았다.. 
 * defauldict도 상황에 맞게 잘 사용해야 할 것 같다.
+* 문제 조건을 그대로 가져가는 대신 +/- 가중치로 해석, 한 줄 if/else로 깔끔하고 좋은 풀이인 것 같다.
 
 ### 풀이 1(예외처리에 실패한 처음 풀이)
 ```python
@@ -70,6 +71,6 @@ def solution(survey, choices):
     answer += "C" if scores["C"] >= scores["F"] else "F"
     answer += "J" if scores["J"] >= scores["M"] else "M"
     answer += "A" if scores["A"] >= scores["N"] else "N"
-
+    
     return answer
 ```
