@@ -27,3 +27,11 @@ def solution(s):
         result += " "
     return result[:-1]
 ```
+### 풀이 2(join 활용)
+```python
+def solution(s):
+    s = s.split(" ")
+    for i in range(len(s)):
+        s[i] = s[i][:1].upper() + s[i][1:].lower()
+    return ' '.join(s)
+```
