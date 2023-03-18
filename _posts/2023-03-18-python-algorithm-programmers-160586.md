@@ -53,7 +53,7 @@ def solution(keymap, targets):
     for chars in targets:
         s = 0
         for char in chars:
-            if char not in map: # 예외처리로 사용하는게 맞음
+            if char not in map: # 예외 케이스로 처리하는게 맞음
                 s = -1
                 break
             s += map[char]
