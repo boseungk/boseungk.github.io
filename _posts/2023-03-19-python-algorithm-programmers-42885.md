@@ -26,7 +26,8 @@ def solution(people, limit):
     num = len(people)
     left, right = 0, num - 1
     cnt = 0 
-    while left <= right: # 구명보트 갯수만을 구하기 때문에 테스트 케이스는 통과했지만 논리적으로는 맞지 않다.
+    while left <= right: 
+    # 구명보트 갯수만을 구하기 때문에 테스트 케이스는 통과했지만 논리적으로는 맞지 않다.
         if people[left] + people[right] > limit:
             right -= 1
             cnt += 1
@@ -43,7 +44,8 @@ def solution(people, limit):
     num = len(people)
     left, right = 0, num - 1
     cnt = 0 
-    while left < right: # 조건문이 훨씬 단순해졌다.
+    while left < right: 
+        # 조건문이 훨씬 단순해졌다.
         if people[left] + people[right] <= limit:
             left += 1
         cnt += 1
