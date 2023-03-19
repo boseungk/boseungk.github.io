@@ -56,7 +56,38 @@ tags: [Algorithm]
             s += i[1]
         return s
 ```
-### 풀이 2(다른 사람 풀이)
+### 풀이 2(테스트 케이스 통과한 풀이)
+```python
+import collections
+def solution(survey, choices):
+    scores = {
+        "RT": 0,
+        "CF": 0,
+        "JM": 0,
+        "AN": 0
+    }
+    for i in range(len(survey)):
+        c = survey[i][0]
+        survey[i] = "".join(sorted(survey[i])) # 정렬된 문자로 일관된 기준
+        weight = choices[i] - 4 # 음수이거나 0이면 [0], 양수이면 [1]의 점수
+        if survey[i][0] != c:
+            weight = -weight
+        if weight <= 0:
+            scores[survey[i]] += weight
+        else:
+            scores[survey[i]] += weight 
+        print(survey[i], ":", weight)
+    result = ""
+    for char in scores.keys():
+        if scores[char] > 0:
+            result += char[1]
+        else:
+            result += char[0]
+    return result
+
+```
+
+### 풀이 3(다른 사람 풀이)
 ```python
 def solution(survey, choices):
     answer = ''
