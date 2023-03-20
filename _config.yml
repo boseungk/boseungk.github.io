@@ -24,7 +24,7 @@
 # You can create any custom variable you would like, and they will be accessible
 # in the templates via {{ site.myvariable }}.
 
-title: 보승의 깃블로그 🧀 
+title: TIL-Log 🧀 
 email: gda05189@gmail.com
 author: Boseung
 
@@ -43,7 +43,7 @@ author: Boseung
 copyright: " 2022-{currentYear} (cleft) {author} 🧀"
 
 description: > #this means to ignore newlines until "baseurl:"
-  강보승의 깃블로그 🧀 
+  Today I Learned - Log 🧀 
   
 future: true
 published: true
@@ -156,8 +156,8 @@ sitemap: true
 # Page default value
 defaults:
   home:
-    heading: "보승의 깃블로그"
-    subheading: "공부했던 것들을 정리하는 블로그, TIL(Today I learned) blog"
+    heading: "TIL-Log"
+    subheading: "TIL(Today I learned) - Log"
 #     banner: "Your image url"
 
 # Banner default settings
