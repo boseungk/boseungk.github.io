@@ -156,7 +156,7 @@ sitemap: true
 # Page default value
 defaults:
   home:
-    heading: "TIL-Log"
+    heading: "TIL-Log 🧀"
     subheading: "TIL(Today I learned) - Log"
 #     banner: "Your image url"
 
