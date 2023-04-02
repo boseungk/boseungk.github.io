@@ -40,7 +40,7 @@ tags: [Operating-system]
 - 절대 로더(Absolute loader)
     - 항상 고정된 위치에만 로딩됨, 재배치 및 링킹이 없음
     - 다중 프로그래밍 x
-- 재배치 로더(Relocation loadeR)
+- 재배치 로더(Relocation loader)
     - 주기억장치의 상태에 따라 목적 프로그램을 주기억장치 임의의 공간에 적재
 - 동적 로더(Dynamic loader)
     - 필요한 부분만 주기억장치로 적재하고 나머지 부분은 보조기억장치에 저장
