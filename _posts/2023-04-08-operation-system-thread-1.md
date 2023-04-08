@@ -111,7 +111,7 @@ tags: [Operating-system]
     - 쓰레드가 다른 쓰레드가 종료될때까지 대기
         - 주로 부모 쓰레드에서 자식 쓰레드의 종료 대기
         
-        ![스레드 생성](https://user-images.githubusercontent.com/95980754/230698039-646560c6-b3f9-4821-9448-c62bc27b23f6.png)
+    ![스레드 생성](https://user-images.githubusercontent.com/95980754/230698039-646560c6-b3f9-4821-9448-c62bc27b23f6.png)
         
 - 쓰레드 양보(yield)
     - 쓰레드가 자발적으로 yield()와 같은 함수를 통해 자신의 실행을 중단하고 다른 쓰레드를 스케줄하도록 지시
@@ -202,7 +202,7 @@ tags: [Operating-system]
 - Many to Many ‘N:N’ model
     - N개의 사용자 레벨 쓰레드를 N개의 커널 레벨 쓰레드로 매핑
 
-![커널스레드](https://user-images.githubusercontent.com/95980754/230698072-f0df2376-3eb5-4ee5-897e-1d6e3437df6d.png)
+    ![커널스레드](https://user-images.githubusercontent.com/95980754/230698072-f0df2376-3eb5-4ee5-897e-1d6e3437df6d.png)
 
 ### 멀티 쓰레드와 fork()와 exec()
 
