@@ -157,7 +157,7 @@ sitemap: true
 defaults:
   home:
     heading: "Dev-Log 🧀"
-    subheading: "Dev - Log"
+    subheading: "TIL(Today I learned) - Log"
 #     banner: "Your image url"
 
 # Banner default settings
