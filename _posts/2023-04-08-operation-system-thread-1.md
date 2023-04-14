@@ -84,6 +84,8 @@ tags: [Operating-system]
     - 프로세스의 데이터 공간
     - 프로세스의 힙 영역
 
+![쓰레드 로컬 스토리지](https://user-images.githubusercontent.com/95980754/232036527-3962b6a6-7902-49c6-b55a-de7325ce7183.png)
+
 ### 쓰레드 라이프 사이클
 
 - 프로세스 라이프 사이클과 비슷 → TCB로 관리
