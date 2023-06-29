@@ -2,7 +2,7 @@
 layout: post
 title: 스프링 트랜잭션
 subtitle: 스프링 트랜잭션 추상화, 흐름
-categories: Database, Spring
+categories: Database
 tags: [Database, Spring]
 ---
 
