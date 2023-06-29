@@ -1,12 +1,12 @@
 ---
 layout: post
-title: 트랜잭션
-subtitle: 트랜잭션 추상화, 흐름
+title: 스프링 트랜잭션
+subtitle: 스프링 트랜잭션 추상화, 흐름
 categories: Database
 tags: [Database]
 ---
 
-## 트랜잭션 
+## 스프링 트랜잭션 
 
 ### 트랜잭션 추상화
 
