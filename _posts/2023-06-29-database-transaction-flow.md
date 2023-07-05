@@ -12,6 +12,8 @@ tags: [Database, Spring]
 
 ![Service 의존 문제](https://github.com/boseungk/TIL/assets/95980754/2b2665a0-45d3-4f29-978b-387544271a4d)
 
+<br>
+
 서비스 계층은 특정 기술에 종속되지 않아야 한다. 
 
 따라서 JDBC 기술을 사용하다가 JPA 기술로 변경하더라도 서비스 계층에서 코드 수정은 없어야 한다. 
@@ -22,9 +24,14 @@ tags: [Database, Spring]
 
 따라서 우리는 스프링이 제공하는 트랜잭션 추상화 기술을 사용하면 된다. 
 
+<br>
+
 ![스프링 트랜잭션 추상화](https://github.com/boseungk/TIL/assets/95980754/52767a81-80ac-46a6-b392-256ffbc6a1c6)
 
 스프링 트랜잭션 추상화의 핵심은 `PlatformTransactionManager` 인터페이스이다.
+
+<br>
+
 
 ```java
 package org.springframework.transaction;
@@ -39,6 +46,8 @@ public interface PlatformTransactionManager extends TransactionManager {
 }
 ```
 
+<br>
+
 `getTransaction()` 은 트랜잭션을 시작한다는 의미이다. 
 
 기존에 진행 중인 트랜잭션이 있는 경우 해당 트랜잭션에 참여할 수 있다.
@@ -47,11 +56,17 @@ public interface PlatformTransactionManager extends TransactionManager {
 
 `rollback()`은 트랜잭션을 롤백한다는 의미이다.
 
+<br>
+
 ### 트랜잭션 매니저의 동작 흐름
 
 ![트랜잭션 매니저 동작 흐름 1](https://github.com/boseungk/TIL/assets/95980754/972693fe-1c0f-47ef-bd00-26f5746222eb)
 
+<br>
+
 `transactionManager`(트랜잭션 매니저) 는 `dataSource`를 통해 커넥션을 생성하기 때문에 `new DataSourceTransactionManager(dataSource)`에 `dataSource`를 담아준다. 
+
+<br>
 
 ```java
 class MemberServiceV3_1Test {
@@ -69,7 +84,11 @@ private MemberRepositoryV3 memberRepository;
 }
 ```
 
+<br>
+
 그럼 when 부분에서 `memberService.accountTransfer()` 메서드에서 트랜잭션이 시작된다.
+
+<br>
 
 ```java
 		@Test
@@ -92,9 +111,13 @@ private MemberRepositoryV3 memberRepository;
     }
 ```
 
+<br>
+
 `Service`에서  `accountTransfer()`를 자세히 살펴보면 아래와 같다. 
 
 `accountTransfer()`에서는 `transactionManager.getTransaction()`을 통해서 트랜잭션이 시작된다. 
+
+<br>
 
 ```java
 @Slf4j
@@ -120,6 +143,8 @@ public class MemberServiceV3_1 {
     }
 ```
 
+<br>
+
 트랜잭션을 시작하기 위해서는 데이터베이스 커넥션이 필요하기 때문에 트랜잭션 매니저는 내부에서 데이터 소스를 사용해서 커넥션을 생성한다. 
 
 그리고 커넥션을 수동 커밋 모드로 변경해서 실제 데이터베이스 커넥션을 시작한다.
@@ -127,6 +152,8 @@ public class MemberServiceV3_1 {
 이후 커넥션을 트랜잭션 동기화 매니저에서 보관된다. 
 
 아래는 JDBC 트랜잭션 매니저가 트랜잭션을 시작하고 트랜잭션 동기화 매니저로부터 리소스를 받는 코드의 일부이다. 
+
+<br>
 
 ```java
 //JDBC 트랜잭션 매니저 내부 코드
@@ -146,13 +173,21 @@ public class DataSourceTransactionManager extends AbstractPlatformTransactionMan
 }
 ```
 
+<br>
+
 이후 `Service`에서 데이터 접근 로직이 실행되면서 `Repository`의 메서드들을 호출한다.
 
+<br>
+
 ![트랜잭션 매니저 동작 흐름 2](https://github.com/boseungk/TIL/assets/95980754/36e77edc-f637-406b-b177-fdcb349ddacd)
+
+<br>
 
 이때 `Repository`의 메서드들은 트랜잭션이 시작된 커넥션이 필요하다. 
 
 이때 `Repository`의 메서드들은 `getConnection`을 통해 커넥션을 얻는다.
+
+<br>
 
 ```java
 @Slf4j
@@ -168,10 +203,14 @@ private Connection getConnection() throws SQLException {
 ...
 }
 ```
+<br>
+
 
 `getConnection`은 `DataSourceUtils`의 `doGetConnetion`이라는 메서드에서 트랜잭션 동기화 매니저를 호출해서 기존의 커넥션을 획득한다.
 
 아래는 `doGetConnection`코드의 일부이다.
+
+<br>
 
 ```java
 public static Connection doGetConnection(DataSource dataSource) throws SQLException {
@@ -188,6 +227,7 @@ public static Connection doGetConnection(DataSource dataSource) throws SQLExcept
 		}
 		// Else we either got no holder or an empty thread-bound holder here.
 ```
+<br>
 
 결국 획득한 커넥션을 이용해서 SQL을 데이터베이스에 전달해서 실행한다.
 
@@ -195,7 +235,11 @@ public static Connection doGetConnection(DataSource dataSource) throws SQLExcept
 
 트랜잭션은 커밋하거나 롤백하면 종료된다.
 
+<br>
+
 ![트랜잭션 매니저 동작 흐름 3](https://github.com/boseungk/TIL/assets/95980754/26f856ba-862b-47dd-a06c-9f23d7ca8b17)
+
+<br>
 
 트랜잭션을 종료하려면 동기화된 커넥션이 필요하다. 
 
