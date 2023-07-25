@@ -247,7 +247,7 @@ public static Connection doGetConnection(DataSource dataSource) throws SQLExcept
 
 마지막으로 전체 리소스를 정리한다.
 
-이때 `````DataSourceUtils`````의 *`releaseConnection*(con, dataSource)`를 통해 리소스를 정리한다.
+이때 `````DataSourceUtils`````의 `releaseConnection(con, dataSource)`를 통해 리소스를 정리한다.
 
 정리할 리소스는 
 
