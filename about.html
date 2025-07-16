@@ -1,14 +1,134 @@
 ---
 layout: about
-title: CONTACT ME
+title: ABOUT ME
 ---
 
-<h2>Contact Me</h2>
+<div class="about-container">
+    <header class="profile-header">
+        <h1 class="page-title">강보승 (Kang Bo Seung)</h1>
+        <p class="subtitle">Backend Developer → Full-Stack Developer</p>
+    </header>
 
-<p>
-    <h1 class="page-title">강보승(Kang Bo Seung)</h1>
-    
-    Contact 👋<br>
-    Email: gda05189@gmail.com<br>
-    Github: <a href="https://github.com/boseungk">https://github.com/boseungk</a><br>
-</p>
+    <section class="intro">
+        <h2>👋 안녕하세요!</h2>
+        <p>
+            백엔드 개발자로서 <strong>Java와 Spring Boot</strong> 기반의 서버 개발에 집중해왔으며, 
+            현재는 <strong>React</strong>를 학습하여 풀스택 개발자로 성장하는 것을 목표로 하고 있습니다.
+            <strong>생성형 AI</strong>를 활용한 혁신적인 서비스 개발에 특히 관심이 많습니다.
+        </p>
+    </section>
+
+    <section class="education">
+        <h2>🎓 학력</h2>
+        <ul>
+            <li>전남대학교 산업공학과</li>
+            <li>전남대학교 소프트웨어공학과 (복수전공)</li>
+        </ul>
+    </section>
+
+    <section class="tech-stack">
+        <h2>💻 기술 스택</h2>
+        <div class="tech-category">
+            <h3>Backend</h3>
+            <p>Java, Spring Boot, JPA, MySQL</p>
+        </div>
+        <div class="tech-category">
+            <h3>Frontend (학습 중)</h3>
+            <p>React</p>
+        </div>
+    </section>
+
+    <section class="projects">
+        <h2>🚀 대표 프로젝트</h2>
+        <div class="project-item">
+            <h3>생성형 AI 스타일링 서비스</h3>
+            <p>
+                "내가 저 옷을 입어보면 어떤 느낌일까?"라는 상상을 현실로 만든 서비스입니다. 
+                사용자의 사진과 원하는 스타일을 문장으로 입력하면 <strong>생성형 AI</strong>가 
+                가상 스타일링된 이미지를 제공합니다.
+            </p>
+            <p class="project-links">| 
+                <a href="https://github.com/boseungk/Capstone-BackEnd" class="github-link">📝 GitHub</a>
+            </p>
+        </div>
+    </section>
+
+    <section class="personality">
+        <h2>🧠 성격</h2>
+        <p>MBTI: <strong>INTJ</strong> - 체계적이고 논리적인 사고를 바탕으로 문제를 해결하는 것을 좋아합니다.</p>
+    </section>
+
+    <section class="contact">
+        <h2>📧 연락처</h2>
+        <div class="contact-info">
+            <p>Email: <a href="mailto:gda05189@gmail.com">gda05189@gmail.com</a></p>
+            <p>Github: <a href="https://github.com/boseungk" target="_blank">https://github.com/boseungk</a></p>
+        </div>
+    </section>
+</div>
+
+<style>
+.about-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.profile-header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.subtitle {
+    font-size: 1.2em;
+    color: #666;
+    margin-top: 10px;
+}
+
+section {
+    margin-bottom: 30px;
+}
+
+.tech-category {
+    margin-bottom: 15px;
+}
+
+.tech-category h3 {
+    margin-bottom: 5px;
+    color: #333;
+}
+
+.project-item {
+    border-left: 4px solid #007acc;
+    padding-left: 15px;
+    margin-bottom: 20px;
+}
+
+.project-item h3 {
+    margin-bottom: 10px;
+    color: #007acc;
+}
+
+.project-links {
+    margin-top: 10px;
+}
+
+.demo-link, .github-link {
+    color: #007acc;
+    text-decoration: none;
+    margin-right: 10px;
+}
+
+.demo-link:hover, .github-link:hover {
+    text-decoration: underline;
+}
+
+.contact-info a {
+    color: #007acc;
+    text-decoration: none;
+}
+
+.contact-info a:hover {
+    text-decoration: underline;
+}
+</style>
