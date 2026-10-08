@@ -1,12 +1,12 @@
 'use strict';
-let language='ko';
-let paused=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+const language=document.documentElement.lang==='en'?'en':'ko';
+const reduce=window.matchMedia('(prefers-reduced-motion: reduce)');
+let paused=reduce.matches, dirty=true;
 const motion=document.querySelector('#motion');
-function updateMotion(){motion.textContent=language==='ko'?(paused?'움직임 재생':'움직임 멈추기'):(paused?'Play motion':'Pause motion');motion.setAttribute('aria-pressed',String(paused));}
-function setLanguage(next){language=next;document.documentElement.lang=next;document.querySelectorAll('[data-ko]').forEach(el=>{el.textContent=el.dataset[next].replace(/\\n/g,'\n')});const heading=document.querySelector('h1');const lines=heading.textContent.split('\n');heading.replaceChildren(document.createTextNode(lines.slice(0,-1).join('\n')+'\n'));const accent=document.createElement('em');accent.textContent=lines.at(-1);heading.append(accent);const button=document.querySelector('#language');button.textContent=next==='ko'?'EN':'한국어';button.setAttribute('aria-label',next==='ko'?'Switch to English':'한국어로 전환');document.title=next==='ko'?'MyAnimalRoom — 나의 하루가 쉬어가는 작은 방':'MyAnimalRoom — A little room for your everyday';document.querySelector('#room').setAttribute('aria-label',next==='ko'?'손그림 방 안에서 쉬고 있는 고양이. MyAnimalRoom 개발 화면.':'A cat resting in a hand-drawn room. MyAnimalRoom development preview.');updateMotion();}
-document.querySelector('#language').addEventListener('click',()=>setLanguage(language==='ko'?'en':'ko'));
+function updateMotion(){motion.textContent=language==='ko'?(paused?'움직임 재생':'움직임 멈추기'):(paused?'Play motion':'Pause motion');dirty=true;}
 motion.addEventListener('click',()=>{paused=!paused;updateMotion()});updateMotion();
-const reduce=window.matchMedia('(prefers-reduced-motion: reduce)');reduce.addEventListener('change',event=>{paused=event.matches;updateMotion()});
+reduce.addEventListener('change',event=>{paused=event.matches;updateMotion()});
+window.addEventListener('resize',()=>{dirty=true});
 try{
  const A=window.DRAWN_APP,SK=window.DRAWN_SKIA;
  const room=A.composeRoom(structuredClone(A.DEFAULT_SELECTION),{season:'spring',lightOn:true}),events=A.prepareEvents(room),sets=A.buildCatSets(),coats=A.buildCoat('blackBib'),lab=A.makeLab(),heroCat=A.makeLab();
@@ -22,9 +22,10 @@ try{
  document.querySelectorAll('[data-icon]').forEach(cv=>{const g=SK.canvasFor(cv.getContext('2d'));g.begin();g.scale(2,2);A.drawHomeIcon(g,cv.dataset.icon)});
  let now=0,last=0,elapsed=0,commandIndex=0,tod=0,lastDraw=0;
  const commands=['look','stand','sit','look'];
- document.querySelectorAll('[data-tod]').forEach(button=>button.addEventListener('click',()=>{tod=Number(button.dataset.tod);document.querySelectorAll('[data-tod]').forEach(b=>b.setAttribute('aria-pressed',String(b===button)))}));
- document.querySelector('#hello').addEventListener('click',()=>{if(paused){A.command(heroCat,'stand',true);A.dogCommand(dogState,'stand',[-80,80],true,dog);}else{A.command(heroCat,'look',false);A.dogCommand(dogState,'wag',[-80,80],false,dog)}elapsed=0});
- function draw(time){requestAnimationFrame(draw);if(document.hidden||time-lastDraw<32)return;lastDraw=time;const dt=last?Math.min((time-last)/1000,.06):0;last=time;if(!paused&&!document.hidden){now+=dt;elapsed+=dt;A.step(lab,dt,now,false,true);A.step(heroCat,dt,now,false,true);A.stepDog(dogState,dog,dt,now,false,true);if(elapsed>6){const action=commands[commandIndex++%commands.length];A.command(lab,action,false);A.command(heroCat,action,false);A.dogCommand(dogState,action==='look'?'wag':action,[-80,80],false,dog);elapsed=0;}}
+ document.querySelectorAll('[data-tod]').forEach(button=>button.addEventListener('click',()=>{tod=Number(button.dataset.tod);dirty=true;document.querySelectorAll('[data-tod]').forEach(b=>b.setAttribute('aria-pressed',String(b===button)))}));
+ document.querySelector('#hello').addEventListener('click',()=>{if(paused){A.command(heroCat,'stand',true);A.dogCommand(dogState,'stand',[-80,80],true,dog);}else{A.command(heroCat,'look',false);A.dogCommand(dogState,'wag',[-80,80],false,dog)}elapsed=0;dirty=true;document.querySelector('#greeting-status').textContent=language==='ko'?'고양이와 강아지가 인사해요.':'The cat and dog say hello.'});
+ document.querySelectorAll('#hello,#motion,[data-tod]').forEach(button=>{button.hidden=false});
+ function draw(time){requestAnimationFrame(draw);if(document.hidden||(paused&&!dirty)||time-lastDraw<32)return;dirty=false;lastDraw=time;const dt=last?Math.min((time-last)/1000,.06):0;last=time;if(!paused&&!document.hidden){now+=dt;elapsed+=dt;A.step(lab,dt,now,false,true);A.step(heroCat,dt,now,false,true);A.stepDog(dogState,dog,dt,now,false,true);if(elapsed>6){const action=commands[commandIndex++%commands.length];A.command(lab,action,false);A.command(heroCat,action,false);A.dogCommand(dogState,action==='look'?'wag':action,[-80,80],false,dog);elapsed=0;}}
  for(const {id,cv,ctx,g} of surfaces){const w=cv.clientWidth,h=cv.clientHeight,dpr=Math.min(window.devicePixelRatio||1,2);if(!w||!h)continue;if(cv.width!==Math.round(w*dpr)||cv.height!==Math.round(h*dpr)){cv.width=Math.round(w*dpr);cv.height=Math.round(h*dpr)}g.begin();ctx.setTransform(dpr,0,0,dpr,0,0);ctx.clearRect(0,0,w,h);
  if(id==='companions'){
  const scale=Math.min(w/650,h/250),ground=h*.9;
@@ -35,4 +36,4 @@ try{
  const tint=tod?{c:A.CREATURE_TINT.night,a:A.CREATURE_TINT.a[1]}:null;
  g.save();g.translate(p.x,p.y);A.drawFrame(g,{k:p.scale,room,todIdx:tod,env:{tod,season:'spring',lightOn:true,tint:room.tint[tod],shadow:room.shadowBase,now,windowOpen:0,gust:0,reduced:paused,autoEvents:false,viewTags:room.viewTags},catTint:tint,events,dog:null,petVisible:true,placement:{surfaceId:anchor.id,y:anchor.y,scale:anchor.scale||1,x:A.ROOM.place.catX+(lab.S.x-A.CAT.origin.restX)*A.CREATURE_SCALE},contactSurfaceId:anchor.id,lift:0},lab,sets,coats,A.CAT.coats.blackBib,now);g.restore();
  }}requestAnimationFrame(draw);
-}catch(error){console.error('Room preview:',error);motion.hidden=true;}
+}catch(error){console.error('Room preview:',error);document.querySelectorAll('#hello,#motion,[data-tod]').forEach(button=>{button.hidden=true});document.querySelector('#greeting-status').textContent=language==='ko'?'캐릭터 미리보기를 불러오지 못했습니다. 제품 소개는 계속 읽을 수 있어요.':'The animated preview could not load. Product information is still available.';}
