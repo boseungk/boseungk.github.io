@@ -1,0 +1,784 @@
+{
+  "source": "/Users/gpt/Projects/dayloom",
+  "projection": {
+    "width": 780,
+    "height": 1280,
+    "top": 24,
+    "scale": 0.7222222222222222,
+    "camera": {
+      "s": 0.8,
+      "x": 108,
+      "y": 12
+    }
+  },
+  "stages": [
+    {
+      "id": "step-0",
+      "petAnchor": {
+        "x": 401.55555555555554,
+        "y": 887.7777777777777,
+        "scale": 0.23111111111111116
+      },
+      "nativeSelection": {
+        "wall": {
+          "id": "plain"
+        },
+        "floor": {
+          "id": "oak"
+        },
+        "window": {
+          "id": "casement"
+        },
+        "view": {
+          "id": "hills"
+        },
+        "seat": {
+          "id": "classic-sofa"
+        },
+        "light": {
+          "id": "floor-lamp"
+        },
+        "wallDeco": {
+          "id": "grass-frame"
+        },
+        "plantSpot": {
+          "id": "leafy-pot"
+        },
+        "sill": null,
+        "rug": {
+          "id": "cream-rug"
+        },
+        "floorItem": null
+      },
+      "season": "spring",
+      "selections": {},
+      "omittedSlots": [],
+      "slots": {
+        "window": {
+          "left": 159,
+          "top": 260,
+          "right": 620,
+          "bottom": 654,
+          "uncropped": true
+        },
+        "light": {
+          "left": 59,
+          "top": 448,
+          "right": 196,
+          "bottom": 880,
+          "uncropped": true
+        },
+        "rug": {
+          "left": 100,
+          "top": 909,
+          "right": 680,
+          "bottom": 1010,
+          "uncropped": true
+        },
+        "seat": {
+          "left": 135,
+          "top": 644,
+          "right": 644,
+          "bottom": 889,
+          "uncropped": true
+        }
+      }
+    },
+    {
+      "id": "step-1",
+      "petAnchor": {
+        "x": 401.55555555555554,
+        "y": 887.7777777777777,
+        "scale": 0.23111111111111116
+      },
+      "nativeSelection": {
+        "wall": {
+          "id": "plain"
+        },
+        "floor": {
+          "id": "oak"
+        },
+        "window": {
+          "id": "casement"
+        },
+        "view": {
+          "id": "hills"
+        },
+        "seat": {
+          "id": "classic-sofa"
+        },
+        "light": {
+          "id": "collection-pebble-lamp",
+          "variant": "original"
+        },
+        "wallDeco": {
+          "id": "grass-frame"
+        },
+        "plantSpot": {
+          "id": "leafy-pot"
+        },
+        "sill": null,
+        "rug": {
+          "id": "cream-rug"
+        },
+        "floorItem": null
+      },
+      "season": "spring",
+      "selections": {
+        "light": "drawn.light.collection-pebble-lamp.original"
+      },
+      "omittedSlots": [],
+      "slots": {
+        "window": {
+          "left": 159,
+          "top": 260,
+          "right": 620,
+          "bottom": 654,
+          "uncropped": true
+        },
+        "light": {
+          "left": 57,
+          "top": 468,
+          "right": 183,
+          "bottom": 883,
+          "uncropped": true
+        },
+        "rug": {
+          "left": 100,
+          "top": 909,
+          "right": 680,
+          "bottom": 1010,
+          "uncropped": true
+        },
+        "seat": {
+          "left": 135,
+          "top": 644,
+          "right": 644,
+          "bottom": 889,
+          "uncropped": true
+        }
+      }
+    },
+    {
+      "id": "step-2",
+      "petAnchor": {
+        "x": 401.55555555555554,
+        "y": 887.7777777777777,
+        "scale": 0.23111111111111116
+      },
+      "nativeSelection": {
+        "wall": {
+          "id": "plain"
+        },
+        "floor": {
+          "id": "oak"
+        },
+        "window": {
+          "id": "casement"
+        },
+        "view": {
+          "id": "hills"
+        },
+        "seat": {
+          "id": "collection-bentwood-bench",
+          "variant": "original"
+        },
+        "light": {
+          "id": "collection-pebble-lamp",
+          "variant": "original"
+        },
+        "wallDeco": {
+          "id": "grass-frame"
+        },
+        "plantSpot": {
+          "id": "leafy-pot"
+        },
+        "sill": null,
+        "rug": {
+          "id": "collection-waterline-rug",
+          "variant": "original"
+        },
+        "floorItem": null
+      },
+      "season": "spring",
+      "selections": {
+        "light": "drawn.light.collection-pebble-lamp.original",
+        "seat": "drawn.seat.collection-bentwood-bench.original",
+        "rug": "drawn.rug.collection-waterline-rug.original"
+      },
+      "omittedSlots": [],
+      "slots": {
+        "window": {
+          "left": 159,
+          "top": 260,
+          "right": 620,
+          "bottom": 654,
+          "uncropped": true
+        },
+        "light": {
+          "left": 57,
+          "top": 468,
+          "right": 183,
+          "bottom": 883,
+          "uncropped": true
+        },
+        "rug": {
+          "left": 164,
+          "top": 908,
+          "right": 615,
+          "bottom": 1022,
+          "uncropped": true
+        },
+        "seat": {
+          "left": 212,
+          "top": 656,
+          "right": 567,
+          "bottom": 896,
+          "uncropped": true
+        }
+      }
+    },
+    {
+      "id": "step-3",
+      "petAnchor": {
+        "x": 401.55555555555554,
+        "y": 887.7777777777777,
+        "scale": 0.23111111111111116
+      },
+      "environmentId": "drawn.environment.open-rose-lake.original",
+      "season": "summer",
+      "selections": {
+        "wall": "drawn.wall.collection-linen-water-wall.original",
+        "floor": "drawn.floor.collection-lakeside-parquet.original",
+        "window": "drawn.window.study-grand-arch.study-moonlit-path-room",
+        "seat": "drawn.seat.collection-bentwood-bench.original",
+        "light": "drawn.light.collection-pebble-lamp.original",
+        "rug": "drawn.rug.collection-waterline-rug.original",
+        "sill": "drawn.sill.collection-water-vase.original",
+        "plantSpot": "drawn.plantSpot.corner-aquarium.classic"
+      },
+      "omittedSlots": [
+        "wallDeco",
+        "floorItem"
+      ],
+      "slots": {
+        "window": {
+          "left": 177,
+          "top": 194,
+          "right": 602,
+          "bottom": 629,
+          "uncropped": true
+        },
+        "light": {
+          "left": 57,
+          "top": 468,
+          "right": 183,
+          "bottom": 883,
+          "uncropped": true
+        },
+        "rug": {
+          "left": 164,
+          "top": 908,
+          "right": 615,
+          "bottom": 1022,
+          "uncropped": true
+        },
+        "seat": {
+          "left": 212,
+          "top": 656,
+          "right": 567,
+          "bottom": 896,
+          "uncropped": true
+        }
+      }
+    }
+  ],
+  "rooms": [
+    {
+      "id": "coast",
+      "petAnchor": {
+        "x": 401.55555555555554,
+        "y": 887.7777777777777,
+        "scale": 0.23111111111111116
+      },
+      "environmentId": "drawn.environment.open-study-coral-tide.original",
+      "season": "summer",
+      "selections": {
+        "wall": "drawn.wall.collection-coastal-plaster.original",
+        "floor": "drawn.floor.collection-saltwashed-deck.original",
+        "window": "drawn.window.porthole.ivory",
+        "seat": "drawn.seat.study-shell-chair.study-salt-mirror",
+        "light": "drawn.light.string-lights.warm",
+        "rug": "drawn.rug.study-ripple-rug.study-pomegranate-electric",
+        "wallDeco": "drawn.wallDeco.collection-shell-mobile.original"
+      },
+      "omittedSlots": [
+        "plantSpot",
+        "sill",
+        "floorItem"
+      ],
+      "slots": {
+        "window": {
+          "left": 216,
+          "top": 229,
+          "right": 563,
+          "bottom": 575,
+          "uncropped": true
+        },
+        "light": {
+          "left": 163,
+          "top": 75,
+          "right": 616,
+          "bottom": 163,
+          "uncropped": true
+        },
+        "rug": {
+          "left": 159,
+          "top": 917,
+          "right": 604,
+          "bottom": 1021,
+          "uncropped": true
+        },
+        "seat": {
+          "left": 216,
+          "top": 635,
+          "right": 563,
+          "bottom": 907,
+          "uncropped": true
+        }
+      }
+    },
+    {
+      "id": "retro",
+      "petAnchor": {
+        "x": 401.55555555555554,
+        "y": 887.7777777777777,
+        "scale": 0.23111111111111116
+      },
+      "environmentId": "drawn.environment.open-study-harbor-lantern-room.original",
+      "season": "summer",
+      "selections": {
+        "wall": "drawn.wall.half-split.mustardCream",
+        "floor": "drawn.floor.checker-tile.sage",
+        "window": "drawn.window.study-wide-casement.study-rosewood-tide",
+        "seat": "drawn.seat.round-sofa.teal",
+        "light": "drawn.light.mushroom-lamp.mustard",
+        "rug": "drawn.rug.checker-rug.creamNavy",
+        "wallDeco": "drawn.wallDeco.collection-tide-clock.original",
+        "plantSpot": "drawn.plantSpot.record-player.walnut"
+      },
+      "omittedSlots": [
+        "sill",
+        "floorItem"
+      ],
+      "slots": {
+        "window": {
+          "left": 160,
+          "top": 245,
+          "right": 619,
+          "bottom": 631,
+          "uncropped": true
+        },
+        "light": {
+          "left": 80,
+          "top": 625,
+          "right": 180,
+          "bottom": 882,
+          "uncropped": true
+        },
+        "rug": {
+          "left": 121,
+          "top": 908,
+          "right": 658,
+          "bottom": 1016,
+          "uncropped": true
+        },
+        "seat": {
+          "left": 144,
+          "top": 626,
+          "right": 635,
+          "bottom": 894,
+          "uncropped": true
+        }
+      }
+    },
+    {
+      "id": "garden",
+      "petAnchor": {
+        "x": 401.55555555555554,
+        "y": 887.7777777777777,
+        "scale": 0.23111111111111116
+      },
+      "environmentId": "drawn.environment.open-study-pistachio-rose.original",
+      "season": "summer",
+      "selections": {
+        "wall": "drawn.wall.collection-garden-trellis.original",
+        "floor": "drawn.floor.collection-greenhouse-pavers.original",
+        "window": "drawn.window.study-twin-arch.study-blue-wisteria",
+        "seat": "drawn.seat.study-petal-lounge.study-pistachio-rose",
+        "light": "drawn.light.study-tulip-lamp.study-pistachio-rose",
+        "rug": "drawn.rug.study-petal-rug.study-citron-aubergine",
+        "plantSpot": "drawn.plantSpot.monstera.ceramic",
+        "sill": "drawn.sill.collection-potting-tray.original"
+      },
+      "omittedSlots": [
+        "wallDeco",
+        "floorItem"
+      ],
+      "slots": {
+        "window": {
+          "left": 172,
+          "top": 228,
+          "right": 608,
+          "bottom": 630,
+          "uncropped": true
+        },
+        "light": {
+          "left": 47,
+          "top": 501,
+          "right": 173,
+          "bottom": 891,
+          "uncropped": true
+        },
+        "rug": {
+          "left": 164,
+          "top": 903,
+          "right": 615,
+          "bottom": 1018,
+          "uncropped": true
+        },
+        "seat": {
+          "left": 225,
+          "top": 591,
+          "right": 554,
+          "bottom": 905,
+          "uncropped": true
+        }
+      }
+    },
+    {
+      "id": "forest",
+      "petAnchor": {
+        "x": 401.55555555555554,
+        "y": 887.7777777777777,
+        "scale": 0.23111111111111116
+      },
+      "environmentId": "drawn.environment.open-study-forest-velvet.original",
+      "season": "summer",
+      "selections": {
+        "wall": "drawn.wall.collection-workshop-panels.original",
+        "floor": "drawn.floor.tatami.straw",
+        "window": "drawn.window.hanok.oak",
+        "seat": "drawn.seat.hanging-egg.natural",
+        "light": "drawn.light.rattan-pendant.natural",
+        "rug": "drawn.rug.kilim.desert",
+        "wallDeco": "drawn.wallDeco.collection-fern-press.original",
+        "plantSpot": "drawn.plantSpot.collection-seed-cabinet.original"
+      },
+      "omittedSlots": [
+        "sill",
+        "floorItem"
+      ],
+      "slots": {
+        "window": {
+          "left": 171,
+          "top": 263,
+          "right": 608,
+          "bottom": 642,
+          "uncropped": true
+        },
+        "light": {
+          "left": 314,
+          "top": 22,
+          "right": 464,
+          "bottom": 178,
+          "uncropped": true
+        },
+        "rug": {
+          "left": 161,
+          "top": 901,
+          "right": 625,
+          "bottom": 1025,
+          "uncropped": true
+        },
+        "seat": {
+          "left": 234,
+          "top": 670,
+          "right": 545,
+          "bottom": 900,
+          "uncropped": true
+        }
+      }
+    },
+    {
+      "id": "lake",
+      "petAnchor": {
+        "x": 401.55555555555554,
+        "y": 887.7777777777777,
+        "scale": 0.23111111111111116
+      },
+      "environmentId": "drawn.environment.open-rose-lake.original",
+      "season": "summer",
+      "selections": {
+        "wall": "drawn.wall.collection-linen-water-wall.original",
+        "floor": "drawn.floor.collection-lakeside-parquet.original",
+        "window": "drawn.window.study-grand-arch.study-moonlit-path-room",
+        "seat": "drawn.seat.collection-bentwood-bench.original",
+        "light": "drawn.light.collection-pebble-lamp.original",
+        "rug": "drawn.rug.collection-waterline-rug.original",
+        "sill": "drawn.sill.collection-water-vase.original",
+        "plantSpot": "drawn.plantSpot.corner-aquarium.classic"
+      },
+      "omittedSlots": [
+        "wallDeco",
+        "floorItem"
+      ],
+      "slots": {
+        "window": {
+          "left": 177,
+          "top": 194,
+          "right": 602,
+          "bottom": 629,
+          "uncropped": true
+        },
+        "light": {
+          "left": 57,
+          "top": 468,
+          "right": 183,
+          "bottom": 883,
+          "uncropped": true
+        },
+        "rug": {
+          "left": 164,
+          "top": 908,
+          "right": 615,
+          "bottom": 1022,
+          "uncropped": true
+        },
+        "seat": {
+          "left": 212,
+          "top": 656,
+          "right": 567,
+          "bottom": 896,
+          "uncropped": true
+        }
+      }
+    },
+    {
+      "id": "mineral",
+      "petAnchor": {
+        "x": 401.55555555555554,
+        "y": 887.7777777777777,
+        "scale": 0.23111111111111116
+      },
+      "environmentId": "drawn.environment.open-collection-oasis-court.original",
+      "season": "summer",
+      "selections": {
+        "wall": "drawn.wall.collection-mineral-inlay.original",
+        "floor": "drawn.floor.terrazzo.warm",
+        "window": "drawn.window.collection-carved-arch.original",
+        "seat": "drawn.seat.study-jewel-daybed.study-amethyst-saffron",
+        "light": "drawn.light.salt-lamp.rose",
+        "rug": "drawn.rug.collection-stepped-diamond-rug.original",
+        "plantSpot": "drawn.plantSpot.collection-mineral-cabinet.original",
+        "sill": "drawn.sill.suncatcher.blossom"
+      },
+      "omittedSlots": [
+        "wallDeco",
+        "floorItem"
+      ],
+      "slots": {
+        "window": {
+          "left": 201,
+          "top": 244,
+          "right": 578,
+          "bottom": 651,
+          "uncropped": true
+        },
+        "light": {
+          "left": 98,
+          "top": 740,
+          "right": 161,
+          "bottom": 877,
+          "uncropped": true
+        },
+        "rug": {
+          "left": 156,
+          "top": 906,
+          "right": 623,
+          "bottom": 1024,
+          "uncropped": true
+        },
+        "seat": {
+          "left": 171,
+          "top": 643,
+          "right": 604,
+          "bottom": 902,
+          "uncropped": true
+        }
+      }
+    },
+    {
+      "id": "winter",
+      "petAnchor": {
+        "x": 401.55555555555554,
+        "y": 887.7777777777777,
+        "scale": 0.23111111111111116
+      },
+      "environmentId": "drawn.environment.open-blue-snowfield.original",
+      "season": "summer",
+      "selections": {
+        "wall": "drawn.wall.collection-snowdrop-paper.original",
+        "floor": "drawn.floor.collection-alpine-planks.original",
+        "window": "drawn.window.study-picture-window.study-opal-apricot",
+        "seat": "drawn.seat.study-even-cushions.study-snowberry-cabin",
+        "light": "drawn.light.paper-star.butter",
+        "rug": "drawn.rug.shaggy.cream",
+        "sill": "drawn.sill.snow-globe.winter",
+        "floorItem": "drawn.floorItem.collection-knitting-basket.original"
+      },
+      "omittedSlots": [
+        "wallDeco",
+        "plantSpot"
+      ],
+      "slots": {
+        "window": {
+          "left": 166,
+          "top": 280,
+          "right": 613,
+          "bottom": 630,
+          "uncropped": true
+        },
+        "light": {
+          "left": 336,
+          "top": 23,
+          "right": 443,
+          "bottom": 222,
+          "uncropped": true
+        },
+        "rug": {
+          "left": 147,
+          "top": 878,
+          "right": 633,
+          "bottom": 1045,
+          "uncropped": true
+        },
+        "seat": {
+          "left": 214,
+          "top": 773,
+          "right": 567,
+          "bottom": 905,
+          "uncropped": true
+        }
+      }
+    },
+    {
+      "id": "space",
+      "petAnchor": {
+        "x": 401.55555555555554,
+        "y": 887.7777777777777,
+        "scale": 0.23111111111111116
+      },
+      "environmentId": "drawn.environment.open-collection-comet-observatory.original",
+      "season": "summer",
+      "selections": {
+        "wall": "drawn.wall.plain.navy",
+        "floor": "drawn.floor.collection-observatory-tiles.original",
+        "window": "drawn.window.collection-observatory-window.original",
+        "seat": "drawn.seat.study-cloud-daybed.study-quiet-aurora",
+        "light": "drawn.light.spaceage-orb.chrome",
+        "rug": "drawn.rug.collection-star-compass-rug.original",
+        "plantSpot": "drawn.plantSpot.collection-telescope.original",
+        "wallDeco": "drawn.wallDeco.collection-star-chart.original"
+      },
+      "omittedSlots": [
+        "sill",
+        "floorItem"
+      ],
+      "slots": {
+        "window": {
+          "left": 202,
+          "top": 207,
+          "right": 577,
+          "bottom": 642,
+          "uncropped": true
+        },
+        "light": {
+          "left": 332,
+          "top": 23,
+          "right": 447,
+          "bottom": 234,
+          "uncropped": true
+        },
+        "rug": {
+          "left": 153,
+          "top": 901,
+          "right": 626,
+          "bottom": 1030,
+          "uncropped": true
+        },
+        "seat": {
+          "left": 122,
+          "top": 650,
+          "right": 642,
+          "bottom": 902,
+          "uncropped": true
+        }
+      }
+    },
+    {
+      "id": "cloud",
+      "petAnchor": {
+        "x": 401.55555555555554,
+        "y": 887.7777777777777,
+        "scale": 0.23111111111111116
+      },
+      "environmentId": "drawn.environment.open-collection-cloud-tea-village.original",
+      "season": "summer",
+      "selections": {
+        "wall": "drawn.wall.plain.cream",
+        "floor": "drawn.floor.oak.light",
+        "window": "drawn.window.collection-teahouse-window.original",
+        "seat": "drawn.seat.study-teacup-seat.study-rose-celadon",
+        "light": "drawn.light.study-ribbon-pendant.study-coral-tide",
+        "rug": "drawn.rug.cloud-rug.white",
+        "plantSpot": "drawn.plantSpot.collection-tea-trolley.original",
+        "wallDeco": "drawn.wallDeco.mobile.pastel"
+      },
+      "omittedSlots": [
+        "sill",
+        "floorItem"
+      ],
+      "slots": {
+        "window": {
+          "left": 191,
+          "top": 244,
+          "right": 588,
+          "bottom": 650,
+          "uncropped": true
+        },
+        "light": {
+          "left": 277,
+          "top": 22,
+          "right": 503,
+          "bottom": 140,
+          "uncropped": true
+        },
+        "rug": {
+          "left": 144,
+          "top": 896,
+          "right": 635,
+          "bottom": 1032,
+          "uncropped": true
+        },
+        "seat": {
+          "left": 230,
+          "top": 733,
+          "right": 578,
+          "bottom": 913,
+          "uncropped": true
+        }
+      }
+    }
+  ]
+}

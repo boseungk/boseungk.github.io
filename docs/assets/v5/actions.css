@@ -1,0 +1,12 @@
+/* ActionRow: 20pt hollow ring, 18pt native check, independent 48pt target. */
+.task-row .task-check{width:20px;height:20px;position:relative;display:grid;place-items:center;border:0;border-radius:0;background:none;color:#4A4947;margin-right:14px;overflow:visible}
+.task-row[aria-checked=true] .task-check{border:0;background:none}
+.task-row[aria-checked=true] .task-check:after{content:none}
+.task-native-ring{position:absolute;inset:0;border:1.3px solid #B17457;border-radius:10px}
+.task-check svg{position:relative;width:18px;height:18px;overflow:visible}
+.task-row[aria-checked=true] .task-native-ring{opacity:0}
+.task-row[aria-checked=true] .task-check path{stroke-dashoffset:0}
+.task-native-burst{position:absolute;inset:0;opacity:0;pointer-events:none}
+.task-native-burst i{position:absolute;left:50%;top:50%;width:4px;height:4px;margin:-2px;border-radius:2px;background:#4A4947;transform:translate(var(--x),var(--y))}
+.task-row .task-name{font-size:18px;line-height:26px;letter-spacing:-.45px}
+.task-row[aria-checked=true] .task-name{color:#776B66;text-decoration:line-through;text-decoration-style:solid}

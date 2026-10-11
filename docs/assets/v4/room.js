@@ -44,9 +44,9 @@
         anchorX,anchorY,scale,nativeScale,canvasWidth:PET_CANVAS.width,canvasHeight:PET_CANVAS.height};
     }
 
-    function draw(ctx,{width=ctx.canvas.width,height=ctx.canvas.height,time=0,paused=false}={}){
+    function draw(ctx,{width=ctx.canvas.width,height=ctx.canvas.height,time=0,paused=false,tod=0,lightOn=true}={}){
       const p=geometry(width,height),clock=Number.isFinite(time)?time:0;
-      const env={tod:0,season:'spring',lightOn:true,tint:room.tint[0],shadow:room.shadowBase,
+      const env={tod,season:'spring',lightOn,tint:room.tint[tod],shadow:room.shadowBase,
         now:clock,windowOpen:room.windowOpens?1:0,gust:paused?0:.2+.12*Math.sin(clock*.6),reduced:!!paused};
       if(clock<lastTime)lab.ev=A.makeEventsState([16,26],917);
       if(!paused)A.stepEvents(lab.ev,events,Math.min(Math.max(0,clock-lastTime),.06),clock,env,room.viewTags,true);
@@ -72,9 +72,13 @@
             g.restore();
           }
         }finally{g.restore();}
-        A.drawFrame(g,{k:p.k,room,todIdx:0,env,catTint:null,events,dog:null,petVisible:false,
-          placement:{surfaceId:anchor.id,x:A.ROOM.place.catX,y:anchor.y,scale:1},
-          contactSurfaceId:anchor.id,lift:0},lab,sets,coats,A.CAT.coats.blackBib,clock);
+        g.save();
+        try{
+          g.scale(p.k,p.k);g.translate(A.CAMERA.x,A.CAMERA.y);g.scale(A.CAMERA.s,A.CAMERA.s);
+          A.drawRoomBack(g,room,tod,env,gg=>A.drawEvents(gg,lab.ev,events,'window',env));
+          A.drawEvents(g,lab.ev,events,'floor',env);
+          A.drawRoomFront(g,room,tod,env,false,true);
+        }finally{g.restore();}
       }finally{g.restore();}
       return ctx.canvas;
     }

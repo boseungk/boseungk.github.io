@@ -1,0 +1,68 @@
+/* Native composition geometry stays identical through all four states. */
+.mar-customize{padding:0 0 104px;background:#fff;--customize-wash:#efe3dd;--customize-muted:#776b66}
+.mar-customize .customize-story{position:relative}
+.mar-customize .customize-pin{display:grid;grid-template-columns:.9fr 1.1fr;gap:64px;align-items:center;min-height:800px;padding-block:64px;margin-top:0}
+.mar-customize .customize-copy{max-width:405px}
+.mar-customize h2{font-size:clamp(38px,3.8vw,54px);line-height:1.3;letter-spacing:-.035em}
+.mar-customize .body-copy{margin-top:28px;font-size:18px;line-height:1.85}
+.mar-customize .customize-ingredients{list-style:none;margin:30px 0 0;padding:0;display:grid;gap:7px}
+.mar-customize .customize-ingredients li{display:flex;align-items:center;gap:12px;color:var(--customize-muted);font-size:15px;line-height:1.65}
+.mar-customize .customize-ingredients li.is-added{color:#473e3b}
+.mar-customize .customize-item-number{font-size:11px;letter-spacing:.04em;opacity:.75}
+.mar-customize .customize-item-label{position:relative;padding:3px 10px;margin-left:-8px}
+.mar-customize .customize-item-label>span{position:relative}
+/* Exact normalized native LiquidChoiceBackdrop path, stretched to its measured label. */
+.mar-customize .customize-item-label svg{position:absolute;inset:0;width:100%;height:100%;fill:var(--customize-wash);opacity:0;transition:opacity 400ms ease;pointer-events:none}
+.mar-customize .is-added .customize-item-label svg{opacity:1}
+.mar-customize .customize-caption{display:flex;gap:11px;align-items:flex-start;min-height:56px;margin-top:27px;color:#473e3b;font-size:15px;line-height:1.65;word-break:keep-all}
+.mar-customize [data-customize-number]{color:var(--customize-muted);font-size:11px;padding-top:3px;letter-spacing:.07em}
+.mar-customize .customize-room{width:100%;margin:0;justify-self:center;max-width:490px}
+.mar-customize .customize-images{position:relative;aspect-ratio:780/1280;width:100%;border-radius:12px;overflow:hidden;background:#efe3dd}
+.mar-customize [data-customize-frame]{display:block;position:absolute;inset:0;width:100%;height:100%;object-fit:contain;opacity:0;transition:opacity 400ms ease}
+.mar-customize [data-customize-frame="3"]{opacity:1}
+.mar-customize.is-customize-ready [data-customize-frame]{opacity:0}
+.mar-customize.is-customize-ready [data-customize-frame].is-visible{opacity:1}
+.mar-customize .customize-room figcaption{text-align:center;font-size:12px;color:var(--customize-muted);margin-top:15px}
+.mar-customize .customize-gallery{padding-top:58px;border-top:1px solid #e5e5e5}
+.mar-customize .customize-gallery-heading{display:flex;align-items:end;justify-content:space-between;gap:40px;margin-bottom:38px}
+.mar-customize .customize-gallery-heading h3{font-size:32px;line-height:1.4}
+.mar-customize .customize-gallery-heading p{font-size:15px;color:var(--customize-muted);line-height:1.85;word-break:keep-all}
+.mar-customize .customize-featured{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:28px}
+.mar-customize .customize-gallery img{width:100%;height:auto;aspect-ratio:780/1280;object-fit:contain;border-radius:10px}
+.mar-customize .customize-featured figcaption{margin-top:15px;font-size:18px}
+.mar-customize .customize-more{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:18px;margin-top:44px}
+.mar-customize .customize-more figcaption{font-size:12px;margin-top:11px;word-break:keep-all}
+@media(min-width:761px){
+  .mar-customize.is-customize-ready .customize-story{height:210svh}
+  .mar-customize.is-customize-ready .customize-pin{position:sticky;top:0;height:100svh;min-height:0;padding-block:42px}
+  .mar-customize.is-customize-ready .customize-room{width:min(100%,calc((100svh - 122px)*.609375));max-width:490px}
+}
+@media(max-width:1100px) and (min-width:761px){.mar-customize .customize-pin{gap:35px;grid-template-columns:.95fr 1.05fr}.mar-customize h2{font-size:40px}.mar-customize .body-copy{font-size:16px}.mar-customize .customize-ingredients{gap:5px}.mar-customize .customize-ingredients li{font-size:15px}.mar-customize .customize-more{grid-template-columns:repeat(3,minmax(0,1fr));gap:25px}.mar-customize .customize-more img{max-height:310px}}
+@media(max-width:760px){
+  .mar-customize{padding-bottom:70px}
+  .mar-customize .customize-story{height:auto}
+  .mar-customize .customize-pin{position:static;display:flex;flex-direction:column;align-items:stretch;gap:23px;height:auto;min-height:0;padding-block:70px 48px}
+  .mar-customize .customize-copy{max-width:none}
+  .mar-customize h2{font-size:34px;line-height:1.35}
+  .mar-customize .body-copy{font-size:15px;margin-top:22px}
+  .mar-customize .customize-ingredients{margin-top:22px;gap:7px}
+  .mar-customize .customize-ingredients li{font-size:15px}
+  .mar-customize .customize-caption{margin-top:19px;min-height:26px;font-size:15px}
+  .mar-customize .customize-room{width:100%;max-width:390px;margin-inline:auto}
+  .mar-customize .customize-room figcaption{font-size:11px;margin-top:12px}
+  .mar-customize .customize-gallery{padding-top:37px}
+  .mar-customize .customize-gallery-heading{display:block;margin-bottom:25px}
+  .mar-customize .customize-gallery-heading h3{font-size:30px}
+  .mar-customize .customize-gallery-heading p{font-size:15px;margin-top:17px}
+  .mar-customize .customize-featured{gap:14px;grid-template-columns:repeat(2,minmax(0,1fr))}
+  .mar-customize .customize-featured figure:first-child{grid-column:1/-1;width:75%;max-width:290px;margin-inline:auto}
+  .mar-customize .customize-featured figcaption{font-size:15px;margin-top:10px}
+  .mar-customize .customize-more{grid-template-columns:repeat(2,minmax(0,1fr));gap:24px 14px;margin-top:30px}
+  .mar-customize .customize-more figcaption{font-size:13px;margin-top:9px}
+}
+@media(prefers-reduced-motion:reduce){.mar-customize [data-customize-frame],.mar-customize .customize-item-label svg{transition:none}.mar-customize.is-customize-ready .customize-story{height:auto}.mar-customize.is-customize-ready .customize-pin{position:static;height:auto;min-height:0}.mar-customize.is-customize-ready .customize-room{width:100%}}
+.mar-customize.is-customize-paused [data-customize-frame],.mar-customize.is-customize-paused .customize-item-label svg{transition:none}
+/* Legacy .decorate overflow:hidden would trap sticky positioning. */
+.mar-customize{overflow:visible}
+@media(min-width:761px){.mar-customize.is-customize-ready .customize-pin{top:76px;height:calc(100svh - 76px)}.mar-customize.is-customize-ready .customize-room{width:min(100%,calc((100svh - 200px)*.609375))}}
+@media(prefers-reduced-motion:reduce){.mar-customize.is-customize-ready .customize-pin{position:static;top:auto;height:auto}.mar-customize.is-customize-ready .customize-room{width:min(100%,490px)}}

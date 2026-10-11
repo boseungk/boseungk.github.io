@@ -1,0 +1,32 @@
+[
+  {
+    "file": "growth-reveal-art.gen.js",
+    "source": "design/prototype-editorial/lab/growth-reveal-art.gen.js",
+    "sha256": "cd19335122e025d9f143b0c05a585520a2625095c3eafd80cde1ca5001b1bf40"
+  },
+  {
+    "file": "growth-reveal-paths.mjs",
+    "source": "design/prototype-editorial/lab/growth-reveal-paths.mjs",
+    "sha256": "0f791725e35ad82768741413ba2b5d4c442aa0be55e06446bc6eae9834ca36a4"
+  },
+  {
+    "file": "growth-reveal-plant-motion.mjs",
+    "source": "design/prototype-editorial/lab/growth-reveal-plant-motion.mjs",
+    "sha256": "e5b5ea36bda736c69c1d537871db7dfdf1c72873de1214a3ff3a7bac36b15a29"
+  },
+  {
+    "file": "growth-reveal-plant-structure.mjs",
+    "source": "design/prototype-editorial/lab/growth-reveal-plant-structure.mjs",
+    "sha256": "d917c834682da0aecf7e41a1de1e3be61a281fedd0004c5767bcc0fd8f503399"
+  },
+  {
+    "file": "growth-reveal-recipes.mjs",
+    "source": "design/prototype-editorial/lab/growth-reveal-recipes.mjs",
+    "sha256": "2cc2f8cfd6c270a25fed7935f971bb2253b8c3db72a449c3b6d9977f25400c1b"
+  },
+  {
+    "file": "growth-reveal-stem-motion.mjs",
+    "source": "design/prototype-editorial/lab/growth-reveal-stem-motion.mjs",
+    "sha256": "fff03c37fd7e0abbcbd677703074676c5b3e2f8e0db0f21ab4b3daafc5fe6d95"
+  }
+]

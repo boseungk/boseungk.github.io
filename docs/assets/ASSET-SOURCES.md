@@ -59,7 +59,7 @@ These three outdoor tiles are from the Dayloom scenery pair render set dated Oct
 
 ## Device and native app screens (October 11 revision)
 
-`device/iphone.glb` is the phone geometry supplied by the HyperFrames registry block `vfx-iphone-device`, downloaded with the HyperFrames CLI. SHA256: `20b926be3ab68ad773af8ef83949561f1f93bc22777688efd89bc38f0840614e`. The website adapts the block's planar screen UV mapping; it does not use experimental HTML-in-canvas capture or the sample HyperFrames screen. Three.js 0.147.0 and its GLTFLoader are vendored locally, with the upstream MIT notice in `vendor/THREE-LICENSE.txt`.
+`device/iphone.glb` is the phone geometry supplied by the HyperFrames registry block `vfx-iphone-device`, downloaded with the HyperFrames CLI. SHA256: `20b926be3ab68ad773af8ef83949561f1f93bc22777688efd89bc38f0840614e`. The website uses the GLB front-face geometry for an exact polygon mask and composites the native source canvas directly over the shell. The generated display mesh is hidden and serves only as a geometry boundary; there is no duplicate GPU screen texture. Three.js 0.147.0 and its GLTFLoader are vendored locally, with the upstream MIT notice in `vendor/THREE-LICENSE.txt`.
 
 Native screenshot copies retain the original product UI and aspect ratio. Crops remove device status bars and test harness areas. They are compressed to WebP; no UI is generated or redrawn in these files.
 
@@ -70,3 +70,22 @@ Native screenshot copies retain the original product UI and aspect ratio. Crops 
 The phone's Focus scene uses the same authored live drawing renderer as the opening world; it is a graphics preview, not a native Focus UI screenshot. The sun-to-Memory handoff and statistics bars outside the phone are website explanatory motion. They are not presented as recorded native interaction.
 
 Website chrome follows current app tokens: white paper, ink `#473E3B`, muted `#776B66`, neutral soft `#F5F5F5`, Oat button `#E1CABF`, Oat selection `#EFE3DD`, and 8px controls. Theme artwork has its own palette.
+
+## Narrative revision — 2026-10-11
+
+`v5/customize/*.png` are generated from the native room compositor using `tools/render-customize.cjs`, reading Dayloom without modifying it. Four incremental scenes retain one 780 × 1280 projection; stage 0 exactly matches shipped DEFAULT_SELECTION, stage 1 changes light only, and stage 2 changes light/seat/rug. Nine final themes use exact curated recipes. Per-slot crop evidence is in `v5/customize/render-evidence.json`.
+
+`v5/journey.js` follows Focus quiet-completion and Memory flight source contracts. The public example is target 25 minutes / actual 9 minutes, end 14:09, zero-reward quiet branch. Web sequencing demonstrates an explicit end/confirm and subsequent Memory navigation; it is not native auto-completion.
+
+## Social channel marks
+YouTube, Threads, Instagram SVG paths: Simple Icons project, retrieved 2026-10-11 from https://github.com/simple-icons/simple-icons/tree/develop/icons. Stored in `assets/social/` and inlined in index.html. Simple Icons artwork is distributed under CC0; brand names/marks remain their respective owners'.
+
+## Room lighting exports
+`assets/v5/customize/*-night.png` and `*-night-unlit.png` use the same native room geometry/projection as daytime, rendered by `tools/render-customize.cjs`. No app source modified.
+
+## Growth sequence (2026-10-11)
+Five tree PNG stages are exported from Dayloom `src/world/drawn/growth/art-tree.ts` through `drawGrowthArtFitted` with `reserveFutureSize=true` (`tools/render-growth.cjs`). The seed PNG is the no-script homepage illustration; live animation is driven by SVG geometry, not PNG swapping.
+
+The six source files in `v5/growth-motion/` are copied unchanged from Dayloom `design/prototype-editorial/lab/growth-reveal-*`. `v5/growth.js` drives their `createPlantTransition().seek()` across four adjacent tree transitions, using the native 2400ms recipe duration. This is a Dayloom design prototype; it does not use the RN thumbnail Reveal entrance. Source-relative paths and hashes are recorded in `architecture/native-growth-sources.json`.
+
+Both native export commands share `tools/native-renderer.cjs`. Its napi-rs contour correction preserves independent SVG subpaths and is covered by `tools/check-native-contours.cjs`; this prevents diagonal triangles in cloud/mineral room art without changing the app source.

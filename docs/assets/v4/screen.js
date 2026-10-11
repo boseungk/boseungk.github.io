@@ -45,7 +45,7 @@
     function round(x,y,w,h,r,color) {ctx.fillStyle=color;ctx.beginPath();ctx.roundRect(x,y,w,h,r);ctx.fill();}
     function line(x1,y1,x2,y2,color='#e5e5e5',width=2) {ctx.strokeStyle=color;ctx.lineWidth=width;ctx.beginPath();ctx.moveTo(x1,y1);ctx.lineTo(x2,y2);ctx.stroke();}
     function status(){text('9:41',64,65,29);ctx.fillStyle='#473e3b';for(let i=0;i<4;i++)ctx.fillRect(627+i*10,60-(i+1)*4,6,(i+1)*4);ctx.strokeStyle='#473e3b';ctx.lineWidth=2;ctx.strokeRect(692,42,40,20);ctx.fillRect(695,45,30,14);ctx.fillRect(734,48,3,8);round(268,1633,244,9,4.5,'#473e3b');}
-    function draw({progress=0,time=0,paused=false,worldCanvas,hideHourglass=false,hudReveal=1}={}) {
+    function draw({progress=0,time=0,paused=false,worldCanvas,hideHourglass=false,hudReveal=1,elapsedSeconds=540}={}) {
       const p=clamp(progress),flight=clamp((p-.15)/.5),flightMs=flight*1000;
       ctx.clearRect(0,0,W,H);ctx.fillStyle='#DCC6A8';ctx.fillRect(0,0,W,H);
       if(worldCanvas&&worldCanvas.width&&worldCanvas.height){
@@ -75,7 +75,7 @@
         ctx.restore();
       }
       if(hudOpacity>0){ctx.save();ctx.globalAlpha=hudOpacity;
-        const elapsed=Math.round(clamp((p-.65)/.35)*192),minutes=Math.floor(elapsed/60),seconds=elapsed%60;
+        const elapsed=Math.round(clamp((p-.65)/.35)*elapsedSeconds),minutes=Math.floor(elapsed/60),seconds=elapsed%60;
         text('책 한 챕터 · 25분',303,1303,32,'#5f5551');timer(String(minutes).padStart(2,'0')+':'+String(seconds).padStart(2,'0'),297,1410);
         ctx.strokeStyle='#473e3b';ctx.lineWidth=2.4;ctx.beginPath();ctx.arc(390,1518,33,0,Math.PI*2);ctx.stroke();round(382,1510,16,16,2.6,'#473e3b');text('길게 눌러 마치기',390,1590,26,'#776b66','center');ctx.restore();
       }
@@ -85,7 +85,7 @@
       const gw=144+(120-144)*move,gh=216+(180-216)*move;
       if(!hideHourglass){
         gc.clearRect(0,0,240,360);
-        if(global.MARLandscape)global.MARLandscape.drawHourglass(gc,{width:240,height:360,progress:p>.65?clamp((p-.65)/.35)*.128:0,time,paletteId:'dawn',restingFill:flightMs<520?.5294:undefined,initialFill:.5294,flipProgress:flightMs>0&&flightMs<520?clamp(flightMs/520):undefined,angle:rotation*180/Math.PI});
+        if(global.MARLandscape)global.MARLandscape.drawHourglass(gc,{width:240,height:360,progress:p>.65?clamp((p-.65)/.35)*clamp(elapsedSeconds/1500):0,time,paletteId:'dawn',restingFill:flightMs<520?.5294:undefined,initialFill:.5294,flipProgress:flightMs>0&&flightMs<520?clamp(flightMs/520):undefined,angle:rotation*180/Math.PI});
         ctx.save();ctx.translate(x,y);ctx.rotate(rotation);ctx.drawImage(glass,-gw/2,-gh/2,gw,gh);ctx.restore();
       }
       status();return canvas;
