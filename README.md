@@ -21,6 +21,7 @@ python3 tools/check-site.py
 node tools/check-hero-scroll.cjs
 node tools/check-interactions.cjs
 node tools/check-phone.cjs
+node tools/check-phone-text.cjs
 node tools/check-narrative.cjs
 node tools/check-native-contours.cjs
 ```
@@ -33,7 +34,7 @@ The first three commands require Python 3. Controller checks use Node.js; canvas
 - `tools/`: repeatable English generation, native artwork export and regression checks.
 - `architecture/`: ownership/build notes, native source hashes and bounded cleanup evidence.
 
-`docs/en/index.html` and `docs/assets/v5/copy.js` are generated from the Korean homepage and `en-copy.json`. Edit their sources. The Korean app canvas is intentional in both site languages. Six modules in `growth-motion/` are unchanged copies of the Dayloom design prototype; change the web adapter instead of those modules.
+`docs/en/index.html` and `docs/assets/v5/copy.js` are generated from the Korean homepage and `en-copy.json`. Edit their sources. The Korean app interface is intentional in both site languages. Phone previews use canvas artwork with browser-rendered SVG text; the canvas text remains available when graphics enhancement cannot mount. Six modules in `growth-motion/` are unchanged copies of the Dayloom design prototype; change the web adapter instead of those modules.
 
 GitHub Pages serves the checked-in `docs/` directly. Preserve `docs/.nojekyll` and `docs/CNAME`; publishing remains the repository's existing Pages setting. There is no custom deploy workflow in this repository.
 

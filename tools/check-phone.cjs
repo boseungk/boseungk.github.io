@@ -13,7 +13,8 @@ class Element {
 }
 async function check(mode) {
   const warnings = [], stage = new Element(), source = new Element();
-  let disposed = 0, renderCount = 0;
+  let disposed = 0, renderCount = 0, textMounts = 0, textResizes = 0, textDestroys = 0;
+  source.__marText = {mount() {textMounts++;}, resize(w,h) {assert(w>0&&h>0); textResizes++;}, destroy() {textDestroys++;}};
   const s = {console: {warn: (...args) => warnings.push(args)}, document: {createElement: tag => tag === 'canvas' ? createCanvas(1, 1) : new Element()}};
   s.window = s; vm.createContext(s);
   if (mode !== 'missing-library') {
@@ -36,18 +37,18 @@ async function check(mode) {
   vm.runInContext(fs.readFileSync(path.join(docs, 'assets/v4/phone.js'), 'utf8'), s);
   const phone = await s.MARHeroPhone(stage, source);
   if (mode !== 'primary') {
-    assert.equal(phone, null); assert.equal(stage.dataset.ready, undefined);
+    assert.equal(textMounts,0,'graphics failures keep canvas text');assert.equal(phone, null); assert.equal(stage.dataset.ready, undefined);
     assert.equal(stage.dataset.phoneUnavailable, mode); assert.equal(warnings.length, 1);
     if (mode === 'glb') {assert.equal(disposed, 2); assert.equal(stage.children.length, 0);}
     return;
   }
-  assert.equal(stage.dataset.ready, 'true');
+  assert.equal(textMounts,1);assert(textResizes>0);assert.equal(stage.dataset.ready, 'true');
   const host = stage.children.find(child => child.children?.includes(source));
   assert(host); assert.match(host.style.clipPath, /^polygon\(/);
   assert.equal(host.children.filter(child => child === source).length, 1, 'direct source display, no duplicate texture');
   const rect = phone.getScreenRect(); assert(rect.width > 0 && rect.height > 0);
   phone.render(); phone.resize(); assert(renderCount >= 2);
-  phone.destroy(); phone.destroy(); assert.equal(stage.children.length, 0); assert.equal(stage.dataset.ready, undefined);
+  phone.destroy(); phone.destroy(); assert.equal(textDestroys,1);assert.equal(stage.children.length, 0); assert.equal(stage.dataset.ready, undefined);
 }
 (async () => {
   for (const mode of ['primary', 'missing-library', 'webgl', 'glb']) await check(mode);

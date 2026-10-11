@@ -14,7 +14,7 @@ CSS loads in order: `home.css` (page foundation), `v4/hero.css` (hero), `v5/cust
 | --- | --- |
 | `home.js` | Global `mar:motion` pause, closing landscape/task phase canvases, statistics reveal; mounts customize and journey. |
 | `v4/hero.js` | Deterministic scroll plateaus and native room/phone expansion, including reverse scroll. |
-| `v4/phone.js` | GLB shell and direct source-canvas display with front-face polygon mask; `getScreenRect`, `render`, `resize`, `destroy`. |
+| `v4/phone.js` | GLB shell, polygon-masked source-canvas display and SVG text layer lifetime; `getScreenRect`, `render`, `resize`, `destroy`. |
 | `v4/room.js`, `screen.js` + `drawn-app.js`, v3 landscape/pet | Native drawing adapters and copied app renderer. |
 | `v5/customize.js` | Four fixed-projection incremental PNG stages; keep previous decoded image during load/failure. |
 | `v5/rooms.js` | Nine rooms, aligned day/unlit/lamp PNG layers, one pet canvas per room, visible 8-second carousel and local/global pause. |
@@ -24,6 +24,8 @@ CSS loads in order: `home.css` (page foundation), `v4/hero.css` (hero), `v5/cust
 | `v5/language-picker.js`, `polish.js` | Native details menu keyboard/outside-click handling and quiet heading wash. |
 
 Controllers own their animation clock, visibility/hidden-page pause and reduced-motion behavior. The global pause event is shared; there is no universal animation framework. Canvas/WebGL are progressive enhancement boundaries. Failed graphics loading keeps static content and exposes a diagnostic; it must not silently invent app state. Do not change the native app's source to customize this site.
+
+`screen.js` owns the shared `MARPhoneText` adapter. It records native text coordinates, transforms and opacity, then paints SVG glyphs at the display's final CSS pixel size, with an 11.5px minimum. Artwork and control shapes remain on canvas. The journey's shared focus screen feeds the same collector, preventing duplicate glyphs; each frame replaces the previous phase's text. The phone mounts and resizes this layer only after graphics loading succeeds. It stays hidden until a fresh draw removes canvas glyphs; an unmounted or zero-size display keeps canvas text. Hero artwork is drawn while its font loads, then text is enabled. The dense memory trace row reserves a 6px minimum gap without changing canvas coordinates.
 
 ## Native exports
 
@@ -46,3 +48,5 @@ Native exports require Dayloom's installed TypeScript and bundled `@napi-rs/canv
 `check-site.py` checks every published page's local assets/anchors, both locale contracts, room bounds evidence, native source hashes and the publishing boundary. `check-interactions.cjs` exercises real controllers using a small DOM/event fixture for timing/pause/manual state, image decode retry, locale output and Safari-safe menu behavior. `check-phone.cjs` uses vendored Three geometry with a mocked graphics driver to test direct-canvas ownership/mask/lifecycle and all three load fail-safe branches. The narrative check renders native drawing paths; the hero check samples scroll phases.
 
 Browser QA is still required for actual GPU rendering, responsive composition, pointer/focus navigation and animation appearance. The fixtures exercise controller contracts, not a browser layout engine. No push or deployment is part of local cleanup.
+
+`check-phone-text.cjs` measures actual canvas glyph calls and tests primary SVG rendering versus canvas fallback, all journey phases and reverse seek, font/minimum size, opacity/transforms, first-mount/zero-size behavior, dense-row spacing and teardown. Visual QA covered Chrome at 1202×960 and 390×844, plus the user's in-app browser. The WebGL failure path retains its original canvas/static typography; its browser screenshot was not part of this visual pass.

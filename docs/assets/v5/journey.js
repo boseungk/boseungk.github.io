@@ -43,6 +43,7 @@
  }
  function makePainter(source){
   const W=390,H=834.5,ctx=source.getContext('2d');ctx.scale(4,4);
+  const overlay=global.MARPhoneText(source,W,H);
   const sharedScreen=global.MARHeroScreen(),room=global.MARHeroRoom(),A=global.DRAWN_APP;
   const roomCanvas=document.createElement('canvas');roomCanvas.width=1600;roomCanvas.height=1000;
   const rc=roomCanvas.getContext('2d'),g=global.DRAWN_SKIA.canvasFor(rc);
@@ -81,7 +82,8 @@
     previousTime=next;
    }
   }
-  function text(s,x,y,size=17,color='#473e3b',align='left'){
+  function text(s,x,y,size=17,color='#473e3b',align='left',afterGap=0){
+   if(overlay.text(ctx,s,x,y,size,color,align,4,1,afterGap))return;
    ctx.font=`400 ${size}px Line, sans-serif`;ctx.textAlign=align;ctx.fillStyle=color;ctx.fillText(s,x,y);
   }
   function rect(x,y,w,h,r,color){ctx.fillStyle=color;ctx.beginPath();ctx.roundRect(x,y,w,h,r);ctx.fill();}
@@ -99,7 +101,7 @@
     catTint:null,events:[],dog,petVisible:playback.visible,placement:playback.position,contactSurfaceId:A.contactSurface(playback),lift:playback.lift},world,catSets,coats,A.CAT.coats.blackBib,f.time/1000);
    g.restore();
    sharedScreen.draw({progress:1,time:f.time/1000,paused,worldCanvas:roomCanvas,elapsedSeconds:540,
-    hideHourglass:f.time>=COMPLETE,hudReveal:1-f.completionIn});
+    hideHourglass:f.time>=COMPLETE,hudReveal:1-f.completionIn,textOverlay:overlay,hideStatus:true});
    ctx.drawImage(sharedScreen.canvas,0,0,W,H);
   }
   const card={x:16,y:(H-332)/2,w:358,h:332},phase={x:98,y:card.y+213,width:20,height:20},dock={x:92,y:732,width:62,height:62};
@@ -149,11 +151,11 @@
    text('책을 조금 읽고,',24,243,17);text('생각도 천천히 정리했다.',24,273,17);
    line(24,625,366,625);text('그날의 흔적',24,654,14,'#776b66');
    const cue=1-portion(f.time,700,DAY+250);if(f.time>=DAY+250&&cue>0){ctx.save();ctx.globalAlpha=cue;rect(16,667,358,40,10,'#f5f5f5');ctx.restore();}
-   phaseMark(24,676,20,Math.min(950,Math.max(0,f.time-DAY-250)));text('오후 2:09',54,692,13,'#776b66');text('책 한 챕터 ✎',128,692,15,'#5f5551');text('9분',366,692,14,'#776b66','right');ctx.restore();
+   phaseMark(24,676,20,Math.min(950,Math.max(0,f.time-DAY-250)));text('오후 2:09',54,692,13,'#776b66');text('책 한 챕터 ✎',128,692,15,'#5f5551','left',6);text('9분',366,692,14,'#776b66','right');ctx.restore();
   }
-  return {draw(f,paused){ctx.clearRect(0,0,W,H);if(f.phase==='index')memoryIndex(f);else if(f.phase==='day')memoryDay(f);else{
+  return {draw(f,paused){overlay.begin();ctx.clearRect(0,0,W,H);if(f.phase==='index')memoryIndex(f);else if(f.phase==='day')memoryDay(f);else{
     worldFrame(f,paused);if(f.time>=RETURN)homeDock(f);if(f.time>=COMPLETE)completion(f);
-   }status();},setAnimal(value){animal=value==='dog'?'dog':'cat';reset();},reset};
+   }status();overlay.end();},setAnimal(value){animal=value==='dog'?'dog':'cat';reset();},reset};
  }
  function mount(root){
   if(root.__marJourney)return root.__marJourney;

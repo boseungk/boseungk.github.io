@@ -6,6 +6,35 @@
   const clamp=x=>Math.max(0,Math.min(1,x));
   const smooth=x=>{x=clamp(x);return x*x*(3-2*x);};
   const cubic=x=>x<.5?4*x*x*x:1-Math.pow(-2*x+2,3)/2;
+  // Render glyphs at their final CSS size; room art and controls stay on canvas.
+  // Mounting is the graphics boundary: an unmounted canvas keeps all its text.
+  global.MARPhoneText=function(canvas,width,height){
+    let svg=null,nodes=[],entries=[],displayWidth=0,displayHeight=0,ready=false;
+    function paint(){
+      if(!svg)return;svg.style.visibility=ready&&displayWidth>0&&displayHeight>0?'visible':'hidden';
+      if(!ready)return;
+      const sx=displayWidth/width,sy=displayHeight/height;
+      entries.forEach((entry,i)=>{
+        let node=nodes[i];if(!node){node=document.createElementNS('http://www.w3.org/2000/svg','text');svg.append(node);nodes.push(node);}
+        node.textContent=entry.value;
+        // A minimum caption size may consume the native gap in a dense row.
+        const previous=nodes[i-1],x=entry.afterGap&&previous?Math.max(entry.x*sx,Number(previous.getAttribute('x'))+previous.getComputedTextLength()+entry.afterGap):entry.x*sx;
+        for(const [key,value] of Object.entries({x,y:entry.y*sy,'font-size':Math.max(11.5,entry.size*sx),'font-family':'Line, sans-serif','font-weight':400,'text-anchor':entry.align==='center'?'middle':entry.align==='right'?'end':'start',fill:entry.color,opacity:entry.opacity}))node.setAttribute(key,value);
+      });
+      while(nodes.length>entries.length)nodes.pop().remove();
+    }
+    const api={begin(){entries=[];},
+      text(ctx,value,x,y,size,color,align,pixelScale=1,coordinateScale=1,afterGap=0){
+        const m=ctx.getTransform(),scale=coordinateScale/pixelScale;
+        entries.push({value,x:(m.a*x+m.c*y+m.e)*scale,y:(m.b*x+m.d*y+m.f)*scale,size:size*m.a*scale,color,align,opacity:ctx.globalAlpha,afterGap});
+        return !!svg&&displayWidth>0&&displayHeight>0;
+      },end(){ready=true;paint();},
+      mount(host){if(svg)return;ready=false;svg=document.createElementNS('http://www.w3.org/2000/svg','svg');svg.setAttribute('aria-hidden','true');svg.style.cssText='position:absolute;inset:0;width:100%;height:100%;overflow:visible;pointer-events:none;';host.append(svg);paint();},
+      resize(w,h){if(!displayWidth||!displayHeight)ready=false;displayWidth=w;displayHeight=h;paint();},
+      destroy(){svg?.remove();svg=null;nodes=[];}
+    };
+    canvas.__marText=api;return api;
+  };
   // Exact sampling used by focusFlightMotion, prep exit and HUD entry.
   function bezier(value,[x1,y1,x2,y2]){
     if(value<=0)return 0;if(value>=1)return 1;
@@ -22,14 +51,17 @@
   }
   global.MARHeroScreen=function () {
     const canvas=document.createElement('canvas');canvas.width=W;canvas.height=H;
-    // Keep text rasterized above the largest displayed Retina size.
+    // Canvas glyphs remain available for the flat graphics fail-safe.
     canvas.width=W*2;canvas.height=H*2;
     const ctx=canvas.getContext('2d');
     ctx.scale(2,2);
+    const overlay=global.MARPhoneText(canvas,W,H);let textLayer=overlay,coordinateScale=1,hideText=false;
     const layout={source:{x:295,y:1130,w:144,h:216},target:{x:214,y:1360,w:120,h:180}};
     const glass=document.createElement('canvas');glass.width=240;glass.height=360;
     const gc=glass.getContext('2d');
     function text(s,x,y,size,color='#473e3b',align='left',max) {
+      if(hideText)return;
+      if(textLayer.text(ctx,s,x,y,size,color,align,2,coordinateScale))return;
       ctx.font=`400 ${size}px Line, sans-serif`;ctx.textAlign=align;ctx.fillStyle=color;ctx.fillText(s,x,y,max);
     }
     function timer(value,x,y){
@@ -39,13 +71,15 @@
       ctx.font=`400 ${size}px Line, sans-serif`;ctx.textAlign='center';ctx.fillStyle='#473e3b';
       for(const glyph of value){
         const width=glyph===':'?size*.232:digitWidth;
-        ctx.fillText(glyph,x+width/2,y);x+=width-tracking;
+        text(glyph,x+width/2,y,size,'#473e3b','center');x+=width-tracking;
       }
     }
     function round(x,y,w,h,r,color) {ctx.fillStyle=color;ctx.beginPath();ctx.roundRect(x,y,w,h,r);ctx.fill();}
     function line(x1,y1,x2,y2,color='#e5e5e5',width=2) {ctx.strokeStyle=color;ctx.lineWidth=width;ctx.beginPath();ctx.moveTo(x1,y1);ctx.lineTo(x2,y2);ctx.stroke();}
     function status(){text('9:41',64,65,29);ctx.fillStyle='#473e3b';for(let i=0;i<4;i++)ctx.fillRect(627+i*10,60-(i+1)*4,6,(i+1)*4);ctx.strokeStyle='#473e3b';ctx.lineWidth=2;ctx.strokeRect(692,42,40,20);ctx.fillRect(695,45,30,14);ctx.fillRect(734,48,3,8);round(268,1633,244,9,4.5,'#473e3b');}
-    function draw({progress=0,time=0,paused=false,worldCanvas,hideHourglass=false,hudReveal=1,elapsedSeconds=540}={}) {
+    function draw({progress=0,time=0,paused=false,worldCanvas,hideHourglass=false,hudReveal=1,elapsedSeconds=540,textOverlay=null,hideStatus=false,hideGlyphs=false}={}) {
+      hideText=hideGlyphs;
+      textLayer=textOverlay||overlay;coordinateScale=textOverlay ? .5 : 1;if(!textOverlay)overlay.begin();
       const p=clamp(progress),flight=clamp((p-.15)/.5),flightMs=flight*1000;
       ctx.clearRect(0,0,W,H);ctx.fillStyle='#DCC6A8';ctx.fillRect(0,0,W,H);
       if(worldCanvas&&worldCanvas.width&&worldCanvas.height){
@@ -88,7 +122,7 @@
         if(global.MARLandscape)global.MARLandscape.drawHourglass(gc,{width:240,height:360,progress:p>.65?clamp((p-.65)/.35)*clamp(elapsedSeconds/1500):0,time,paletteId:'dawn',restingFill:flightMs<520?.5294:undefined,initialFill:.5294,flipProgress:flightMs>0&&flightMs<520?clamp(flightMs/520):undefined,angle:rotation*180/Math.PI});
         ctx.save();ctx.translate(x,y);ctx.rotate(rotation);ctx.drawImage(glass,-gw/2,-gh/2,gw,gh);ctx.restore();
       }
-      status();return canvas;
+      if(!hideStatus)status();if(!textOverlay)overlay.end();return canvas;
     }
     return {canvas,draw,getHourglassLayout(){return layout;},getWorldRect(){return {...worldRect};}};
   };

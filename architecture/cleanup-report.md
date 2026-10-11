@@ -49,6 +49,14 @@ Native Oat/LINE styling, organic selection wash, reduced motion/global/local pau
 - Failed room decode and unavailable graphics: grounded enhancement fail-safes preserved with evidence and primary/failure/retry tests.
 - napi-rs contour correction: grounded root-cause repair preserved and tested; independent contours no longer acquire diagonal triangles.
 - Native journey playback error suppression and room adapter defaults: broad/cross-layer concern raised to parent; rewrite deferred to avoid changing native behavior.
-- The user's latest phone text sharpness complaint remains for the parent's follow-up commit. No additional phone/screen/journey/CSS adjustment was made after that handoff. Presence/mask/lifecycle checks do not certify real-GPU text sharpness.
+- Phone text clarity was addressed in the follow-up described below. Presence/mask/lifecycle checks alone do not certify real-GPU text sharpness.
 - DOM fixtures do not replace Safari/GPU/responsive browser testing. Older website asset generations remain outside this bounded removal; blog source removal is complete.
 - `.omx/` contains the earlier narrative plan only, stays ignored and is not committed. No task-owned runtime output or screenshots are included.
+
+## Phone text clarity follow-up
+
+The primary phone display now uses browser-rendered SVG glyphs at final CSS pixel coordinates instead of shrinking rasterized text with the room. `MARPhoneText` in `screen.js` shares native transforms/opacity with hero and journey, maintains LINE/Oat styling and raises small labels to at least 11.5px. A dense mobile trace row keeps a minimum 6px gap. The native canvas text stays available on the graphics fallback; first mount hides SVG until fresh artwork removes raster glyphs, avoiding double text. Font loading preserves the room/control background, and phase changes, reverse scroll and teardown clear old glyphs.
+
+The existing two Python and five Node checks plus new `check-phone-text.cjs` passed. The new regression measures actual NAPI `fillText` calls for hero and every journey phase, verifying glyph omission only with a usable SVG display, fallback restoration, first-mount/zero-size handling, minimum size/font, transforms/alpha, spacing and lifecycle. Chrome visual QA at 1202×960 and 390×844 covered preparation, running, completion, home, memory list/detail and forward/reverse scrolling. The parent also refreshed the user's in-app browser and verified its loaded LINE font and live memory text sizes. Actual browser WebGL failure screenshots were not captured; that path keeps the existing canvas/static typography.
+
+Temporary QA HTML was removed. Screenshots are stored outside the publishing directory under the task's `outputs/redesign-v5/phone-text/` and are not committed. The source app, artwork, animals, room layout and animation choreography remain unchanged.
