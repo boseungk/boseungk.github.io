@@ -69,6 +69,7 @@ def build_home():
     output = output.replace('href="/en/" lang="en" hreflang="en"', 'href="/en/" lang="en" hreflang="en" aria-current="page"')
     output = output.replace('<link rel="canonical" href="https://www.myanimalroom.com/">', '<link rel="canonical" href="https://www.myanimalroom.com/en/">')
     output = output.replace('property="og:url" content="https://www.myanimalroom.com/"', 'property="og:url" content="https://www.myanimalroom.com/en/"').replace('ko_KR', 'en_US')
+    output = output.replace('href="/feedback/"', 'href="/en/feedback/"')
     # Validate literal runtime calls as well as native growth recipe labels.
     runtime_keys = set()
     for file in [ROOT / 'home.js', *ROOT.glob('assets/v4/*.js'), *ROOT.glob('assets/v5/*.js')]:
@@ -115,6 +116,7 @@ def build_feedback():
     output = ''.join(translator.output)
     output = output.replace('href="/"', 'href="/en/"').replace('href="/#', 'href="/en/#')
     output = output.replace('data-language-current>한국어', 'data-language-current>English')
+    output = output.replace('href="/feedback/">', 'href="/en/feedback/">')
     output = output.replace('href="/feedback/" lang="ko" hreflang="ko" aria-current="page"', 'href="/feedback/" lang="ko" hreflang="ko"')
     output = output.replace('href="/en/feedback/" lang="en" hreflang="en"', 'href="/en/feedback/" lang="en" hreflang="en" aria-current="page"')
     output = output.replace('<link rel="canonical" href="https://www.myanimalroom.com/feedback/">', '<link rel="canonical" href="https://www.myanimalroom.com/en/feedback/">')
