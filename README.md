@@ -2,7 +2,7 @@
 
 This repository contains the public MyAnimalRoom product website. `docs/` is the permanent GitHub Pages publishing directory (`main` branch, `/docs` folder), not a temporary staging folder. It is served at the domain root; visitors do not see `/docs` in the URL.
 
-The site is static HTML, CSS and browser JavaScript. There is no Jekyll, bundler or server-side app. Product information and room/growth illustrations remain readable without JavaScript. The interactive previews demonstrate the app; they do not create focus sessions or save visitor data.
+The site frontend is static HTML, CSS and browser JavaScript, without Jekyll or a site bundler. Product information and room/growth illustrations remain readable without JavaScript. The interactive previews demonstrate the app; they do not create focus sessions or save visitor data. Only the public suggestions board uses a separate storage API, described below.
 
 ## Develop and verify
 

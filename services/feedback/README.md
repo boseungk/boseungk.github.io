@@ -222,5 +222,11 @@ On 2026-10-15, the new empty production database was exported and successfully
 restored into isolated SQLite with all four application tables and zero rows.
 This was a non-destructive restore check, not a restore over the production DB.
 
+Production verification on the same day passed real Turnstile guest creation,
+idea/comment submission, voting and reload persistence in the in-app browser.
+The labelled smoke post was then hidden; public listing is empty, and both its
+direct URL and comments endpoint return 404. Live CORS allows the www origin
+and rejects other origins. Native iOS/Android browser coverage is a separate check.
+
 The Worker does not log bodies, nicknames, cookies or verification tokens.
 If diagnostics are added later, log only request identifiers/status/duration.
