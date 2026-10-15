@@ -62,7 +62,7 @@ for locale, expected in [('index.html', 'ko'), ('en/index.html', 'en')]:
     assert 'data-intro-jump' not in source and 'intro-begin' not in source
     assert 'id="companions"' not in source and 'id="worlds"' not in source
     assert 'data-journey-replay' not in source
-    assert 'boseung@myanimalroom.com' in source
+    assert 'contact@myanimalroom.com' in source
     assert 'src="/assets/v5/copy.js?' in source
     if expected == 'en':
         description = re.search(r'<p class="intro-description">(.*?)</p>', source, re.S)[1]
@@ -77,7 +77,7 @@ for locale, expected in [('feedback/index.html', 'ko'), ('en/feedback/index.html
     assert 'id="idea-form"' in source and 'id="idea-list"' in source
     assert '/assets/feedback/feedback.js' in source
     assert 'src="/home.js' not in source and 'src="/assets/v4/hero.js' not in source
-    assert 'boseung@myanimalroom.com' in source
+    assert 'contact@myanimalroom.com' in source
     assert 'href="/feedback/" lang="ko"' in source
     assert 'href="/en/feedback/" lang="en"' in source
 # Export evidence checks all slots were inside the shared full-room projection.
