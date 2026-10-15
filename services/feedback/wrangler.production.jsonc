@@ -1,0 +1,26 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "myanimalroom-feedback",
+  "main": "src/index.js",
+  "compatibility_date": "2026-08-01",
+  "workers_dev": false,
+  "preview_urls": false,
+  "routes": [
+    {
+      "pattern": "feedback-api.myanimalroom.com",
+      "custom_domain": true
+    }
+  ],
+  "vars": {
+    "ENVIRONMENT": "production"
+  },
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "myanimalroom-feedback",
+      "database_id": "3b0625cb-75d7-4404-bb17-4651d06e9595",
+      "migrations_dir": "migrations"
+    }
+  ],
+  "account_id": "4eb04f774d2c0cd79b2de3f9668c8545"
+}

@@ -1,0 +1,16 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "myanimalroom-feedback-local",
+  "main": "src/index.js",
+  "compatibility_date": "2026-08-01",
+  "workers_dev": false,
+  "preview_urls": false,
+  "vars": { "ENVIRONMENT": "development" },
+  "d1_databases": [{
+    "binding": "DB",
+    "database_name": "feedback-local",
+    "database_id": "local-feedback-only",
+    "migrations_dir": "migrations",
+    "remote": false
+  }]
+}

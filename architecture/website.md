@@ -10,6 +10,21 @@ CSS loads in order: `home.css` (page foundation), `v4/hero.css` (hero), `v5/cust
 
 ## Runtime responsibilities
 
+The feedback board is a separate static entry at `feedback/index.html` with an
+English page generated from that same source. It shares header type, colors and
+the language menu, but mounts no homepage animation controllers. Its `client.mjs`
+owns bounded HTTP requests, desired-state votes and anonymous session preparation;
+`feedback.js` owns plain-text DOM rendering, forms and draft-preserving list updates.
+Read results cannot overwrite a newer write. Votes and comments serialize per idea;
+comments merge by id in chronological order. User content is never translated or
+inserted as HTML.
+
+`services/feedback/` is outside Pages and owns Worker/D1 storage, verification,
+quotas and operator maintenance. The app opens public locale URLs or a mail draft;
+it does not upload its local journals, tasks or backup identity. Refer to the
+service README for deployment and moderation, and `docs/privacy/` for public data
+and the API-only visitor cookie notice.
+
 | Owner | Responsibility |
 | --- | --- |
 | `home.js` | Global `mar:motion` pause, closing landscape/task phase canvases, statistics reveal; mounts customize and journey. |

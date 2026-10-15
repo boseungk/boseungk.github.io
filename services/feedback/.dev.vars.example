@@ -1,0 +1,2 @@
+# Official PUBLIC test secret. Development only; never a production secret.
+TURNSTILE_SECRET=1x0000000000000000000000000000000AA

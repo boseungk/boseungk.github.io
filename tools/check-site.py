@@ -69,6 +69,17 @@ for locale, expected in [('index.html', 'ko'), ('en/index.html', 'en')]:
         collapsed = re.sub('<[^>]+>', '', description)
         assert 'side. Keep' in collapsed, 'Mobile hidden br must keep English sentence spacing'
     assert 'MutationObserver' not in (DOCS / 'assets/v5/copy.js').read_text()
+for locale, expected in [('feedback/index.html', 'ko'), ('en/feedback/index.html', 'en')]:
+    file = DOCS / locale
+    source = file.read_text()
+    assert pages[file].lang == expected
+    assert source.count('aria-current="page"') == 1
+    assert 'id="idea-form"' in source and 'id="idea-list"' in source
+    assert '/assets/feedback/feedback.js' in source
+    assert 'src="/home.js' not in source and 'src="/assets/v4/hero.js' not in source
+    assert 'boseung@myanimalroom.com' in source
+    assert 'href="/feedback/" lang="ko"' in source
+    assert 'href="/en/feedback/" lang="en"' in source
 # Export evidence checks all slots were inside the shared full-room projection.
 for file in (DOCS / 'assets/v5/customize').glob('*render-evidence.json'):
     evidence = json.loads(file.read_text())

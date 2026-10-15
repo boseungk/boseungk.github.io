@@ -1,0 +1,8 @@
+node_modules/
+.wrangler/
+dist/
+.dev.vars*
+!.dev.vars.example
+wrangler.production.local.jsonc
+*.sqlite*
+*.sql.backup
