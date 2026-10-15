@@ -107,6 +107,27 @@ function menu() {
   key('Escape'); assert(!picker.open); assert.equal(e.document.activeElement, trigger);
   key('ArrowUp'); assert.equal(e.document.activeElement, links[1]); e.document.emit('pointerdown', {target: new Element()}); assert(!picker.open);
 }
+function searchableMenu() {
+  const e=setup(), picker=new Element(), trigger=new Element(), search=new Element(), empty=new Element();
+  const rows=[['日本語 Japanese ja-JP','ja'],['Français French fr-FR','fr'],['العربية Arabic ar-SA','ar']];
+  const links=rows.map(([name,code])=>{
+    const link=new Element();link.dataset.languageSearch=name;link.href=`https://www.myanimalroom.com/${code}/feedback/?idea=sample`;
+    link.parentElement=new Element();link.document=e.document;return link;
+  });
+  search.value='';trigger.document=search.document=e.document;
+  picker.childNodes=[trigger,search,...links];
+  picker.map={summary:trigger,a:links,'[data-language-search-input]':search,'[data-language-empty]':empty};
+  e.document.map['.language-picker']=picker;e.s.URL=URL;e.s.location={href:'https://www.myanimalroom.com/feedback/?idea=sample#idea-sample',hash:'#idea-sample'};
+  e.load('assets/v5/language-picker.js');
+  const key=value=>picker.emit('keydown',{key:value,preventDefault(){}});
+  search.value='francais';search.emit('input');key('ArrowDown');
+  assert.equal(e.document.activeElement,links[1]);assert.equal(empty.hidden,true);
+  key('ArrowDown');assert.equal(e.document.activeElement,links[1]);
+  search.value='日本';search.emit('input');key('ArrowDown');assert.equal(e.document.activeElement,links[0]);
+  search.value='no such language';search.emit('input');key('ArrowDown');assert.equal(empty.hidden,false);
+  key('Escape');assert.equal(search.value,'');assert(links.every(link=>!link.parentElement.hidden));
+  links[2].emit('click');assert.equal(links[2].href,'https://www.myanimalroom.com/ar/feedback/?idea=sample#idea-sample');
+}
 async function customize(lang) {
   const e = setup(lang), root = new Element(), story = new Element(), room = new Element(), caption = new Element(), number = new Element();
   const warnings = []; e.s.console = {warn: (...args) => warnings.push(args)};
@@ -127,5 +148,5 @@ async function customize(lang) {
 }
 (async () => {
   for (const lang of ['ko', 'en']) {tasks(lang); tasks(lang, true); rooms(lang); await customize(lang);}
-  menu(); console.log('PASS task/manual/pause, room ownership/8s/pause/loading, customize decode/retry/reverse, KO+EN labels, Safari-safe menu');
+  menu(); searchableMenu(); console.log('PASS task/manual/pause, room ownership/8s/pause/loading, customize decode/retry/reverse, KO+EN labels, searchable keyboard menu and shared suggestion navigation');
 })().catch(error => {console.error(error); process.exitCode = 1;});

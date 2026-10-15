@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="ko"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>기능 제안 — MyAnimalRoom</title>
+<meta name="description" content="MyAnimalRoom에 바라는 기능을 남기고 다른 의견에 공감해 주세요. 로그인 없이 함께 만드는 작은 방.">
+<meta name="theme-color" content="#ffffff"><meta name="referrer" content="strict-origin-when-cross-origin">
+<!--LOCALE_ALTERNATES--><link rel="canonical" href="https://www.myanimalroom.com/feedback/">
+
+
+
+<meta property="og:title" content="기능 제안 — MyAnimalRoom"><meta property="og:type" content="website">
+<meta property="og:url" content="https://www.myanimalroom.com/feedback/"><meta property="og:locale" content="ko_KR">
+<link rel="icon" href="/assets/mark.svg" type="image/svg+xml">
+<link rel="stylesheet" href="/home.css?v=v5-34"><link rel="stylesheet" href="/assets/v5/polish.css?v=v6-1">
+<link rel="stylesheet" href="/assets/feedback/feedback.css?v=20261015-i18n">
+<link rel="preload" href="/assets/LINESeedKR-Regular.otf" as="font" type="font/otf" crossorigin>
+<script defer src="/assets/v5/language-picker.js?v=v6-1"></script>
+<script type="module" src="/assets/feedback/feedback.js?v=20261015-i18n"></script>
+</head><body class="feedback-page">
+<a class="skip-link" href="#main">본문으로 건너뛰기</a>
+<header class="header"><div class="header-inner"><a class="brand" href="/" aria-label="MyAnimalRoom 홈">MyAnimalRoom</a><nav aria-label="주 메뉴"><a href="/#decorate">나의 공간</a><a href="/#routine">나의 하루</a><a href="/#stories">우리의 이야기</a><a href="/feedback/">기능 제안</a></nav><div class="header-end"><!--LANGUAGE_PICKER--></div></div></header>
+<main class="feedback-main" id="main" tabindex="-1">
+ <div class="feedback-heading"><p class="eyebrow">함께 만드는 MyAnimalRoom</p><h1>기능 제안</h1><p>원하는 기능을 남기고, 다른 의견에 공감해 주세요.<br>작은 의견부터 함께 나눠요.</p></div>
+ <form id="idea-form" class="feedback-compose" aria-label="새 의견 작성" novalidate>
+  <label for="idea-nickname">닉네임 (선택)</label><input id="idea-nickname" name="nickname" dir="auto" placeholder="비워 두면 익명으로 표시돼요" autocomplete="nickname" aria-describedby="idea-status">
+  <label for="idea-body">어떤 기능이 있으면 좋을까요?</label><textarea id="idea-body" name="body" dir="auto" rows="4" placeholder="필요했던 순간이나 원하는 모습을 편하게 적어 주세요." aria-required="true" aria-describedby="idea-counter idea-status"></textarea>
+  <div class="feedback-compose-bottom"><span class="feedback-counter" id="idea-counter">0 / 2,000</span><button type="submit" class="feedback-submit">의견 남기기</button></div>
+  <div id="idea-challenge"></div><p id="idea-status" class="feedback-status" role="status" aria-live="polite"></p>
+ </form>
+ <p class="feedback-privacy">의견과 댓글은 누구나 볼 수 있어요. 개인적인 문의는 <a href="mailto:contact@myanimalroom.com">이메일로 보내 주세요.</a></p>
+ <p class="feedback-note">로그인 없이 참여할 수 있어요. 중복 공감 방지를 위해 참여 시 브라우저 쿠키를 사용합니다. <a href="/privacy/">개인정보 안내</a></p>
+ <section aria-labelledby="ideas-title">
+  <div class="feedback-toolbar"><h2 id="ideas-title">함께 나눈 의견</h2><div class="feedback-sort" aria-label="의견 정렬"><button type="button" data-sort="popular" aria-pressed="true">공감순</button><button type="button" data-sort="latest" aria-pressed="false">최신순</button></div></div>
+  <p class="feedback-loading" id="list-loading" role="status">의견을 불러오는 중이에요.</p>
+  <p class="feedback-status" id="list-status" role="status" aria-live="polite"></p><button class="feedback-text-button" type="button" id="list-retry" hidden>다시 불러오기</button>
+  <p class="feedback-empty" id="list-empty" hidden>아직 의견이 없어요.<br>첫 번째 이야기를 남겨 주세요.</p>
+  <ul class="feedback-list" id="idea-list"></ul>
+  <button type="button" class="feedback-more" id="list-more" hidden>의견 더 보기</button>
+ </section>
+ <noscript><p class="feedback-status">게시판을 이용하려면 JavaScript가 필요합니다. 이메일로도 의견을 보낼 수 있어요: <a href="mailto:contact@myanimalroom.com">contact@myanimalroom.com</a></p></noscript>
+</main>
+<footer class="feedback-footer"><a class="brand" href="/">MyAnimalRoom</a><nav aria-label="하단 메뉴"><a href="/product/">제품 소개</a><a href="mailto:contact@myanimalroom.com">문의·오류 신고</a><a href="/privacy/">개인정보 안내</a></nav><small>© 2026 MyAnimalRoom</small></footer>
+</body></html>

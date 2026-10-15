@@ -1,10 +1,9 @@
 import {createClient, createDraftRequest, validateDraft, normalizeText, FeedbackError} from './client.mjs';
 import {feedbackConfig} from './config.js';
-import {text as t} from './copy.mjs';
+import {text as t, currentLocale} from './copy.mjs?v=20261015-i18n';
 
 const $ = selector => document.querySelector(selector);
-const english = document.documentElement.lang === 'en';
-const locale = english ? 'en-US' : 'ko-KR';
+const locale = currentLocale.locale;
 const api = createClient({baseUrl: feedbackConfig.api, verify: verifyVisitor});
 const ideaList = $('#idea-list');
 const rendered = new Map();
@@ -26,6 +25,7 @@ function writesSettled() {return activeWrites ? new Promise(resolve => writeWait
 function element(tag, className, text) {
   const node = document.createElement(tag);
   if (className) node.className = className;
+  if (className === 'feedback-body' || tag === 'textarea' || tag === 'input') node.dir = 'auto';
   if (text !== undefined) node.textContent = text;
   return node;
 }
@@ -90,7 +90,7 @@ async function verifyVisitor(host) {
     cancel.addEventListener('click', () => finish(new FeedbackError('verification_cancelled')));
     widgetId = window.turnstile.render(widget, {
       sitekey: feedbackConfig.siteKey, action: 'feedback', theme: 'light', size: 'flexible',
-      language: english ? 'en' : 'ko', appearance: 'interaction-only',
+      language: currentLocale.turnstile, appearance: 'interaction-only',
       callback: token => finish(null, token),
       'error-callback': () => {finish(new FeedbackError('verification_failed')); return true;},
       'expired-callback': () => finish(new FeedbackError('verification_failed')),
@@ -101,7 +101,8 @@ async function verifyVisitor(host) {
 
 function meta(item) {
   const row = element('div', 'feedback-meta');
-  row.append(element('span', 'feedback-author', item.nickname || t('익명')));
+  const author = element('bdi', 'feedback-author', item.nickname || t('익명'));
+  row.append(author);
   if (item.is_operator) row.append(element('span', 'feedback-operator', t('운영자')));
   const date = element('time', null, new Date(item.created_at).toLocaleDateString(locale, {year: 'numeric', month: 'short', day: 'numeric'}));
   date.dateTime = item.created_at; row.append(date); return row;
@@ -211,14 +212,14 @@ function renderIdea(idea, prepend = false) {
   const commentToggle = button(''); commentToggle.setAttribute('aria-expanded', 'false');
   commentToggle.setAttribute('aria-controls', `comments-${idea.id}`);
   const share = element('a', 'feedback-share', t('링크'));
-  share.href = `${english ? '/en' : ''}/feedback/?idea=${encodeURIComponent(idea.id)}#idea-${encodeURIComponent(idea.id)}`;
+  share.href = `${currentLocale.feedback}?idea=${encodeURIComponent(idea.id)}#idea-${encodeURIComponent(idea.id)}`;
   share.setAttribute('aria-label', t('이 의견의 고유 링크'));
   const error = element('p', 'feedback-status'); error.setAttribute('role', 'status');
   const challenge = element('div');
   let state = idea;
   const comments = commentsPanel(idea, () => update({...state, comment_count: state.comment_count + 1}), busy => {vote.disabled = busy;});
   function update(next) {
-    state = next; voteCount.textContent = String(state.vote_count);
+    state = next; voteCount.textContent = state.vote_count.toLocaleString(locale);
     vote.setAttribute('aria-pressed', String(state.voted));
     vote.setAttribute('aria-label', t('나도 원해요, 공감 {count}개', {count: state.vote_count}));
     commentToggle.textContent = t('댓글 {count}개', {count: state.comment_count});
@@ -287,7 +288,7 @@ document.querySelectorAll('[data-sort]').forEach(control => control.addEventList
 $('#list-retry').addEventListener('click', () => loadIdeas(failedAppend));
 $('#list-more').addEventListener('click', () => loadIdeas(true));
 
-// Language changes keep a shared idea, while both routes remain real static Pages paths.
+// Language changes keep a shared idea on the same board across static locale routes.
 const sharedId = new URLSearchParams(location.search).get('idea');
 if (sharedId && /^[a-zA-Z0-9-]{1,80}$/.test(sharedId)) {
   document.querySelectorAll('.language-options a').forEach(link => {link.search = '?idea=' + encodeURIComponent(sharedId);});

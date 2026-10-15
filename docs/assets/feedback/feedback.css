@@ -14,7 +14,7 @@
 .feedback-page input[aria-invalid=true],.feedback-page textarea[aria-invalid=true]{border-color:#a94739}
 .feedback-compose input{max-width:240px;margin-bottom:21px;min-height:48px}
 .feedback-page textarea{resize:vertical;min-height:136px}
-.feedback-compose-bottom{display:flex;align-items:center;justify-content:space-between;gap:18px;margin-top:17px}
+.feedback-compose-bottom{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:18px;margin-top:17px}
 .feedback-counter{font-size:13px;color:var(--muted);font-variant-numeric:tabular-nums}
 .feedback-submit,.feedback-more{display:inline-flex;align-items:center;justify-content:center;min-height:46px;padding:10px 22px;border-radius:5px;background:var(--oat);color:var(--ink);transition:background 160ms}
 .feedback-submit:hover{background:#d9bcae}
@@ -23,7 +23,7 @@
 .feedback-privacy a,.feedback-note a{color:var(--ink);text-decoration:underline;text-decoration-color:#bca79a;text-underline-offset:4px}
 .feedback-privacy a:hover,.feedback-note a:hover{background:var(--wash)}
 .feedback-note{font-size:13px;color:var(--muted);margin-top:8px;line-height:1.8}
-.feedback-toolbar{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-top:58px;padding-bottom:18px;border-bottom:1px solid var(--line)}
+.feedback-toolbar{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:16px;margin-top:58px;padding-bottom:18px;border-bottom:1px solid var(--line)}
 .feedback-toolbar h2{font-size:19px;letter-spacing:-.02em}
 .feedback-sort{display:flex;gap:4px}
 .feedback-sort button,.feedback-text-button{min-height:44px;padding:9px 12px;background:transparent;border-radius:5px;font-size:14px;color:var(--muted)}
@@ -80,3 +80,9 @@
  .feedback-footer nav{gap:4px 16px}
 }
 @media(prefers-reduced-motion:reduce){.feedback-page *{scroll-behavior:auto;transition:none!important}}
+.feedback-page:not(:lang(ko)) .feedback-heading h1{letter-spacing:-.02em;overflow-wrap:anywhere}
+.feedback-page:dir(rtl) .feedback-heading h1{letter-spacing:normal}
+.feedback-page:dir(rtl) .feedback-idea-actions{margin-left:0;margin-right:-12px}
+.feedback-page:dir(rtl) .feedback-counter{direction:ltr;unicode-bidi:isolate}
+.feedback-page bdi{unicode-bidi:isolate}
+.feedback-page .feedback-toolbar h2,.feedback-page .feedback-sort button{overflow-wrap:anywhere}
