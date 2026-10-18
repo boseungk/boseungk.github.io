@@ -106,6 +106,37 @@ function rooms(lang, reduced = false) {
   assert.equal(pause.textContent, lang === 'en' ? 'Motion paused' : '움직임 정지됨');
   cards[2].map.img[1].naturalWidth = 0; next.emit('click'); assert.equal(root.dataset.roomIndex, '1', 'retain decoded room on image failure');
 }
+function journeyWash(reduced = false) {
+  const e = setup('ko', reduced), group = new Element();
+  group.rect = {left: 20, top: 100, width: 340, height: 44};
+  group.prepend = el => group.childNodes.unshift(el);
+  const steps = [0, 1, 2].map((i) => {
+    const el = new Element(); el.rect = {left: 20 + i * 100, top: 100, width: 54 + i * 8, height: 44};
+    el.dataset.current = String(i === 0); return el;
+  });
+  group.map['[data-journey-step]'] = steps;
+  e.document.map['.journey-flow'] = [group];
+  e.document.createElementNS = () => {const el = new Element(); el.childNodes = []; return el;};
+  e.document.fonts = {ready: Promise.resolve()};
+  e.s.ResizeObserver = class {observe() {}};
+  e.s.performance = {now: () => 100};
+  e.load('assets/v4/choices.js');
+  const svg = group.childNodes[0], path = svg.childNodes[0], original = path.getAttribute('d');
+  assert.equal(svg.getAttribute('aria-hidden'), 'true');
+  steps[0].dataset.current = 'false'; steps[1].dataset.current = 'true'; e.flush();
+  if (!reduced) {
+    assert.equal(path.getAttribute('d'), original, 'phase change starts at previous wash');
+    e.frame(116); const moving = path.getAttribute('d'); assert.notEqual(moving, original);
+    for (let t = 132; t < 1600; t += 16) e.frame(t);
+  }
+  assert.match(path.getAttribute('d'), /^M109\.92 3\.52C/, 'native wash settles behind the selected measured label');
+  // RTL/wide labels must use measured geometry, not a fixed column or text width.
+  steps[1].dataset.current = 'false'; steps[2].dataset.current = 'true';
+  steps[2].rect = {left: 5, top: 100, width: 130, height: 44};
+  e.document.hidden = true; e.document.emit('visibilitychange');
+  assert.match(path.getAttribute('d'), /^M5\.8/);
+  assert.equal(group.childNodes.filter(el => el instanceof Element).length, 1, 'one moving wash across all phases');
+}
 function menu() {
   const e = setup(), picker = new Element(), trigger = new Element(), links = [new Element(), new Element()];
   [trigger, ...links].forEach(el => {el.document = e.document;}); picker.childNodes = [trigger, ...links];
@@ -160,5 +191,5 @@ async function customize(lang) {
 }
 (async () => {
   for (const lang of ['ko', 'en']) {tasks(lang); tasks(lang, true); rooms(lang); rooms(lang, true); await customize(lang);}
-  menu(); searchableMenu(); console.log('PASS task/manual/pause, room day/sunset/night/12s/pause/loading/reduced-motion, customize decode/retry/reverse, KO+EN labels, searchable keyboard menu and shared suggestion navigation');
+  journeyWash(); journeyWash(true); menu(); searchableMenu(); console.log('PASS task/manual/pause, room day/sunset/night/12s/pause/loading/reduced-motion, customize decode/retry/reverse, KO+EN labels, native journey wash/resize/reduced-motion, searchable keyboard menu and shared suggestion navigation');
 })().catch(error => {console.error(error); process.exitCode = 1;});

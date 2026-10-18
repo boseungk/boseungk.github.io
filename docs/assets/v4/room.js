@@ -54,8 +54,9 @@
       let g=wrappers.get(ctx);
       if(!g){g=global.DRAWN_SKIA.canvasFor(ctx);wrappers.set(ctx,g);}
       g.begin();
-      // Fill the strip above native VIS with the selected wall's own colour.
-      ctx.save();ctx.fillStyle=wall.built.c;ctx.fillRect(0,0,p.width,p.height);ctx.restore();
+      // The extension uses the native wall's ink and time tint too; unlit cream
+      // would become a bright strip above the room at sunset and night.
+      A.ink(g,env.tint).rect(0,0,p.width,p.height,wall.built.c);
       g.save();
       try{
         g.translate(p.x,p.y);

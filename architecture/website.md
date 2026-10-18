@@ -40,6 +40,7 @@ and the API-only visitor cookie notice.
 | `v5/journey.js` | Native focus → completion → 740ms mark flight → Memory, 11-second sequence and 3-second final hold. |
 | `v5/actions.js` | Local task demo, native check/burst, one-time 650ms sequential completion; preserves manual changes. |
 | `v5/growth.js` | ES-module adapter driving unchanged native `createPlantTransition().seek()` at the 2400ms recipe duration. |
+| `v4/choices.js` | One native LiquidChoiceBackdrop path follows the noninteractive journey phases; measured label frames and the app’s spring constants, with pause/reduced-motion support. |
 | `v5/language-picker.js`, `polish.js` | Native details menu keyboard/outside-click handling and quiet heading wash. |
 
 On narrow screens the hero introduction flows before the sticky phone stage, so translated paragraphs cannot cover or shrink the phone. Header and introduction measurements keep scroll plateaus aligned; desktop retains the side-by-side layout.
@@ -75,3 +76,5 @@ Browser QA is still required for actual GPU rendering, responsive composition, p
 `check-phone-text.cjs` measures actual canvas glyph calls and tests primary SVG rendering versus canvas fallback, all journey phases and reverse seek, font/minimum size, opacity/transforms, first-mount/zero-size behavior, dense-row spacing and teardown. Visual QA covered Chrome at 1202×960 and 390×844, plus the user's in-app browser. The WebGL failure path retains its original canvas/static typography; its browser screenshot was not part of this visual pass.
 
 The homepage ends with FAQ and the contact footer; `#contact` targets the footer email and links. The former illustrated closing banner and its canvas controller have been removed.
+
+The hero wall extension uses native tinted ink, matching the room at day, sunset and night; raw wall color would create a visible band above the drawing on mobile. `check-narrative.cjs` compares the extension and room pixels in all three states.

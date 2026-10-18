@@ -11,9 +11,10 @@
 .journey-copy .journey-heading .body-copy{display:block;font-size:20px;line-height:1.85;margin-top:26px;max-width:410px}
 .journey-note{font-size:12px;line-height:1.8;color:var(--muted);margin-top:12px}
 .journey-phone>.journey-note{text-align:center}
-.journey-flow{display:flex;gap:18px;align-items:center;font-size:17px;color:#776b66}
-.journey-flow [data-journey-step]{padding:7px 12px;border-radius:5px}
-.journey-flow [data-current=true]{background:#efe3dd;color:#473e3b}
+.journey-flow{position:relative;isolation:isolate;display:flex;gap:18px;align-items:center;font-size:17px;color:#776b66}
+.journey-flow [data-journey-step]{position:relative;z-index:1;padding:7px 12px}
+.journey-flow [data-current=true]{color:#473e3b}
+.journey-flow .choice-wash{position:absolute;inset:0;width:100%;height:100%;z-index:0;overflow:visible;pointer-events:none}
 @media(max-width:760px){
  .journey{padding-block:65px 70px}
  .journey-layout{display:flex;flex-direction:column;gap:22px}
