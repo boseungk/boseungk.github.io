@@ -94,9 +94,9 @@ The older monochrome Simple Icons copies are removed. Brand artwork belongs to i
 ## Room lighting exports
 `assets/v5/customize/*-night.png` and `*-night-unlit.png` use the same native room geometry/projection as daytime, rendered by `tools/render-customize.cjs`. No app source modified.
 
-## Growth sequence (2026-10-11)
-Five tree PNG stages are exported from Dayloom `src/world/drawn/growth/art-tree.ts` through `drawGrowthArtFitted` with `reserveFutureSize=true` (`tools/render-growth.cjs`). The seed PNG is the no-script homepage illustration; live animation is driven by SVG geometry, not PNG swapping.
+## Growth sequence (2026-10-18)
+`tools/export-growth.cjs` reads production Dayloom `src/features/onboarding/scene/onboarding-flower-motion.ts`, `src/world/drawn/growth/art-flower.ts` and its shape helpers. The generated ESM modules retain the native timeline and track-pose functions. The seed SVG is exported from the same artwork. Source/generated hashes and the native drawing/lifecycle references are recorded in `architecture/native-growth-sources.json`.
 
-The six source files in `v5/growth-motion/` are copied unchanged from Dayloom `design/prototype-editorial/lab/growth-reveal-*`. `v5/growth.js` drives their `createPlantTransition().seek()` across four adjacent tree transitions, using the native 2400ms recipe duration. This is a Dayloom design prototype; it does not use the RN thumbnail Reveal entrance. Source-relative paths and hashes are recorded in `architecture/native-growth-sources.json`.
+`v5/growth-flower.mjs` adapts `onboarding-flower-drawing.ts` from Skia to SVG, preserving paint order, a fixed pot, 65-point stem interpolation, attached leaves and blossom tracks. The website uses the app onboarding's 11.1-second flower sequence and retains its final frame. The previous tree design study, generated tree PNGs and repeat loop are removed. This is specifically the production onboarding animation; growth collection/detail and completion use separate static specimens.
 
 Both native export commands share `tools/native-renderer.cjs`. Its napi-rs contour correction preserves independent SVG subpaths and is covered by `tools/check-native-contours.cjs`; this prevents diagonal triangles in cloud/mineral room art without changing the app source.

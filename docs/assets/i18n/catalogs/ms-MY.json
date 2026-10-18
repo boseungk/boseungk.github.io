@@ -222,5 +222,8 @@
   "언어 찾기": "Cari bahasa",
   "일치하는 언어가 없어요.": "Tiada bahasa yang sepadan.",
   "{hours}시간 {minutes}분": "{hours} jam {minutes} minit",
-  "예시 할 일 {total}개 중 {count}개를 완료했어요.": "{count} daripada {total} tugasan contoh selesai."
+  "예시 할 일 {total}개 중 {count}개를 완료했어요.": "{count} daripada {total} tugasan contoh selesai.",
+  "줄기": "Batang",
+  "봉오리": "Kuntum",
+  "꽃": "Bunga"
 }

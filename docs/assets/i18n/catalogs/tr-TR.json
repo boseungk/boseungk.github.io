@@ -222,5 +222,8 @@
   "언어 찾기": "Dil bul",
   "일치하는 언어가 없어요.": "Eşleşen dil yok.",
   "{hours}시간 {minutes}분": "{hours} sa {minutes} dk",
-  "예시 할 일 {total}개 중 {count}개를 완료했어요.": "{total} örnek görevin {count} tanesi tamamlandı."
+  "예시 할 일 {total}개 중 {count}개를 완료했어요.": "{total} örnek görevin {count} tanesi tamamlandı.",
+  "줄기": "Sap",
+  "봉오리": "Tomurcuk",
+  "꽃": "Çiçek"
 }

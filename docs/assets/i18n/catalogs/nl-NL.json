@@ -222,5 +222,8 @@
   "언어 찾기": "Taal zoeken",
   "일치하는 언어가 없어요.": "Geen overeenkomende talen.",
   "{hours}시간 {minutes}분": "{hours} u {minutes} min",
-  "예시 할 일 {total}개 중 {count}개를 완료했어요.": "{count} van {total} voorbeeldtaken voltooid."
+  "예시 할 일 {total}개 중 {count}개를 완료했어요.": "{count} van {total} voorbeeldtaken voltooid.",
+  "줄기": "Stengel",
+  "봉오리": "Knop",
+  "꽃": "Bloem"
 }

@@ -39,7 +39,7 @@ and the API-only visitor cookie notice.
 | `v5/rooms.js` | Nine rooms, aligned day/sunset/night/lamp PNG layers, one pet canvas per room, visible 12-second carousel and local/global pause. |
 | `v5/journey.js` | Native focus → completion → 740ms mark flight → Memory, 11-second sequence and 3-second final hold. |
 | `v5/actions.js` | Local task demo, native check/burst, one-time 650ms sequential completion; preserves manual changes. |
-| `v5/growth.js` | ES-module adapter driving unchanged native `createPlantTransition().seek()` at the 2400ms recipe duration. |
+| `v5/growth.js` | Visibility-aware playback of the production onboarding flower: 11.1 seconds, then holds the final flower. SVG painting uses exported native track poses. |
 | `ui/selection-spec.js`, `selection-motion.js`, `selection.js` | Exported native curve/padding/palette/timing, analytic spring clock, and measured label adapters for navigation, language choice, phase progress and feedback sorting. |
 | `v5/language-picker.js` | Native details menu keyboard/outside-click handling. |
 
@@ -59,13 +59,14 @@ node tools/render-customize.cjs --stages-only
 node tools/render-customize.cjs --dusk-only
 node tools/render-customize.cjs --night-only
 node tools/render-customize.cjs --night-only --unlit
-node tools/render-growth.cjs
+node tools/export-growth.cjs
+node --test tools/check-growth.mjs
 node tools/check-native-contours.cjs
 ```
 
 Native exports require Dayloom's installed TypeScript and bundled `@napi-rs/canvas`. `--stages-only` refreshes the four Flower Conservatory customization stages and their bounds evidence. `--incremental-only` refreshes only room stages 0–2 while retaining the rest of the daytime manifest; use the full commands for a complete export. `--dusk-only` exports native time index 1 for all nine rooms, with lamps off. Carousel time is independent of pointer position and pauses offscreen; sunset artwork must load before playback starts. Per-slot bounds in `*render-evidence.json` must remain uncropped. The napi-rs `Path2D.addPath` correction concatenates independent SVG subpaths so closed contours cannot grow diagonal triangles; source-pattern validation fails if the upstream adapter changes. Transformed paths retain their existing branch.
 
-`growth-motion/` contains six unchanged design-prototype modules. [native-growth-sources.json](native-growth-sources.json) records source-relative paths and SHA-256 hashes. `tools/check-site.py` checks these local copies without requiring the app checkout. Only native export/contour tests need that checkout.
+`growth-motion/` contains three TypeScript-to-ESM exports from production `src/features/onboarding/scene/onboarding-flower-motion.ts` and native flower artwork/helpers. `tools/export-growth.cjs` regenerates them and the static seed SVG. [native-growth-sources.json](native-growth-sources.json) records original and generated hashes, plus the native drawing and lifecycle sources used by the web adapter. `growth-flower.mjs` maps the native painting order and 65-point stem sampling to SVG; framing alone is fitted to the landing section. The pot stays fixed; stems grow before leaves unfold, and the final bloom retains its existing stem and leaves. Native timing is a 600ms seed hold, four 2400ms transitions and 300ms intermediate holds. Playback begins/resumes when 80% of the illustration is visible and retains the final flower, while reduced motion shows the final authored artwork. The previous tree study modules and automatic reset loop have been removed. The app growth detail/completion screens themselves use static specimens with a small entrance effect; the website now specifically reproduces the production onboarding flower animation, not those screens.
 
 ## Checks and limitations
 

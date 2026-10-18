@@ -222,5 +222,8 @@
   "언어 찾기": "Finn et språk",
   "일치하는 언어가 없어요.": "Ingen språk samsvarer.",
   "{hours}시간 {minutes}분": "{hours} t {minutes} min",
-  "예시 할 일 {total}개 중 {count}개를 완료했어요.": "{count} av {total} eksempeloppgaver fullført."
+  "예시 할 일 {total}개 중 {count}개를 완료했어요.": "{count} av {total} eksempeloppgaver fullført.",
+  "줄기": "Stilk",
+  "봉오리": "Knopp",
+  "꽃": "Blomst"
 }

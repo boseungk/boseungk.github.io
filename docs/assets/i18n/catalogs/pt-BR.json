@@ -222,5 +222,8 @@
   "언어 찾기": "Buscar um idioma",
   "일치하는 언어가 없어요.": "Nenhum idioma correspondente.",
   "{hours}시간 {minutes}분": "{hours} h {minutes} min",
-  "예시 할 일 {total}개 중 {count}개를 완료했어요.": "{count} de {total} tarefas de exemplo concluídas."
+  "예시 할 일 {total}개 중 {count}개를 완료했어요.": "{count} de {total} tarefas de exemplo concluídas.",
+  "줄기": "Caule",
+  "봉오리": "Botão",
+  "꽃": "Flor"
 }

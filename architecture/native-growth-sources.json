@@ -1,32 +1,28 @@
 [
   {
-    "file": "growth-reveal-art.gen.js",
-    "source": "design/prototype-editorial/lab/growth-reveal-art.gen.js",
-    "sha256": "cd19335122e025d9f143b0c05a585520a2625095c3eafd80cde1ca5001b1bf40"
+    "file": "art-shapes.mjs",
+    "source": "src/world/drawn/growth/art-shapes.ts",
+    "sourceSha256": "486d5b738dddca63acd96c902e64c353aed395fdcf590d2a6bade8d475285c86",
+    "sha256": "8dda26f8f382c7555a751437d995d37c4ecdb644ce6571fec6ae05716c06aae9"
   },
   {
-    "file": "growth-reveal-paths.mjs",
-    "source": "design/prototype-editorial/lab/growth-reveal-paths.mjs",
-    "sha256": "0f791725e35ad82768741413ba2b5d4c442aa0be55e06446bc6eae9834ca36a4"
+    "file": "art-flower.mjs",
+    "source": "src/world/drawn/growth/art-flower.ts",
+    "sourceSha256": "9c8c999daae6fe284c6db1bd6d21049aac0ef7c7109aefa02b479e3f3fa57a17",
+    "sha256": "bee0d0771781c75dc9b6bfe5ebe62d13d90bdd23613199d815a0a0327554d2e0"
   },
   {
-    "file": "growth-reveal-plant-motion.mjs",
-    "source": "design/prototype-editorial/lab/growth-reveal-plant-motion.mjs",
-    "sha256": "e5b5ea36bda736c69c1d537871db7dfdf1c72873de1214a3ff3a7bac36b15a29"
+    "file": "onboarding-flower-motion.mjs",
+    "source": "src/features/onboarding/scene/onboarding-flower-motion.ts",
+    "sourceSha256": "ac4678ade9a060fde5f4d44dcf199e386135f1b6dc812243e3b93bac5d8a2ed3",
+    "sha256": "77dfba01c748b25b631fee15dcb7d335a8cf306caa4d02d804483994bcb26824"
   },
   {
-    "file": "growth-reveal-plant-structure.mjs",
-    "source": "design/prototype-editorial/lab/growth-reveal-plant-structure.mjs",
-    "sha256": "d917c834682da0aecf7e41a1de1e3be61a281fedd0004c5767bcc0fd8f503399"
+    "source": "src/features/onboarding/scene/onboarding-flower-drawing.ts",
+    "sourceSha256": "1995edf7766161ab7c3710a788287bc14720fa4a8625f6c87e92c6c37572897e"
   },
   {
-    "file": "growth-reveal-recipes.mjs",
-    "source": "design/prototype-editorial/lab/growth-reveal-recipes.mjs",
-    "sha256": "2cc2f8cfd6c270a25fed7935f971bb2253b8c3db72a449c3b6d9977f25400c1b"
-  },
-  {
-    "file": "growth-reveal-stem-motion.mjs",
-    "source": "design/prototype-editorial/lab/growth-reveal-stem-motion.mjs",
-    "sha256": "fff03c37fd7e0abbcbd677703074676c5b3e2f8e0db0f21ab4b3daafc5fe6d95"
+    "source": "src/features/onboarding/scene/onboarding-flower.tsx",
+    "sourceSha256": "2d9e169a60f192fac1789486f19d5b7374819ed0d5c89600df63c96988672c02"
   }
 ]

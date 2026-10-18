@@ -222,5 +222,8 @@
   "언어 찾기": "Tìm ngôn ngữ",
   "일치하는 언어가 없어요.": "Không có ngôn ngữ phù hợp.",
   "{hours}시간 {minutes}분": "{hours} giờ {minutes} phút",
-  "예시 할 일 {total}개 중 {count}개를 완료했어요.": "Đã hoàn thành {count} trong {total} công việc mẫu."
+  "예시 할 일 {total}개 중 {count}개를 완료했어요.": "Đã hoàn thành {count} trong {total} công việc mẫu.",
+  "줄기": "Thân cây",
+  "봉오리": "Nụ",
+  "꽃": "Hoa"
 }
