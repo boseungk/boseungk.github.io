@@ -50,14 +50,7 @@ svg{width:22px;height:22px;flex:none}
 .questions summary:after{content:'+';position:absolute;right:3px;top:17px;color:#887d77;font-size:24px}
 .questions details[open] summary:after{content:'−'}
 .questions details>p{font-size:15px;line-height:1.85;color:var(--muted);padding:18px 28px 24px 0}
-.closing{width:calc(100% - 40px);margin:0 auto;min-height:460px;position:relative;overflow:hidden;background:#eceddf;border-radius:12px;display:flex;align-items:center;justify-content:center}
-.closing-landscape{position:absolute;inset:0}
-.closing-landscape canvas{width:100%;height:100%;opacity:.36}
-.closing-copy{position:relative;text-align:center;z-index:1;padding:60px 24px;color:#393e36}
-.closing-copy .eyebrow{color:inherit}
-.closing-copy h2{font-size:42px}
-.closing-copy .button{margin-top:28px;background:#fff}
-.footer{padding-block:75px 27px}
+.footer{padding-block:75px 27px;border-top:1px solid var(--line)}
 .footer-main{display:grid;grid-template-columns:1.6fr 1fr 1fr;gap:70px}
 .footer-about p{font-size:14px;color:var(--muted);line-height:1.9;margin-top:20px}
 .footer-about>a:last-child{display:inline-flex;align-items:center;min-height:44px;font-size:15px;margin-top:18px}
@@ -103,10 +96,6 @@ svg{width:22px;height:22px;flex:none}
 .faq-list{margin-top:25px}
 .questions summary{font-size:15px;min-height:61px;padding-block:17px}
 .questions details>p{font-size:14px}
-.closing{width:calc(100% - 20px);min-height:400px;border-radius:10px}
-.closing-copy h2{font-size:33px}
-.closing-copy .button{font-size:14px;min-height:48px;margin-top:22px}
-.closing-landscape canvas{opacity:.2}
 .footer{padding-block:50px 25px}
 .footer-main{grid-template-columns:1fr 1fr;gap:30px}
 .footer-about{grid-column:1/-1}

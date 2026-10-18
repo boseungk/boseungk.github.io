@@ -1,4 +1,4 @@
-/* Page-owned motion control, task phase drawings, closing landscape and statistics. */
+/* Page-owned motion control, task phase drawings and statistics. */
 (function () {
   'use strict';
   const $ = selector => document.querySelector(selector);
@@ -26,11 +26,6 @@
     if (canvas.width !== width || canvas.height !== height) {canvas.width = width; canvas.height = height;}
     return {width, height};
   }
-  $$('[data-landscape]').forEach(canvas => host(canvas, (ctx, size) => {
-    ctx.fillStyle = '#d6dfd8'; ctx.fillRect(0, 0, size.width, size.height);
-    MARLandscape.draw(ctx, {...size, scene: canvas.dataset.landscape, tod: Number(canvas.dataset.tod), time: clock, reduced: paused, fit: 'cover'});
-    canvas.parentElement.classList.add('ready');
-  }));
   $$('[data-phase]').forEach(canvas => host(canvas, (ctx, size) => {
     ctx.clearRect(0, 0, size.width, size.height);
     MARLandscape.drawTimeMark(ctx, {...size, phase: canvas.dataset.phase, time: paused ? 950 : (clock * 1000) % 12000});

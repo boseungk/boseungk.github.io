@@ -31,7 +31,7 @@ and the API-only visitor cookie notice.
 
 | Owner | Responsibility |
 | --- | --- |
-| `home.js` | Global `mar:motion` pause, closing landscape/task phase canvases, statistics reveal; mounts customize and journey. |
+| `home.js` | Global `mar:motion` pause, task phase canvases, statistics reveal; mounts customize and journey. |
 | `v4/hero.js` | Deterministic scroll plateaus and native room/phone expansion, including distinct day, sunset and night holds and reverse scroll. |
 | `v4/phone.js` | GLB shell, polygon-masked source-canvas display and SVG text layer lifetime; `getScreenRect`, `render`, `resize`, `destroy`. |
 | `v4/room.js`, `screen.js` + `drawn-app.js`, v3 landscape/pet | Native drawing adapters and copied app renderer. |
@@ -73,3 +73,5 @@ Native exports require Dayloom's installed TypeScript and bundled `@napi-rs/canv
 Browser QA is still required for actual GPU rendering, responsive composition, pointer/focus navigation and animation appearance. The fixtures exercise controller contracts, not a browser layout engine. No push or deployment is part of local cleanup.
 
 `check-phone-text.cjs` measures actual canvas glyph calls and tests primary SVG rendering versus canvas fallback, all journey phases and reverse seek, font/minimum size, opacity/transforms, first-mount/zero-size behavior, dense-row spacing and teardown. Visual QA covered Chrome at 1202×960 and 390×844, plus the user's in-app browser. The WebGL failure path retains its original canvas/static typography; its browser screenshot was not part of this visual pass.
+
+The homepage ends with FAQ and the contact footer; `#contact` targets the footer email and links. The former illustrated closing banner and its canvas controller have been removed.

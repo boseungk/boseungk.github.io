@@ -9,13 +9,6 @@
 .questions details[open]{background:#faf7f4;border-radius:5px}
 .questions summary:after{top:21px;right:12px}
 .questions h2{font-size:36px}
-.closing{width:100%;border-radius:0;display:grid;grid-template-columns:1fr 1fr;min-height:440px;background:#f3eee7}
-.closing-landscape{position:relative;grid-column:2;grid-row:1;height:100%;min-height:440px;overflow:hidden}
-.closing-landscape canvas{opacity:1!important;position:absolute;inset:0}
-.closing-copy{grid-column:1;grid-row:1;text-align:left;padding:70px max(40px,calc((100vw - 1180px)/2));padding-right:30px;white-space:nowrap}
-.closing-copy h2{font-size:clamp(32px,3vw,45px);letter-spacing:-.035em}
-.closing-copy .button{background:#e1cabf;transition:background 200ms,transform 250ms}
-.closing-copy .button:hover{background:#d8bcae;transform:translateY(-2px)}
 .footer-main{gap:72px}
 .footer-about p{font-size:15px}
 .footer nav>a{font-size:15px}
@@ -26,10 +19,6 @@
 .questions h2{font-size:30px}
 .questions summary{font-size:16px}
 .questions details>p{font-size:15px}
-.closing{display:flex;flex-direction:column-reverse}
-.closing-landscape{width:100%;min-height:290px}
-.closing-copy{white-space:normal;width:100%;padding:45px 24px;text-align:left}
-.closing-copy h2{font-size:34px}
 .footer-main{gap:25px;padding-top:15px}
 .footer-about p,.footer nav>a{font-size:14px}
 .footer-bottom{font-size:12px}
@@ -107,7 +96,6 @@ html:not([lang=ko]) .intro-description{font-size:18px}
 html:not([lang=ko]) .intro-scene-copy h2{font-size:clamp(32px,3.4vw,48px)}
 html:not([lang=ko]) .customize-caption{font-size:14px}
 html:not([lang=ko]) .room-print figcaption{font-size:15px;gap:10px}
-html:not([lang=ko]) .closing-copy{white-space:normal}
 @media(max-width:760px){
 html:not([lang=ko]) .intro-copy h1{font-size:33px}
 html:not([lang=ko]) .intro-description{font-size:14px}
@@ -157,7 +145,7 @@ html:not([lang=ko]) h1,html:not([lang=ko]) h2,html:not([lang=ko]) h3{word-break:
 html[dir=rtl]{text-align:start}
 html[dir=rtl] h1,html[dir=rtl] h2,html[dir=rtl] h3,html[dir=rtl] .eyebrow{letter-spacing:normal}
 html[dir=rtl] .header nav{margin-left:24px;margin-right:auto}
-html[dir=rtl] .closing-copy,html[dir=rtl] .task-row,html[dir=rtl] .journey-heading{text-align:start}
+html[dir=rtl] .task-row,html[dir=rtl] .journey-heading{text-align:start}
 html[dir=rtl] .heading-accent:before{transform-origin:right}
 html[dir=rtl] .task-row .task-name{letter-spacing:normal}
 html[dir=rtl] .task-row .task-check{margin-right:0;margin-left:14px}
