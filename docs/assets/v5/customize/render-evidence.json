@@ -108,8 +108,8 @@
           "id": "classic-sofa"
         },
         "light": {
-          "id": "collection-pebble-lamp",
-          "variant": "original"
+          "id": "study-tulip-lamp",
+          "variant": "study-pistachio-rose"
         },
         "wallDeco": {
           "id": "grass-frame"
@@ -125,7 +125,7 @@
       },
       "season": "spring",
       "selections": {
-        "light": "drawn.light.collection-pebble-lamp.original"
+        "light": "drawn.light.study-tulip-lamp.study-pistachio-rose"
       },
       "omittedSlots": [],
       "slots": {
@@ -137,10 +137,10 @@
           "uncropped": true
         },
         "light": {
-          "left": 57,
-          "top": 468,
-          "right": 183,
-          "bottom": 883,
+          "left": 47,
+          "top": 501,
+          "right": 173,
+          "bottom": 891,
           "uncropped": true
         },
         "rug": {
@@ -180,12 +180,12 @@
           "id": "hills"
         },
         "seat": {
-          "id": "collection-bentwood-bench",
-          "variant": "original"
+          "id": "study-petal-lounge",
+          "variant": "study-pistachio-rose"
         },
         "light": {
-          "id": "collection-pebble-lamp",
-          "variant": "original"
+          "id": "study-tulip-lamp",
+          "variant": "study-pistachio-rose"
         },
         "wallDeco": {
           "id": "grass-frame"
@@ -195,16 +195,16 @@
         },
         "sill": null,
         "rug": {
-          "id": "collection-waterline-rug",
-          "variant": "original"
+          "id": "study-petal-rug",
+          "variant": "study-citron-aubergine"
         },
         "floorItem": null
       },
       "season": "spring",
       "selections": {
-        "light": "drawn.light.collection-pebble-lamp.original",
-        "seat": "drawn.seat.collection-bentwood-bench.original",
-        "rug": "drawn.rug.collection-waterline-rug.original"
+        "light": "drawn.light.study-tulip-lamp.study-pistachio-rose",
+        "seat": "drawn.seat.study-petal-lounge.study-pistachio-rose",
+        "rug": "drawn.rug.study-petal-rug.study-citron-aubergine"
       },
       "omittedSlots": [],
       "slots": {
@@ -216,24 +216,24 @@
           "uncropped": true
         },
         "light": {
-          "left": 57,
-          "top": 468,
-          "right": 183,
-          "bottom": 883,
+          "left": 47,
+          "top": 501,
+          "right": 173,
+          "bottom": 891,
           "uncropped": true
         },
         "rug": {
           "left": 164,
-          "top": 908,
+          "top": 903,
           "right": 615,
-          "bottom": 1022,
+          "bottom": 1018,
           "uncropped": true
         },
         "seat": {
-          "left": 212,
-          "top": 656,
-          "right": 567,
-          "bottom": 896,
+          "left": 225,
+          "top": 591,
+          "right": 554,
+          "bottom": 905,
           "uncropped": true
         }
       }
@@ -245,17 +245,17 @@
         "y": 887.7777777777777,
         "scale": 0.23111111111111116
       },
-      "environmentId": "drawn.environment.open-rose-lake.original",
+      "environmentId": "drawn.environment.open-study-pistachio-rose.original",
       "season": "summer",
       "selections": {
-        "wall": "drawn.wall.collection-linen-water-wall.original",
-        "floor": "drawn.floor.collection-lakeside-parquet.original",
-        "window": "drawn.window.study-grand-arch.study-moonlit-path-room",
-        "seat": "drawn.seat.collection-bentwood-bench.original",
-        "light": "drawn.light.collection-pebble-lamp.original",
-        "rug": "drawn.rug.collection-waterline-rug.original",
-        "sill": "drawn.sill.collection-water-vase.original",
-        "plantSpot": "drawn.plantSpot.corner-aquarium.classic"
+        "wall": "drawn.wall.collection-garden-trellis.original",
+        "floor": "drawn.floor.collection-greenhouse-pavers.original",
+        "window": "drawn.window.study-twin-arch.study-blue-wisteria",
+        "seat": "drawn.seat.study-petal-lounge.study-pistachio-rose",
+        "light": "drawn.light.study-tulip-lamp.study-pistachio-rose",
+        "rug": "drawn.rug.study-petal-rug.study-citron-aubergine",
+        "plantSpot": "drawn.plantSpot.monstera.ceramic",
+        "sill": "drawn.sill.collection-potting-tray.original"
       },
       "omittedSlots": [
         "wallDeco",
@@ -263,31 +263,31 @@
       ],
       "slots": {
         "window": {
-          "left": 177,
-          "top": 194,
-          "right": 602,
-          "bottom": 629,
+          "left": 172,
+          "top": 228,
+          "right": 608,
+          "bottom": 630,
           "uncropped": true
         },
         "light": {
-          "left": 57,
-          "top": 468,
-          "right": 183,
-          "bottom": 883,
+          "left": 47,
+          "top": 501,
+          "right": 173,
+          "bottom": 891,
           "uncropped": true
         },
         "rug": {
           "left": 164,
-          "top": 908,
+          "top": 903,
           "right": 615,
-          "bottom": 1022,
+          "bottom": 1018,
           "uncropped": true
         },
         "seat": {
-          "left": 212,
-          "top": 656,
-          "right": 567,
-          "bottom": 896,
+          "left": 225,
+          "top": 591,
+          "right": 554,
+          "bottom": 905,
           "uncropped": true
         }
       }
@@ -780,5 +780,6 @@
         }
       }
     }
-  ]
+  ],
+  "sequenceTheme": "garden"
 }

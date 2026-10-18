@@ -35,7 +35,7 @@ and the API-only visitor cookie notice.
 | `v4/hero.js` | Deterministic scroll plateaus and native room/phone expansion, including reverse scroll. |
 | `v4/phone.js` | GLB shell, polygon-masked source-canvas display and SVG text layer lifetime; `getScreenRect`, `render`, `resize`, `destroy`. |
 | `v4/room.js`, `screen.js` + `drawn-app.js`, v3 landscape/pet | Native drawing adapters and copied app renderer. |
-| `v5/customize.js` | Four fixed-projection incremental PNG stages; keep previous decoded image during load/failure. |
+| `v5/customize.js` | Four fixed-projection PNG stages from the default room to Flower Conservatory; keep previous decoded image during load/failure. |
 | `v5/rooms.js` | Nine rooms, aligned day/unlit/lamp PNG layers, one pet canvas per room, visible 8-second carousel and local/global pause. |
 | `v5/journey.js` | Native focus → completion → 740ms mark flight → Memory, 11-second sequence and 3-second final hold. |
 | `v5/actions.js` | Local task demo, native check/burst, one-time 650ms sequential completion; preserves manual changes. |
@@ -54,13 +54,14 @@ Controllers own their animation clock, visibility/hidden-page pause and reduced-
 
 ```sh
 node tools/render-customize.cjs
+node tools/render-customize.cjs --stages-only
 node tools/render-customize.cjs --night-only
 node tools/render-customize.cjs --night-only --unlit
 node tools/render-growth.cjs
 node tools/check-native-contours.cjs
 ```
 
-Native exports require Dayloom's installed TypeScript and bundled `@napi-rs/canvas`. `--incremental-only` refreshes only room stages 0–2 while retaining the rest of the daytime manifest; use the full commands for a complete export. Per-slot bounds in `*render-evidence.json` must remain uncropped. The napi-rs `Path2D.addPath` correction concatenates independent SVG subpaths so closed contours cannot grow diagonal triangles; source-pattern validation fails if the upstream adapter changes. Transformed paths retain their existing branch.
+Native exports require Dayloom's installed TypeScript and bundled `@napi-rs/canvas`. `--stages-only` refreshes the four Flower Conservatory customization stages and their bounds evidence. `--incremental-only` refreshes only room stages 0–2 while retaining the rest of the daytime manifest; use the full commands for a complete export. Per-slot bounds in `*render-evidence.json` must remain uncropped. The napi-rs `Path2D.addPath` correction concatenates independent SVG subpaths so closed contours cannot grow diagonal triangles; source-pattern validation fails if the upstream adapter changes. Transformed paths retain their existing branch.
 
 `growth-motion/` contains six unchanged design-prototype modules. [native-growth-sources.json](native-growth-sources.json) records source-relative paths and SHA-256 hashes. `tools/check-site.py` checks these local copies without requiring the app checkout. Only native export/contour tests need that checkout.
 

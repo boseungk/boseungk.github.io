@@ -23,21 +23,25 @@ function bounds(canvas) {
   }
   return {left, top, right, bottom, uncropped: right < 0 || (left > 0 && top > 0 && right < canvas.width - 1 && bottom < canvas.height - 1)};
 }
-const lake = collectionThemes.find(theme => theme.id === 'lake');
-const lakeScene = compositionScene({id: lake.id, place: 'indoor', ...lake.room}).room;
+const theme = collectionThemes.find(theme => theme.id === 'garden');
+const themeScene = compositionScene({id: theme.id, place: 'indoor', ...theme.room}).room;
 const base = {id: 'web-default', place: 'indoor', nativeSelection: api.DEFAULT_SELECTION, selections: {}};
 const stages = [
   ['step-0', base],
-  ['step-1', {...base, id: 'web-lamp', nativeSelection: {...api.DEFAULT_SELECTION, light: lakeScene.selection.light}, selections: {light: lake.room.selections.light}}],
-  ['step-2', {...base, id: 'web-seat-rug', nativeSelection: {...api.DEFAULT_SELECTION, ...Object.fromEntries(['light', 'seat', 'rug'].map(slot => [slot, lakeScene.selection[slot]]))}, selections: Object.fromEntries(['light', 'seat', 'rug'].map(slot => [slot, lake.room.selections[slot]]))}],
-  ['step-3', {id: lake.id, place: 'indoor', ...lake.room}],
+  ['step-1', {...base, id: 'web-lamp', nativeSelection: {...api.DEFAULT_SELECTION, light: themeScene.selection.light}, selections: {light: theme.room.selections.light}}],
+  ['step-2', {...base, id: 'web-seat-rug', nativeSelection: {...api.DEFAULT_SELECTION, ...Object.fromEntries(['light', 'seat', 'rug'].map(slot => [slot, themeScene.selection[slot]]))}, selections: Object.fromEntries(['light', 'seat', 'rug'].map(slot => [slot, theme.room.selections[slot]]))}],
+  ['step-3', {id: theme.id, place: 'indoor', ...theme.room}],
 ];
 const unlit = process.argv.includes('--unlit');
 const nightOnly = process.argv.includes('--night-only');
 const incrementalOnly = process.argv.includes('--incremental-only');
-const report = incrementalOnly ? JSON.parse(fs.readFileSync(path.join(output, 'render-evidence.json'), 'utf8')) : {source: app, projection, stages: [], rooms: []};
+const stagesOnly = process.argv.includes('--stages-only');
+if (stagesOnly && (nightOnly || incrementalOnly)) throw new Error('--stages-only must be used on its own');
+const report = incrementalOnly || stagesOnly ? JSON.parse(fs.readFileSync(path.join(output, 'render-evidence.json'), 'utf8')) : {source: app, projection, stages: [], rooms: []};
 if (incrementalOnly) report.stages = report.stages.filter(stage => !['step-0', 'step-1', 'step-2'].includes(stage.id));
-const jobs = incrementalOnly ? stages.slice(0, 3) : [...stages, ...collectionThemes.map(theme => [theme.id, {id: theme.id, place: 'indoor', ...theme.room}])];
+if (stagesOnly) report.stages = [];
+report.sequenceTheme = theme.id;
+const jobs = stagesOnly ? stages : incrementalOnly ? stages.slice(0, 3) : [...stages, ...collectionThemes.map(theme => [theme.id, {id: theme.id, place: 'indoor', ...theme.room}])];
 for (const [baseId, recipe] of jobs) {
   if (nightOnly && baseId.startsWith('step-')) continue;
   const id = baseId + (nightOnly ? (unlit ? '-night-unlit' : '-night') : '');

@@ -2,9 +2,9 @@
   'use strict';
   const captions = [
     MARCopy.text('편안한 기본 방에서 시작해요.'),
-    MARCopy.text('물빛 조약돌 조명을 골랐어요.'),
-    MARCopy.text('곡선 벤치와 물결 러그를 더해요.'),
-    MARCopy.text('고요한 호수, 나만의 방이 되었어요.')
+    MARCopy.text('튤립 조명을 골랐어요.'),
+    MARCopy.text('꽃잎 의자와 꽃 모양 러그를 더해요.'),
+    MARCopy.text('꽃의 온실, 나만의 방이 되었어요.')
   ];
   const clamp = value => Math.max(0, Math.min(1, Number(value) || 0));
   const stateFor = progress => progress < .22 ? 0 : progress < .47 ? 1 : progress < .72 ? 2 : 3;

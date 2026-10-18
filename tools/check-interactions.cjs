@@ -142,7 +142,7 @@ async function customize(lang) {
   assert.equal(root.dataset.customizeUnavailable, 'true'); assert.equal(warnings.length, 1);
   frames[1].complete = true; frames[1].naturalWidth = 780; controller.seek(.3);
   assert.equal(controller.state, 1); assert.equal(root.dataset.customizeUnavailable, undefined);
-  assert.equal(caption.textContent, lang === 'en' ? 'Add a pebble lamp in a watery blue.' : '물빛 조약돌 조명을 골랐어요.');
+  assert.equal(caption.textContent, lang === 'en' ? 'Choose a tulip lamp.' : '튤립 조명을 골랐어요.');
   controller.seek(1); assert.equal(controller.state, 3); controller.seek(0); assert.equal(controller.state, 0);
   controller.destroy(); assert.equal(root.marCustomize, undefined);
 }
