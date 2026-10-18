@@ -20,8 +20,8 @@
 .feedback-submit:hover{background:#d9bcae}
 .feedback-page button:disabled{cursor:wait;opacity:.55}
 .feedback-privacy{font-size:14px;color:var(--muted);margin:17px 0 0;line-height:1.8}
-.feedback-privacy a,.feedback-note a{color:var(--ink);text-decoration:underline;text-decoration-color:#bca79a;text-underline-offset:4px}
-.feedback-privacy a:hover,.feedback-note a:hover{background:var(--wash)}
+.feedback-privacy a,.feedback-note a{color:var(--ink);text-decoration:none}
+
 .feedback-note{font-size:13px;color:var(--muted);margin-top:8px;line-height:1.8}
 .feedback-toolbar{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:16px;margin-top:58px;padding-bottom:18px;border-bottom:1px solid var(--line)}
 .feedback-toolbar h2{font-size:19px;letter-spacing:-.02em}

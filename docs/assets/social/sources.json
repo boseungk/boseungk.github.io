@@ -1,0 +1,35 @@
+[
+  {
+    "name": "YouTube",
+    "publisher": "Google",
+    "file": "youtube-app.jpg",
+    "listing": "https://apps.apple.com/us/app/youtube/id544007664?uo=4",
+    "metadata": "https://itunes.apple.com/lookup?id=544007664&country=us",
+    "source": "https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/9d/cc/4d/9dcc4d29-3199-cfdb-da1e-64ec30a4046b/logo_youtube_2024_q4_color-0-0-1x_U007emarketing-0-0-0-7-0-0-0-85-220.png/512x512bb.jpg",
+    "retrieved": "2026-10-18",
+    "sha256": "4303ec20a72244bb11e8a0578e8bbfc16024655714be954852c1eda5da1900d8",
+    "bytes": 13860
+  },
+  {
+    "name": "Threads",
+    "publisher": "Instagram, Inc.",
+    "file": "threads-app.jpg",
+    "listing": "https://apps.apple.com/us/app/threads/id6446901002?uo=4",
+    "metadata": "https://itunes.apple.com/lookup?id=6446901002&country=us",
+    "source": "https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/f8/d0/e8/f8d0e873-d8d9-b627-5afc-198d0a692846/Prod-0-0-1x_U007ephone-0-1-0-sRGB-85-220.png/512x512bb.jpg",
+    "retrieved": "2026-10-18",
+    "sha256": "ee2c6bf5dd842df1950592a383bafeabefd0ff8c5da8ffa48d9ce49e39096d54",
+    "bytes": 29922
+  },
+  {
+    "name": "Instagram",
+    "publisher": "Instagram, Inc.",
+    "file": "instagram-app.jpg",
+    "listing": "https://apps.apple.com/us/app/instagram/id389801252?uo=4",
+    "metadata": "https://itunes.apple.com/lookup?id=389801252&country=us",
+    "source": "https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/41/41/0a/41410ad0-b22e-c93c-d4b1-7f14f8494e06/Prod-0-0-1x_U007epad-0-1-0-sRGB-85-220.png/512x512bb.jpg",
+    "retrieved": "2026-10-18",
+    "sha256": "e97674a55fe3a400846bd80a6b94ac83ac9820301bf215916df08449df92202b",
+    "bytes": 46217
+  }
+]

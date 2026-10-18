@@ -1,0 +1,15 @@
+{
+  "source": "./assets/images/app-icon/icon.png",
+  "sourceSha256": "0ad6c49012151e83a474dc4c457115af182b39944bdb73680598483f717c2d8a",
+  "sourceSize": 1024,
+  "outputs": [
+    {
+      "file": "favicon-32.png",
+      "size": 32
+    },
+    {
+      "file": "app-icon-180.png",
+      "size": 180
+    }
+  ]
+}

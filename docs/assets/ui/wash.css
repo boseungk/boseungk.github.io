@@ -1,0 +1,13 @@
+/* Same outline as the app's LiquidChoiceBackdrop, including wrapped text. */
+:root{--app-wash-image:url('/assets/ui/choice-wash.svg')}
+a{text-decoration:none}
+a:hover{text-decoration:none}
+.heading-accent{position:relative;display:inline;padding:.06em .14em;margin-inline:-.14em;box-decoration-break:clone;-webkit-box-decoration-break:clone;background-image:var(--app-wash-image);background-repeat:no-repeat;background-position:left center;background-size:calc(var(--accent-reveal,1)*100%) 100%;transition:background-size 650ms cubic-bezier(.22,.7,.2,1)}
+html[dir=rtl] .heading-accent{background-position:right center}
+:where(.footer a,.footer-nav a,.site-nav a,.channels a,.site-footer .brand,.site-header .brand,.email,.text-link,.hero-secondary,.document p a,.feedback-privacy a,.feedback-note a,.not-found a,.language-link){--wash-width:0%;background-image:var(--app-wash-image);background-repeat:no-repeat;background-position:center;background-size:var(--wash-width) 100%;box-decoration-break:clone;-webkit-box-decoration-break:clone;transition:background-size 180ms,color 180ms}
+:where(.footer a,.footer-nav a,.site-nav a,.channels a,.site-footer .brand,.site-header .brand,.email,.text-link,.hero-secondary,.document p a,.feedback-privacy a,.feedback-note a,.not-found a,.language-link):is(:hover,:focus-visible){--wash-width:100%;text-decoration:none}
+:where(.document p a,.feedback-privacy a,.feedback-note a,.not-found a){--wash-width:100%;padding:.08em .18em;margin-inline:-.18em;color:var(--ink,#473e3b)}
+.footer nav>a{width:fit-content;max-width:100%}
+.footer .brand,.footer-about>a:last-child{width:fit-content;max-width:100%}
+.header nav a:before,.header .brand:before,.language-picker summary:before{background:var(--app-wash-image) center/100% 100% no-repeat;border-radius:0}
+@media(prefers-reduced-motion:reduce){.heading-accent,:where(.footer a,.footer-nav a,.site-nav a,.channels a,.site-footer .brand,.site-header .brand,.email,.text-link,.hero-secondary,.document p a,.feedback-privacy a,.feedback-note a,.not-found a,.language-link){transition:none}}

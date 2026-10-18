@@ -78,3 +78,5 @@ Browser QA is still required for actual GPU rendering, responsive composition, p
 The homepage ends with FAQ and the contact footer; `#contact` targets the footer email and links. The former illustrated closing banner and its canvas controller have been removed.
 
 The hero wall extension uses native tinted ink, matching the room at day, sunset and night; raw wall color would create a visible band above the drawing on mobile. `check-narrative.cjs` compares the extension and room pixels in all three states.
+
+`assets/ui/wash.css` loads last on all public pages and owns the native organic selection outline for headings and text links. Wrapped inline links clone the full wash on each line. Keyboard focus outlines and task completion strike-through remain semantic states. Social app icons are locally served originals with provenance in `assets/social/sources.json`; tab/touch icons come from the app configuration via `tools/build-site-icons.cjs`.

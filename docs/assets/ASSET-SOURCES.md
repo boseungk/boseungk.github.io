@@ -77,8 +77,19 @@ Website chrome follows current app tokens: white paper, ink `#473E3B`, muted `#7
 
 `v5/journey.js` follows Focus quiet-completion and Memory flight source contracts. The public example is target 25 minutes / actual 9 minutes, end 14:09, zero-reward quiet branch. Web sequencing demonstrates an explicit end/confirm and subsequent Memory navigation; it is not native auto-completion.
 
-## Social channel marks
-YouTube, Threads, Instagram SVG paths: Simple Icons project, retrieved 2026-10-11 from https://github.com/simple-icons/simple-icons/tree/develop/icons. Stored in `assets/social/` and inlined in index.html. Simple Icons artwork is distributed under CC0; brand names/marks remain their respective owners'.
+## Social app icons (2026-10-18)
+The social links display the unmodified 512px app artwork from the official App Store listings published by Google (YouTube) and Instagram, Inc. (Threads and Instagram). Downloads are served locally, without recoloring or tracing. App-style corner masking is CSS only. Exact listing, Apple metadata endpoint, image URL, retrieval date and SHA-256 are in `social/sources.json`.
+
+- YouTube: https://apps.apple.com/us/app/youtube/id544007664
+- Threads: https://apps.apple.com/us/app/threads/id6446901002
+- Instagram: https://apps.apple.com/us/app/instagram/id389801252
+
+The older monochrome Simple Icons copies are removed. Brand artwork belongs to its respective owners.
+
+## Website app icon and selection wash (2026-10-18)
+`favicon-32.png` and `app-icon-180.png` are uncropped size exports of the icon configured by Dayloom's `app.json`: `assets/images/app-icon/icon.png`. `app-icon-source.json` records its source hash and output sizes; regenerate with `node tools/build-site-icons.cjs`. No artwork is redrawn and no app source is modified.
+
+`ui/choice-wash.svg` is the exact normalized curve from Dayloom's `src/shared/ui/selection/liquid-choice-backdrop.tsx`, using the website's existing Oat selection color `#EFE3DD`. `ui/wash.css` reuses it for full-height heading emphasis and link hover/focus, including wrapped lines.
 
 ## Room lighting exports
 `assets/v5/customize/*-night.png` and `*-night-unlit.png` use the same native room geometry/projection as daytime, rendered by `tools/render-customize.cjs`. No app source modified.
