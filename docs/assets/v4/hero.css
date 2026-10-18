@@ -1,6 +1,6 @@
-/* Deterministic phone → room → dusk scroll composition and viewing plateaus. */
+/* Deterministic phone → room → day → sunset → night scroll composition and viewing plateaus. */
 .header{position:sticky;top:0;background:rgba(255,255,255,.98)}
-.intro-story{position:relative;isolation:isolate;height:380svh}
+.intro-story{position:relative;isolation:isolate;height:460svh}
 .intro-lead{display:none}
 .intro-stage{position:sticky;top:var(--site-header-height,76px);height:calc(100svh - var(--site-header-height,76px));min-height:580px;overflow:hidden;background:#fff}
 .intro-layout{position:absolute;inset:0;margin:auto;width:min(1200px,calc(100% - 112px))}
@@ -43,7 +43,7 @@
 .intro-controls>span{display:none}
 }
 @media(max-width:760px){
-.intro-story{height:calc(340svh + var(--intro-lead-height,0px))}
+.intro-story{height:calc(420svh + var(--intro-lead-height,0px))}
 .intro-stage{top:var(--site-header-height,117px);height:calc(100svh - var(--site-header-height,117px));min-height:650px}
 .intro-layout{width:calc(100% - 44px);display:flex;flex-direction:column;gap:18px;padding-top:23px;padding-bottom:60px}
 .intro-copy{position:relative;top:0;width:100%;left:0;flex:none}

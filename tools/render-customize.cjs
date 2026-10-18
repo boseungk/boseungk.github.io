@@ -34,18 +34,20 @@ const stages = [
 ];
 const unlit = process.argv.includes('--unlit');
 const nightOnly = process.argv.includes('--night-only');
+const duskOnly = process.argv.includes('--dusk-only');
 const incrementalOnly = process.argv.includes('--incremental-only');
 const stagesOnly = process.argv.includes('--stages-only');
-if (stagesOnly && (nightOnly || incrementalOnly)) throw new Error('--stages-only must be used on its own');
+if ([nightOnly, duskOnly, incrementalOnly, stagesOnly].filter(Boolean).length > 1) throw new Error('Choose one export mode');
+if (unlit && !nightOnly) throw new Error('--unlit requires --night-only');
 const report = incrementalOnly || stagesOnly ? JSON.parse(fs.readFileSync(path.join(output, 'render-evidence.json'), 'utf8')) : {source: app, projection, stages: [], rooms: []};
 if (incrementalOnly) report.stages = report.stages.filter(stage => !['step-0', 'step-1', 'step-2'].includes(stage.id));
 if (stagesOnly) report.stages = [];
 report.sequenceTheme = theme.id;
 const jobs = stagesOnly ? stages : incrementalOnly ? stages.slice(0, 3) : [...stages, ...collectionThemes.map(theme => [theme.id, {id: theme.id, place: 'indoor', ...theme.room}])];
 for (const [baseId, recipe] of jobs) {
-  if (nightOnly && baseId.startsWith('step-')) continue;
-  const id = baseId + (nightOnly ? (unlit ? '-night-unlit' : '-night') : '');
-  const tod = nightOnly ? 2 : 0;
+  if ((nightOnly || duskOnly) && baseId.startsWith('step-')) continue;
+  const id = baseId + (nightOnly ? (unlit ? '-night-unlit' : '-night') : duskOnly ? '-dusk' : '');
+  const tod = nightOnly ? 2 : duskOnly ? 1 : 0;
   const season = recipe.nativeSelection ? 'spring' : 'summer';
   const room = recipe.nativeSelection ? api.composeRoom(recipe.nativeSelection, {season, lightOn: true}) : prep.get(compositionScene(recipe).room, season).room;
   const env = {tod, season, lightOn: !unlit && (nightOnly || !!recipe.nativeSelection), tint: room.tint[tod], shadow: room.shadowBase, now: 0, windowOpen: 1, gust: 0, reduced: true};
@@ -71,5 +73,5 @@ for (const [baseId, recipe] of jobs) {
   console.log(id + ': window/light/rug/seat fully inside frame');
 }
 report.stages.sort((a, b) => a.id.localeCompare(b.id));
-fs.writeFileSync(path.join(output, nightOnly ? (unlit ? 'unlit-render-evidence.json' : 'night-render-evidence.json') : 'render-evidence.json'), JSON.stringify(report, null, 2) + '\n');
+fs.writeFileSync(path.join(output, nightOnly ? (unlit ? 'unlit-render-evidence.json' : 'night-render-evidence.json') : duskOnly ? 'dusk-render-evidence.json' : 'render-evidence.json'), JSON.stringify(report, null, 2) + '\n');
 prep.dispose();

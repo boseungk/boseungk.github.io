@@ -82,6 +82,7 @@ for locale, expected in [(f'{row["path"] + "/" if row["path"] else ""}index.html
     assert 'data-journey-replay' not in source
     assert 'contact@myanimalroom.com' in source
     assert 'src="/assets/v5/copy.js?' in source
+    assert source.count('class="room-dusk"') == 9, 'Every room needs its native sunset layer'
     if expected == 'en':
         description = re.search(r'<p class="intro-description">(.*?)</p>', source, re.S)[1]
         collapsed = re.sub('<[^>]+>', '', description)
@@ -99,6 +100,10 @@ for locale, expected in [(f'{row["path"] + "/" if row["path"] else ""}feedback/i
     assert 'href="/feedback/" lang="ko"' in source
     assert 'href="/en/feedback/" lang="en"' in source
 # Export evidence checks all slots were inside the shared full-room projection.
+dusk = json.loads((DOCS / 'assets/v5/customize/dusk-render-evidence.json').read_text())
+day = json.loads((DOCS / 'assets/v5/customize/render-evidence.json').read_text())
+assert {entry['id'] for entry in dusk['rooms']} == {entry['id'] + '-dusk' for entry in day['rooms']}
+assert dusk['projection'] == day['projection'], 'Time layers must use the same camera'
 for file in (DOCS / 'assets/v5/customize').glob('*render-evidence.json'):
     evidence = json.loads(file.read_text())
     for entry in evidence['stages'] + evidence['rooms']:

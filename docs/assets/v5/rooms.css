@@ -1,4 +1,4 @@
-/* Aligned native day/unlit/lamp layers; arrows stay outside all three drawings. */
+/* Aligned native day/sunset/night/lamp layers; arrows stay outside all three drawings. */
 .room-carousel{padding:76px 0 28px;overflow:hidden;background:#faf8f5}
 .mar-customize .room-carousel .customize-gallery-heading{align-items:center;margin-bottom:22px}
 .mar-customize .room-carousel h3{font-size:clamp(30px,3.1vw,44px);line-height:1.4;font-weight:400;letter-spacing:-.035em}
@@ -7,7 +7,8 @@
 .room-print{position:absolute;width:var(--print);left:50%;top:20px;margin:0;transform:translateX(-50%);transform-origin:50% 50%;transition:transform 1050ms cubic-bezier(.22,.75,.15,1),opacity 900ms;opacity:0;pointer-events:none;--room-night:0;--lamp-light:0}
 .room-print-art{position:relative;aspect-ratio:780/1280;box-shadow:0 28px 46px -28px #473e3b55;overflow:hidden;border-radius:5px}
 .room-print img{width:100%;height:100%;object-fit:contain;display:block;user-select:none;-webkit-user-drag:none}
-.room-print .room-unlit,.room-print .room-night{position:absolute;inset:0;pointer-events:none}
+.room-print .room-dusk,.room-print .room-unlit,.room-print .room-night{position:absolute;inset:0;pointer-events:none}
+.room-print .room-dusk{opacity:var(--room-dusk,0)}
 .room-unlit{opacity:var(--room-night)}
 .room-print .room-night{opacity:var(--lamp-light)}
 .room-print.is-active{pointer-events:auto;cursor:default}

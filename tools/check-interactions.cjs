@@ -71,12 +71,12 @@ function tasks(lang, reduced = false) {
   assert.match(result.textContent, lang === 'en' ? /^2 of 3 sample tasks completed\.$/ : /^2개 완료/);
   buttons[0].emit('click'); e.flush(); assert.equal(buttons[0].getAttribute('aria-checked'), 'false');
 }
-function rooms(lang) {
-  const e = setup(lang), root = new Element(), reel = new Element(), pause = new Element(), prev = new Element(), next = new Element(), announcement = new Element();
+function rooms(lang, reduced = false) {
+  const e = setup(lang, reduced), root = new Element(), reel = new Element(), pause = new Element(), prev = new Element(), next = new Element(), announcement = new Element();
   const cards = Array.from({length: 9}, (_, i) => {
     const card = new Element(), art = new Element(), caption = new Element(`Room ${i}`);
     card.dataset = {petScale: '.2', petX: '390', petY: '950'};
-    card.map = {'.room-print-art': art, 'figcaption span': caption, img: [Object.assign(new Element(), {complete: true, naturalWidth: 780})]};
+    card.map = {'.room-print-art': art, 'figcaption span': caption, img: Array.from({length: 4}, () => Object.assign(new Element(), {complete: true, naturalWidth: 780}))};
     return card;
   });
   root.map = {'.room-reel': reel, '.room-print': cards, '[data-room-pause]': pause, '[data-room-prev]': prev, '[data-room-next]': next, '.room-announcement': announcement};
@@ -85,14 +85,26 @@ function rooms(lang) {
   locale(e); e.load('assets/v5/rooms.js'); e.flush();
   assert.equal(root.dataset.roomIndex, '0'); assert.equal(cards.filter(c => c.classes.has('is-active')).length, 1);
   assert.equal(new Set(cards.map(c => c.map['.room-print-art'].childNodes[0])).size, 9, 'one companion canvas per room');
-  e.observers[0].fn([{isIntersecting: true}]); e.frame(100); e.frame(4100);
-  assert(Number(root.dataset.roomLight) > 0); e.frame(8200); assert.equal(root.dataset.roomIndex, '1');
+  e.observers[0].fn([{isIntersecting: true}]); e.frame(100);
+  if (reduced) {
+    e.frame(30000); assert.equal(root.dataset.roomIndex, '0');
+    assert.equal(root.dataset.roomPhase, 'day'); assert(pause.disabled); return;
+  }
+  // The sunset artwork gets its own hold, with no night or lamp blended over it.
+  e.frame(2200); assert.equal(root.dataset.roomTime, '0.00');
+  e.frame(4200); assert.equal(root.dataset.roomPhase, 'dusk');
+  assert.equal(cards[0].style['--room-dusk'], 1); assert.equal(cards[0].style['--room-night'], 0);
+  e.frame(6100); assert.equal(root.dataset.roomTime, '1.00');
+  e.frame(7300); assert(Number(cards[0].style['--room-night']) > 0); assert.equal(cards[0].style['--lamp-light'], 0);
+  e.frame(8700); assert.equal(root.dataset.roomPhase, 'night'); assert.equal(cards[0].style['--lamp-light'], 1);
+  e.frame(11900); assert.equal(root.dataset.roomIndex, '0');
+  e.frame(12200); assert.equal(root.dataset.roomIndex, '1'); assert.equal(root.dataset.roomPhase, 'day');
   pause.emit('click'); e.flush(); assert.equal(root.dataset.roomPaused, 'true'); e.frame(20000); assert.equal(root.dataset.roomIndex, '1');
   assert.equal(pause.textContent, lang === 'en' ? 'Play' : '장면 재생');
   next.emit('click'); assert.equal(root.dataset.roomIndex, '2'); prev.emit('click'); assert.equal(root.dataset.roomIndex, '1');
   e.window.emit('mar:motion', {detail: {paused: true}}); e.flush(); assert(pause.disabled);
   assert.equal(pause.textContent, lang === 'en' ? 'Motion paused' : '움직임 정지됨');
-  cards[2].map.img[0].naturalWidth = 0; next.emit('click'); assert.equal(root.dataset.roomIndex, '1', 'retain decoded room on image failure');
+  cards[2].map.img[1].naturalWidth = 0; next.emit('click'); assert.equal(root.dataset.roomIndex, '1', 'retain decoded room on image failure');
 }
 function menu() {
   const e = setup(), picker = new Element(), trigger = new Element(), links = [new Element(), new Element()];
@@ -147,6 +159,6 @@ async function customize(lang) {
   controller.destroy(); assert.equal(root.marCustomize, undefined);
 }
 (async () => {
-  for (const lang of ['ko', 'en']) {tasks(lang); tasks(lang, true); rooms(lang); await customize(lang);}
-  menu(); searchableMenu(); console.log('PASS task/manual/pause, room ownership/8s/pause/loading, customize decode/retry/reverse, KO+EN labels, searchable keyboard menu and shared suggestion navigation');
+  for (const lang of ['ko', 'en']) {tasks(lang); tasks(lang, true); rooms(lang); rooms(lang, true); await customize(lang);}
+  menu(); searchableMenu(); console.log('PASS task/manual/pause, room day/sunset/night/12s/pause/loading/reduced-motion, customize decode/retry/reverse, KO+EN labels, searchable keyboard menu and shared suggestion navigation');
 })().catch(error => {console.error(error); process.exitCode = 1;});

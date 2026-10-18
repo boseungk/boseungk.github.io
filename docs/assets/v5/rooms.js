@@ -49,13 +49,20 @@
     });
     root.dataset.roomIndex = String(index);
   }
-  function drawLight(value) {
-    const light = clamp(value), card = cards[index], companion = companions[index];
-    card.style.setProperty('--room-night', smooth(light / .8));
-    card.style.setProperty('--lamp-light', smooth((light - .72) / .28));
-    companion.canvas.style.filter = `brightness(${1 - light * .27})`;
-    root.dataset.roomLight = light.toFixed(2);
-    const pose = light > .65 ? 'loaf' : 'sit';
+  function drawTime(seconds) {
+    // Day 0–2.5s, sunset transition 2.5–4s and hold to 6.2s,
+    // night transition 6.2–7.7s, lamps 7.7–8.5s, night hold to 12s.
+    const dusk = smooth((seconds - 2.5) / 1.5);
+    const night = smooth((seconds - 6.2) / 1.5);
+    const lamp = smooth((seconds - 7.7) / .8);
+    const card = cards[index], companion = companions[index];
+    card.style.setProperty('--room-dusk', dusk);
+    card.style.setProperty('--room-night', night);
+    card.style.setProperty('--lamp-light', lamp);
+    companion.canvas.style.filter = `brightness(${1 - dusk * .06 - night * .21})`;
+    root.dataset.roomTime = (dusk + night).toFixed(2);
+    root.dataset.roomPhase = night > .5 ? 'night' : dusk > .5 ? 'dusk' : 'day';
+    const pose = night > .65 ? 'loaf' : 'sit';
     if (companion.pet && pose !== companion.pose) {
       companion.pose = pose; companion.pet.command(pose, stopped());
     }
@@ -74,17 +81,18 @@
     const next = (index + step + cards.length) % cards.length;
     if (!ready(cards[next])) return;
     index = next; elapsed = 0;
-    drawLight(0); renderPositions(); drawCompanion(companions[index], 0);
+    drawTime(0); renderPositions(); drawCompanion(companions[index], 0);
     if (announce) root.querySelector('.room-announcement').textContent = cards[index].querySelector('figcaption span').textContent;
   }
   function tick(now) {
     raf = 0;
     if (!visible || document.hidden || stopped()) {last = null; return;}
+    if (!ready(cards[index])) {last = null; schedule(); return;}
     const dt = last === null ? 0 : Math.max(0, (now - last) / 1000);
     last = now;
     elapsed += dt;
-    if (elapsed >= 8 && ready(cards[(index + 1) % cards.length])) advance(1, false);
-    else drawLight(clamp((elapsed - 3) / 2));
+    if (elapsed >= 12 && ready(cards[(index + 1) % cards.length])) advance(1, false);
+    else drawTime(elapsed);
     drawCompanion(companions[index], Math.min(dt, .06));
     schedule();
   }
@@ -114,7 +122,7 @@
     globalPause = !!event.detail?.paused; updateControl(); schedule();
   });
   reduce.addEventListener('change', () => {updateControl(); schedule();});
-  renderPositions(); drawLight(0);
+  renderPositions(); drawTime(0);
   companions.forEach(companion => drawCompanion(companion, 0));
   updateControl();
 })();
