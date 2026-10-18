@@ -185,7 +185,7 @@ export function text(key, values = {}) {
 }
 '''.replace('__LOCALES__', javascript(meta)).replace('__COPY__', javascript(feedback_copy))
     urls = [ORIGIN + route(locale, page) for locale in LOCALES for page in ('home', 'feedback')]
-    urls.extend([ORIGIN + '/product/', ORIGIN + '/privacy/'])
+    urls.append(ORIGIN + '/privacy/')
     result[DOCS / 'sitemap.xml'] = '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' + ''.join(f'  <url><loc>{url}</loc></url>\n' for url in urls) + '</urlset>\n'
     return result
 

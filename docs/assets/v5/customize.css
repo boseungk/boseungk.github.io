@@ -9,11 +9,8 @@
 .mar-customize .customize-ingredients li{display:flex;align-items:center;gap:12px;color:var(--customize-muted);font-size:15px;line-height:1.65}
 .mar-customize .customize-ingredients li.is-added{color:#473e3b}
 .mar-customize .customize-item-number{font-size:11px;letter-spacing:.04em;opacity:.75}
-.mar-customize .customize-item-label{position:relative;padding:3px 10px;margin-left:-8px}
+.mar-customize .customize-item-label{position:relative;padding:5px 10px;margin-left:-8px}
 .mar-customize .customize-item-label>span{position:relative}
-/* Exact normalized native LiquidChoiceBackdrop path, stretched to its measured label. */
-.mar-customize .customize-item-label svg{position:absolute;inset:0;width:100%;height:100%;fill:var(--customize-wash);opacity:0;transition:opacity 400ms ease;pointer-events:none}
-.mar-customize .is-added .customize-item-label svg{opacity:1}
 .mar-customize .customize-caption{display:flex;gap:11px;align-items:flex-start;min-height:56px;margin-top:27px;color:#473e3b;font-size:15px;line-height:1.65;word-break:keep-all}
 .mar-customize [data-customize-number]{color:var(--customize-muted);font-size:11px;padding-top:3px;letter-spacing:.07em}
 .mar-customize .customize-room{width:100%;margin:0;justify-self:center;max-width:490px}
@@ -60,8 +57,8 @@
   .mar-customize .customize-more{grid-template-columns:repeat(2,minmax(0,1fr));gap:24px 14px;margin-top:30px}
   .mar-customize .customize-more figcaption{font-size:13px;margin-top:9px}
 }
-@media(prefers-reduced-motion:reduce){.mar-customize [data-customize-frame],.mar-customize .customize-item-label svg{transition:none}.mar-customize.is-customize-ready .customize-story{height:auto}.mar-customize.is-customize-ready .customize-pin{position:static;height:auto;min-height:0}.mar-customize.is-customize-ready .customize-room{width:100%}}
-.mar-customize.is-customize-paused [data-customize-frame],.mar-customize.is-customize-paused .customize-item-label svg{transition:none}
+@media(prefers-reduced-motion:reduce){.mar-customize [data-customize-frame]{transition:none}.mar-customize.is-customize-ready .customize-story{height:auto}.mar-customize.is-customize-ready .customize-pin{position:static;height:auto;min-height:0}.mar-customize.is-customize-ready .customize-room{width:100%}}
+.mar-customize.is-customize-paused [data-customize-frame]{transition:none}
 /* Legacy .decorate overflow:hidden would trap sticky positioning. */
 .mar-customize{overflow:visible}
 @media(min-width:761px){.mar-customize.is-customize-ready .customize-pin{top:76px;height:calc(100svh - 76px)}.mar-customize.is-customize-ready .customize-room{width:min(100%,calc((100svh - 200px)*.609375))}}

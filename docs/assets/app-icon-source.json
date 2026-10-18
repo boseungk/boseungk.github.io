@@ -5,11 +5,13 @@
   "outputs": [
     {
       "file": "favicon-32.png",
-      "size": 32
+      "size": 32,
+      "cornerRadius": 7.04
     },
     {
       "file": "app-icon-180.png",
-      "size": 180
+      "size": 180,
+      "cornerRadius": 39.6
     }
   ]
 }

@@ -165,7 +165,7 @@
   let phone=null,painter=null,dead=false,last=0,raf=0,loading=false,selectedAnimal='cat',hold=0;
   const source=document.createElement('canvas');source.width=1560;source.height=3338;
   function update(){const s=machine.state();root.dataset.journeyPhase=s.phase;root.dataset.journeyTime=String(Math.round(s.time));
-   root.querySelectorAll('[data-journey-step]').forEach(el=>el.dataset.current=String(el.dataset.journeyStep===(s.phase==='running'?'running':s.phase==='completion'||s.phase==='home'?'completion':'memory')));
+   root.querySelectorAll('[data-journey-step]').forEach(el=>{const current=String(el.dataset.journeyStep===(s.phase==='running'?'running':s.phase==='completion'||s.phase==='home'?'completion':'memory'));if(el.dataset.current!==current)el.dataset.current=current;});
    if(painter){painter.draw(s,s.paused);phone?.render();}}
   function schedule(){if(!raf&&!dead&&!document.hidden)raf=global.requestAnimationFrame(paint);}
   function paint(now){raf=0;if(dead||document.hidden)return;const before=machine.state();

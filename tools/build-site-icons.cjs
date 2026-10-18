@@ -1,4 +1,4 @@
-/* Export the configured app icon at browser sizes, without cropping or redrawing. */
+/* Export the configured app icon at browser sizes, with transparent rounded corners; artwork is not redrawn. */
 const fs = require('node:fs'), path = require('node:path'), crypto = require('node:crypto');
 const app = process.env.DAYLOOM_SOURCE || '/Users/gpt/Projects/dayloom';
 const modules = process.env.NATIVE_NODE_MODULES || '/Users/gpt/.cache/codex-runtimes/codex-primary-runtime/dependencies/node/node_modules';
@@ -13,9 +13,10 @@ const {createCanvas, loadImage} = require(path.join(modules, '@napi-rs/canvas'))
   for (const [size, name] of sizes) {
     const canvas = createCanvas(size, size), ctx = canvas.getContext('2d');
     ctx.imageSmoothingEnabled = true; ctx.imageSmoothingQuality = 'high';
+    ctx.beginPath(); ctx.roundRect(0, 0, size, size, size * .22); ctx.clip();
     ctx.drawImage(image, 0, 0, size, size);
     fs.writeFileSync(path.join(output, name), canvas.toBuffer('image/png'));
   }
-  fs.writeFileSync(path.join(output, 'app-icon-source.json'), JSON.stringify({source: config.expo.icon, sourceSha256: crypto.createHash('sha256').update(bytes).digest('hex'), sourceSize: image.width, outputs: sizes.map(([size, file]) => ({file, size}))}, null, 2) + '\n');
+  fs.writeFileSync(path.join(output, 'app-icon-source.json'), JSON.stringify({source: config.expo.icon, sourceSha256: crypto.createHash('sha256').update(bytes).digest('hex'), sourceSize: image.width, outputs: sizes.map(([size, file]) => ({file, size, cornerRadius: size * .22}))}, null, 2) + '\n');
   console.log('PASS browser icons exported from ' + config.expo.icon);
 })().catch(error => {console.error(error); process.exitCode = 1;});

@@ -1,13 +1,28 @@
-/* Same outline as the app's LiquidChoiceBackdrop, including wrapped text. */
-:root{--app-wash-image:url('/assets/ui/choice-wash.svg')}
-a{text-decoration:none}
-a:hover{text-decoration:none}
-.heading-accent{position:relative;display:inline;padding:.06em .14em;margin-inline:-.14em;box-decoration-break:clone;-webkit-box-decoration-break:clone;background-image:var(--app-wash-image);background-repeat:no-repeat;background-position:left center;background-size:calc(var(--accent-reveal,1)*100%) 100%;transition:background-size 650ms cubic-bezier(.22,.7,.2,1)}
-html[dir=rtl] .heading-accent{background-position:right center}
-:where(.footer a,.footer-nav a,.site-nav a,.channels a,.site-footer .brand,.site-header .brand,.email,.text-link,.hero-secondary,.document p a,.feedback-privacy a,.feedback-note a,.not-found a,.language-link){--wash-width:0%;background-image:var(--app-wash-image);background-repeat:no-repeat;background-position:center;background-size:var(--wash-width) 100%;box-decoration-break:clone;-webkit-box-decoration-break:clone;transition:background-size 180ms,color 180ms}
-:where(.footer a,.footer-nav a,.site-nav a,.channels a,.site-footer .brand,.site-header .brand,.email,.text-link,.hero-secondary,.document p a,.feedback-privacy a,.feedback-note a,.not-found a,.language-link):is(:hover,:focus-visible){--wash-width:100%;text-decoration:none}
-:where(.document p a,.feedback-privacy a,.feedback-note a,.not-found a){--wash-width:100%;padding:.08em .18em;margin-inline:-.18em;color:var(--ink,#473e3b)}
-.footer nav>a{width:fit-content;max-width:100%}
-.footer .brand,.footer-about>a:last-child{width:fit-content;max-width:100%}
-.header nav a:before,.header .brand:before,.language-picker summary:before{background:var(--app-wash-image) center/100% 100% no-repeat;border-radius:0}
-@media(prefers-reduced-motion:reduce){.heading-accent,:where(.footer a,.footer-nav a,.site-nav a,.channels a,.site-footer .brand,.site-header .brand,.email,.text-link,.hero-secondary,.document p a,.feedback-privacy a,.feedback-note a,.not-found a,.language-link){transition:none}}
+/* Selected label frames follow ActionChoiceLabel/MeasuredChoiceBackdrop. */
+a,a:hover{text-decoration:none}
+.mar-choice-group{position:relative;isolation:isolate}
+.mar-choice-wash{position:absolute;left:0;top:0;z-index:0;display:block;overflow:visible;pointer-events:none;max-width:none}
+.mar-choice-label{position:relative;z-index:1;display:inline-block;box-sizing:border-box;max-width:100%;padding:var(--choice-y,5px) var(--choice-x,10px);vertical-align:middle}
+.header nav a:before,.header .brand:before,.language-picker summary:before{content:none}
+.header nav a{padding-inline:4px}
+.header nav .mar-choice-label{text-align:center}
+.header .brand>.mar-choice-label,.footer .brand>.mar-choice-label,.feedback-footer>.brand>.mar-choice-label{margin-inline:calc(-1 * var(--choice-x,10px))}
+.language-options.mar-choice-group{position:relative}
+.language-options a,.language-options a[aria-current=page],.language-options a:hover,.language-options a:focus-visible{background:transparent}
+.language-options a{padding:5px 3px}
+.language-check{display:none}
+.language-picker summary{padding-inline:2px}
+.language-picker summary>[data-language-current]{padding-block:5px}
+.journey-flow,.header nav{color:var(--choice-muted,#5F5551)}
+.journey-flow [data-current=true],.mar-choice-group a:is(:hover,:focus-visible),.mar-choice-group [aria-current=page]{color:var(--choice-ink,#473E3B)}
+.footer-main{grid-template-columns:minmax(0,1.6fr) minmax(0,1fr)}
+.footer nav>a{width:fit-content;max-width:100%;background:none}
+.footer-about>a:last-child{width:fit-content;max-width:100%}
+.footer nav>a,.footer-about>a:last-child{margin-inline:-10px}
+.feedback-sort button,.feedback-sort button[aria-pressed=true],.feedback-sort button:hover{background:transparent;padding:4px 2px}
+.feedback-privacy a,.feedback-note a,.privacy-document p a{display:inline-block;max-width:100%;color:var(--choice-ink,#473E3B)}
+.feedback-privacy a,.feedback-note a,.privacy-document p a{margin:-5px -10px}
+.feedback-privacy .mar-choice-label,.feedback-note .mar-choice-label,.privacy-document p .mar-choice-label{overflow-wrap:anywhere}
+.customize-ingredients.mar-choice-group{isolation:isolate}
+.customize-ingredients .customize-item-label{padding:5px 10px}
+@media(max-width:760px){.footer-main{grid-template-columns:1fr}.header nav a{padding-inline:0}}

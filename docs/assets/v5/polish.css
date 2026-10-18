@@ -105,8 +105,8 @@ html:not([lang=ko]) .intro-scene-copy p:last-child{font-size:14px}
 .language-picker summary::-webkit-details-marker{display:none}
 .language-picker summary:before{content:'';position:absolute;z-index:-1;inset:6px 0;background:#efe3dd;border-radius:25% 14% 20% 18% / 22% 26% 21% 27%;opacity:0;transition:opacity 140ms}
 .language-picker summary:hover:before,.language-picker summary:focus-visible:before,.language-picker[open] summary:before{opacity:1}
-.language-picker summary>svg{width:15px;height:15px;transition:transform 180ms}
-.language-picker[open] summary>svg{transform:rotate(180deg)}
+.language-picker summary>svg:not(.mar-choice-wash){width:15px;height:15px;transition:transform 180ms}
+.language-picker[open] summary>svg:not(.mar-choice-wash){transform:rotate(180deg)}
 .language-options{position:absolute;z-index:30;top:calc(100% + 8px);right:0;min-width:172px;max-height: min(360px,65svh);overflow-y:auto;margin:0;padding:6px;background:#fff;box-shadow:0 8px 32px #473e3b15,0 0 0 1px #473e3b0c;border-radius:7px;list-style:none}
 .language-options a{display:flex;align-items:center;justify-content:space-between;gap:24px;min-height:44px;padding:10px 13px;border-radius:4px;color:#776b66;text-decoration:none}
 .language-options a:hover,.language-options a:focus-visible{background:#f4ede8;color:#473e3b;text-decoration:none}
@@ -120,7 +120,7 @@ html:not([lang=ko]) .intro-scene-copy p:last-child{font-size:14px}
 .language-options{min-width:160px}
 }
 @media(prefers-reduced-motion:reduce){
-.language-picker summary:before,.language-picker summary>svg{transition:none}
+.language-picker summary:before,.language-picker summary>svg:not(.mar-choice-wash){transition:none}
 }
 
 /* Wordmark shares the app selection wash; keep its original dimensions. */

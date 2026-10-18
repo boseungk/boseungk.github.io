@@ -2,11 +2,11 @@
 
 ## Publishing and source ownership
 
-`docs/` is the website and the GitHub Pages source (`main` + `/docs`). The deleted root Ruby/Jekyll blog is unrelated to this deployment. `docs/CNAME` supplies the custom domain; `.nojekyll` prevents Jekyll processing. Product/privacy/404 pages are standalone HTML using `style.css` and `app.js`; the homepage uses `home.css` and feature CSS.
+`docs/` is the website and the GitHub Pages source (`main` + `/docs`). The deleted root Ruby/Jekyll blog is unrelated to this deployment. `docs/CNAME` supplies the custom domain; `.nojekyll` prevents Jekyll processing. Privacy/404 pages are standalone HTML using `style.css` and `app.js`; the homepage uses `home.css` and feature CSS.
 
 `tools/templates/home.ko.html` and `feedback.ko.html` own Korean content and semantic markup. `tools/build-locales.py` generates the 30 home/feedback route pairs, language menus, canonical/alternate metadata, sitemap and runtime copy from `assets/i18n/source.json`, `catalogs/` and `locales.json`. The locale registry mirrors Dayloom's `src/core/localization/locale-registry.ts`; the app's `support-links.ts` maps to these exact published routes. `build-english.py` remains a compatibility entry point. Missing keys, placeholders or inline markup fail the build; untranslated fallback pages are not published.
 
-`MARCopy.text`, `.duration`, and `.taskSummary` translate at controller-owned text creation sites. The feedback module selects its compiled catalog from the static page language and uses the matching locale for dates/numbers and permanent links. Posts, comments and nicknames remain their author's original text, with automatic text direction. No DOM scanning or translation service is used. All locales inherit assets and cache URLs from the templates; phone demo UI stays Korean. Product/privacy pages retain their existing Korean/English content.
+`MARCopy.text`, `.duration`, and `.taskSummary` translate at controller-owned text creation sites. The feedback module selects its compiled catalog from the static page language and uses the matching locale for dates/numbers and permanent links. Posts, comments and nicknames remain their author's original text, with automatic text direction. No DOM scanning or translation service is used. All locales inherit assets and cache URLs from the templates; phone demo UI stays Korean. Privacy pages retain their existing Korean/English content.
 
 The language picker uses native language names, text search, keyboard navigation, and same-page links. Shared suggestion IDs and section hashes survive language changes. Arabic/Hebrew pages declare RTL direction, while artwork and phone demos retain LTR geometry. Turnstile language codes follow [Cloudflare's supported-language list](https://developers.cloudflare.com/turnstile/reference/supported-languages/); Bengali, Tamil and Swahili use English for that third-party verification widget only.
 
@@ -40,8 +40,8 @@ and the API-only visitor cookie notice.
 | `v5/journey.js` | Native focus → completion → 740ms mark flight → Memory, 11-second sequence and 3-second final hold. |
 | `v5/actions.js` | Local task demo, native check/burst, one-time 650ms sequential completion; preserves manual changes. |
 | `v5/growth.js` | ES-module adapter driving unchanged native `createPlantTransition().seek()` at the 2400ms recipe duration. |
-| `v4/choices.js` | One native LiquidChoiceBackdrop path follows the noninteractive journey phases; measured label frames and the app’s spring constants, with pause/reduced-motion support. |
-| `v5/language-picker.js`, `polish.js` | Native details menu keyboard/outside-click handling and quiet heading wash. |
+| `ui/selection-spec.js`, `selection-motion.js`, `selection.js` | Exported native curve/padding/palette/timing, analytic spring clock, and measured label adapters for navigation, language choice, phase progress and feedback sorting. |
+| `v5/language-picker.js` | Native details menu keyboard/outside-click handling. |
 
 On narrow screens the hero introduction flows before the sticky phone stage, so translated paragraphs cannot cover or shrink the phone. Header and introduction measurements keep scroll plateaus aligned; desktop retains the side-by-side layout.
 
@@ -79,4 +79,6 @@ The homepage ends with FAQ and the contact footer; `#contact` targets the footer
 
 The hero wall extension uses native tinted ink, matching the room at day, sunset and night; raw wall color would create a visible band above the drawing on mobile. `check-narrative.cjs` compares the extension and room pixels in all three states.
 
-`assets/ui/wash.css` loads last on all public pages and owns the native organic selection outline for headings and text links. Wrapped inline links clone the full wash on each line. Keyboard focus outlines and task completion strike-through remain semantic states. Social app icons are locally served originals with provenance in `assets/social/sources.json`; tab/touch icons come from the app configuration via `tools/build-site-icons.cjs`.
+`assets/ui/wash.css` loads last on all public pages. Selection is measured from the padded inner label (10px horizontal, 5px vertical), separately from the larger hit target. Each mutually exclusive group has one SVG backdrop. First appearance/fade uses native 110ms in-out quadratic timing; changes move its x/y/width/height with mass 1, stiffness 484, damping 36.52, relative energy threshold 1e-7. Hidden-page and reduced-motion states settle without motion. Headings and ordinary unselected text have no decorative sweep. `tools/export-selection-spec.cjs` extracts the contract from actual app files and records hashes in `native-selection-sources.json`.
+
+The product/development page, its footer links and sitemap entry are removed. The footer retains direct contact, feedback, social channels, FAQ and privacy. App icon exports now have transparent rounded corners (22% radius), including the favicon. Social app artwork remains unmodified.
