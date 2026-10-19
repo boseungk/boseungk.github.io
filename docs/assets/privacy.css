@@ -1,0 +1,21 @@
+/* The privacy document shares the current site shell and typography. */
+.privacy-document{width:min(800px,calc(100% - 48px))}
+.privacy-heading{margin-bottom:48px;padding-bottom:32px;border-bottom:1px solid var(--line)}
+.privacy-heading h1{font-size:clamp(32px,4.2vw,46px);line-height:1.4;letter-spacing:-.04em}
+.privacy-heading .privacy-overview{font-size:16px;line-height:1.9;color:var(--muted);margin-top:20px}
+.privacy-heading .privacy-updated{font-size:13px;color:var(--muted);margin-top:18px}
+.privacy-document section+section{margin-top:44px}
+.privacy-document h2{font-size:24px;line-height:1.5;letter-spacing:-.025em;margin-bottom:18px}
+.privacy-document section p{font-size:16px;line-height:1.95;color:var(--muted);margin-top:14px;word-break:keep-all;overflow-wrap:anywhere}
+.privacy-document section p:first-of-type{margin-top:0}
+.privacy-document code{font-size:.88em;overflow-wrap:anywhere;color:var(--ink)}
+.privacy-document p a{color:var(--ink)}
+@media(max-width:600px){
+.privacy-document{width:calc(100% - 40px)}
+.privacy-heading{margin-bottom:32px;padding-bottom:24px}
+.privacy-heading h1{font-size:32px}
+.privacy-heading .privacy-overview{font-size:15px}
+.privacy-document h2{font-size:22px;margin-bottom:14px}
+.privacy-document section+section{margin-top:34px}
+.privacy-document section p{font-size:15px;line-height:1.9}
+}

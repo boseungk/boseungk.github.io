@@ -2,11 +2,11 @@
 
 ## Publishing and source ownership
 
-`docs/` is the website and the GitHub Pages source (`main` + `/docs`). The deleted root Ruby/Jekyll blog is unrelated to this deployment. `docs/CNAME` supplies the custom domain; `.nojekyll` prevents Jekyll processing. Privacy/404 pages are standalone HTML using `style.css` and `app.js`; the homepage uses `home.css` and feature CSS.
+`docs/` is the website and the GitHub Pages source (`main` + `/docs`). The deleted root Ruby/Jekyll blog is unrelated to this deployment. `docs/CNAME` supplies the custom domain; `.nojekyll` prevents Jekyll processing. All regular pages share `home.css`, the current header styles and native selection treatment. The 404 page remains a small standalone document.
 
 `tools/templates/home.ko.html`, `feedback.ko.html` and `news.ko.html` own Korean content and semantic markup. `tools/build-locales.py` generates the 30 home/feedback/news route sets, language menus, canonical/alternate metadata, sitemap and runtime copy from `assets/i18n/source.json`, `catalogs/` and `locales.json`. The locale registry mirrors Dayloom's `src/core/localization/locale-registry.ts`; the app's `support-links.ts` maps to these exact published routes. `build-english.py` remains a compatibility entry point. Missing keys, placeholders or inline markup fail the build; untranslated fallback pages are not published.
 
-`MARCopy.text`, `.duration`, and `.taskSummary` translate at controller-owned text creation sites. The feedback module selects its compiled catalog from the static page language and uses the matching locale for dates/numbers and permanent links. Posts, comments and nicknames remain their author's original text, with automatic text direction. No DOM scanning or translation service is used. All locales inherit assets and cache URLs from the templates; phone demo UI stays Korean. Privacy pages retain their existing Korean/English content.
+`MARCopy.text`, `.duration`, and `.taskSummary` translate at controller-owned text creation sites. The feedback module selects its compiled catalog from the static page language and uses the matching locale for dates/numbers and permanent links. Posts, comments and nicknames remain their author's original text, with automatic text direction. No DOM scanning or translation service is used. All locales inherit assets and cache URLs from the templates; phone demo UI stays Korean. Privacy pages retain their existing Korean/English content in authored `privacy.ko.html` and `privacy.en.html` templates, generated at `/privacy/` and `/en/privacy/`. Their picker offers those two available versions; privacy links from other locales go to the English version. Policy copy is not translated by the marketing catalog.
 
 The language picker uses native language names, text search, keyboard navigation, and same-page links. Shared suggestion IDs and section hashes survive language changes. Arabic/Hebrew pages declare RTL direction, while artwork and phone demos retain LTR geometry. Turnstile language codes follow [Cloudflare's supported-language list](https://developers.cloudflare.com/turnstile/reference/supported-languages/); Bengali, Tamil and Swahili use English for that third-party verification widget only.
 
@@ -104,3 +104,5 @@ same 30-language catalogs and included in the sitemap. It loads no feedback API
 or homepage graphics. The first note introduces the actual existing suggestion
 board; no app release or invented community activity is announced. Add further
 entries with stable article IDs so operator replies can link to shipped updates.
+
+The privacy document uses the same header, two-page navigation, LINE typography, white background and compact footer as the feedback/news pages. `assets/privacy.css` only sets reading width, section rhythm and document type sizes. The original policy paragraphs and effective date are retained; the legacy stylesheet is no longer loaded.
