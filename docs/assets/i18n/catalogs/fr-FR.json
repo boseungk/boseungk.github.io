@@ -225,5 +225,13 @@
   "예시 할 일 {total}개 중 {count}개를 완료했어요.": "{count} tâches d’exemple terminées sur {total}.",
   "줄기": "Tige",
   "봉오리": "Bouton",
-  "꽃": "Fleur"
+  "꽃": "Fleur",
+  "새 소식": "Actualités",
+  "기능 제안 공간을 열었어요.": "Un espace pour vos suggestions est ouvert.",
+  "로그인 없이 글과 댓글을 남길 수 있어요.": "Publiez vos suggestions et commentaires sans vous connecter.",
+  "반영된 제안과 업데이트 소식을 이곳에서 전할게요.": "Nous partagerons ici les suggestions réalisées et les nouveautés.",
+  "검토 중": "À l’étude",
+  "준비 중": "En préparation",
+  "반영 완료": "Réalisée",
+  "새 소식 — MyAnimalRoom": "Actualités — MyAnimalRoom"
 }

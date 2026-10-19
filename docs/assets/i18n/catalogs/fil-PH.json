@@ -225,5 +225,13 @@
   "예시 할 일 {total}개 중 {count}개를 완료했어요.": "Tapos na ang {count} sa {total} halimbawang gawain.",
   "줄기": "Tangkay",
   "봉오리": "Usbong",
-  "꽃": "Bulaklak"
+  "꽃": "Bulaklak",
+  "새 소식": "Mga balita",
+  "기능 제안 공간을 열었어요.": "May lugar na para sa mga mungkahi.",
+  "로그인 없이 글과 댓글을 남길 수 있어요.": "Maaari kang mag-post ng mga mungkahi at komento nang hindi nagla-log in.",
+  "반영된 제안과 업데이트 소식을 이곳에서 전할게요.": "Dito namin ibabahagi ang mga mungkahing naisakatuparan at balita tungkol sa mga update.",
+  "검토 중": "Sinusuri",
+  "준비 중": "Pinaghahandaan",
+  "반영 완료": "Naisakatuparan",
+  "새 소식 — MyAnimalRoom": "Mga balita — MyAnimalRoom"
 }

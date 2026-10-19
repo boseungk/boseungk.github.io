@@ -1,6 +1,6 @@
 import { after, before, beforeEach, test } from 'node:test';
 import assert from 'node:assert/strict';
-import { readFile } from 'node:fs/promises';
+import { readFile, readdir } from 'node:fs/promises';
 import { createHash, randomUUID } from 'node:crypto';
 import { Miniflare } from 'miniflare';
 
@@ -32,8 +32,11 @@ function runtime(bindings = {}) {
   });
 }
 async function migrate(database) {
-  const sql = await readFile(new URL('../migrations/0001_feedback.sql', import.meta.url), 'utf8');
-  for (const part of sql.split(';').map((s) => s.trim()).filter(Boolean)) await database.prepare(part).run();
+  const directory = new URL('../migrations/', import.meta.url);
+  for (const file of (await readdir(directory)).filter(name => name.endsWith('.sql')).sort()) {
+    const sql = await readFile(new URL(file, directory), 'utf8');
+    for (const part of sql.split(';').map(s => s.trim()).filter(Boolean)) await database.prepare(part).run();
+  }
 }
 before(async () => { mf = runtime(); db = await mf.getD1Database('DB'); await migrate(db); });
 after(async () => { await mf?.dispose(); });
@@ -165,7 +168,7 @@ test('Unicode normalization, codepoint limits, bounded body, plaintext and priva
   assert.equal(result.body, 'é <script>alert(1)</script> &amp;');
   assert.equal(result.nickname, '🐾');
   assert.match(result.created_at, /^\d{4}-.*Z$/);
-  assert.deepEqual(Object.keys(result).sort(), ['body', 'comment_count', 'created_at', 'id', 'nickname', 'vote_count', 'voted']);
+  assert.deepEqual(Object.keys(result).sort(), ['body', 'comment_count', 'created_at', 'id', 'nickname', 'status', 'vote_count', 'voted']);
   await idea(cookie, payload('🐾'.repeat(2000), '🐾'.repeat(24)));
   for (const data of [payload('🐾'.repeat(2001)), payload('body', '🐾'.repeat(25)), payload(' \n\t '), payload('\u0000'), payload('\uD800'), { ...payload(), hidden: false }, { ...payload(), is_operator: true }, { ...payload(), visitor_id: 'x' }, { ...payload(), vote_count: 100 }, { ...payload(), created_at: 1 }]) {
     assert.equal((await req('/v1/ideas', { method: 'POST', cookie, data })).status, 400);
@@ -367,4 +370,19 @@ test('expired hash cleanup preserves votes; explicit visitor/idea deletion casca
   assert.equal((await db.prepare('SELECT visitor_id FROM ideas').first()).visitor_id, null);
   await db.prepare('DELETE FROM ideas WHERE id=?').bind(item.id).run();
   assert.equal(await count('comments'), 0);
+});
+
+
+test('only operator-maintained status is exposed on list, detail and vote responses', async () => {
+  const cookie = await visitor(), created = await idea(cookie);
+  assert.equal(created.status, 'open');
+  assert.equal((await req('/v1/ideas', {method:'POST',cookie,data:{...payload(),status:'completed'}})).status,400);
+  for (const state of ['reviewing','planned','completed']) {
+    await db.prepare('UPDATE ideas SET status=? WHERE id=?').bind(state,created.id).run();
+    assert.equal((await req(`/v1/ideas/${created.id}`)).json.idea.status,state);
+    assert.equal((await req('/v1/ideas')).json.ideas[0].status,state);
+    assert.equal((await vote(created.id,cookie,true)).json.idea.status,state);
+  }
+  await assert.rejects(db.prepare("UPDATE ideas SET status='unknown' WHERE id=?").bind(created.id).run());
+  assert.equal((await req(`/v1/ideas/${created.id}`,{method:'PATCH',cookie,data:{status:'open'}})).status,404);
 });

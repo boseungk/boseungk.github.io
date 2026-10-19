@@ -86,3 +86,13 @@
 .feedback-page:dir(rtl) .feedback-counter{direction:ltr;unicode-bidi:isolate}
 .feedback-page bdi{unicode-bidi:isolate}
 .feedback-page .feedback-toolbar h2,.feedback-page .feedback-sort button{overflow-wrap:anywhere}
+
+/* Reading comes first; the writing form expands only when requested. */
+.feedback-compose-disclosure{margin:0 0 28px;scroll-margin-top:140px}
+.feedback-compose-toggle{display:inline-flex;align-items:center;min-height:48px;cursor:pointer;list-style:none;font-size:15px;color:var(--ink)}
+.feedback-compose-toggle::-webkit-details-marker{display:none}
+.feedback-compose-toggle:focus-visible{outline:2px solid #95705b;outline-offset:4px}
+.feedback-compose-content{padding-top:20px}
+.feedback-compose-disclosure+section .feedback-toolbar{margin-top:28px}
+.feedback-progress{display:inline-flex;align-items:center;font-size:12px;color:#5f493e;isolation:isolate}
+.feedback-progress .mar-choice-label{padding:3px 9px}

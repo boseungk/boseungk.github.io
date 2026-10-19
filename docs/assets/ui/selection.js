@@ -55,7 +55,8 @@
     controllers.push(refresh);document.fonts.ready.then(refresh);refresh();
   }
   const each=(selector,fn)=>document.querySelectorAll(selector).forEach(fn);
-  each('.header nav,.site-nav,.footer nav,.footer-nav,.feedback-footer nav',group=>mount(group,[...group.querySelectorAll('a')]));
+  each('.header nav,.site-nav,.footer nav,.footer-nav,.feedback-footer nav',group=>{const items=[...group.querySelectorAll('a')];mount(group,items,()=>items.find(item=>item.getAttribute('aria-current')==='page'));});
+  each('.feedback-compose-toggle',item=>mount(item,[item],()=>item));
   each('.journey-flow',group=>{const items=[...group.querySelectorAll('[data-journey-step]')];mount(group,items,()=>items.find(i=>i.dataset.current==='true'),false);});
   each('.customize-ingredients',group=>{const items=[...group.querySelectorAll('[data-customize-item]')];mount(group,items,()=>items.filter(i=>i.classList.contains('is-added')).at(-1),false);});
   each('.feedback-sort',group=>{const items=[...group.querySelectorAll('button')];mount(group,items,()=>items.find(i=>i.getAttribute('aria-pressed')==='true'));});

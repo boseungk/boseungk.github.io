@@ -22,7 +22,7 @@ const statement = (env, sql, ...args) => env.DB.prepare(sql).bind(...args);
 
 function publicIdea(row) {
   return {
-    id: row.id, nickname: row.nickname, body: row.body,
+    id: row.id, nickname: row.nickname, body: row.body, status: row.status,
     created_at: new Date(row.created_at).toISOString(),
     vote_count: row.vote_count, comment_count: row.comment_count, voted: !!row.voted,
   };
@@ -33,7 +33,7 @@ function publicComment(row) {
     created_at: new Date(row.created_at).toISOString(), is_operator: !!row.is_operator,
   };
 }
-const IDEA_SELECT = `SELECT i.id,i.nickname,i.body,i.created_at,
+const IDEA_SELECT = `SELECT i.id,i.nickname,i.body,i.created_at,i.status,
   (SELECT COUNT(*) FROM votes v WHERE v.idea_id=i.id) AS vote_count,
   (SELECT COUNT(*) FROM comments c WHERE c.idea_id=i.id AND c.hidden=0) AS comment_count,
   EXISTS(SELECT 1 FROM votes v WHERE v.idea_id=i.id AND v.visitor_id=?) AS voted

@@ -64,7 +64,7 @@ for file in [*(DOCS / 'assets/v5').glob('growth*.js'), *(DOCS / 'assets/v5').glo
         assert (file.parent / imported).exists(), f'{file}: missing module {imported}'
 for item in LOCALES:
     prefix = item['path'] + '/' if item['path'] else ''
-    for entry in ('index.html', 'feedback/index.html'):
+    for entry in ('index.html', 'feedback/index.html', 'news/index.html'):
         page = pages[DOCS / prefix / entry]
         assert page.lang == item['lang'] and page.direction == item['direction']
         assert len(page.locale_links) == len(LOCALES), (item, entry)
@@ -92,13 +92,32 @@ for locale, expected in [(f'{row["path"] + "/" if row["path"] else ""}feedback/i
     file = DOCS / locale
     source = file.read_text()
     assert pages[file].lang == expected
-    assert source.count('aria-current="page"') == 1
+    assert source.count('aria-current="page"') == 2
     assert 'id="idea-form"' in source and 'id="idea-list"' in source
     assert '/assets/feedback/feedback.js' in source
     assert 'src="/home.js' not in source and 'src="/assets/v4/hero.js' not in source
     assert 'contact@myanimalroom.com' in source
     assert 'href="/feedback/" lang="ko"' in source
     assert 'href="/en/feedback/" lang="en"' in source
+# Shared header now navigates between participation pages; the brand leads home.
+for item in LOCALES:
+    prefix = '/' + (item['path'] + '/' if item['path'] else '')
+    for name in ('home', 'feedback', 'news'):
+        file = DOCS / (prefix + (name + '/' if name != 'home' else '') + 'index.html').lstrip('/')
+        source = file.read_text()
+        header = re.search(r'<header.*?</header>', source, re.S)[0]
+        nav = re.search(r'<nav[^>]*>(.*?)</nav>', header, re.S)[1]
+        assert re.findall(r'href="([^"]+)"', nav) == [prefix + 'feedback/', prefix + 'news/']
+        assert nav.count('aria-current="page"') == (name != 'home')
+        assert '<!--SITE_NAV-->' not in source
+        if name == 'feedback':
+            assert '<details class="feedback-compose-disclosure" id="new-idea">' in source
+            assert 'id="idea-list"' in source
+        if name == 'news':
+            assert 'id="feedback-board"' in source and 'datetime="2026-10-19"' in source
+            assert '/assets/feedback/feedback.js' not in source
+            assert 'src="/home.js' not in source
+            assert source.count('aria-current="page"') == 2
 # Export evidence checks all slots were inside the shared full-room projection.
 dusk = json.loads((DOCS / 'assets/v5/customize/dusk-render-evidence.json').read_text())
 day = json.loads((DOCS / 'assets/v5/customize/render-evidence.json').read_text())

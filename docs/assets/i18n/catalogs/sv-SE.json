@@ -225,5 +225,13 @@
   "예시 할 일 {total}개 중 {count}개를 완료했어요.": "{count} av {total} exempeluppgifter klara.",
   "줄기": "Stjälk",
   "봉오리": "Knopp",
-  "꽃": "Blomma"
+  "꽃": "Blomma",
+  "새 소식": "Nyheter",
+  "기능 제안 공간을 열었어요.": "Vi har öppnat en plats för förslag.",
+  "로그인 없이 글과 댓글을 남길 수 있어요.": "Du kan skriva förslag och kommentarer utan att logga in.",
+  "반영된 제안과 업데이트 소식을 이곳에서 전할게요.": "Här delar vi genomförda förslag och nyheter om uppdateringar.",
+  "검토 중": "Under granskning",
+  "준비 중": "Planerat",
+  "반영 완료": "Genomfört",
+  "새 소식 — MyAnimalRoom": "Nyheter — MyAnimalRoom"
 }

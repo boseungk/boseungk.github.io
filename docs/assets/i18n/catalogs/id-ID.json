@@ -225,5 +225,13 @@
   "예시 할 일 {total}개 중 {count}개를 완료했어요.": "{count} dari {total} tugas contoh selesai.",
   "줄기": "Batang",
   "봉오리": "Kuncup",
-  "꽃": "Bunga"
+  "꽃": "Bunga",
+  "새 소식": "Kabar terbaru",
+  "기능 제안 공간을 열었어요.": "Ruang saran fitur kini tersedia.",
+  "로그인 없이 글과 댓글을 남길 수 있어요.": "Kamu bisa mengirim saran dan komentar tanpa masuk akun.",
+  "반영된 제안과 업데이트 소식을 이곳에서 전할게요.": "Kami akan membagikan saran yang telah diterapkan dan kabar pembaruan di sini.",
+  "검토 중": "Sedang ditinjau",
+  "준비 중": "Direncanakan",
+  "반영 완료": "Sudah diterapkan",
+  "새 소식 — MyAnimalRoom": "Kabar terbaru — MyAnimalRoom"
 }

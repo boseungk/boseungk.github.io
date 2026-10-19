@@ -57,7 +57,7 @@ charset). Credentials CORS never uses `*`; responses carry `Vary: Origin`,
 | PUT `/v1/ideas/:id/vote` | `{voted: boolean}` | `{idea: Idea}` |
 
 ```text
-Idea = {id, nickname, body, created_at, vote_count, comment_count, voted}
+Idea = {id, nickname, body, status, created_at, vote_count, comment_count, voted}
 Comment = {id, idea_id, nickname, body, created_at, is_operator}
 ```
 
@@ -191,6 +191,19 @@ VALUES
   ('NEW_UUID','IDEA_UUID',NULL,'MyAnimalRoom','Plaintext operator reply',
    CAST(unixepoch('subsec')*1000 AS INTEGER),0,1,'ANOTHER_NEW_UUID');
 ```
+
+Migration `0002_idea_status.sql` adds an operator-owned `status`: `open` (default),
+`reviewing`, `planned`, or `completed`. Public creation rejects a supplied status.
+The website displays a status only after the operator changes it; a newly
+submitted idea is never presented as already reviewed or promised.
+
+```sql
+UPDATE ideas SET status='reviewing' WHERE id='IDEA_UUID' AND hidden=0;
+```
+
+Use `planned` for work actually selected for preparation and `completed` only
+after the requested change ships. An operator comment can explain the decision
+and reference the corresponding published `/news/#entry-id` note.
 
 Hidden parents disappear from all public queries and cannot receive comments
 or votes. Hidden comments disappear from responses and comment counts.

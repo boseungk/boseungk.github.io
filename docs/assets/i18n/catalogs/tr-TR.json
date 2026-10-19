@@ -225,5 +225,13 @@
   "예시 할 일 {total}개 중 {count}개를 완료했어요.": "{total} örnek görevin {count} tanesi tamamlandı.",
   "줄기": "Sap",
   "봉오리": "Tomurcuk",
-  "꽃": "Çiçek"
+  "꽃": "Çiçek",
+  "새 소식": "Haberler",
+  "기능 제안 공간을 열었어요.": "Öneriler için bir alan açtık.",
+  "로그인 없이 글과 댓글을 남길 수 있어요.": "Giriş yapmadan öneri ve yorum paylaşabilirsiniz.",
+  "반영된 제안과 업데이트 소식을 이곳에서 전할게요.": "Hayata geçirilen önerileri ve güncelleme haberlerini burada paylaşacağız.",
+  "검토 중": "İnceleniyor",
+  "준비 중": "Hazırlanıyor",
+  "반영 완료": "Hayata geçirildi",
+  "새 소식 — MyAnimalRoom": "Haberler — MyAnimalRoom"
 }

@@ -69,7 +69,7 @@
 .header{height:auto}
 .header-inner{width:calc(100% - 32px);display:grid;grid-template-columns:1fr auto;gap:0}
 .header .brand{font-size:21px;min-height:66px;justify-self:start}
-.header nav{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));grid-column:1/-1;grid-row:2;gap:0;margin:0;padding-bottom:6px}
+.header nav{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));grid-column:1/-1;grid-row:2;gap:0;margin:0;padding-bottom:6px}
 .header-end{grid-column:2;grid-row:1;margin:0}
 }
 .header nav a{position:relative;isolation:isolate;padding-inline:14px;min-height:44px}
@@ -82,7 +82,7 @@
 .header nav a{padding-inline:9px}
 }
 @media(max-width:1000px){
-.header nav a{justify-content:center;padding:6px 4px;min-height:44px;font-size:12px;line-height:1.35;white-space:normal;text-align:center}
+.header nav a{justify-content:center;padding:6px 4px;min-height:44px;font-size:14px;line-height:1.35;white-space:normal;text-align:center}
 }
 .intro-release{margin-top:26px}
 @media(prefers-reduced-motion:reduce){

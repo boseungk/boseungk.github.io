@@ -27,6 +27,8 @@ test('every public language has working runtime messages, counts, dates and a di
       assert.equal(module.currentLocale.direction, item.direction);
       const expected = '/' + (item.path ? item.path + '/' : '') + 'feedback/';
       assert.equal(module.currentLocale.feedback, expected);
+      assert.equal(module.currentLocale.news, expected.replace('feedback/', 'news/'));
+      for (const key of ['검토 중', '준비 중', '반영 완료']) assert.ok(module.text(key));
       routes.add(expected);
       assert.doesNotMatch(module.text('나도 원해요, 공감 {count}개', {count: 3}), /\{\w+\}/);
       assert.ok(module.text('익명'));

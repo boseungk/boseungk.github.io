@@ -1,6 +1,6 @@
 import {createClient, createDraftRequest, validateDraft, normalizeText, FeedbackError} from './client.mjs';
 import {feedbackConfig} from './config.js';
-import {text as t, currentLocale} from './copy.mjs?v=20261015-i18n';
+import {text as t, currentLocale} from './copy.mjs?v=20261019-board';
 
 const $ = selector => document.querySelector(selector);
 const locale = currentLocale.locale;
@@ -208,6 +208,8 @@ function renderIdea(idea, prepend = false) {
   const vote = button('', 'feedback-vote');
   const voteCount = element('span'); vote.append(icon('m6 14 6-6 6 6'), voteCount); voteWrap.append(vote);
   const content = element('div', 'feedback-idea-content');
+  const progress = element('span', 'feedback-progress');
+  const progressLabels = {reviewing:t('검토 중'),planned:t('준비 중'),completed:t('반영 완료')};
   const actions = element('div', 'feedback-idea-actions');
   const commentToggle = button(''); commentToggle.setAttribute('aria-expanded', 'false');
   commentToggle.setAttribute('aria-controls', `comments-${idea.id}`);
@@ -219,6 +221,8 @@ function renderIdea(idea, prepend = false) {
   let state = idea;
   const comments = commentsPanel(idea, () => update({...state, comment_count: state.comment_count + 1}), busy => {vote.disabled = busy;});
   function update(next) {
+    progress.textContent = progressLabels[next.status] || '';
+    progress.hidden = !progress.textContent;
     state = next; voteCount.textContent = state.vote_count.toLocaleString(locale);
     vote.setAttribute('aria-pressed', String(state.voted));
     vote.setAttribute('aria-label', t('나도 원해요, 공감 {count}개', {count: state.vote_count}));
@@ -235,7 +239,8 @@ function renderIdea(idea, prepend = false) {
     comments.open(); commentToggle.setAttribute('aria-expanded', String(!comments.panel.hidden));
   });
   actions.append(commentToggle, share);
-  content.append(meta(idea), element('p', 'feedback-body', idea.body), actions, challenge, error, comments.panel);
+  const heading = meta(idea); heading.append(progress);
+  content.append(heading, element('p', 'feedback-body', idea.body), actions, challenge, error, comments.panel);
   li.append(voteWrap, content); rendered.set(idea.id, {li, update, hasDraft: () => vote.disabled || comments.hasDraft(), newlyPosted: prepend});
   prepend ? ideaList.prepend(li) : ideaList.append(li); return li;
 }
@@ -276,7 +281,8 @@ async function loadIdeas(append = false) {
 wireForm($('#idea-form'), {limit: 2000, counter: $('#idea-counter'), message: $('#idea-status'), challenge: $('#idea-challenge'), endpoint: '/v1/ideas',
   onSuccess: result => {
     const li = renderIdea(result.idea, true); $('#list-empty').hidden = true;
-    li.focus({preventScroll: true});
+    $('#new-idea').open = false;
+    li.scrollIntoView({behavior:'instant',block:'center'}); li.focus({preventScroll: true});
   }
 });
 document.querySelectorAll('[data-sort]').forEach(control => control.addEventListener('click', () => {

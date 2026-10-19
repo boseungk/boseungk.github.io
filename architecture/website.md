@@ -4,7 +4,7 @@
 
 `docs/` is the website and the GitHub Pages source (`main` + `/docs`). The deleted root Ruby/Jekyll blog is unrelated to this deployment. `docs/CNAME` supplies the custom domain; `.nojekyll` prevents Jekyll processing. Privacy/404 pages are standalone HTML using `style.css` and `app.js`; the homepage uses `home.css` and feature CSS.
 
-`tools/templates/home.ko.html` and `feedback.ko.html` own Korean content and semantic markup. `tools/build-locales.py` generates the 30 home/feedback route pairs, language menus, canonical/alternate metadata, sitemap and runtime copy from `assets/i18n/source.json`, `catalogs/` and `locales.json`. The locale registry mirrors Dayloom's `src/core/localization/locale-registry.ts`; the app's `support-links.ts` maps to these exact published routes. `build-english.py` remains a compatibility entry point. Missing keys, placeholders or inline markup fail the build; untranslated fallback pages are not published.
+`tools/templates/home.ko.html`, `feedback.ko.html` and `news.ko.html` own Korean content and semantic markup. `tools/build-locales.py` generates the 30 home/feedback/news route sets, language menus, canonical/alternate metadata, sitemap and runtime copy from `assets/i18n/source.json`, `catalogs/` and `locales.json`. The locale registry mirrors Dayloom's `src/core/localization/locale-registry.ts`; the app's `support-links.ts` maps to these exact published routes. `build-english.py` remains a compatibility entry point. Missing keys, placeholders or inline markup fail the build; untranslated fallback pages are not published.
 
 `MARCopy.text`, `.duration`, and `.taskSummary` translate at controller-owned text creation sites. The feedback module selects its compiled catalog from the static page language and uses the matching locale for dates/numbers and permanent links. Posts, comments and nicknames remain their author's original text, with automatic text direction. No DOM scanning or translation service is used. All locales inherit assets and cache URLs from the templates; phone demo UI stays Korean. Privacy pages retain their existing Korean/English content.
 
@@ -83,3 +83,24 @@ The hero wall extension uses native tinted ink, matching the room at day, sunset
 `assets/ui/wash.css` loads last on all public pages. Selection is measured from the padded inner label (10px horizontal, 5px vertical), separately from the larger hit target. Each mutually exclusive group has one SVG backdrop. First appearance/fade uses native 110ms in-out quadratic timing; changes move its x/y/width/height with mass 1, stiffness 484, damping 36.52, relative energy threshold 1e-7. Hidden-page and reduced-motion states settle without motion. Headings and ordinary unselected text have no decorative sweep. `tools/export-selection-spec.cjs` extracts the contract from actual app files and records hashes in `native-selection-sources.json`.
 
 The product/development page, its footer links and sitemap entry are removed. The footer retains direct contact, feedback, social channels, FAQ and privacy. App icon exports now have transparent rounded corners (22% radius), including the favicon. Social app artwork remains unmodified.
+
+
+## Participation navigation (2026-10-19)
+
+`build-locales.py` supplies the same two-item header to all three templates:
+Feature suggestions and News, each pointing to a real localized route. The
+wordmark leads to the landing page. `aria-current` drives the existing native
+selection wash; language switching stays within the corresponding page.
+
+Feedback starts with the suggestion list and a collapsed, keyboard-operable
+writing disclosure. Closing it retains the draft; successful submission closes
+it and focuses the newly posted suggestion. Existing anonymous votes, comments
+and operator replies are retained. Database migration 0002 adds the operator-only
+`open/reviewing/planned/completed` status; new suggestions have no implied promise
+or review badge. Public writes cannot set that state.
+
+News is static, dated editorial content in `news.ko.html`, translated through the
+same 30-language catalogs and included in the sitemap. It loads no feedback API
+or homepage graphics. The first note introduces the actual existing suggestion
+board; no app release or invented community activity is announced. Add further
+entries with stable article IDs so operator replies can link to shipped updates.
