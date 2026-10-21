@@ -51,6 +51,10 @@ For a local end-to-end preview, keep the static server on `127.0.0.1:8765`, then
 
 Before publishing, run the static/locale checks, `node --test tools/check-feedback-client.mjs tools/check-locales.mjs`, and `npm test` in `services/feedback`. Deploy and verify the API before publishing the static pages. Existing posts are public; perform UI testing against local data and keep any production smoke data out of the public list after verification.
 
+## Mobile app privacy
+
+The app policy is authored in `tools/templates/app-privacy.ko.html` and `app-privacy.en.html`, then generated at `/app-privacy/` and `/en/app-privacy/`. It stays separate from the website/board policy. Both have Korean/English navigation and sitemap entries; legal copy is not translated by the marketing catalogs. Update both authored versions together and regenerate with `python3 tools/build-locales.py`.
+
 ## Attribution
 
 The previous blog used [Jekyll YAT](https://github.com/jeffreytse/jekyll-theme-yat), copyright 2019 Jeffrey Tse. Its original [MIT license](LICENSE.txt) is retained. Artwork, fonts, native source, Three.js and social marks have their own attribution in [docs/assets/ASSET-SOURCES.md](docs/assets/ASSET-SOURCES.md), `OFL-LINESeedKR.txt`, and `vendor/THREE-LICENSE.txt`.
