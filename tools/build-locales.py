@@ -13,12 +13,19 @@ SOURCE = json.loads((I18N / 'source.json').read_text())
 LOCALES = json.loads((I18N / 'locales.json').read_text())
 ORIGIN = 'https://www.myanimalroom.com'
 KOREAN = re.compile('[가-힣]')
-AUTHORED_PAGES = ('privacy', 'app-privacy')
+AUTHORED_PAGES = {
+    'privacy': ('ko', 'en'),
+    'app-privacy': ('ko', 'en', 'ja', 'zh-Hant'),
+}
+
+
+def page_locales(page):
+    return [locale for locale in LOCALES if page not in AUTHORED_PAGES or locale['lang'] in AUTHORED_PAGES[page]]
 
 
 def route(locale, page='home'):
-    if page in AUTHORED_PAGES:
-        return f'/{page}/' if locale['lang'] == 'ko' else f'/en/{page}/'
+    if page in AUTHORED_PAGES and locale['lang'] not in AUTHORED_PAGES[page]:
+        return f'/en/{page}/'
     return '/' + (locale['path'] + '/' if locale['path'] else '') + (page + '/' if page != 'home' else '')
 
 
@@ -105,7 +112,7 @@ class Translate(HTMLParser):
 def picker(locale, page, copy):
     esc = html.escape
     choices = []
-    for item in (LOCALES[:2] if page in AUTHORED_PAGES else LOCALES):
+    for item in page_locales(page):
         current = ' aria-current="page"' if item['lang'] == locale['lang'] else ''
         keywords = ' '.join([item['nativeName'], item['englishName'], item['locale'], item['lang']])
         choices.append(f'<li><a href="{route(item, page)}" lang="{item["lang"]}" hreflang="{item["lang"]}"{current} data-language-search="{esc(keywords)}"><bdi>{esc(item["nativeName"])}</bdi><span class="language-check" aria-hidden="true">✓</span></a></li>')
@@ -128,7 +135,7 @@ def render(locale, page, catalog):
     result = result.replace('<!--LANGUAGE_PICKER-->', picker(locale, page, catalog))
     nav = ''.join('<a href="' + route(locale, target) + '"' + (' aria-current="page"' if target == page else '') + '>' + html.escape(catalog[label]) + '</a>' for target, label in [('feedback', '기능 제안'), ('news', '새 소식')])
     result = result.replace('<!--SITE_NAV-->', nav)
-    alternates = ''.join(f'<link rel="alternate" hreflang="{item["lang"]}" href="{ORIGIN}{route(item, page)}">' for item in (LOCALES[:2] if page in AUTHORED_PAGES else LOCALES))
+    alternates = ''.join(f'<link rel="alternate" hreflang="{item["lang"]}" href="{ORIGIN}{route(item, page)}">' for item in page_locales(page))
     alternates += f'<link rel="alternate" hreflang="x-default" href="{ORIGIN}{route(LOCALES[1], page)}">'
     result = result.replace('<!--LOCALE_ALTERNATES-->', alternates)
     result = result.replace('"inLanguage": ["ko", "en"]', '"inLanguage": ' + json.dumps([item['lang'] for item in LOCALES]))
@@ -147,8 +154,8 @@ def build():
     for locale in LOCALES:
         for page in ('home', 'feedback', 'news'):
             result[DOCS / route(locale, page).lstrip('/') / 'index.html'] = render(locale, page, catalogs[locale['lang']])
-    for locale in LOCALES[:2]:
-        for page in AUTHORED_PAGES:
+    for page in AUTHORED_PAGES:
+        for locale in page_locales(page):
             result[DOCS / route(locale, page).lstrip('/') / 'index.html'] = render(locale, page, catalogs[locale['lang']])
     runtime_keys = set()
     for file in [DOCS / 'home.js', *DOCS.glob('assets/v4/*.js'), *DOCS.glob('assets/v5/*.js')]:
@@ -194,7 +201,7 @@ export function text(key, values = {}) {
 }
 '''.replace('__LOCALES__', javascript(meta)).replace('__COPY__', javascript(feedback_copy))
     urls = [ORIGIN + route(locale, page) for locale in LOCALES for page in ('home', 'feedback', 'news')]
-    urls.extend(ORIGIN + route(locale, page) for locale in LOCALES[:2] for page in AUTHORED_PAGES)
+    urls.extend(ORIGIN + route(locale, page) for page in AUTHORED_PAGES for locale in page_locales(page))
     result[DOCS / 'sitemap.xml'] = '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' + ''.join(f'  <url><loc>{url}</loc></url>\n' for url in urls) + '</urlset>\n'
     return result
 

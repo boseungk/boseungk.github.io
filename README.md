@@ -53,7 +53,7 @@ Before publishing, run the static/locale checks, `node --test tools/check-feedba
 
 ## Mobile app privacy
 
-The app policy is authored in `tools/templates/app-privacy.ko.html` and `app-privacy.en.html`, then generated at `/app-privacy/` and `/en/app-privacy/`. It stays separate from the website/board policy. Both have Korean/English navigation and sitemap entries; legal copy is not translated by the marketing catalogs. Update both authored versions together and regenerate with `python3 tools/build-locales.py`.
+The app policy is authored separately in `tools/templates/app-privacy.{ko,en,ja,zh-Hant}.html`, then generated at `/app-privacy/`, `/en/app-privacy/`, `/ja/app-privacy/`, and `/zh-hant/app-privacy/`. All four versions share language navigation and sitemap entries. The website/board policy remains a separate Korean/English document. Policy copy is not translated by the marketing catalogs: keep the meaning of all authored app-policy versions aligned and regenerate with `python3 tools/build-locales.py`. Translation alone does not change the policy's effective date or establish country-specific legal compliance.
 
 ## Attribution
 
