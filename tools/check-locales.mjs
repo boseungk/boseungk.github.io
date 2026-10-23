@@ -1,5 +1,5 @@
 import assert from 'node:assert/strict';
-import {existsSync, readFileSync} from 'node:fs';
+import {existsSync, readFileSync, readdirSync} from 'node:fs';
 import {test} from 'node:test';
 import vm from 'node:vm';
 
@@ -68,6 +68,23 @@ test('authored privacy policies retain separate Korean and English public routes
     }
     for (const locale of locales.slice(2)) {
       assert.equal(existsSync(new URL(`../docs/${locale.path}/${page}/index.html`, import.meta.url)), false);
+    }
+  }
+});
+
+
+test('published pages use the spaced app brand while preserving channel handles', () => {
+  const docs = new URL('../docs/', import.meta.url);
+  const pages = readdirSync(docs, {recursive: true}).filter(path => path.endsWith('.html'));
+  assert.equal(pages.length, 95);
+  for (const page of pages) {
+    const source = readFileSync(new URL(page, docs), 'utf8');
+    assert.doesNotMatch(source, /MyAnimalRoom(?!Life)/, page);
+    if (page === '404.html') continue;
+    assert.match(source, /<a class="brand"[^>]*>My Animal Room<\/a>/, page);
+    assert.match(source, /https:\/\/www\.myanimalroom\.com\//, page);
+    if (page === 'index.html') {
+      assert.match(source, /https:\/\/www\.youtube\.com\/@MyAnimalRoomLife/, page);
     }
   }
 });
