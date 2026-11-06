@@ -87,7 +87,8 @@ class Translate(HTMLParser):
         if tag == 'html':
             translated.extend([f'dir="{self.locale["direction"]}"', f'data-app-locale="{self.locale["locale"]}"'])
         self.output.append('<' + tag + (' ' + ' '.join(translated) if translated else '') + '>')
-        if tag == 'br' and self.locale['lang'] != 'ko':
+        # Space-separated scripts keep a word gap when a line break is hidden on narrow screens.
+        if tag == 'br' and self.locale['lang'] not in ('ja', 'zh-Hans', 'zh-Hant'):
             self.output.append(' ')
 
     def handle_endtag(self, tag):
