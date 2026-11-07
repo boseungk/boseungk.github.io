@@ -20,77 +20,112 @@
 }
 .community-head h1 { font-size: var(--fs-section); line-height: 1.3; letter-spacing: var(--track-section); }
 .community-lead { margin-top: 12px; font-size: 17px; line-height: calc(26px * var(--lh-scale)); color: var(--ink-soft); text-wrap: pretty; }
-.community-button, .feedback-compose-toggle, .feedback-primary, .feedback-submit {
+.community-button, .feedback-primary, .feedback-submit {
   display: inline-flex; align-items: center; justify-content: center; min-height: 50px; padding: 12px 20px;
   border-radius: 12px; background: var(--button); color: var(--ink); font-size: 17px; line-height: 26px;
   text-decoration: none; cursor: pointer; transition: opacity var(--dur-choice) linear;
 }
-:is(.community-button, .feedback-compose-toggle, .feedback-primary, .feedback-submit):active { opacity: .76; }
+:is(.community-button, .feedback-primary, .feedback-submit):active { opacity: .76; }
 .text-link { color: var(--ink); text-decoration: none; }
 @media (max-width: 759px) {
   .community { --ov: 20px; }
   .community-sheet { padding: 32px 24px 80px; }
 }
 
-/* ---- compose ---- */
-.feedback-compose-disclosure { margin-top: 24px; interpolate-size: allow-keywords; }
-.feedback-compose-toggle { list-style: none; user-select: none; transition: opacity var(--dur-choice) linear, background-color var(--dur-in) var(--ease-paper); }
-/* open: the submit below keeps the only Oat fill; the summary ("작성 닫기", feedback.js) steps back to the soft fill */
-.feedback-compose-disclosure[open] > .feedback-compose-toggle { background: var(--soft); color: var(--ink-soft); }
+/* ---- compose: one soft card, the app's quick-add row that opens into the writing paper ---- */
+/* Closed: a 36px Oat disc with a drawn plus and the label (the app's "할 일 추가" row). Open: the plus turns 45° into
+   a close mark over 110ms (quick-add-row.tsx) and the form writes straight on the card: white fields, no outlines. */
+.feedback-compose-disclosure {
+  margin-top: 28px; border-radius: 18px; background: var(--soft); interpolate-size: allow-keywords;
+  transition: background-color var(--dur-in) var(--ease-paper);
+}
+.feedback-compose-toggle {
+  display: flex; align-items: center; gap: 14px; min-height: 72px; padding: 12px 20px; border-radius: 18px;
+  list-style: none; user-select: none; cursor: pointer; color: var(--ink); font-size: 17px; line-height: 26px;
+  transition: color var(--dur-in) var(--ease-paper);
+}
 .feedback-compose-toggle::-webkit-details-marker { display: none; }
+.feedback-compose-toggle::before {
+  content: ""; flex: none; width: 36px; height: 36px; border-radius: 50%;
+  background:
+    linear-gradient(var(--ink), var(--ink)) center / 14px 1.45px no-repeat,
+    linear-gradient(var(--ink), var(--ink)) center / 1.45px 14px no-repeat,
+    var(--button);
+  transition: transform var(--dur-choice) var(--ease-paper), background-color var(--dur-in) var(--ease-paper);
+}
+.feedback-compose-toggle:active::before { transform: scale(.94); }
+.feedback-compose-disclosure[open] > .feedback-compose-toggle { color: var(--ink-soft); }
+.feedback-compose-disclosure[open] > .feedback-compose-toggle::before { transform: rotate(45deg); background-color: var(--paper); }
+@media (hover: hover) {
+  .feedback-compose-disclosure:not([open]):hover { background: var(--selection); }
+}
 .feedback-compose-disclosure::details-content {
   height: 0; overflow: clip;
   transition: height var(--dur-editor) var(--ease-paper), content-visibility var(--dur-editor) allow-discrete;
 }
 .feedback-compose-disclosure[open]::details-content { height: auto; }
-.feedback-compose-disclosure.is-instant::details-content { transition: none; }
-.feedback-compose-content { padding-top: 20px; }
-.feedback-compose { padding: 24px; border-radius: 18px; background: var(--soft); }
-.community-sheet label { display: block; margin-bottom: 8px; font-size: 15px; line-height: 23px; }
+.feedback-compose-disclosure.is-instant, .feedback-compose-disclosure.is-instant > .feedback-compose-toggle,
+.feedback-compose-disclosure.is-instant > .feedback-compose-toggle::before, .feedback-compose-disclosure.is-instant::details-content { transition: none; }
+.feedback-compose-content { padding: 0 20px 20px; }
+.feedback-compose { padding: 4px 0 0; }
+.community-sheet label { display: block; margin-bottom: 8px; font-size: 15px; line-height: 24px; color: var(--ink-soft); }
+/* Fields: white paper on the soft card, radius 12, no border (the app never outlines a field). Errors are the
+   sentence below the form, never a red edge; focus keeps the site's ring for the keyboard and a --ring caret. */
 .community-sheet :is(input, textarea) {
-  display: block; width: 100%; min-width: 0; min-height: 48px; padding: 11px 14px;
-  border: 1px solid var(--field-line); border-radius: 8px; background: var(--paper); color: var(--ink);
+  display: block; width: 100%; min-width: 0; min-height: 48px; padding: 12px 16px;
+  border: 0; border-radius: 12px; background: var(--paper); color: var(--ink); caret-color: var(--ring);
   font-size: 16px; line-height: 25px;
 }
 .community-sheet :is(input, textarea)::placeholder { color: var(--muted); opacity: 1; }
-.community-sheet :is(input, textarea):focus-visible { outline-offset: 2px; }
-.community-sheet :is(input, textarea)[aria-invalid=true] { border-color: var(--danger); }
-.community-sheet input { max-width: 240px; margin-bottom: 20px; }
-.community-sheet textarea { min-height: 136px; resize: vertical; }
-.feedback-comment-form textarea { min-height: 96px; }
-.feedback-form-bottom { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px 16px; margin-top: 16px; }
-.feedback-counter { font-size: 13px; line-height: 20px; color: var(--muted); font-variant-numeric: tabular-nums; direction: ltr; unicode-bidi: isolate; }
+.community-sheet input { max-width: 280px; margin-bottom: 20px; }
+/* The writing area grows when it takes focus (the app's composer: 48 -> 240), then with the text. */
+.community-sheet textarea {
+  min-height: 132px; padding-block: 14px; font-size: 17px; line-height: calc(28px * var(--lh-scale)); resize: vertical;
+  transition: min-height var(--dur-editor) var(--ease-paper);
+}
+.community-sheet textarea:focus { min-height: 200px; }
+@supports (field-sizing: content) { .community-sheet textarea { field-sizing: content; max-height: 60vh; resize: none; } }
+.feedback-comment-form textarea { min-height: 96px; font-size: 16px; line-height: calc(25px * var(--lh-scale)); }
+.feedback-comment-form textarea:focus { min-height: 132px; }
+.feedback-form-bottom { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px 16px; margin-top: 14px; }
+/* The count shows while writing (and near the limit); at rest the card carries no numbers. */
+.feedback-counter {
+  font-size: 13px; line-height: 20px; color: var(--muted); font-variant-numeric: tabular-nums; direction: ltr; unicode-bidi: isolate;
+  opacity: 0; transition: opacity var(--dur-out) linear;
+}
+form:focus-within .feedback-counter, .feedback-counter.is-near { opacity: 1; }
 .feedback-counter.is-near { color: var(--danger); }
-.feedback-submit { min-height: 46px; padding: 10px 18px; font-size: 15px; line-height: 23px; }
+.feedback-submit { min-height: 48px; padding: 11px 20px; font-size: 16px; line-height: 25px; }
 .feedback-submit > .mar-choice-label { padding: 0; }
 :is(.feedback-submit, .feedback-primary, .feedback-secondary):disabled { opacity: .46; cursor: progress; }
 .feedback-note { margin-top: 8px; font-size: 13px; line-height: 20px; color: var(--muted); }
-.feedback-compose + .feedback-note { margin-top: 14px; }
+.feedback-compose + .feedback-note { margin-top: 18px; padding-top: 16px; border-top: 1px solid var(--line); }
 /* links inside running text: ink and the policy pages' 1px Oat underline (privacy.css). They have no hover wash
    (ui/selection.js and feedback.js leave them out; a wash cannot follow a link across lines): the underline is the cue. */
 .feedback-note a[href], .feedback-reply__body .text-link {   /* a[href]: beats ui/wash.css's a:hover { text-decoration: none } */
   color: var(--ink); text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: .24em; text-decoration-color: var(--button);
 }
 .feedback-note a[href]:hover, .feedback-reply__body .text-link:hover { text-decoration-color: var(--ring); }
-.feedback-latest { display: flex; flex-wrap: wrap; align-items: center; column-gap: 8px; margin-top: 5px; font-size: 13px; line-height: 20px; color: var(--muted); }
+.feedback-latest { display: flex; flex-wrap: wrap; align-items: center; column-gap: 8px; margin-top: 12px; font-size: 13px; line-height: 20px; color: var(--muted); }
 .feedback-latest .text-link { display: inline-flex; align-items: center; min-height: 44px; margin-inline: -10px; padding-inline: 10px; font-size: 14px; line-height: 22px; }
 .feedback-challenge { margin-top: 16px; }
 .feedback-challenge p { margin-bottom: 8px; font-size: 14px; line-height: 22px; color: var(--muted); }
 
 /* ---- toolbar: sort, status filter ---- */
-.feedback-board { margin-top: 56px; }
-.feedback-controls { padding-bottom: 8px; border-bottom: 1px solid var(--line); }
+.feedback-board { margin-top: 64px; }
+.feedback-controls { padding-bottom: 10px; border-bottom: 1px solid var(--line); }
 .feedback-toolbar { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 4px 16px; }
-.feedback-toolbar h2 { font-size: 22px; line-height: 32px; letter-spacing: 0; }
+.feedback-toolbar h2 { font-size: 24px; line-height: 34px; letter-spacing: -.01em; }
 .feedback-sort, .feedback-filter { display: flex; color: var(--ink-soft); font-size: 15px; line-height: 23px; }
 .feedback-sort { margin-inline-end: -10px; }
-.feedback-filter { margin: 4px -10px 0; overflow-x: auto; scrollbar-width: none; }
+/* Status tabs as the app's tabs with counts (theme-collection-detail.tsx): label and count in one tone, one wash. */
+.feedback-filter { gap: 4px; margin: 10px -10px 0; overflow-x: auto; scrollbar-width: none; }
 .feedback-filter::-webkit-scrollbar { display: none; }
 .feedback-sort button, .feedback-filter button { flex: none; display: inline-flex; align-items: center; min-height: 44px; padding: 0; background: none; white-space: nowrap; }
 :is(.feedback-sort, .feedback-filter) button:is([aria-pressed=true], :hover, :focus-visible) { color: var(--ink); }
 :is(.feedback-sort, .feedback-filter) button:disabled { cursor: progress; }
-.feedback-filter__count { margin-inline-start: 2px; color: var(--muted); font-variant-numeric: tabular-nums; }
-.feedback-filter button:is([aria-pressed=true], :hover, :focus-visible) .feedback-filter__count { color: var(--ink-soft); }
+.feedback-filter__count { margin-inline-start: 3px; font-size: 13px; line-height: 20px; color: var(--ink-soft); font-variant-numeric: tabular-nums; }
+.feedback-filter button:is([aria-pressed=true], :hover, :focus-visible) .feedback-filter__count { color: var(--ink); }
 
 /* ---- list states ---- */
 .feedback-loading { padding: 24px 0; font-size: 14px; line-height: 22px; color: var(--muted); }
@@ -112,89 +147,115 @@
 .feedback-status { margin-top: 8px; font-size: 14px; line-height: 22px; color: var(--danger); overflow-wrap: anywhere; }
 .feedback-status[data-kind=success] { color: var(--ink-soft); }
 .feedback-status:empty { display: none; }
-.feedback-error { padding: 32px 0 8px; font-size: 15px; line-height: 23px; color: var(--danger); }
+.feedback-error { padding: 40px 0 8px; text-align: center; font-size: 15px; line-height: 23px; color: var(--danger); }
 .feedback-error .feedback-secondary { margin-top: 16px; }
 .feedback-error .feedback-note { margin-top: 16px; }
 .feedback-secondary {
-  display: inline-flex; align-items: center; justify-content: center; min-height: 46px; padding: 10px 20px;
+  display: inline-flex; align-items: center; justify-content: center; min-height: 48px; padding: 12px 20px;
   border-radius: 8px; background: var(--soft); color: var(--ink); font-size: 15px; line-height: 23px;
 }
 .feedback-secondary:active { opacity: .76; }
-.feedback-more { display: flex; margin: 28px auto 0; }
-.feedback-empty { padding: 40px 0 16px; text-align: center; font-size: 15px; line-height: 23px; color: var(--ink-soft); }
-.feedback-empty__art { position: relative; width: 240px; height: 150px; margin: 0 auto 20px; overflow: hidden; border-radius: 12px; direction: ltr; }
-.feedback-empty__art img { position: absolute; left: -680px; top: -142px; width: 1600px; max-width: none; height: auto; }
+.feedback-more { display: flex; margin: 32px auto 0; }
+.feedback-empty { padding: 48px 0 16px; text-align: center; font-size: 15px; line-height: 23px; color: var(--ink-soft); }
+.feedback-empty__art { position: relative; width: 260px; height: 160px; margin: 0 auto 22px; overflow: hidden; border-radius: 12px; direction: ltr; }
+.feedback-empty__art img { position: absolute; left: -664px; top: -136px; width: 1600px; max-width: none; height: auto; }
 .feedback-empty .feedback-primary { margin-top: 20px; }
-.feedback-empty--filtered { padding-top: 32px; }
+.feedback-empty--filtered { padding-top: 36px; }
 .feedback-empty--filtered .feedback-text-button { margin-top: 4px; }
 .feedback-noscript { padding: 24px 0; font-size: 15px; line-height: 23px; color: var(--ink-soft); }
 
-/* ---- idea rows: an open list ---- */
+/* ---- idea rows: open rows separated by space, no rules between them (the app's lists) ---- */
+.feedback-list { margin-top: 8px; }
 .feedback-idea {
-  position: relative; isolation: isolate; display: grid; grid-template-columns: 56px minmax(0, 1fr); gap: 24px;
-  padding: 28px 0 18px; border-bottom: 1px solid var(--line); scroll-margin-top: 96px;
+  position: relative; isolation: isolate; display: grid; grid-template-columns: 60px minmax(0, 1fr); gap: 22px;
+  padding: 26px 0 16px; scroll-margin-top: 96px;
 }
 .feedback-wash { position: absolute; inset: -6px -12px; z-index: -1; width: calc(100% + 24px); height: calc(100% + 12px); fill: var(--selection); pointer-events: none; }
+/* The vote: a soft 60x68 tile with the drawn chevron over the count. Voted: Oat. Voting on bursts six small dots
+   from the tile, the app's check-off (action-row.tsx), once; motion.mjs adds and removes them. */
 .feedback-vote {
   --vote-fill: var(--soft);
-  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; width: 56px; height: 64px; padding: 0;
-  border-radius: 12px; background: var(--vote-fill); color: var(--ink-soft); font-size: 15px; line-height: 23px; font-variant-numeric: tabular-nums;
-  transition: background-color var(--dur-choice) linear, opacity var(--dur-choice) linear;
+  position: relative; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 1px;
+  width: 60px; height: 68px; padding: 0; border-radius: 16px; background: var(--vote-fill); color: var(--ink-soft);
+  font-size: 17px; line-height: 24px; font-variant-numeric: tabular-nums;
+  transition: background-color var(--dur-choice) linear, color var(--dur-choice) linear, opacity var(--dur-choice) linear;
 }
 .feedback-vote[aria-pressed=true] { --vote-fill: var(--button); color: var(--ink); }
-@media (hover: hover) { .feedback-vote:not([aria-pressed=true]):hover { --vote-fill: var(--selection); } }
+@media (hover: hover) { .feedback-vote:not([aria-pressed=true]):hover { --vote-fill: var(--selection); color: var(--ink); } }
 .feedback-vote:active { opacity: .76; }
 .feedback-vote:disabled { opacity: .46; cursor: progress; transition: opacity var(--dur-choice) linear 400ms; }
-.feedback-vote svg { width: 18px; height: 18px; overflow: visible; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+.feedback-vote svg { width: 20px; height: 20px; overflow: visible; fill: none; stroke-linecap: round; stroke-linejoin: round; }
 .feedback-vote__guard { stroke: var(--vote-fill); stroke-width: 3.85; }
 .feedback-vote__ink { stroke: currentColor; stroke-width: 1.45; }
 .feedback-vote__count { display: grid; }
 .feedback-vote__count > span { grid-area: 1 / 1; }
-.feedback-meta { display: flex; flex-wrap: wrap; align-items: baseline; gap: 2px 12px; font-size: 14px; line-height: 22px; color: var(--muted); }
-.feedback-author { color: var(--ink-soft); }
-.feedback-progress { font-size: 13px; line-height: 20px; color: var(--ink); }
-.feedback-shared { font-size: 13px; line-height: 20px; }
-.feedback-body { margin-top: 8px; font-size: 16px; line-height: calc(25px * var(--lh-scale)); white-space: pre-wrap; overflow-wrap: anywhere; }
-.is-clamped { display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 8; overflow: hidden; }
-.feedback-reply {
-  margin-top: 14px; padding: 14px 16px; border-radius: 12px; background: var(--soft);
+.feedback-burst {   /* six 5px dots around the tile: one box, six gradient dots, no shadows */
+  position: absolute; left: 50%; top: 50%; width: 82px; height: 100px; margin: -50px 0 0 -41px; pointer-events: none;
+  background: radial-gradient(circle at 41px 4px, var(--ring) 2.5px, transparent 3px), radial-gradient(circle at 79px 26px, var(--ring) 2.5px, transparent 3px), radial-gradient(circle at 79px 74px, var(--ring) 2.5px, transparent 3px), radial-gradient(circle at 41px 96px, var(--ring) 2.5px, transparent 3px), radial-gradient(circle at 3px 74px, var(--ring) 2.5px, transparent 3px), radial-gradient(circle at 3px 26px, var(--ring) 2.5px, transparent 3px);
 }
-.feedback-reply__label { display: flex; flex-wrap: wrap; align-items: center; gap: 2px 8px; font-size: 13px; line-height: 20px; color: var(--ink-soft); }
-.feedback-reply__label time { color: var(--muted); }
-.feedback-operator-icon { flex: none; width: 16px; height: 16px; border-radius: 4px; }
-.feedback-reply__body { margin-top: 6px; font-size: 15px; line-height: calc(23px * var(--lh-scale)); white-space: pre-wrap; overflow-wrap: anywhere; }
+.feedback-meta { display: flex; flex-wrap: wrap; align-items: center; gap: 2px 10px; font-size: 14px; line-height: 22px; color: var(--muted); }
+.feedback-author { color: var(--ink); }
+/* Progress is drawn with the app's growth plant (the page head's ART_VARS): an idea under review is a sprout,
+   one in the works a bud, a shipped one in flower. The plant replaces the highlight band on this label. */
+.feedback-progress, .feedback-filter [data-status] { --plant: none; }
+.feedback-idea[data-status=reviewing] .feedback-progress, .feedback-filter [data-status=reviewing] { --plant: var(--art-sprout); }
+.feedback-idea[data-status=planned] .feedback-progress, .feedback-filter [data-status=planned] { --plant: var(--art-bud); }
+.feedback-idea[data-status=completed] .feedback-progress, .feedback-filter [data-status=completed] { --plant: var(--art-bloom); }
+.feedback-progress.hl { display: inline-flex; align-items: center; gap: 4px; margin-block: -4px; background: none; font-size: 13px; line-height: 20px; color: var(--ink); }
+.feedback-progress::before, .feedback-filter [data-status]:not([data-status=""])::before {
+  content: ""; flex: none; width: 22px; height: 26px; background: var(--plant) 50% 100% / contain no-repeat;
+}
+.feedback-filter [data-status]:not([data-status=""])::before { margin-inline-end: -4px; }
+.feedback-shared { font-size: 13px; line-height: 20px; }
+.feedback-body { margin-top: 6px; font-size: 16px; line-height: calc(26px * var(--lh-scale)); white-space: pre-wrap; overflow-wrap: anywhere; }
+.is-clamped { display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 8; overflow: hidden; }
+/* The operator's reply: the app's open detail panel (statistics-boards.tsx), --selection, radius 14. --muted fails on
+   --selection, so its date and buttons use --ink-soft. */
+.feedback-reply { margin-top: 14px; padding: 14px 18px 12px; border-radius: 14px; background: var(--selection); }
+.feedback-reply__label { display: flex; flex-wrap: wrap; align-items: center; gap: 2px 8px; font-size: 13px; line-height: 20px; color: var(--ink); }
+.feedback-reply__label time { color: var(--ink-soft); }
+.feedback-operator-icon { flex: none; width: 18px; height: 18px; border-radius: 5px; }
+.feedback-reply__body { margin-top: 6px; font-size: 15px; line-height: calc(24px * var(--lh-scale)); white-space: pre-wrap; overflow-wrap: anywhere; }
 .feedback-reply__body.is-clamped { -webkit-line-clamp: 3; }
+.feedback-reply .feedback-text-button { color: var(--ink-soft); }
 /* a link inside the reply text stays inline and keeps the text's line (no wash label, see the running-text links above) */
 .feedback-reply__body .text-link { overflow-wrap: anywhere; }
 .feedback-news { display: flex; flex-wrap: wrap; align-items: center; column-gap: 2px; margin-top: 10px; font-size: 14px; line-height: 22px; }
 .feedback-news__label { margin-inline-end: -4px; font-size: 13px; line-height: 20px; color: var(--muted); }
 .feedback-news .text-link { display: inline-flex; align-items: center; min-height: 44px; }
-.feedback-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 0 4px; margin-top: 8px; }
+.feedback-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 0 4px; margin-top: 6px; }
 .feedback-actions, .feedback-clamp-toggle, .feedback-reply__more { margin-inline-start: -10px; }
 .feedback-reply__more { margin-block: -2px -10px; }
 .feedback-text-button {
   display: inline-flex; align-items: center; min-height: 44px; padding: 0; background: none;
-  color: var(--muted); font-size: 14px; line-height: 22px; text-decoration: none;
+  color: var(--ink-soft); font-size: 14px; line-height: 22px; text-decoration: none;
 }
 .feedback-text-button:is(:hover, :focus-visible, [aria-expanded=true]) { color: var(--ink); }
-.feedback-operator { display: inline-flex; align-items: center; gap: 6px; color: var(--ink-soft); }
+.feedback-operator { display: inline-flex; align-items: center; gap: 6px; color: var(--ink); }
 
-/* ---- comments: grid rows 0fr -> 1fr, inert while closed ---- */
+/* ---- comments: a soft panel under the idea; grid rows 0fr -> 1fr, inert while closed ---- */
+/* The panel's insets are its children's margins, so a closed (0fr) panel has no height of its own to leak. */
 .feedback-comments { display: grid; grid-template-rows: 0fr; visibility: hidden; }
 .feedback-comments.is-open { grid-template-rows: 1fr; visibility: visible; }
-.feedback-comments__inner { min-height: 0; overflow: hidden; margin-inline: -4px; padding-inline: 4px; }
+.feedback-comments__inner { min-height: 0; overflow: hidden; margin-top: 6px; border-radius: 16px; background: var(--soft); }
+.feedback-comments__inner > * { margin-inline: 18px; }
+.feedback-comments__inner > :last-child { margin-bottom: 18px; }
 .is-open > .feedback-comments__inner { overflow: visible; }
-.feedback-comment-list { margin-top: 12px; padding-top: 4px; border-top: 1px solid var(--line); }
-.feedback-comment { position: relative; isolation: isolate; padding: 14px 0; border-bottom: 1px solid var(--line); scroll-margin-top: 96px; }
-.feedback-comment .feedback-body { margin-top: 4px; font-size: 15px; line-height: calc(23px * var(--lh-scale)); }
-.feedback-comments .feedback-note { margin-top: 12px; }
-.feedback-comment-form { margin-top: 20px; padding-bottom: 4px; }
+.feedback-comment-list { margin-top: 6px; }
+.feedback-comment { position: relative; isolation: isolate; padding: 14px 0; scroll-margin-top: 96px; }
+.feedback-comment + .feedback-comment { border-top: 1px solid var(--line); }
+.feedback-comment .feedback-body { margin-top: 4px; font-size: 15px; line-height: calc(24px * var(--lh-scale)); }
+.feedback-comments .feedback-note { margin-top: 14px; }
+.feedback-comments__inner > .feedback-text-button { margin-inline-start: 8px; }
+.feedback-comment-form { margin-top: 12px; padding-top: 18px; border-top: 1px solid var(--line); }
 
 @media (max-width: 759px) {
-  .feedback-board { margin-top: 44px; }
-  .feedback-compose { padding: 20px; }
+  .feedback-board { margin-top: 48px; }
+  .feedback-compose-toggle { min-height: 64px; padding-inline: 16px; }
+  .feedback-compose-content { padding: 0 16px 16px; }
   .community-sheet input { max-width: none; }
   .feedback-filter { margin-inline: -24px; padding-inline: 14px; }
-  .feedback-idea { grid-template-columns: 48px minmax(0, 1fr); gap: 16px; padding: 24px 0 14px; }
-  .feedback-vote { width: 48px; height: 58px; }
+  .feedback-idea { grid-template-columns: 52px minmax(0, 1fr); gap: 16px; padding: 22px 0 12px; }
+  .feedback-vote { width: 52px; height: 62px; border-radius: 14px; }
+  .feedback-comments__inner > * { margin-inline: 14px; }
 }

@@ -41,7 +41,9 @@ export function appear(node, duration = 110, easing = 'linear') {
   node.animate([{opacity: 0}, {opacity: 1}], {duration, easing});
 }
 
-// Vote on: the button swells (1 -> 1.06 -> 1, peak at 40%) on press.
+// Vote on: the button swells (1 -> 1.06 -> 1, peak at 40%) on press, and six small dots burst from it once
+// (the app's check-off, action-row.tsx: scale in, hold to 30%, fade, 500ms). The dots are one span whose box-shadows
+// sit around the tile (feedback.css); scaling the span carries them outward. It is removed when it ends.
 export function swell(node) {
   if (still()) return;
   node.animate([
@@ -49,6 +51,15 @@ export function swell(node) {
     {transform: 'scale(1.06)', offset: .4, easing: RETURN},
     {transform: 'scale(1)'}
   ], {duration: 300});
+  node.querySelector(':scope > .feedback-burst')?.remove();
+  const burst = document.createElement('span');
+  burst.className = 'feedback-burst'; burst.setAttribute('aria-hidden', 'true');
+  node.append(burst);
+  burst.animate([
+    {transform: 'scale(.5)', opacity: 1},
+    {transform: 'scale(.86)', opacity: 1, offset: .3},
+    {transform: 'scale(1)', opacity: 0}
+  ], {duration: 500, delay: 60, easing: 'cubic-bezier(.25,.1,.25,1)', fill: 'both'}).onfinish = () => burst.remove();
 }
 
 // The vote count changes when the server answers: the old number leaves upward, the new one rises in.

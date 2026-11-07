@@ -134,7 +134,9 @@ function clampedText(text, className, {linkify = false} = {}) {
   let expanded = false;
   node.measureClamp = () => {
     if (expanded) return;
-    toggle.hidden = node.scrollHeight <= node.clientHeight + 2;
+    // Half a line of slack: a fallback font (Hangul on an Arabic page, say) overhangs the line box by a few pixels
+    // without hiding any text; only a whole clamped line counts.
+    toggle.hidden = node.scrollHeight <= node.clientHeight + parseFloat(getComputedStyle(node).lineHeight) / 2;
     toggle.dispatchEvent(new Event('clampchange'));
   };
   toggle.addEventListener('click', () => {

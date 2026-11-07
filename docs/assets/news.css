@@ -19,12 +19,12 @@
 }
 .community-head h1 { font-size: var(--fs-section); line-height: 1.3; letter-spacing: var(--track-section); }
 .community-lead { margin-top: 12px; font-size: 17px; line-height: calc(26px * var(--lh-scale)); color: var(--ink-soft); text-wrap: pretty; }
-.community-button, .feedback-compose-toggle, .feedback-primary, .feedback-submit {
+.community-button, .feedback-primary, .feedback-submit {
   display: inline-flex; align-items: center; justify-content: center; min-height: 50px; padding: 12px 20px;
   border-radius: 12px; background: var(--button); color: var(--ink); font-size: 17px; line-height: 26px;
   text-decoration: none; cursor: pointer; transition: opacity var(--dur-choice) linear;
 }
-:is(.community-button, .feedback-compose-toggle, .feedback-primary, .feedback-submit):active { opacity: .76; }
+:is(.community-button, .feedback-primary, .feedback-submit):active { opacity: .76; }
 .text-link { color: var(--ink); text-decoration: none; }
 @media (max-width: 759px) {
   .community { --ov: 20px; }
@@ -32,13 +32,18 @@
 }
 
 /* ---- entries ---- */
+/* Each entry opens with the app's memory-list date (memory-index-screen.tsx): the day large in --ink-soft over
+   the year and month small in --muted. The month comes first in the markup, so it is read first. */
 .news-feed { margin-top: 48px; }
 .news-entry {
-  display: grid; grid-template-columns: 120px minmax(0, 1fr); gap: 32px;
+  display: grid; grid-template-columns: 112px minmax(0, 1fr); gap: 32px;
   padding: 40px 0 48px; border-top: 1px solid var(--line); scroll-margin-top: 84px;
 }
-.news-date { align-self: start; display: inline-flex; align-items: center; min-height: 44px; margin: -6px -10px 0; justify-self: start; color: var(--muted); font-size: 14px; line-height: 22px; font-variant-numeric: tabular-nums; text-decoration: none; }
-.news-date:is(:hover, :focus-visible) { color: var(--ink-soft); }
+.news-date { align-self: start; justify-self: start; display: inline-flex; margin: -4px -10px 0; color: var(--ink-soft); text-decoration: none; }
+.news-date time { display: flex; flex-direction: column-reverse; align-items: flex-start; font-variant-numeric: tabular-nums; }
+.news-day { font-size: 40px; line-height: 44px; letter-spacing: -.02em; color: var(--ink-soft); }
+.news-ym { margin-top: 4px; font-size: 13px; line-height: 20px; color: var(--muted); }
+.news-date:is(:hover, :focus-visible) .news-day { color: var(--ink); }
 .news-content h2 { font-size: 28px; line-height: calc(36px * var(--lh-scale)); letter-spacing: var(--track-section); text-wrap: balance; }
 .news-content p { margin-top: 12px; font-size: 16px; line-height: calc(26px * var(--lh-scale)); color: var(--ink-soft); text-wrap: pretty; }
 .news-content h2 + p { margin-top: 16px; }
@@ -47,15 +52,25 @@
 .news-figure { margin: 24px 0; }
 .news-figure img { width: 100%; height: auto; border-radius: 12px; }
 .news-figure figcaption { margin-top: 8px; font-size: 14px; line-height: 22px; color: var(--muted); }
-.news-ideas { margin-top: 24px; }
-.news-ideas h3 { font-size: 14px; line-height: 22px; color: var(--muted); }
-.news-ideas ul { margin: 4px 0 0; margin-inline-start: -10px; padding: 0; list-style: none; }
-.news-closing { padding-top: 40px; border-top: 1px solid var(--line); }
-.news-closing h2 { font-size: 17px; line-height: calc(26px * var(--lh-scale)); letter-spacing: 0; }
-.news-closing .community-button { margin-top: 16px; }
+/* Related ideas: a soft panel, the same as the board's comment panel. */
+.news-ideas { margin-top: 24px; padding: 14px 18px 8px; border-radius: 16px; background: var(--soft); }
+.news-ideas h3 { font-size: 13px; line-height: 20px; color: var(--muted); }
+.news-ideas ul { margin: 2px 0 0; margin-inline-start: -10px; padding: 0; list-style: none; }
+/* Closing call: the soft card of the board's compose row. */
+.news-closing {
+  display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: center; gap: 16px 24px;
+  padding: 28px; border-radius: 18px; background: var(--soft);
+}
+.news-closing h2 { font-size: 20px; line-height: calc(30px * var(--lh-scale)); letter-spacing: 0; text-wrap: balance; }
+.news-closing .community-button { margin-top: 0; }
 
 @media (max-width: 759px) {
   .news-feed { margin-top: 36px; }
-  .news-entry { grid-template-columns: minmax(0, 1fr); gap: 8px; padding: 28px 0 36px; }
+  .news-entry { grid-template-columns: minmax(0, 1fr); gap: 10px; padding: 28px 0 36px; }
+  .news-date time { flex-direction: row-reverse; align-items: baseline; gap: 10px; }
+  .news-day { font-size: 30px; line-height: 36px; }
+  .news-ym { margin-top: 0; }
   .news-content h2 { font-size: 22px; line-height: calc(32px * var(--lh-scale)); }
+  .news-closing { grid-template-columns: minmax(0, 1fr); padding: 24px 20px; }
+  .news-closing .community-button { justify-self: start; }
 }

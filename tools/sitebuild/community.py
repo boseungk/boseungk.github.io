@@ -21,7 +21,7 @@ fail the build unless the news template is an in-memory override (a local fixtur
 Authoring a news entry (``tools/templates/news.ko.html``; Korean only, newest first)::
 
     <article class="news-entry reveal" id="<id>" aria-labelledby="<id>-title" data-ideas="<uuid> <uuid>">
-     <a class="news-date text-link" href="#<id>"><span class="mar-choice-label"><time datetime="YYYY-MM-DD" dir="ltr">YYYY.MM.DD</time></span></a>
+     <a class="news-date text-link" href="#<id>"><span class="mar-choice-label"><time datetime="YYYY-MM-DD" dir="ltr"><span class="news-ym">YYYY.MM</span> <span class="news-day">DD</span></time></span></a>
      <div class="news-content">
       <h2 id="<id>-title">Plain-text title</h2>
       <figure class="news-figure"><img src="/assets/art/news/<id>/<name>-1280.webp"
