@@ -1,5 +1,7 @@
 # AI SLOP CLEANUP REPORT
 
+> Note (2026-11-07): This report describes the old v4/v5 home, which was replaced by the redesigned home (`docs/assets/home/**`, `site/**`). The current structure is in [website.md](website.md); this file is kept as history.
+
 Scope: session-owned MyAnimalRoom landing website (`docs/`, `tools/`), architecture/run documentation, and the subsequently authorized removal of the root Jekyll blog. Dayloom source remained read-only. No push or deployment.
 
 Behavior Lock: baseline `check-narrative.cjs` and `check-hero-scroll.cjs` PASS before cleanup; added/ran `check-interactions.cjs` against the original task/carousel/English/menu behavior before replacing locale boundaries. `check-phone.cjs` exercised the primary/missing-library/WebGL/GLB paths before adding failure diagnostics.

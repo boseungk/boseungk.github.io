@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="ko"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><!--HEAD_COMMON-->
+<title>페이지를 찾을 수 없어요 — My Animal Room</title><meta name="robots" content="noindex"><!--HEAD_META:minimal-->
+<link rel="stylesheet" href="/assets/site/base.css"><link rel="stylesheet" href="/assets/site/chrome.css"><link rel="stylesheet" href="/assets/notfound.css">
+<link rel="stylesheet" href="/assets/ui/wash.css">
+<script defer src="/assets/ui/selection-spec.js"></script><script defer src="/assets/ui/selection-motion.js"></script><script defer src="/assets/ui/selection.js"></script><script defer src="/assets/site/chrome.js"></script>
+</head><body class="notfound-page"><!--SITE_HEADER:minimal-->
+<main class="nf" id="main" tabindex="-1">
+<img class="nf__art" src="/assets/art/decor/cat-cream-320.webp" width="160" height="147" alt="">
+<h1 class="nf__title">찾는 페이지가 없어요</h1>
+<p class="nf__help">주소가 바뀌었거나 잘못 입력되었을 수 있어요. 홈에서 다시 시작해 보세요.</p>
+<p class="nf__en" lang="en" translate="no">Page not found. The address may have changed or been mistyped.</p>
+<a class="nf__home" href="/">홈으로</a>
+<p class="nf__links not-found"><a href="/feedback/" data-nf="feedback">기능 제안</a><a href="/news/" data-nf="news">새 소식</a></p>
+</main>
+<!--NOT_FOUND_COPY-->
+<script>
+/* GitHub Pages serves this file for every missing URL. The first path segment names the language: swap the copy,
+   the links and the document language from the embedded map. Without JavaScript the page stays Korean plus the English line. */
+(function () {
+  var data = document.getElementById('nf-copy'), map;
+  try { map = JSON.parse(data.textContent); } catch (error) { return; }
+  // own keys only: /constructor/… or /__proto__/… must not read Object.prototype
+  var segment = location.pathname.split('/')[1].toLowerCase();
+  var entry = Object.prototype.hasOwnProperty.call(map.locales, segment) ? map.locales[segment] : null;
+  if (!entry || !Array.isArray(entry.t)) return;
+  var t = entry.t, root = document.documentElement, prefix = '/' + segment + '/';
+  function put(selector, text) {
+    var node = document.querySelector(selector);
+    if (!node) return;
+    var label = node.querySelector('.mar-choice-label');
+    (label || node).textContent = text;
+  }
+  root.lang = entry.lang; root.dir = entry.dir;
+  document.title = t[0];
+  put('.nf__title', t[1]); put('.nf__help', t[2]); put('.nf__home', t[3]);
+  put('[data-nf=feedback]', t[4]); put('[data-nf=news]', t[5]);
+  put('.skip-link', t[6]);
+  var mark = document.querySelector('.bar .wordmark'), store = document.querySelector('.bar .store[href]');
+  if (mark) { mark.setAttribute('aria-label', t[7]); mark.href = prefix; }
+  if (store) store.setAttribute('aria-label', t[8].replace('{store}', 'App Store'));
+  document.querySelector('.nf__home').href = prefix;
+  document.querySelector('[data-nf=feedback]').href = prefix + 'feedback/';
+  document.querySelector('[data-nf=news]').href = prefix + 'news/';
+  var english = document.querySelector('.nf__en');
+  if (english) english.hidden = true;
+})();
+</script>
+</body></html>

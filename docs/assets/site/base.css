@@ -1,0 +1,125 @@
+/* Site foundation (owner D): tokens, reset, type scale, emphasis, focus, layout, reveal and locale typography.
+   Every page loads site/base.css, then site/chrome.css, then its page CSS, then ui/wash.css last.
+   No @font-face here: the build writes it inline in the HEAD_COMMON block (tools/sitebuild/fonts.py) for the
+   families "LINE Seed" and "LINE Seed Rare". App design language: flat white paper, LINE Seed 400 only, three inks,
+   Oat accents. Banned: glass, frosted backdrops, blurring, shadows (only the hero phone keeps a contact shadow), glows,
+   pills, decorative frames, weights above 400.
+
+   Contrast (WCAG 2.1 AA, computed):
+   - --ink #473E3B: 10.40 on white, 9.54 on --soft, 8.27 on --selection, 6.63 on --button.
+   - --ink-soft #5F5551: 7.23 on white, 6.63 on --soft, 5.75 on --selection, 4.61 on --button.
+   - --muted #776B66: 5.15 on white, 4.72 on --soft. It fails on --selection (4.09) and --button (3.29), so use it
+     only on white, --soft or --cream; labels on the wash and on buttons use --ink or --ink-soft.
+   - --ring #B17457: 3.81 on white. Rings and marks only, never text. Focus rings sit 3px off the element, on paper.
+   - Text-field boundaries use --field-line #8B7C75 (4.0:1 on white); --dash #9D9491 is 2.97:1, below 3:1. */
+
+:root {
+  --paper: #FFFFFF; --soft: #F5F5F5; --line: #E5E5E5;
+  --ink: #473E3B; --ink-soft: #5F5551; --muted: #776B66; --dash: #9D9491; --field-line: #8B7C75; --on-dark: #F7EFE3;
+  --button: #E1CABF; --selection: #EFE3DD; --ring: #B17457;
+  --cream: #F8EFDF; --night: #27314D; --danger: #8A3D35; --scrim: rgba(40,34,30,.24);
+  --ease-paper: cubic-bezier(.22,.61,.36,1); --ease-ink: cubic-bezier(.4,0,.2,1);
+  --ease-warm-air: cubic-bezier(.2,.7,.25,1); --ease-swell: cubic-bezier(.3,.6,.4,1); --ease-return: cubic-bezier(.4,0,.6,1);
+  --spring-choice: linear(0,.0826,.2553,.4445,.6138,.749,.8485,.9169,.9609,.987,1.001,1.0074,1.0093,1.0088,1.0073,1.0055,1.0039,1.0026,1.0016,1.0009,1);
+  --dur-out: 120ms; --dur-choice: 110ms; --dur-in: 220ms; --dur-editor: 300ms; --dur-highlight: 700ms; --rise-in: 7px;
+  --bar: 60px; --sec: 112px; --gutter: 40px;
+  /* --font-face: the app's font for the page language, declared per page by the build (fonts.py, extras F2);
+     --font-script: the system font of that script, used until the face loads and for characters it lacks */
+  --font-face: "LINE Seed", "LINE Seed Rare";
+  --font-script: "Apple SD Gothic Neo", "Noto Sans KR";
+  --font: var(--font-face), var(--font-script), system-ui, sans-serif;
+  --fs-hero: clamp(34px, 5.2vw, 56px); --fs-section: clamp(28px, 3.5vw, 42px);
+  --track: -.005em; --track-hero: -.02em; --track-section: -.018em;
+  --lh-scale: 1;
+  /* highlight band: from the x-height to just below the baseline. Tuned on LINE Seed KR; --hl-shift follows the page
+     face's ascent (its hhea ascender minus LINE Seed KR's 1.05em), so the band keeps its height above the baseline */
+  --hl-shift: 0em;
+  --hl-y: calc(.66em + var(--hl-shift) - .22lh); --hl-h: .58lh;
+  /* Aliases for page CSS written before the port (feedback.css, news.css, privacy.css). D2 and E drop their uses. */
+  --oat: var(--button); --wash: var(--selection); --accent: var(--ring); --accent-deep: var(--ring); --accent-soft: var(--button);
+  --surface-warm: var(--soft); --line-warm: var(--line);
+  --fs-caption: 13px; --fs-eyebrow: 14px; --fs-label: 15px; --fs-reading: 16px; --fs-title: 22px;
+  color-scheme: light;
+}
+
+/* ---------- locale typography ---------- */
+/* Fonts follow the app (Dayloom locale-fonts.ts): LINE Seed JP for Latin, Cyrillic and Japanese; Noto Sans for Dutch and
+   Vietnamese; Noto Sans TC stands in for LINE Seed TW (a subset may not carry its reserved name). */
+html:not(:lang(ko)) { --fs-hero: clamp(32px, 4.4vw, 48px); --font-face: "LINE Seed JP"; --font-script: system-ui; --hl-shift: -.118em; }
+html:lang(ja) { --font-script: "Hiragino Sans", "Hiragino Kaku Gothic ProN"; }
+html:lang(zh-Hans) { --font-face: "Noto Sans SC"; --font-script: "PingFang SC"; --hl-shift: .11em; }
+html:lang(zh-Hant) { --font-face: "Noto Sans TC"; --font-script: "PingFang TC"; --hl-shift: .11em; }
+html:is(:lang(nl), :lang(vi)) { --font-face: "Noto Sans"; --hl-shift: .019em; }
+html:lang(th) { --font-face: "LINE Seed TH"; --font-script: Thonburi, "Noto Sans Thai"; --hl-shift: .094em; }
+html:lang(ar) { --font-face: "Noto Sans Arabic"; --font-script: "Geeza Pro", "Noto Naskh Arabic"; --hl-shift: .324em; }
+html:lang(he) { --font-face: "Noto Sans Hebrew"; --font-script: "Arial Hebrew"; --hl-shift: .018em; }
+html:lang(hi) { --font-face: "Noto Sans Devanagari"; --font-script: "Kohinoor Devanagari"; --hl-shift: -.154em; }
+html:lang(bn) { --font-face: "Noto Sans Bengali"; --font-script: "Kohinoor Bangla"; --hl-shift: -.133em; }
+html:lang(ta) { --font-face: "Noto Sans Tamil"; --font-script: "Tamil Sangam MN"; --hl-shift: -.18em; }
+/* Tracking breaks Arabic joining and crowds Indic and Thai marks; those scripts also need taller lines. */
+html:is(:lang(ar), :lang(he), :lang(th), :lang(hi), :lang(bn), :lang(ta)) { --track: 0; --track-hero: 0; --track-section: 0; }
+html:is(:lang(th), :lang(hi), :lang(bn), :lang(ta)) { --lh-scale: 1.15; }
+
+/* ---------- reset ---------- */
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; scroll-padding-top: calc(var(--bar) + 16px); }
+body {
+  margin: 0; background: var(--paper); color: var(--ink);
+  font-family: var(--font); font-size: 16px; font-weight: 400; line-height: calc(25px * var(--lh-scale)); letter-spacing: var(--track);
+  overflow-wrap: break-word; -webkit-font-smoothing: antialiased; overflow-x: clip;
+}
+html:lang(ko) body { word-break: keep-all; }
+h1, h2, h3, h4, h5, h6, strong, b, th { font-weight: 400; }
+h1, h2, h3, p, figure, ul, ol { margin: 0; }
+:where(ul, ol)[class] { padding: 0; list-style: none; }
+img { display: block; max-width: 100%; height: auto; }
+a { color: inherit; }
+button, input, select, textarea { font: inherit; color: inherit; letter-spacing: inherit; }
+button { cursor: pointer; border: 0; }
+button, a, summary { -webkit-tap-highlight-color: transparent; }
+[hidden] { display: none !important; }
+:focus-visible { outline: 2px solid var(--ring); outline-offset: 3px; }
+[tabindex="-1"]:focus { outline: none; }
+.sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; border: 0; }
+
+/* ---------- grid and rhythm ---------- */
+.wrap { width: 100%; max-width: 1200px; margin-inline: auto; padding-inline: var(--gutter); }
+.grid12 { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: 24px; }
+.sec { padding-block: var(--sec); }
+.head { margin-bottom: 48px; }
+.nw { white-space: nowrap; }   /* keeps a phrase on one line (the copy marks it; translations use it to avoid a lone last word) */
+
+/* ---------- type: 56 / 42 / 22 / 17 / 16 / 15 / 14 / 13, all 400 ---------- */
+.kicker { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; font-size: 14px; line-height: 22px; color: var(--muted); }
+.kicker svg { flex: none; width: 28px; height: 28px; }
+h1 { font-size: var(--fs-hero); line-height: 1.2; letter-spacing: var(--track-hero); }
+h2 { font-size: var(--fs-section); line-height: 1.3; letter-spacing: var(--track-section); }
+html:not(:lang(ko)) :is(h1, h2, h3) { overflow-wrap: break-word; }
+h1, h2, .lead { text-wrap: balance; }
+.body, figcaption { text-wrap: pretty; }
+.lead { margin-top: 16px; font-size: 22px; line-height: calc(32px * var(--lh-scale)); }
+.body { margin-top: 16px; max-width: 34em; font-size: 16px; line-height: calc(25px * var(--lh-scale)); color: var(--ink-soft); }
+.note { font-size: 14px; line-height: 22px; color: var(--muted); }
+
+/* highlight band (HighlightedLabel softBandOutline, #EFE3DD): emphasis, never bold */
+.hl {
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 320 24' preserveAspectRatio='none'%3E%3Cpath fill='%23EFE3DD' d='M11 4C74 2 120 5 166 4S266 2 307 4Q320 5 320 12Q320 20 308 20C246 22 203 18 161 20S59 22 11 20Q0 19 0 12Q0 5 11 4Z'/%3E%3C/svg%3E") no-repeat 0 var(--hl-y) / 100% var(--hl-h);
+  -webkit-box-decoration-break: clone; box-decoration-break: clone;
+  padding-inline: .06em;
+}
+@supports not (height: 1lh) { .hl { --hl-y: calc(.46em + var(--hl-shift)); --hl-h: .72em; } }
+
+/* one-shot entrance; hidden only once a reveal script has added .rv to <html> */
+.rv .reveal { opacity: 0; transform: translateY(var(--rise-in)); }
+.rv .reveal.in { opacity: 1; transform: none; transition: opacity var(--dur-in) var(--ease-paper), transform var(--dur-in) var(--ease-paper); transition-delay: var(--rd, 0ms); }
+
+@media (max-width: 900px) {
+  :root { --sec: 72px; --gutter: 24px; }
+  .head { margin-bottom: 32px; }
+  .grid12 { display: block; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 0s !important; animation-delay: 0s !important; transition-duration: 0s !important; transition-delay: 0s !important; }
+  .rv .reveal { opacity: 1; transform: none; }
+}

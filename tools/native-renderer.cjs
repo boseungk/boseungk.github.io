@@ -5,7 +5,8 @@ const vm = require('node:vm');
 const app = process.env.DAYLOOM_SOURCE || '/Users/gpt/Projects/dayloom';
 const modules = process.env.NATIVE_NODE_MODULES || '/Users/gpt/.cache/codex-runtimes/codex-primary-runtime/dependencies/node/node_modules';
 const {createCanvas, Path2D, ImageData} = require(path.join(modules, '@napi-rs/canvas'));
-const ts = require(path.join(app, 'node_modules/typescript'));
+// Dayloom's own node_modules may be absent (no install). TYPESCRIPT_PATH points at any TypeScript 5 package directory.
+const ts = require(process.env.TYPESCRIPT_PATH || path.join(app, 'node_modules/typescript'));
 const cache = new Map();
 const sandbox = {console, Path2D, ImageData, document: {createElement: () => createCanvas(1, 1)}, performance};
 sandbox.window = sandbox;

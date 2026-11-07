@@ -1,0 +1,12 @@
+<!--# Shared site header (owner D). Inserted by tools/sitebuild/chrome.py for the SITE_HEADER placeholder (variant "full")
+and SITE_HEADER:minimal (404: skip link, wordmark, App Store). Korean only: the build translates it with the
+page's catalog and localises the routes. Blocks marked ONLY:<variants> are kept only for those variants. Keep the
+wordmark on one line: check-locales.mjs matches <a class="… brand …"><img …><span class="mar-choice-label">My Animal Room</span></a>.
+The page's <main> carries id="main" tabindex="-1" for the skip link. -->
+<a class="skip-link" href="#main">본문으로 건너뛰기</a>
+<header class="bar" id="bar">
+<a class="wordmark brand" href="/" aria-label="My Animal Room 홈"><img src="/assets/icons/app-icon-56.png" alt="" width="28" height="28" decoding="async"><span class="mar-choice-label">My Animal Room</span></a>
+<!--ONLY:full--><nav class="bar__nav" aria-label="주 메뉴"><!--SITE_NAV--></nav>
+<!--STORES:bar-->
+<div class="bar__end"><!--LANGUAGE_PICKER--></div><!--/ONLY--><!--ONLY:minimal--><!--STORES:bar app-only--><!--/ONLY-->
+</header>

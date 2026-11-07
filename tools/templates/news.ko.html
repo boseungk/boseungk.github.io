@@ -1,39 +1,38 @@
 <!doctype html>
+<!--NEWS_NOTE:authoring rules for entries, data-ideas and figures are in tools/sitebuild/community.py; this note is dropped by the build-->
 <html lang="ko"><head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><!--HEAD_COMMON-->
 <title>새 소식 — My Animal Room</title>
-<meta name="description" content="만드는 과정과 새로운 소식도 나눌게요.">
-<meta name="theme-color" content="#ffffff"><meta name="referrer" content="strict-origin-when-cross-origin">
-<!--LOCALE_ALTERNATES--><link rel="canonical" href="https://www.myanimalroom.com/news/">
-
-
-
-<meta property="og:title" content="새 소식 — My Animal Room"><meta property="og:type" content="website">
-<meta property="og:url" content="https://www.myanimalroom.com/news/"><meta property="og:locale" content="ko_KR">
-<link rel="icon" href="/assets/favicon-32.png?v=20261018-rounded" type="image/png" sizes="32x32"><link rel="apple-touch-icon" href="/assets/app-icon-180.png?v=20261018-rounded" sizes="180x180">
-<link rel="stylesheet" href="/home.css?v=20261106-type"><link rel="stylesheet" href="/assets/v5/polish.css?v=20261106-type">
-<link rel="stylesheet" href="/assets/feedback/feedback.css?v=20261106-type">
-<link rel="preload" href="/assets/LINESeedKR-Regular.otf" as="font" type="font/otf" crossorigin>
-<script defer src="/assets/v5/language-picker.js?v=v6-1"></script>
-<link rel="stylesheet" href="/assets/news.css?v=20261106-type">
-<link rel="stylesheet" href="/assets/ui/wash.css?v=20261018-native">
-<script defer src="/assets/ui/selection-spec.js?v=20261018-native"></script><script defer src="/assets/ui/selection-motion.js?v=20261018-native"></script><script defer src="/assets/ui/selection.js?v=20261019-nav"></script>
-</head><body class="feedback-page news-page">
-<a class="skip-link" href="#main">본문으로 건너뛰기</a>
-<header class="header"><div class="header-inner"><a class="brand" href="/" aria-label="My Animal Room 홈">My Animal Room</a><nav aria-label="주 메뉴"><!--SITE_NAV--></nav><div class="header-end"><!--LANGUAGE_PICKER--></div></div></header>
-<main class="feedback-main news-main" id="main" tabindex="-1">
- <div class="feedback-heading"><p class="eyebrow">함께 만드는 My Animal Room</p><h1>새 소식</h1><p>만드는 과정과 새로운 소식도 나눌게요.</p></div>
+<meta name="description" content="My Animal Room을 만드는 과정과 반영된 기능 제안, 새로운 소식을 이곳에서 전해요."><!--HEAD_META--><!--NEWS_JSONLD-->
+<link rel="stylesheet" href="/assets/site/base.css"><link rel="stylesheet" href="/assets/site/chrome.css">
+<link rel="stylesheet" href="/assets/news.css">
+<link rel="stylesheet" href="/assets/ui/wash.css">
+<script defer src="/assets/ui/selection-spec.js"></script><script defer src="/assets/ui/selection-motion.js"></script><script defer src="/assets/ui/selection.js"></script><script defer src="/assets/site/language-picker.js"></script><script defer src="/assets/site/chrome.js"></script><script defer src="/assets/site/reveal.js"></script>
+</head><body class="community news-page">
+<!--SITE_HEADER-->
+<div class="community-band" aria-hidden="true"><img src="/assets/art/community/band-1280.webp" srcset="/assets/art/community/band-1280.webp 1280w, /assets/art/community/band-2560.webp 2560w" sizes="(max-width: 1000px) 1000px, 100vw" width="2560" height="524" alt="" decoding="async" fetchpriority="high"></div>
+<main class="community-sheet" id="main" tabindex="-1">
+ <div class="community-head">
+  <p class="kicker">함께 만드는 My Animal Room</p>
+  <h1>새 소식</h1>
+  <p class="community-lead">만드는 과정과 새로운 소식도 나눌게요.</p>
+ </div>
  <div class="news-feed">
-  <article class="news-entry" id="feedback-board" aria-labelledby="feedback-board-title">
-   <div class="news-meta"><time datetime="2026-10-19" dir="ltr">2026.10.19</time><span>My Animal Room</span></div>
-   <div class="news-content"><h2 id="feedback-board-title">기능 제안 공간을 열었어요.</h2>
+  <article class="news-entry reveal" id="feedback-board" aria-labelledby="feedback-board-title" data-ideas="">
+   <a class="news-date text-link" href="#feedback-board"><span class="mar-choice-label"><time datetime="2026-10-19" dir="ltr">2026.10.19</time></span></a>
+   <div class="news-content">
+    <h2 id="feedback-board-title">기능 제안 공간을 열었어요.</h2>
     <p>원하는 기능을 남기고, 다른 의견에 공감해 주세요.</p>
     <p>로그인 없이 글과 댓글을 남길 수 있어요.</p>
     <p>반영된 제안과 업데이트 소식을 이곳에서 전할게요.</p>
-    <a class="text-link news-link" href="/feedback/">기능 제안</a>
+    <p class="news-more"><a class="text-link" href="/feedback/">기능 제안</a></p>
    </div>
   </article>
  </div>
+ <section class="news-closing" aria-labelledby="news-closing-title">
+  <h2 id="news-closing-title">만들었으면 하는 기능이 있나요?</h2>
+  <a class="community-button" href="/feedback/#new-idea">기능 제안 남기기</a>
+ </section>
 </main>
-<footer class="feedback-footer"><a class="brand" href="/">My Animal Room</a><nav aria-label="하단 메뉴"><a href="/feedback/">기능 제안</a><a href="mailto:contact@myanimalroom.com">문의·오류 신고</a><a href="/privacy/">개인정보 안내</a></nav><small>© 2026 My Animal Room</small></footer>
+<!--SITE_FOOTER-->
 </body></html>

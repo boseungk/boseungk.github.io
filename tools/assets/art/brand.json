@@ -1,0 +1,4 @@
+[
+  {"out": "art/decor/cat-cream-320.webp", "src": "dayloom:decor/thumbnails/drawn.cat.cream.png", "resize": {"width": 320, "height": 320}, "webp": {"quality": 90, "alphaQuality": 100}, "note": "404 vignette (tools/templates/404.ko.html): the home's cream cat at 2x of its 160 px slot"},
+  {"out": "art/og/og-home.jpg", "src": "src:og/og-home.png", "jpeg": {"quality": 85}, "note": "share image (1200x630): garden hero room (tools/assets/src/customize/garden.png) on the left, app icon and the Latin wordmark on white; no Korean text, so it serves every locale. Rendered by tools/assets/render-og.mjs"}
+]

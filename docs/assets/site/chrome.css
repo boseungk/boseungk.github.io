@@ -1,0 +1,174 @@
+/* Site chrome (owner D): skip link, header bar, wordmark, store pair, language picker and footer.
+   Sample C's .bar, .wordmark, .stores and .foot, plus the site nav and the language picker.
+   The bar is solid white, never translucent; its 1px line fades in once the page has scrolled (chrome.js .is-solid).
+   Layout (PORT-PLAN 2.11): one sticky row from 760px (60px tall, 56px below 900px). Below 760px two rows that do
+   not stick: wordmark, App Store and picker, then the nav as two centred columns. chrome.js adds .is-stacked when
+   one row does not fit (long translations); the bar then uses the two-row layout at any width. Google Play leaves
+   the bar below 720px (the footer keeps it). Below 420px the picker shows its short code; at 360px and below the
+   wordmark drops its icon. No shadows anywhere, the language panel included. Selection washes come from
+   ui/selection.js (nav, footer links, wordmarks, picker). */
+
+.skip-link {
+  position: fixed; z-index: 100; top: -100px; inset-inline-start: 16px;
+  padding: 10px 16px; border-radius: 12px; background: var(--paper); color: var(--ink);
+  font-size: 15px; line-height: 23px; text-decoration: none;
+}
+.skip-link:focus { top: 12px; }
+
+/* ---------- top bar ---------- */
+.bar {
+  position: sticky; top: 0; z-index: 50; height: var(--bar);
+  display: grid; grid-template-columns: auto minmax(0, 1fr) auto auto auto; grid-template-areas: "mark . nav stores end";
+  align-items: center; column-gap: 16px;
+  padding-inline: max(var(--gutter), calc((100% - 1200px) / 2 + var(--gutter)));
+  background: var(--paper);
+}
+.bar::after {
+  content: ""; position: absolute; inset: auto 0 0; height: 1px; background: var(--line); pointer-events: none;
+  opacity: 0; transition: opacity var(--dur-in) var(--ease-paper);
+}
+.bar.is-solid::after { opacity: 1; }
+
+.wordmark, .foot__mark {
+  display: inline-flex; align-items: center; gap: 10px; min-height: 44px; justify-self: start;
+  color: var(--ink); font-size: 17px; line-height: 26px; letter-spacing: -.01em; white-space: nowrap; text-decoration: none;
+  direction: ltr;
+}
+.wordmark { grid-area: mark; }
+.wordmark img { flex: none; width: 28px; height: 28px; border-radius: 7px; }
+.wordmark > .mar-choice-label, .foot__mark > .mar-choice-label { margin-inline: -10px; }
+
+.bar__nav { grid-area: nav; display: flex; align-items: center; color: var(--ink-soft); font-size: 15px; line-height: 23px; }
+.bar__nav a { display: flex; align-items: center; justify-content: center; min-height: 44px; text-align: center; white-space: nowrap; text-decoration: none; }
+.bar__nav a:is([aria-current=page], :hover, :focus-visible) { color: var(--ink); }
+.bar > .stores { grid-area: stores; }
+.bar__end { grid-area: end; display: flex; align-items: center; }
+
+/* ---------- stores: App Store live, Google Play coming soon ----------
+   Google Play switches on when the build gives it href (STORES['play_live'] in tools/sitebuild/chrome.py). */
+.stores { display: flex; flex-wrap: wrap; gap: 12px; }
+.store {
+  display: inline-flex; align-items: center; justify-content: center; min-height: 50px; padding: 12px 20px; border-radius: 12px;
+  font: 400 17px/26px var(--font); text-decoration: none; white-space: nowrap;
+  transition: opacity var(--dur-choice) linear;
+}
+.store[href] { background: var(--button); color: var(--ink); }
+.store[href]:active { opacity: .76; }
+.store:not([href]) { background: var(--soft); color: var(--ink-soft); cursor: default; }
+.store:not([href]) .store__go, .store[href] .store__soon { display: none; }
+.store__soon { margin-inline-start: 8px; font-size: 14px; line-height: 22px; color: var(--muted); }
+.on-night .store:not([href]) { background: none; color: var(--on-dark); }
+.on-night .store__soon { color: var(--on-dark); opacity: .72; }
+.stores--bar { flex-wrap: nowrap; gap: 6px; }
+.stores--bar .store { min-height: 40px; padding: 7px 14px; border-radius: 10px; font-size: 15px; line-height: 23px; }
+.stores--bar .store:not([href]) { background: none; padding-inline: 4px; }
+
+/* ---------- language picker (no shadow: a white panel with a 1px line) ---------- */
+.language-picker { position: relative; color: var(--ink-soft); font-size: 14px; line-height: 22px; }
+.language-picker summary {
+  display: flex; align-items: center; justify-content: center; gap: 4px; min-width: 44px; min-height: 44px; max-width: 200px;
+  padding-inline: 2px; list-style: none; cursor: pointer; user-select: none; -webkit-user-select: none;
+}
+.language-picker summary::-webkit-details-marker { display: none; }
+.language-picker summary:hover, .language-picker[open] summary { color: var(--ink); }
+.language-label { white-space: nowrap; }
+.language-short { display: none; }
+.language-chevron { flex: none; width: 14px; height: 14px; transition: transform var(--dur-in) var(--ease-paper); }
+.language-picker[open] .language-chevron { transform: rotate(180deg); }
+.language-panel {
+  position: absolute; z-index: 60; top: calc(100% + 6px); inset-inline-end: 0;
+  width: min(290px, calc(100vw - 32px)); padding: 10px;
+  background: var(--paper); border: 1px solid var(--line); border-radius: 12px;
+}
+.language-panel input {
+  display: block; width: 100%; min-width: 0; min-height: 44px; margin: 0; padding: 10px 12px;
+  color: var(--ink); background: var(--paper); border: 1px solid var(--field-line); border-radius: 8px;
+  font-size: 16px; line-height: 24px;
+}
+.language-panel input::placeholder { color: var(--muted); opacity: 1; }
+.language-panel input:focus-visible { outline-offset: 2px; }
+.language-options { max-height: min(320px, 50svh); margin-top: 6px; overflow-y: auto; overscroll-behavior: contain; }
+.language-options a {
+  display: flex; align-items: center; min-height: 44px; color: var(--ink-soft); text-decoration: none;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif; font-size: 15px; line-height: 23px;
+}
+.language-empty { padding: 12px 3px; color: var(--muted); font-size: 14px; line-height: 22px; }
+
+/* ---------- footer ---------- */
+.foot { padding: 36px 0 44px; border-top: 1px solid var(--line); background: var(--paper); }
+.foot__inner {
+  display: grid; grid-template-columns: minmax(0, 1fr) auto; grid-template-areas: "mark stores" "links social" "note note";
+  align-items: center; gap: 12px 32px;
+}
+.foot__mark { grid-area: mark; }
+.foot__mark img { flex: none; width: 24px; height: 24px; border-radius: 6px; }
+.foot__inner > .stores { grid-area: stores; justify-self: end; }
+.foot__links, .foot__social {
+  display: flex; flex-wrap: wrap; gap: 0 4px; margin-inline: -10px;
+  color: var(--ink-soft); font-size: 14px; line-height: 22px;
+}
+.foot__links { grid-area: links; }
+.foot__social { grid-area: social; justify-self: end; }
+.foot__links a, .foot__social a { display: inline-flex; align-items: center; min-height: 44px; text-decoration: none; }
+.foot__links a:is(:hover, :focus-visible), .foot__social a:is(:hover, :focus-visible) { color: var(--ink); }
+.wordmark, .foot__mark, .bar__nav a, .foot__links a, .foot__social a, .language-picker summary, .language-options a { border-radius: 8px; }
+.foot__arrow { display: inline-block; width: 14px; height: 14px; margin-inline-start: 3px; vertical-align: -1px; fill: none; stroke: currentColor; stroke-width: 1.45; stroke-linecap: round; stroke-linejoin: round; }
+[dir=rtl] .foot__arrow { transform: scaleX(-1); }
+.foot__note { grid-area: note; margin-top: 4px; color: var(--muted); font-size: 13px; line-height: 20px; }
+
+/* ================= responsive ================= */
+@media (max-width: 899px) {
+  :root { --bar: 56px; }
+  .bar { column-gap: 10px; padding-inline: 20px 16px; }
+  .wordmark { gap: 8px; font-size: 15px; line-height: 23px; }
+  .wordmark img { width: 24px; height: 24px; border-radius: 6px; }
+}
+
+/* two rows, not sticky: below 760px, or whenever one row does not fit (chrome.js) */
+@media (max-width: 759px) {
+  .bar {
+    position: relative; height: auto; grid-template-columns: minmax(0, 1fr) auto auto; grid-template-rows: 56px minmax(44px, auto);
+    grid-template-areas: "mark stores end" "nav nav nav"; padding-bottom: 4px;
+  }
+  .bar__nav { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); align-self: stretch; }
+  .bar__nav a { min-width: 0; white-space: normal; hyphens: auto; overflow-wrap: anywhere; }
+}
+.bar.is-stacked {
+  position: relative; height: auto; column-gap: 10px; grid-template-columns: minmax(0, 1fr) auto auto; grid-template-rows: 56px minmax(44px, auto);
+  grid-template-areas: "mark stores end" "nav nav nav"; padding-bottom: 4px;
+}
+.bar.is-stacked .bar__nav { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); align-self: stretch; }
+.bar.is-stacked .bar__nav a { min-width: 0; white-space: normal; hyphens: auto; overflow-wrap: anywhere; }
+
+@media (max-width: 759px) {
+  .foot__inner { grid-template-columns: minmax(0, 1fr); grid-template-areas: "mark" "stores" "links" "social" "note"; gap: 8px; }
+  .foot__inner > .stores { justify-self: start; margin-block: 8px 4px; }
+  .foot__social { justify-self: start; }
+}
+
+@media (max-width: 719px) {
+  .stores--bar .store:not([href]) { display: none; }
+  .stores--bar .store { min-height: 44px; }
+}
+
+@media (max-width: 480px) {
+  .stores:not(.stores--bar) { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; width: 100%; max-width: 360px; }
+  .stores:not(.stores--bar) .store { padding: 10px 12px; font-size: 15px; line-height: 23px; }
+  .stores:not(.stores--bar) .store:not([href]) { flex-direction: column; line-height: 20px; }
+  .stores:not(.stores--bar) .store__soon { margin-inline-start: 0; font-size: 13px; line-height: 18px; }
+}
+
+@media (max-width: 419px) {
+  .language-picker [data-language-current] { display: none; }
+  .language-short { display: inline; }
+}
+
+@media (max-width: 360px) {
+  .wordmark img { display: none; }
+  .bar, .bar.is-stacked { column-gap: 8px; padding-inline: 16px 12px; }
+  .stores--bar .store { padding-inline: 12px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .bar::after, .language-chevron { transition: none; }
+}

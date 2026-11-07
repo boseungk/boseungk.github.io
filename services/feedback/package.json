@@ -5,6 +5,8 @@
   "scripts": {
     "dev": "wrangler dev --local --ip 127.0.0.1 --port 8789",
     "db:migrate": "wrangler d1 migrations apply feedback-local --local",
+    "db:seed": "wrangler d1 execute feedback-local --local --file seed/local.sql",
+    "db:reset": "rm -rf .wrangler/state && npm run db:migrate && npm run db:seed",
     "test": "node --test --test-concurrency=1 test/*.test.js",
     "check": "node --check src/index.js && node --check test/api.test.js",
     "build": "wrangler deploy --dry-run --outdir dist"

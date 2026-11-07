@@ -4,14 +4,80 @@
   "sourceSize": 1024,
   "outputs": [
     {
-      "file": "favicon-32.png",
-      "size": 32,
-      "cornerRadius": 7.04
+      "file": "icons/icon-48.png",
+      "size": 48,
+      "cornerRadius": 10.56,
+      "opaque": false,
+      "role": "link rel=icon 48",
+      "bytes": 4058,
+      "sha256": "880be712d69238f70d4846f44443044e4a66ae2c82713c1e89507bd38ddc6b9a"
     },
     {
-      "file": "app-icon-180.png",
+      "file": "icons/icon-96.png",
+      "size": 96,
+      "cornerRadius": 21.12,
+      "opaque": false,
+      "role": "link rel=icon 96",
+      "bytes": 13470,
+      "sha256": "fc8cdc61d4b58ae89586bd51c1b15e70607f3cd5d84564092da0ab13d6ee76fd"
+    },
+    {
+      "file": "icons/icon-192.png",
+      "size": 192,
+      "cornerRadius": 42.24,
+      "opaque": false,
+      "role": "link rel=icon 192",
+      "bytes": 44412,
+      "sha256": "dc19a136ce2d5424c9fa8f3cec585f2735684f7a9188bf397aba8db0a91edac6"
+    },
+    {
+      "file": "icons/app-icon-56.png",
+      "size": 56,
+      "cornerRadius": 12.32,
+      "opaque": false,
+      "role": "wordmark in header and footer (shown at 28 px)",
+      "bytes": 5267,
+      "sha256": "5528b19727803e986d5e3c1990e05b69cbef6660e72a6fe8c00a27918feeca6c"
+    },
+    {
+      "file": "icons/app-icon-512.png",
+      "size": 512,
+      "cornerRadius": 112.64,
+      "opaque": false,
+      "role": "JSON-LD image and logo",
+      "bytes": 242510,
+      "sha256": "dd6ae00db2c347975f6a193ecd8eb6b825f9a1e2ce76c67e2296ff9399ed8f2c"
+    },
+    {
+      "file": "icons/apple-touch-icon-180.png",
       "size": 180,
-      "cornerRadius": 39.6
+      "cornerRadius": 0,
+      "opaque": true,
+      "role": "apple-touch-icon: opaque full-bleed square",
+      "bytes": 38018,
+      "sha256": "372d763f9def3f4e017c4d04da06991a7b4e04c7042eaf4c18463d90a8f76a16"
+    },
+    {
+      "file": "../apple-touch-icon.png",
+      "size": 180,
+      "cornerRadius": 0,
+      "opaque": true,
+      "role": "root copy of apple-touch-icon-180",
+      "bytes": 38018,
+      "sha256": "372d763f9def3f4e017c4d04da06991a7b4e04c7042eaf4c18463d90a8f76a16"
+    },
+    {
+      "file": "../favicon.ico",
+      "size": [
+        16,
+        32,
+        48
+      ],
+      "cornerRadius": 0.22,
+      "opaque": false,
+      "role": "PNG-in-ICO 16/32/48",
+      "bytes": 7014,
+      "sha256": "ac694a024a94877a7c8303c38846adf7323ed3aeaf1a4f251d040bef2acd0081"
     }
   ]
 }

@@ -74,7 +74,7 @@ const vote = (id, cookie, voted) => req(`/v1/ideas/${id}/vote`, { method: 'PUT',
 
 test('public reads create no visitor or cookie; errors are structured and uncached', async () => {
   const result = await req('/v1/ideas', { origin: null });
-  assert.deepEqual(result.json, { ideas: [], next_cursor: null });
+  assert.deepEqual(result.json, { ideas: [], next_cursor: null, counts: { all: 0, open: 0, reviewing: 0, planned: 0, completed: 0 } });
   assert.equal(result.response.headers.get('Set-Cookie'), null);
   assert.equal(result.response.headers.get('Cache-Control'), 'no-store');
   assert.equal(await count('visitors'), 0);
@@ -98,6 +98,7 @@ test('production Origin, JSON, and credentials CORS fail closed', async () => {
   assert.equal(preflight.response.headers.get('Access-Control-Allow-Origin'), ORIGIN);
   assert.equal(preflight.response.headers.get('Access-Control-Allow-Credentials'), 'true');
   assert.equal(preflight.response.headers.get('Vary'), 'Origin');
+  assert.equal(preflight.response.headers.get('Access-Control-Max-Age'), '7200');
   assert.equal((await req('/v1/ideas', { method: 'OPTIONS', headers: { 'Access-Control-Request-Method': 'DELETE' } })).status, 400);
   const cookie = await visitor();
   for (const type of ['text/plain', 'application/x-www-form-urlencoded', 'text/json']) {
@@ -168,7 +169,7 @@ test('Unicode normalization, codepoint limits, bounded body, plaintext and priva
   assert.equal(result.body, 'é <script>alert(1)</script> &amp;');
   assert.equal(result.nickname, '🐾');
   assert.match(result.created_at, /^\d{4}-.*Z$/);
-  assert.deepEqual(Object.keys(result).sort(), ['body', 'comment_count', 'created_at', 'id', 'nickname', 'status', 'vote_count', 'voted']);
+  assert.deepEqual(Object.keys(result).sort(), ['body', 'comment_count', 'created_at', 'id', 'nickname', 'operator_reply', 'status', 'vote_count', 'voted']);
   await idea(cookie, payload('🐾'.repeat(2000), '🐾'.repeat(24)));
   for (const data of [payload('🐾'.repeat(2001)), payload('body', '🐾'.repeat(25)), payload(' \n\t '), payload('\u0000'), payload('\uD800'), { ...payload(), hidden: false }, { ...payload(), is_operator: true }, { ...payload(), visitor_id: 'x' }, { ...payload(), vote_count: 100 }, { ...payload(), created_at: 1 }]) {
     assert.equal((await req('/v1/ideas', { method: 'POST', cookie, data })).status, 400);
@@ -314,6 +315,7 @@ test('moderation hides IDs, children and counts, including idempotent replays', 
   assert.equal(list.json.comments[0].is_operator, true);
   assert.deepEqual(Object.keys(list.json.comments[0]).sort(), ['body', 'created_at', 'id', 'idea_id', 'is_operator', 'nickname']);
   assert.equal((await req(`/v1/ideas/${item.id}`)).json.idea.comment_count, 1);
+  assert.equal((await req(`/v1/ideas/${item.id}`)).json.idea.operator_reply.body, 'Operator reply');
   assert.equal((await req(`/v1/ideas/${item.id}/comments`, { method: 'POST', cookie, data: commentData })).status, 404);
   await db.prepare('UPDATE ideas SET hidden=1 WHERE id=?').bind(item.id).run();
   assert.equal((await req('/v1/ideas')).json.ideas.length, 0);
@@ -385,4 +387,101 @@ test('only operator-maintained status is exposed on list, detail and vote respon
   }
   await assert.rejects(db.prepare("UPDATE ideas SET status='unknown' WHERE id=?").bind(created.id).run());
   assert.equal((await req(`/v1/ideas/${created.id}`,{method:'PATCH',cookie,data:{status:'open'}})).status,404);
+});
+
+test('status filter lists only the requested operator status, scopes cursors and reports public counts', async () => {
+  const cookie = await visitor();
+  const visitorID = await visitorId(cookie);
+  const timestamp = Date.now();
+  const insert = async (status, hidden, offset) => {
+    const id = randomUUID();
+    await db.prepare('INSERT INTO ideas(id,visitor_id,body,created_at,client_request_id,status,hidden) VALUES(?,?,?,?,?,?,?)')
+      .bind(id, visitorID, `${status} ${offset}`, timestamp - offset, randomUUID(), status, hidden).run();
+    return id;
+  };
+  for (let i = 0; i < 21; i++) await insert('completed', 0, i);
+  const planned = await insert('planned', 0, 30);
+  await insert('open', 0, 31);
+  const hiddenId = await insert('completed', 1, 32);
+
+  const first = await req('/v1/ideas?status=completed');
+  assert.equal(first.status, 200);
+  assert.equal(first.json.ideas.length, 20);
+  assert.ok(first.json.ideas.every((i) => i.status === 'completed'));
+  assert.ok(first.json.next_cursor);
+  assert.deepEqual(first.json.counts, { all: 23, open: 1, reviewing: 0, planned: 1, completed: 21 });
+  const second = await req(`/v1/ideas?status=completed&cursor=${encodeURIComponent(first.json.next_cursor)}`);
+  assert.equal(second.status, 200);
+  assert.equal(second.json.ideas.length, 1);
+  assert.equal(second.json.next_cursor, null);
+  assert.ok(!('counts' in second.json));
+  const union = [...first.json.ideas, ...second.json.ideas].map((i) => i.id);
+  assert.equal(new Set(union).size, 21);
+  assert.ok(!union.includes(hiddenId));
+
+  const latest = await req('/v1/ideas?status=planned&sort=latest');
+  assert.deepEqual(latest.json.ideas.map((i) => i.id), [planned]);
+  assert.equal(latest.json.counts.completed, 21);  // counts ignore the filter
+
+  for (const query of ['status=unknown', 'status=', 'status=COMPLETED']) {
+    const bad = await req(`/v1/ideas?${query}`);
+    assert.equal(bad.status, 400, query);
+    assert.equal(bad.json.error.field, 'status');
+  }
+  const cursor = encodeURIComponent(first.json.next_cursor);
+  for (const query of [`cursor=${cursor}`, `status=planned&cursor=${cursor}`, `sort=latest&status=completed&cursor=${cursor}`]) {
+    const bad = await req(`/v1/ideas?${query}`);
+    assert.equal(bad.status, 400, query);
+    assert.equal(bad.json.error.code, 'invalid_cursor');
+  }
+  // An unfiltered cursor is not valid under a filter, and still works unfiltered.
+  const all = await req('/v1/ideas?sort=latest');
+  assert.equal(all.json.ideas.length, 20);
+  assert.equal((await req(`/v1/ideas?sort=latest&status=completed&cursor=${encodeURIComponent(all.json.next_cursor)}`)).json.error.code, 'invalid_cursor');
+  const rest = await req(`/v1/ideas?sort=latest&cursor=${encodeURIComponent(all.json.next_cursor)}`);
+  assert.equal(rest.status, 200);
+  assert.equal(rest.json.ideas.length, 3);
+});
+
+test('idea responses carry only the latest public operator reply', async () => {
+  const cookie = await visitor();
+  const item = await idea(cookie);
+  const replyOf = async () => (await req(`/v1/ideas/${item.id}`)).json.idea.operator_reply;
+  assert.equal(item.operator_reply, null);
+  assert.equal((await req('/v1/ideas')).json.ideas[0].operator_reply, null);
+  assert.equal((await vote(item.id, cookie, true)).json.idea.operator_reply, null);
+  assert.equal(await replyOf(), null);
+  await req(`/v1/ideas/${item.id}/comments`, { method: 'POST', cookie, data: payload('visitor comment') });
+  assert.equal(await replyOf(), null);
+
+  const now = Date.now();
+  const insertReply = async (body, at) => {
+    const id = randomUUID();
+    await db.prepare('INSERT INTO comments(id,idea_id,nickname,body,created_at,is_operator,client_request_id) VALUES(?,?,?,?,?,1,?)')
+      .bind(id, item.id, 'Operator', body, at, randomUUID()).run();
+    return id;
+  };
+  const a = await insertReply('Reply A', now);
+  const b = await insertReply('Reply B', now + 1);
+  assert.equal((await replyOf()).body, 'Reply B');
+  assert.deepEqual(Object.keys(await replyOf()).sort(), ['body', 'created_at', 'id']);
+  assert.match((await replyOf()).created_at, /^\d{4}-.*Z$/);
+  for (const response of [(await req('/v1/ideas')).json.ideas[0], (await vote(item.id, cookie, false)).json.idea]) {
+    assert.equal(response.operator_reply.id, b);
+  }
+  await db.prepare('UPDATE comments SET hidden=1 WHERE id=?').bind(b).run();
+  assert.equal((await replyOf()).id, a);
+  await db.prepare('UPDATE comments SET hidden=1 WHERE id=?').bind(a).run();
+  assert.equal(await replyOf(), null);
+  await db.prepare('UPDATE comments SET hidden=0 WHERE id=?').bind(a).run();
+  await db.prepare('UPDATE ideas SET hidden=1 WHERE id=?').bind(item.id).run();
+  assert.equal((await req(`/v1/ideas/${item.id}`)).status, 404);
+  assert.equal((await req('/v1/ideas')).json.ideas.length, 0);
+  assert.equal((await vote(item.id, cookie, true)).status, 404);
+});
+
+test('migration 0003 creates the status and operator reply indexes', async () => {
+  const names = (await db.prepare("SELECT name FROM sqlite_master WHERE type='index'").all()).results.map((r) => r.name);
+  assert.ok(names.includes('ideas_public_status_created'));
+  assert.ok(names.includes('comments_operator_latest'));
 });

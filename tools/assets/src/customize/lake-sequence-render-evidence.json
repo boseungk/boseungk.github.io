@@ -1,0 +1,226 @@
+{
+  "source": "/Users/gpt/Projects/dayloom",
+  "projection": {
+    "width": 780,
+    "height": 1280,
+    "top": 24,
+    "scale": 0.7222222222222222,
+    "camera": {
+      "s": 0.8,
+      "x": 108,
+      "y": 12
+    }
+  },
+  "stages": [
+    {
+      "id": "lake-step-1",
+      "petAnchor": {
+        "x": 401.55555555555554,
+        "y": 887.7777777777777,
+        "scale": 0.23111111111111116
+      },
+      "nativeSelection": {
+        "wall": {
+          "id": "plain"
+        },
+        "floor": {
+          "id": "oak"
+        },
+        "window": {
+          "id": "casement"
+        },
+        "view": {
+          "id": "hills"
+        },
+        "seat": {
+          "id": "classic-sofa"
+        },
+        "light": {
+          "id": "collection-pebble-lamp",
+          "variant": "original"
+        },
+        "wallDeco": {
+          "id": "grass-frame"
+        },
+        "plantSpot": {
+          "id": "leafy-pot"
+        },
+        "sill": null,
+        "rug": {
+          "id": "cream-rug"
+        },
+        "floorItem": null
+      },
+      "season": "spring",
+      "selections": {
+        "light": "drawn.light.collection-pebble-lamp.original"
+      },
+      "omittedSlots": [],
+      "slots": {
+        "window": {
+          "left": 159,
+          "top": 260,
+          "right": 620,
+          "bottom": 654,
+          "uncropped": true
+        },
+        "light": {
+          "left": 57,
+          "top": 468,
+          "right": 183,
+          "bottom": 883,
+          "uncropped": true
+        },
+        "rug": {
+          "left": 100,
+          "top": 909,
+          "right": 680,
+          "bottom": 1010,
+          "uncropped": true
+        },
+        "seat": {
+          "left": 135,
+          "top": 644,
+          "right": 644,
+          "bottom": 889,
+          "uncropped": true
+        }
+      }
+    },
+    {
+      "id": "lake-step-2",
+      "petAnchor": {
+        "x": 401.55555555555554,
+        "y": 887.7777777777777,
+        "scale": 0.23111111111111116
+      },
+      "nativeSelection": {
+        "wall": {
+          "id": "plain"
+        },
+        "floor": {
+          "id": "oak"
+        },
+        "window": {
+          "id": "casement"
+        },
+        "view": {
+          "id": "hills"
+        },
+        "seat": {
+          "id": "collection-bentwood-bench",
+          "variant": "original"
+        },
+        "light": {
+          "id": "collection-pebble-lamp",
+          "variant": "original"
+        },
+        "wallDeco": {
+          "id": "grass-frame"
+        },
+        "plantSpot": {
+          "id": "leafy-pot"
+        },
+        "sill": null,
+        "rug": {
+          "id": "collection-waterline-rug",
+          "variant": "original"
+        },
+        "floorItem": null
+      },
+      "season": "spring",
+      "selections": {
+        "light": "drawn.light.collection-pebble-lamp.original",
+        "seat": "drawn.seat.collection-bentwood-bench.original",
+        "rug": "drawn.rug.collection-waterline-rug.original"
+      },
+      "omittedSlots": [],
+      "slots": {
+        "window": {
+          "left": 159,
+          "top": 260,
+          "right": 620,
+          "bottom": 654,
+          "uncropped": true
+        },
+        "light": {
+          "left": 57,
+          "top": 468,
+          "right": 183,
+          "bottom": 883,
+          "uncropped": true
+        },
+        "rug": {
+          "left": 164,
+          "top": 908,
+          "right": 615,
+          "bottom": 1022,
+          "uncropped": true
+        },
+        "seat": {
+          "left": 212,
+          "top": 656,
+          "right": 567,
+          "bottom": 896,
+          "uncropped": true
+        }
+      }
+    },
+    {
+      "id": "lake-step-3",
+      "petAnchor": {
+        "x": 401.55555555555554,
+        "y": 887.7777777777777,
+        "scale": 0.23111111111111116
+      },
+      "environmentId": "drawn.environment.open-rose-lake.original",
+      "season": "summer",
+      "selections": {
+        "wall": "drawn.wall.collection-linen-water-wall.original",
+        "floor": "drawn.floor.collection-lakeside-parquet.original",
+        "window": "drawn.window.study-grand-arch.study-moonlit-path-room",
+        "seat": "drawn.seat.collection-bentwood-bench.original",
+        "light": "drawn.light.collection-pebble-lamp.original",
+        "rug": "drawn.rug.collection-waterline-rug.original",
+        "sill": "drawn.sill.collection-water-vase.original",
+        "plantSpot": "drawn.plantSpot.corner-aquarium.classic"
+      },
+      "omittedSlots": [
+        "wallDeco",
+        "floorItem"
+      ],
+      "slots": {
+        "window": {
+          "left": 177,
+          "top": 194,
+          "right": 602,
+          "bottom": 629,
+          "uncropped": true
+        },
+        "light": {
+          "left": 57,
+          "top": 468,
+          "right": 183,
+          "bottom": 883,
+          "uncropped": true
+        },
+        "rug": {
+          "left": 164,
+          "top": 908,
+          "right": 615,
+          "bottom": 1022,
+          "uncropped": true
+        },
+        "seat": {
+          "left": 212,
+          "top": 656,
+          "right": 567,
+          "bottom": 896,
+          "uncropped": true
+        }
+      }
+    }
+  ],
+  "rooms": [],
+  "sequenceTheme": "lake"
+}

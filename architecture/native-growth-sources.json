@@ -1,21 +1,15 @@
 [
   {
-    "file": "art-shapes.mjs",
     "source": "src/world/drawn/growth/art-shapes.ts",
-    "sourceSha256": "486d5b738dddca63acd96c902e64c353aed395fdcf590d2a6bade8d475285c86",
-    "sha256": "8dda26f8f382c7555a751437d995d37c4ecdb644ce6571fec6ae05716c06aae9"
+    "sourceSha256": "486d5b738dddca63acd96c902e64c353aed395fdcf590d2a6bade8d475285c86"
   },
   {
-    "file": "art-flower.mjs",
     "source": "src/world/drawn/growth/art-flower.ts",
-    "sourceSha256": "9c8c999daae6fe284c6db1bd6d21049aac0ef7c7109aefa02b479e3f3fa57a17",
-    "sha256": "bee0d0771781c75dc9b6bfe5ebe62d13d90bdd23613199d815a0a0327554d2e0"
+    "sourceSha256": "9c8c999daae6fe284c6db1bd6d21049aac0ef7c7109aefa02b479e3f3fa57a17"
   },
   {
-    "file": "onboarding-flower-motion.mjs",
     "source": "src/features/onboarding/scene/onboarding-flower-motion.ts",
-    "sourceSha256": "ac4678ade9a060fde5f4d44dcf199e386135f1b6dc812243e3b93bac5d8a2ed3",
-    "sha256": "77dfba01c748b25b631fee15dcb7d335a8cf306caa4d02d804483994bcb26824"
+    "sourceSha256": "ac4678ade9a060fde5f4d44dcf199e386135f1b6dc812243e3b93bac5d8a2ed3"
   },
   {
     "source": "src/features/onboarding/scene/onboarding-flower-drawing.ts",

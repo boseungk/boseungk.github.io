@@ -1,0 +1,4 @@
+[
+  {"out": "art/community/band-1280.webp", "src": "src:scenes/dunes-sage-wide.webp", "crop": {"left": 0, "top": 180, "width": 4400, "height": 900}, "resize": {"width": 1280}, "composite": [{"src": "dayloom:decor/thumbnails/drawn.cat.cream.png", "left": 600, "top": 155, "width": 73}], "webp": {"quality": 84}, "note": "community band (feedback, news; also the feedback empty-state vignette): the dunes-sage wide room, rows 180-1080 of 4400x1688, with the cream cat standing on the rug in front of the seat (scene coords left 2064, top 712, width 250 = 32 % of the 780 px still, as in sample C's hero)"},
+  {"out": "art/community/band-2560.webp", "src": "src:scenes/dunes-sage-wide.webp", "crop": {"left": 0, "top": 180, "width": 4400, "height": 900}, "resize": {"width": 2560}, "composite": [{"src": "dayloom:decor/thumbnails/drawn.cat.cream.png", "left": 1201, "top": 310, "width": 145}], "webp": {"quality": 84}, "note": "community band, 2x: same composition as band-1280"}
+]

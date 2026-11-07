@@ -1,4 +1,4 @@
-/* Native Dayloom composition export. Reads the app; writes only website assets. */
+/* Native Dayloom composition export. Reads the app; writes only tools/assets/src/customize. */
 const fs = require('node:fs'), path = require('node:path');
 const {app, native, createCanvas} = require('./native-renderer.cjs');
 const api = native(app + '/design/prototype-editorial/lab/drawn-web/entry.js');
@@ -6,7 +6,10 @@ const skia = native(app + '/design/prototype-editorial/lab/drawn-web/skia-canvas
 const {compositionScene} = native(app + '/src/app-shell/collection/recommended-compositions.ts');
 const {collectionThemes} = native(app + '/src/features/collection/domain/collection-themes.ts');
 const prep = native(app + '/src/world/drawn/scene/preparation.ts').createDrawnScenePreparation(() => 'summer');
-const output = path.resolve(__dirname, '../docs/assets/v5/customize');
+// Masters are unpublished: tools/assets/build-art.mjs encodes them into docs/assets/art/.
+// --out=<dir> renders somewhere else (used to prove a re-render reproduces the committed masters).
+const option = name => (process.argv.find(arg => arg.startsWith('--' + name + '=')) || '').slice(name.length + 3);
+const output = option('out') ? path.resolve(option('out')) : path.resolve(__dirname, 'assets/src/customize');
 fs.mkdirSync(output, {recursive: true});
 const projection = {width: 780, height: 1280, top: 24, scale: 780 / 1080, camera: api.CAMERA};
 function surface() {
@@ -23,14 +26,19 @@ function bounds(canvas) {
   }
   return {left, top, right, bottom, uncropped: right < 0 || (left > 0 && top > 0 && right < canvas.width - 1 && bottom < canvas.height - 1)};
 }
-const theme = collectionThemes.find(theme => theme.id === 'garden');
+// --sequence=<themeId> picks the room the decor stages progress to (default garden, which keeps the committed step-0..3 and render-evidence.json).
+// Any other theme writes only <id>-step-1..3 plus <id>-sequence-render-evidence.json; step-0 (the default room) is theme independent and is shared.
+const sequence = option('sequence') || 'garden';
+const theme = collectionThemes.find(theme => theme.id === sequence);
+if (!theme) throw new Error('Unknown --sequence theme: ' + sequence);
 const themeScene = compositionScene({id: theme.id, place: 'indoor', ...theme.room}).room;
 const base = {id: 'web-default', place: 'indoor', nativeSelection: api.DEFAULT_SELECTION, selections: {}};
+const prefix = sequence === 'garden' ? '' : sequence + '-';
 const stages = [
   ['step-0', base],
-  ['step-1', {...base, id: 'web-lamp', nativeSelection: {...api.DEFAULT_SELECTION, light: themeScene.selection.light}, selections: {light: theme.room.selections.light}}],
-  ['step-2', {...base, id: 'web-seat-rug', nativeSelection: {...api.DEFAULT_SELECTION, ...Object.fromEntries(['light', 'seat', 'rug'].map(slot => [slot, themeScene.selection[slot]]))}, selections: Object.fromEntries(['light', 'seat', 'rug'].map(slot => [slot, theme.room.selections[slot]]))}],
-  ['step-3', {id: theme.id, place: 'indoor', ...theme.room}],
+  [prefix + 'step-1', {...base, id: 'web-lamp', nativeSelection: {...api.DEFAULT_SELECTION, light: themeScene.selection.light}, selections: {light: theme.room.selections.light}}],
+  [prefix + 'step-2', {...base, id: 'web-seat-rug', nativeSelection: {...api.DEFAULT_SELECTION, ...Object.fromEntries(['light', 'seat', 'rug'].map(slot => [slot, themeScene.selection[slot]]))}, selections: Object.fromEntries(['light', 'seat', 'rug'].map(slot => [slot, theme.room.selections[slot]]))}],
+  [prefix + 'step-3', {id: theme.id, place: 'indoor', ...theme.room}],
 ];
 const unlit = process.argv.includes('--unlit');
 const nightOnly = process.argv.includes('--night-only');
@@ -38,12 +46,13 @@ const duskOnly = process.argv.includes('--dusk-only');
 const incrementalOnly = process.argv.includes('--incremental-only');
 const stagesOnly = process.argv.includes('--stages-only');
 if ([nightOnly, duskOnly, incrementalOnly, stagesOnly].filter(Boolean).length > 1) throw new Error('Choose one export mode');
+if (prefix && (nightOnly || duskOnly || incrementalOnly || stagesOnly || unlit)) throw new Error('--sequence=' + sequence + ' only renders its own stages; the dusk/night frames of a theme come from the default run (' + sequence + '-dusk, -night, -night-unlit)');
 if (unlit && !nightOnly) throw new Error('--unlit requires --night-only');
 const report = incrementalOnly || stagesOnly ? JSON.parse(fs.readFileSync(path.join(output, 'render-evidence.json'), 'utf8')) : {source: app, projection, stages: [], rooms: []};
 if (incrementalOnly) report.stages = report.stages.filter(stage => !['step-0', 'step-1', 'step-2'].includes(stage.id));
 if (stagesOnly) report.stages = [];
 report.sequenceTheme = theme.id;
-const jobs = stagesOnly ? stages : incrementalOnly ? stages.slice(0, 3) : [...stages, ...collectionThemes.map(theme => [theme.id, {id: theme.id, place: 'indoor', ...theme.room}])];
+const jobs = prefix ? stages.slice(1) : stagesOnly ? stages : incrementalOnly ? stages.slice(0, 3) : [...stages, ...collectionThemes.map(theme => [theme.id, {id: theme.id, place: 'indoor', ...theme.room}])];
 for (const [baseId, recipe] of jobs) {
   if ((nightOnly || duskOnly) && baseId.startsWith('step-')) continue;
   const id = baseId + (nightOnly ? (unlit ? '-night-unlit' : '-night') : duskOnly ? '-dusk' : '');
@@ -69,9 +78,9 @@ for (const [baseId, recipe] of jobs) {
   const floorAnchor = room.anchors.find(anchor => anchor.id === 'floor');
   if (!floorAnchor) throw new Error(id + ': native floor anchor missing');
   const entry = {id, petAnchor: {x: (api.CAMERA.x + api.ROOM.place.catX * api.CAMERA.s) * projection.scale, y: projection.top + (api.CAMERA.y + floorAnchor.y * api.CAMERA.s) * projection.scale, scale: projection.scale * api.CAMERA.s * api.CREATURE_SCALE}, environmentId: recipe.environmentId, nativeSelection: recipe.nativeSelection, season, selections: recipe.selections, omittedSlots: recipe.omittedSlots || [], slots};
-  report[id.startsWith('step-') ? 'stages' : 'rooms'].push(entry);
+  report[/(^|-)step-\d$/.test(id) ? 'stages' : 'rooms'].push(entry);
   console.log(id + ': window/light/rug/seat fully inside frame');
 }
 report.stages.sort((a, b) => a.id.localeCompare(b.id));
-fs.writeFileSync(path.join(output, nightOnly ? (unlit ? 'unlit-render-evidence.json' : 'night-render-evidence.json') : duskOnly ? 'dusk-render-evidence.json' : 'render-evidence.json'), JSON.stringify(report, null, 2) + '\n');
+fs.writeFileSync(path.join(output, prefix ? prefix + 'sequence-render-evidence.json' : nightOnly ? (unlit ? 'unlit-render-evidence.json' : 'night-render-evidence.json') : duskOnly ? 'dusk-render-evidence.json' : 'render-evidence.json'), JSON.stringify(report, null, 2) + '\n');
 prep.dispose();

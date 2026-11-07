@@ -1,23 +1,87 @@
-/* The privacy document shares the current site shell and typography. */
-.privacy-document{width:min(800px,calc(100% - 48px))}
-.privacy-heading{margin-bottom:48px;padding-bottom:32px;border-bottom:1px solid var(--line)}
-.privacy-heading h1{font-size:clamp(32px,4.2vw,46px);line-height:1.4;letter-spacing:-.04em}
-.privacy-heading .privacy-overview{font-size:16px;line-height:1.9;color:var(--ink-soft);margin-top:20px}
-.privacy-heading .privacy-updated{font-size:13px;color:var(--muted);margin-top:18px}
-.privacy-document section+section{margin-top:44px}
-.privacy-document h2{font-size:var(--fs-title);line-height:1.5;letter-spacing:-.025em;margin-bottom:18px}
-.privacy-document section p{font-size:16px;line-height:1.95;color:var(--ink-soft);margin-top:14px;word-break:keep-all;overflow-wrap:anywhere}
-.privacy-document section p:first-of-type{margin-top:0}
-.privacy-document code{font-size:.88em;overflow-wrap:anywhere;color:var(--ink)}
-/* Inline policy links stay distinguishable from ink-soft paragraph text. */
-.privacy-document p a,.privacy-document p a .mar-choice-label{color:var(--ink);text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:.24em;text-decoration-color:var(--accent-soft)}
-.privacy-document p a:hover,.privacy-document p a:hover .mar-choice-label{text-decoration-color:var(--accent)}
-@media(max-width:600px){
-.privacy-document{width:calc(100% - 40px)}
-.privacy-heading{margin-bottom:32px;padding-bottom:24px}
-.privacy-heading h1{font-size:32px}
-.privacy-heading .privacy-overview{font-size:15px}
-.privacy-document h2{margin-bottom:14px}
-.privacy-document section+section{margin-top:34px}
-.privacy-document section p{font-size:15px;line-height:1.9}
+/* Policy documents (owner E): /privacy/ and /app-privacy/ in every language.
+   Loads after site/base.css and site/chrome.css, before ui/wash.css; it needs nothing else (no feedback.css).
+   Flat white paper, LINE Seed 400 only (strong carries the .hl band, never a bolder weight), three inks, Oat marks.
+   Body 16/26, section titles 22/32, dates 14/22, contents 15/24; sections 48px apart (32px on phones).
+   Muted text (--muted) is used only on white (5.15:1). */
+
+.privacy-document { width: min(720px, calc(100% - 48px)); margin-inline: auto; padding: 72px 0 112px; }
+
+/* ---------- heading, lead, contents ---------- */
+.privacy-heading { margin-bottom: 40px; padding-bottom: 32px; border-bottom: 1px solid var(--line); }
+.privacy-heading h1 { font-size: var(--fs-section); line-height: 1.3; letter-spacing: var(--track-section); }
+/* A title phrase (<span class="phrase">) wraps as one unit in every engine, so the Japanese title breaks as
+   アプリの / プライバシーポリシー without word-break: auto-phrase; it breaks inside only if it alone is wider than the line. */
+.privacy-heading .phrase { display: inline-block; max-width: 100%; }
+.privacy-overview { margin-top: 16px; font-size: 16px; line-height: calc(26px * var(--lh-scale)); color: var(--ink-soft); }
+.privacy-updated { margin-top: 16px; font-size: 14px; line-height: 22px; color: var(--muted); }
+.privacy-updated time { color: inherit; }
+
+.privacy-lead { margin-bottom: 44px; }
+.privacy-lead p { font-size: 16px; line-height: calc(26px * var(--lh-scale)); color: var(--ink-soft); }
+
+.privacy-toc { margin-bottom: 48px; }
+.privacy-toc__label { font-size: 14px; line-height: 22px; color: var(--muted); }
+.privacy-toc ol { margin: 4px 0 0; padding: 0; list-style: none; }
+.privacy-toc a {
+  display: block; padding-block: 10px; font-size: 15px; line-height: calc(24px * var(--lh-scale)); color: var(--ink-soft);
+  text-decoration: none; overflow-wrap: anywhere;
+}
+.privacy-toc a:is(:hover, :focus-visible) { color: var(--ink); }
+
+/* ---------- sections ---------- */
+.privacy-document section + section { margin-top: 48px; }
+.privacy-document section[id] { scroll-margin-top: calc(var(--bar) + 16px); }
+.privacy-document h2 { margin-bottom: 16px; font-size: var(--fs-title); line-height: calc(32px * var(--lh-scale)); letter-spacing: var(--track); }
+.privacy-document section :is(p, li) { font-size: 16px; line-height: calc(26px * var(--lh-scale)); color: var(--ink-soft); overflow-wrap: anywhere; }
+:lang(ko) .privacy-document section :is(p, li) { word-break: keep-all; }
+/* Japanese titles break between phrases, never inside a word (プライ / バシー); ignored where unsupported */
+.privacy-heading h1:lang(ja), .privacy-document h2:lang(ja) { word-break: auto-phrase; }
+.privacy-document section :is(p, ul) + :is(p, ul) { margin-top: 14px; }
+.privacy-document section ul { margin: 14px 0 0; padding: 0; list-style: none; }
+.privacy-document section li { position: relative; padding-inline-start: 22px; }
+.privacy-document section li + li { margin-top: 8px; }
+.privacy-document section li::before {
+  content: ""; position: absolute; inset-inline-start: 6px; top: .72em; width: 6px; height: 6px; border-radius: 50%; background: var(--ring);
+}
+.privacy-document strong { color: var(--ink); font-weight: 400; }
+.privacy-document code { font-size: .88em; overflow-wrap: anywhere; color: var(--ink); }
+
+/* inline policy links stay distinguishable from the ink-soft paragraph text: ink and a 1px Oat underline. Links in
+   running text have no hover wash (ui/selection.js leaves them out; a wash cannot follow a link across lines), so the
+   underline is the cue on every device. */
+.privacy-document p a {
+  color: var(--ink); text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: .24em; text-decoration-color: var(--button);
+}
+.privacy-document p a:hover { text-decoration-color: var(--ring); }
+
+@media (max-width: 600px) {
+  .privacy-document { width: calc(100% - 40px); padding: 40px 0 72px; }
+  .privacy-heading { margin-bottom: 32px; padding-bottom: 24px; }
+  .privacy-lead { margin-bottom: 44px; }
+  .privacy-toc { margin-bottom: 40px; }
+  .privacy-document section + section { margin-top: 32px; }
+  .privacy-document h2 { margin-bottom: 12px; }
+}
+
+/* ---------- print: the document only (the policies are printed and saved as PDF) ---------- */
+@page { margin: 18mm; }
+@media print {
+  .skip-link, .bar__nav, .bar > .stores, .bar__end, .language-picker, .stores, .foot__links, .foot__social, .privacy-toc, .mar-choice-wash { display: none !important; }
+  html, body { background: none; color: black; }
+  .bar { position: static; display: block; height: auto; padding: 0 0 12px; background: none; }
+  .bar::after { display: none; }
+  .foot { padding: 16px 0 0; background: none; }
+  .foot__inner { display: block; }
+  .foot__mark img { display: none; }
+  .foot__note { margin: 0; color: black; }
+  .privacy-document { width: auto; padding: 0; }
+  .privacy-heading { border-bottom-color: black; }
+  .privacy-heading h1, .privacy-document h2, .privacy-overview, .privacy-updated, .privacy-lead p, .privacy-document section :is(p, li), .privacy-document strong, .privacy-document code { color: black; }
+  .privacy-document li::before { background: black; }
+  .privacy-document .hl { background: none; }
+  .privacy-document section { break-inside: avoid-page; }
+  .privacy-document h2 { break-after: avoid; }
+  /* html body: (0,1,3) beats the screen link rule above (0,1,2) */
+  html body .privacy-document a, html body .privacy-document a .mar-choice-label { color: black; text-decoration-color: black; }
+  .privacy-document a[href^="http"]::after { content: " (" attr(href) ")"; font-size: .9em; overflow-wrap: anywhere; }
 }

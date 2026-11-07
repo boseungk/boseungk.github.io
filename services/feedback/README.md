@@ -13,8 +13,15 @@ Use Node 22.12+ (tested with 24.19), then run from this directory:
 npm ci
 cp .dev.vars.example .dev.vars
 npm run db:migrate
+npm run db:seed     # optional: fictional Korean sample board, local D1 only
 npm run dev
 ```
+
+`npm run db:seed` loads `seed/local.sql` (26 public ideas in all four statuses,
+votes, 23 comments on one idea, operator replies, one hidden idea and one hidden
+comment). It is fictional test data, empties the local tables first and never
+passes `--remote`. `npm run db:reset` wipes `.wrangler/state`, re-migrates and
+re-seeds. For an empty board run only `db:migrate`. Never publish the seed UUIDs.
 
 API: `http://127.0.0.1:8789`. Serve the site's `docs` directory at
 `http://127.0.0.1:8765`; this is the only allowed local website Origin.
@@ -44,11 +51,12 @@ All browser requests use `credentials: 'include'`. Public GETs work without
 an Origin header; browser origins must match the allowlist. Every mutation
 requires the exact allowed Origin and `application/json` (optional UTF-8
 charset). Credentials CORS never uses `*`; responses carry `Vary: Origin`,
-`Cache-Control: no-store`, and exposed `Retry-After`.
+`Cache-Control: no-store`, and exposed `Retry-After`. Preflight responses carry
+`Access-Control-Max-Age: 7200` (Chrome's cap), so votes are not re-preflighted.
 
 | Method and path | JSON request | JSON response |
 | --- | --- | --- |
-| GET `/v1/ideas?sort=popular\|latest&cursor=…` | — | `{ideas: Idea[], next_cursor: string\|null}` |
+| GET `/v1/ideas?sort=popular\|latest&status=open\|reviewing\|planned\|completed&cursor=…` | — | `{ideas: Idea[], next_cursor: string\|null, counts?: Counts}` |
 | GET `/v1/ideas/:id` | — | `{idea: Idea}` |
 | GET `/v1/ideas/:id/comments?cursor=…` | — | `{comments: Comment[], next_cursor: string\|null}` |
 | POST `/v1/visitor` | `{turnstile_token: string}` | `{ready: true}` |
@@ -57,7 +65,9 @@ charset). Credentials CORS never uses `*`; responses carry `Vary: Origin`,
 | PUT `/v1/ideas/:id/vote` | `{voted: boolean}` | `{idea: Idea}` |
 
 ```text
-Idea = {id, nickname, body, status, created_at, vote_count, comment_count, voted}
+Idea = {id, nickname, body, status, created_at, vote_count, comment_count, voted,
+        operator_reply: {id, body, created_at} | null}
+Counts = {all, open, reviewing, planned, completed}
 Comment = {id, idea_id, nickname, body, created_at, is_operator}
 ```
 
@@ -67,7 +77,15 @@ anonymous display label. The public operator badge is the only moderation
 field exposed; author IDs, token hashes, hidden flags, and request IDs are never
 returned. Only an operator using D1 can create an operator reply.
 
-Page size is 20. Cursors are opaque and tied to the sort; keep the returned
+`status` is optional; an unknown or empty value is `400` with `error.field`
+`status`. `counts` (public, non-hidden ideas per status, independent of the
+filter) is returned on the first page only, that is, when no `cursor` is sent.
+Clients can treat its presence as proof that the deployed API honours `status`.
+`operator_reply` is the latest visible operator comment on the idea, or `null`.
+The operator nickname is not exposed.
+
+Page size is 20. Cursors are opaque and tied to the sort and the status filter
+(a cursor from another sort or filter is `400 invalid_cursor`); keep the returned
 cursor unchanged. Popular sorts by vote count, then creation time/id descending;
 latest by creation time/id descending. Comments sort by creation time/id ascending.
 Keyset pagination avoids equal-time ties. Popular ranks can move as votes change,
@@ -188,7 +206,7 @@ UPDATE comments SET hidden=1 WHERE id='COMMENT_UUID';
 INSERT INTO comments
   (id,idea_id,visitor_id,nickname,body,created_at,hidden,is_operator,client_request_id)
 VALUES
-  ('NEW_UUID','IDEA_UUID',NULL,'MyAnimalRoom','Plaintext operator reply',
+  ('NEW_UUID','IDEA_UUID',NULL,'My Animal Room','Plaintext operator reply',
    CAST(unixepoch('subsec')*1000 AS INTEGER),0,1,'ANOTHER_NEW_UUID');
 ```
 
@@ -200,6 +218,12 @@ submitted idea is never presented as already reviewed or promised.
 ```sql
 UPDATE ideas SET status='reviewing' WHERE id='IDEA_UUID' AND hidden=0;
 ```
+
+Migration `0003_status_reply_indexes.sql` only adds indexes for the status filter and
+the latest-operator-reply lookup. It is safe to apply before or after the API deploy,
+but deploy the API and apply it to production **before** publishing the static pages
+that use `status`, `counts` and `operator_reply`. Each statement must end with `;`,
+because Wrangler appends its own bookkeeping statement.
 
 Use `planned` for work actually selected for preparation and `completed` only
 after the requested change ships. An operator comment can explain the decision

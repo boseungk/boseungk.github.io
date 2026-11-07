@@ -2,6 +2,7 @@ import assert from 'node:assert/strict';
 import { test } from 'node:test';
 import {
   FeedbackError, normalizeText, validateDraft, createDraftRequest, createClient,
+  SORTS, STATUSES, ideasPath, createViewCache, relativeDate, absoluteDate, newsLinkSegments,
 } from '../docs/assets/feedback/client.mjs';
 
 const baseUrl = 'http://127.0.0.1:8789';
@@ -233,23 +234,100 @@ test('failed shared verification clears preparation state so a later deliberate 
   assert.equal(data.body, 'Retained text');
 });
 
+// A fetch that settles only when its signal aborts (a stalled connection).
+const hangingFetch = (onCall = () => {}) => (url, options) => {
+  onCall(url, options);
+  return new Promise((resolve, reject) => {
+    const fail = () => reject(new DOMException('Aborted', 'AbortError'));
+    if (options.signal.aborted) fail(); else options.signal.addEventListener('abort', fail, {once: true});
+  });
+};
+
 test('reads omit JSON body, support cancellation, and distinguish malformed responses', async () => {
   const controller = new AbortController();
-  const aborted = new DOMException('Cancelled', 'AbortError');
+  let seen;
   const client = createClient({baseUrl, verify: async () => assert.fail('Read must not verify'),
-    fetcher: async (url, options) => {
+    fetcher: hangingFetch((url, options) => {
       assert.equal(url, baseUrl + featurePath);
       assert.equal(options.method, 'GET');
       assert.equal(options.credentials, 'include');
       assert.equal(options.body, undefined);
       assert.equal(options.headers, undefined);
-      assert.strictEqual(options.signal, controller.signal);
-      throw aborted;
-    },
+      assert.equal(options.signal.aborted, false);
+      seen = options.signal;
+    }),
   });
-  await assert.rejects(client.request(featurePath, {signal: controller.signal}), error => error === aborted);
+  // The caller's abort reaches the request and rejects with the AbortError itself, not a FeedbackError.
+  const read = client.request(featurePath, {signal: controller.signal});
+  controller.abort();
+  await assert.rejects(read, error => error.name === 'AbortError' && !(error instanceof FeedbackError));
+  assert.equal(seen.aborted, true);
+  const early = new AbortController(); early.abort();
+  const idle = createClient({baseUrl, verify: async () => assert.fail('Read must not verify'), fetcher: hangingFetch()});
+  await assert.rejects(idle.request(featurePath, {signal: early.signal}), error => error.name === 'AbortError' && !(error instanceof FeedbackError));
   const malformed = createClient({baseUrl, verify: async () => assert.fail('Malformed response must not verify'),
     fetcher: async () => new Response('upstream unavailable', {status: 502}),
   });
   await assert.rejects(malformed.request(featurePath), errorMatches('invalid_response', 502));
+});
+
+test('a stalled read times out as network_error, with or without a caller signal', async t => {
+  t.mock.timers.enable({apis: ['setTimeout']});
+  for (const controller of [new AbortController(), null]) {
+    let seen;
+    const client = createClient({baseUrl, verify: async () => assert.fail('Read must not verify'),
+      fetcher: hangingFetch((url, options) => { seen = options.signal; })});
+    const read = client.request(featurePath, controller ? {signal: controller.signal} : {});
+    t.mock.timers.tick(19999);
+    await nextTurn();
+    assert.equal(seen.aborted, false);
+    t.mock.timers.tick(1);
+    await assert.rejects(read, errorMatches('network_error', 0));
+    assert.equal(seen.aborted, true);
+    if (controller) assert.equal(controller.signal.aborted, false);
+  }
+});
+
+test('list paths carry sort, an optional status and an encoded cursor', () => {
+  assert.equal(ideasPath(), '/v1/ideas?sort=popular');
+  assert.equal(ideasPath({sort: 'latest', status: 'completed'}), '/v1/ideas?sort=latest&status=completed');
+  assert.equal(ideasPath({sort: 'popular', status: '', cursor: 'a+b/c='}), '/v1/ideas?sort=popular&cursor=a%2Bb%2Fc%3D');
+  assert.deepEqual([...STATUSES], ['reviewing', 'planned', 'completed']);
+  assert.deepEqual([...SORTS], ['popular', 'latest']);
+});
+
+test('the view cache keeps first pages in memory for its time to live only', () => {
+  let now = 1000;
+  const cache = createViewCache({ttl: 60000, now: () => now});
+  assert.equal(cache.get('|popular'), null);
+  const page = {ideas: [], next_cursor: null};
+  cache.set('|popular', page);
+  now += 59999;
+  assert.equal(cache.get('|popular'), page);
+  now += 2;
+  assert.equal(cache.get('|popular'), null);
+  cache.set('completed|latest', page); cache.clear();
+  assert.equal(cache.get('completed|latest'), null);
+});
+
+test('relative dates under seven days, the date after, and now for clock skew', () => {
+  const now = Date.parse('2026-11-06T12:00:00Z');
+  assert.equal(relativeDate('2026-11-06T11:20:00Z', 'en-US', now), '40 minutes ago');
+  assert.equal(relativeDate('2026-11-06T02:00:00Z', 'en-US', now), '10 hours ago');
+  assert.equal(relativeDate('2026-11-05T09:00:00Z', 'en-US', now), 'yesterday');
+  assert.equal(relativeDate('2026-11-06T12:05:00Z', 'en-US', now), 'now');
+  assert.equal(relativeDate('2026-10-01T12:00:00Z', 'en-US', now), absoluteDate('2026-10-01T12:00:00Z', 'en-US'));
+  assert.match(relativeDate('2026-11-01T12:00:00Z', 'ko-KR', now), /5일 전/);
+  assert.equal(relativeDate('not a date', 'en-US', now), '');
+});
+
+test('operator replies link only same-site news entries, as data for DOM nodes', () => {
+  assert.deepEqual(newsLinkSegments('자세한 내용은 새 소식을 확인해 주세요. /news/#feedback-board', '/en/news/'), [
+    {text: '자세한 내용은 새 소식을 확인해 주세요. '}, {text: '/news/#feedback-board', href: '/en/news/#feedback-board'}]);
+  assert.deepEqual(newsLinkSegments('(https://www.myanimalroom.com/ja/news/#weekly-records).'), [
+    {text: '('}, {text: 'https://www.myanimalroom.com/ja/news/#weekly-records', href: '/news/#weekly-records'}, {text: ').'}]);
+  for (const text of ['/news/#Upper', '/feedback/#x', 'https://evil.example/news/#x', 'javascript:alert(1)//news/#x', '/news/#' + 'a'.repeat(65), '<a href="/news/#x">']) {
+    assert.ok(newsLinkSegments(text).every(part => !part.href), text);
+  }
+  assert.deepEqual(newsLinkSegments('plain text'), [{text: 'plain text'}]);
 });

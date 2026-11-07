@@ -6,6 +6,7 @@ const DAY = 86_400_000;
 const VISITOR_LIFETIME = 90 * DAY;
 const UUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
 const ID = '[0-9a-f-]{36}';
+const STATUSES = ['open', 'reviewing', 'planned', 'completed'];
 
 class ApiError extends Error {
   constructor(status, code, message, field, retryAfter) {
@@ -21,10 +22,13 @@ const cookieName = (env) => isDev(env) ? 'feedback_dev' : '__Host-feedback';
 const statement = (env, sql, ...args) => env.DB.prepare(sql).bind(...args);
 
 function publicIdea(row) {
+  const reply = row.operator_reply ? JSON.parse(row.operator_reply) : null;
   return {
     id: row.id, nickname: row.nickname, body: row.body, status: row.status,
     created_at: new Date(row.created_at).toISOString(),
     vote_count: row.vote_count, comment_count: row.comment_count, voted: !!row.voted,
+    // Latest visible operator reply. The operator nickname is never exposed.
+    operator_reply: reply && { id: reply.id, body: reply.body, created_at: new Date(reply.created_at).toISOString() },
   };
 }
 function publicComment(row) {
@@ -36,7 +40,10 @@ function publicComment(row) {
 const IDEA_SELECT = `SELECT i.id,i.nickname,i.body,i.created_at,i.status,
   (SELECT COUNT(*) FROM votes v WHERE v.idea_id=i.id) AS vote_count,
   (SELECT COUNT(*) FROM comments c WHERE c.idea_id=i.id AND c.hidden=0) AS comment_count,
-  EXISTS(SELECT 1 FROM votes v WHERE v.idea_id=i.id AND v.visitor_id=?) AS voted
+  EXISTS(SELECT 1 FROM votes v WHERE v.idea_id=i.id AND v.visitor_id=?) AS voted,
+  (SELECT json_object('id',c.id,'body',c.body,'created_at',c.created_at) FROM comments c
+    WHERE c.idea_id=i.id AND c.hidden=0 AND c.is_operator=1
+    ORDER BY c.created_at DESC,c.id DESC LIMIT 1) AS operator_reply
   FROM ideas i WHERE i.hidden=0`;
 
 async function getIdea(env, id, visitorId) {
@@ -111,14 +118,15 @@ function content(data, max) {
 }
 
 function cursorFor(data) { return btoa(JSON.stringify(data)); }
-function readCursor(url, kind) {
+function readCursor(url, kind, status = null) {
   const value = url.searchParams.get('cursor');
   if (!value) return null;
   try {
     if (value.length > 512) throw 0;
     const c = JSON.parse(atob(value));
     if (c.kind !== kind || !Number.isSafeInteger(c.time) || c.time < 0 || !UUID.test(c.id) ||
-      (kind === 'popular' && (!Number.isSafeInteger(c.votes) || c.votes < 0))) throw 0;
+      (kind === 'popular' && (!Number.isSafeInteger(c.votes) || c.votes < 0)) ||
+      (c.status ?? null) !== status) throw 0;  // a cursor is only valid for the filter that issued it
     return c;
   } catch { throw new ApiError(400, 'invalid_cursor', 'Invalid page cursor.'); }
 }
@@ -126,8 +134,11 @@ function readCursor(url, kind) {
 async function listIdeas(env, url, visitor) {
   const sort = url.searchParams.get('sort') || 'popular';
   if (!['popular', 'latest'].includes(sort)) throw invalid('Choose popular or latest.', 'sort');
-  const cursor = readCursor(url, sort);
+  const status = url.searchParams.get('status');  // null when absent, '' is rejected
+  if (status !== null && !STATUSES.includes(status)) throw invalid('Choose a listed status.', 'status');
+  const cursor = readCursor(url, sort, status);
   const params = [visitor?.id || ''];
+  if (status) params.push(status);
   let after = '';
   if (cursor) {
     after = sort === 'popular'
@@ -137,10 +148,22 @@ async function listIdeas(env, url, visitor) {
     params.push(cursor.time, cursor.time, cursor.id);
   }
   const order = sort === 'popular' ? 'vote_count DESC,created_at DESC,id DESC' : 'created_at DESC,id DESC';
-  const { results } = await statement(env, `SELECT * FROM (${IDEA_SELECT}) ${after} ORDER BY ${order} LIMIT 21`, ...params).all();
+  const filter = status ? ' AND i.status=?' : '';
+  const { results } = await statement(env, `SELECT * FROM (${IDEA_SELECT}${filter}) ${after} ORDER BY ${order} LIMIT 21`, ...params).all();
   const page = results.slice(0, 20);
   const last = page.at(-1);
-  return { ideas: page.map(publicIdea), next_cursor: results.length > 20 ? cursorFor({ kind: sort, time: last.created_at, id: last.id, ...(sort === 'popular' ? { votes: last.vote_count } : {}) }) : null };
+  const body = {
+    ideas: page.map(publicIdea),
+    next_cursor: results.length > 20 ? cursorFor({ kind: sort, ...(status ? { status } : {}), time: last.created_at, id: last.id, ...(sort === 'popular' ? { votes: last.vote_count } : {}) }) : null,
+  };
+  // First page only: public totals for the filter tabs, independent of the active filter.
+  if (!cursor) {
+    const { results: rows } = await statement(env, 'SELECT status, COUNT(*) AS n FROM ideas WHERE hidden=0 GROUP BY status').all();
+    const counts = { all: 0, open: 0, reviewing: 0, planned: 0, completed: 0 };
+    for (const r of rows) { counts[r.status] = r.n; counts.all += r.n; }
+    body.counts = counts;
+  }
+  return body;
 }
 
 async function listComments(env, url, id) {
@@ -294,6 +317,7 @@ export default {
         if (!['GET', 'POST', 'PUT'].includes(method) || requestedHeaders.some((h) => h !== 'content-type')) throw invalid('Unsupported preflight.');
         headers.set('Access-Control-Allow-Methods', 'GET, POST, PUT, OPTIONS');
         headers.set('Access-Control-Allow-Headers', 'Content-Type');
+        headers.set('Access-Control-Max-Age', '7200');  // Chrome's cap
         return new Response(null, { status: 204, headers });
       }
       const result = await route(request, env);

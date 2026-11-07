@@ -1,47 +1,72 @@
 <!doctype html>
 <html lang="ko"><head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><!--HEAD_COMMON-->
 <title>기능 제안 — My Animal Room</title>
-<meta name="description" content="My Animal Room에 바라는 기능을 남기고 다른 의견에 공감해 주세요. 로그인 없이 함께 만드는 작은 방.">
-<meta name="theme-color" content="#ffffff"><meta name="referrer" content="strict-origin-when-cross-origin">
-<!--LOCALE_ALTERNATES--><link rel="canonical" href="https://www.myanimalroom.com/feedback/">
-
-
-
-<meta property="og:title" content="기능 제안 — My Animal Room"><meta property="og:type" content="website">
-<meta property="og:url" content="https://www.myanimalroom.com/feedback/"><meta property="og:locale" content="ko_KR">
-<link rel="icon" href="/assets/favicon-32.png?v=20261018-rounded" type="image/png" sizes="32x32"><link rel="apple-touch-icon" href="/assets/app-icon-180.png?v=20261018-rounded" sizes="180x180">
-<link rel="stylesheet" href="/home.css?v=20261106-type"><link rel="stylesheet" href="/assets/v5/polish.css?v=20261106-type">
-<link rel="stylesheet" href="/assets/feedback/feedback.css?v=20261106-type">
-<link rel="preload" href="/assets/LINESeedKR-Regular.otf" as="font" type="font/otf" crossorigin>
-<script defer src="/assets/v5/language-picker.js?v=v6-1"></script>
-<script type="module" src="/assets/feedback/feedback.js?v=20261019-board"></script>
-<link rel="stylesheet" href="/assets/ui/wash.css?v=20261018-native">
-<script defer src="/assets/ui/selection-spec.js?v=20261018-native"></script><script defer src="/assets/ui/selection-motion.js?v=20261018-native"></script><script defer src="/assets/ui/selection.js?v=20261019-nav"></script>
-</head><body class="feedback-page">
-<a class="skip-link" href="#main">본문으로 건너뛰기</a>
-<header class="header"><div class="header-inner"><a class="brand" href="/" aria-label="My Animal Room 홈">My Animal Room</a><nav aria-label="주 메뉴"><!--SITE_NAV--></nav><div class="header-end"><!--LANGUAGE_PICKER--></div></div></header>
-<main class="feedback-main" id="main" tabindex="-1">
- <div class="feedback-heading"><p class="eyebrow">함께 만드는 My Animal Room</p><h1>기능 제안</h1><p>원하는 기능을 남기고, 다른 의견에 공감해 주세요.<br>작은 의견부터 함께 나눠요.</p></div>
+<meta name="description" content="My Animal Room에 바라는 기능을 남기고 다른 의견에 공감해 주세요. 로그인 없이 함께 만드는 작은 방."><!--HEAD_META-->
+<link rel="preconnect" href="https://feedback-api.myanimalroom.com" crossorigin="use-credentials">
+<link rel="stylesheet" href="/assets/site/base.css"><link rel="stylesheet" href="/assets/site/chrome.css">
+<link rel="stylesheet" href="/assets/feedback/feedback.css">
+<link rel="stylesheet" href="/assets/ui/wash.css">
+<noscript><style>#new-idea,.feedback-controls,#list-loading{display:none}#idea-list{min-height:0}</style></noscript>
+<script defer src="/assets/ui/selection-spec.js"></script><script defer src="/assets/ui/selection-motion.js"></script><script defer src="/assets/ui/selection.js"></script><script defer src="/assets/site/language-picker.js"></script><script defer src="/assets/site/chrome.js"></script>
+<script type="module" src="/assets/feedback/feedback.js" onerror="document.documentElement.classList.add('feedback-off');document.getElementById('list-error').hidden=false"></script>
+</head><body class="community feedback-page">
+<!--SITE_HEADER-->
+<div class="community-band" aria-hidden="true"><img src="/assets/art/community/band-1280.webp" srcset="/assets/art/community/band-1280.webp 1280w, /assets/art/community/band-2560.webp 2560w" sizes="(max-width: 1000px) 1000px, 100vw" width="2560" height="524" alt="" decoding="async" fetchpriority="high"></div>
+<main class="community-sheet" id="main" tabindex="-1">
+ <div class="community-head">
+  <p class="kicker">함께 만드는 My Animal Room</p>
+  <h1>기능 제안</h1>
+  <p class="community-lead">원하는 기능을 남기고, 다른 의견에 공감해 주세요.<br>작은 의견부터 함께 나눠요.</p>
+ </div>
  <details class="feedback-compose-disclosure" id="new-idea"><summary class="feedback-compose-toggle">의견 남기기</summary><div class="feedback-compose-content">
  <form id="idea-form" class="feedback-compose" aria-label="새 의견 작성" novalidate>
   <label for="idea-nickname">닉네임 (선택)</label><input id="idea-nickname" name="nickname" dir="auto" placeholder="비워 두면 익명으로 표시돼요" autocomplete="nickname" aria-describedby="idea-status">
   <label for="idea-body">어떤 기능이 있으면 좋을까요?</label><textarea id="idea-body" name="body" dir="auto" rows="4" placeholder="필요했던 순간이나 원하는 모습을 편하게 적어 주세요." aria-required="true" aria-describedby="idea-counter idea-status"></textarea>
-  <div class="feedback-compose-bottom"><span class="feedback-counter" id="idea-counter">0 / 2,000</span><button type="submit" class="feedback-submit">의견 남기기</button></div>
+  <div class="feedback-form-bottom"><span class="feedback-counter" id="idea-counter">0 / 2,000</span><span class="sr-only" id="idea-live" aria-live="polite"></span><button type="submit" class="feedback-submit"><span class="mar-choice-label">의견 남기기</span></button></div>
   <div id="idea-challenge"></div><p id="idea-status" class="feedback-status" role="status" aria-live="polite"></p>
  </form>
- <p class="feedback-privacy">의견과 댓글은 누구나 볼 수 있어요. 개인적인 문의는 <a href="mailto:contact@myanimalroom.com">이메일로 보내 주세요.</a></p>
- <p class="feedback-note">로그인 없이 참여할 수 있어요. 중복 공감 방지를 위해 참여 시 브라우저 쿠키를 사용합니다. <a href="/privacy/">개인정보 안내</a></p>
+ <p class="feedback-note">작성 중인 글은 이 탭을 닫을 때까지 이 브라우저에만 보관돼요.</p>
+ <p class="feedback-note">의견과 댓글은 누구나 볼 수 있어요. 개인적인 문의는 <a href="mailto:contact@myanimalroom.com">이메일로 보내 주세요.</a></p>
+ <p class="feedback-note">로그인 없이 참여할 수 있어요. 중복 공감 방지를 위해 참여 시 브라우저 쿠키를 사용해요. <a href="/privacy/">개인정보 안내</a></p>
  </div></details>
- <section aria-labelledby="ideas-title">
-  <div class="feedback-toolbar"><h2 id="ideas-title">함께 나눈 의견</h2><div class="feedback-sort" aria-label="의견 정렬"><button type="button" data-sort="popular" aria-pressed="true">공감순</button><button type="button" data-sort="latest" aria-pressed="false">최신순</button></div></div>
-  <p class="feedback-loading" id="list-loading" role="status">의견을 불러오는 중이에요.</p>
-  <p class="feedback-status" id="list-status" role="status" aria-live="polite"></p><button class="feedback-text-button" type="button" id="list-retry" hidden>다시 불러오기</button>
-  <p class="feedback-empty" id="list-empty" hidden>아직 의견이 없어요.<br>첫 번째 이야기를 남겨 주세요.</p>
-  <ul class="feedback-list" id="idea-list"></ul>
-  <button type="button" class="feedback-more" id="list-more" hidden>의견 더 보기</button>
+ <!--LATEST_NEWS-->
+ <section class="feedback-board" id="ideas" aria-labelledby="ideas-title" data-operator-icon="/assets/icons/app-icon-56.png">
+  <div class="feedback-controls">
+  <div class="feedback-toolbar">
+   <h2 id="ideas-title" tabindex="-1">함께 나눈 의견</h2>
+   <div class="feedback-sort" role="group" aria-label="의견 정렬"><button type="button" data-sort="popular" aria-pressed="true">공감순</button><button type="button" data-sort="latest" aria-pressed="false">최신순</button></div>
+  </div>
+  <div class="feedback-filter" role="group" aria-label="진행 상태로 보기" hidden>
+   <button type="button" data-status="" aria-pressed="true"><span class="mar-choice-label">전체 <span class="feedback-filter__count" data-count></span></span></button>
+   <button type="button" data-status="reviewing" aria-pressed="false"><span class="mar-choice-label">검토 중 <span class="feedback-filter__count" data-count></span></span></button>
+   <button type="button" data-status="planned" aria-pressed="false"><span class="mar-choice-label">준비 중 <span class="feedback-filter__count" data-count></span></span></button>
+   <button type="button" data-status="completed" aria-pressed="false"><span class="mar-choice-label">반영 완료 <span class="feedback-filter__count" data-count></span></span></button>
+  </div>
+  </div>
+  <p class="feedback-loading is-early" id="list-loading" role="status">의견을 불러오는 중이에요.</p>
+  <p class="feedback-status" id="list-status" role="status" aria-live="polite"></p><p class="sr-only" id="list-live" aria-live="polite"></p>
+  <div class="feedback-error" id="list-error" role="alert" hidden>
+   <p>의견을 불러오지 못했어요. 잠시 후 다시 시도해 주세요.</p>
+   <button class="feedback-secondary" type="button" id="list-retry">다시 불러오기</button>
+   <p class="feedback-note"><a href="mailto:contact@myanimalroom.com">급한 문의는 이메일로 보내 주세요.</a></p>
+  </div>
+  <div class="feedback-empty" id="list-empty" hidden>
+   <div class="feedback-empty__art"><img src="/assets/art/community/band-1280.webp" srcset="/assets/art/community/band-1280.webp 1280w, /assets/art/community/band-2560.webp 2560w" sizes="1600px" width="2560" height="524" alt="" loading="lazy" decoding="async"></div>
+   <p>아직 의견이 없어요.<br>첫 번째 이야기를 남겨 주세요.</p>
+   <button class="feedback-primary" type="button" id="empty-compose">첫 의견 남기기</button>
+  </div>
+  <div class="feedback-empty feedback-empty--filtered" id="list-empty-filtered" hidden>
+   <p data-empty="reviewing">아직 검토 중인 의견이 없어요.</p>
+   <p data-empty="planned">아직 준비 중인 의견이 없어요.</p>
+   <p data-empty="completed">아직 반영 완료된 의견이 없어요.</p>
+   <button class="feedback-text-button" type="button" id="filter-reset"><span class="mar-choice-label">전체 의견 보기</span></button>
+  </div>
+  <ul class="feedback-list" id="idea-list" aria-busy="true"></ul>
+  <button type="button" class="feedback-secondary feedback-more" id="list-more" hidden>의견 더 보기</button>
  </section>
- <noscript><p class="feedback-status">게시판을 이용하려면 JavaScript가 필요합니다. 이메일로도 의견을 보낼 수 있어요: <a href="mailto:contact@myanimalroom.com">contact@myanimalroom.com</a></p></noscript>
+ <noscript><p class="feedback-noscript">게시판을 이용하려면 JavaScript가 필요해요. 이메일로도 의견을 보낼 수 있어요: <a href="mailto:contact@myanimalroom.com">contact@myanimalroom.com</a></p></noscript>
 </main>
-<footer class="feedback-footer"><a class="brand" href="/">My Animal Room</a><nav aria-label="하단 메뉴"><a href="/news/">새 소식</a><a href="mailto:contact@myanimalroom.com">문의·오류 신고</a><a href="/privacy/">개인정보 안내</a></nav><small>© 2026 My Animal Room</small></footer>
+<!--SITE_FOOTER-->
+<!--PAGE_COPY--><!--NEWS_LINKS--><!--FEEDBACK_CONFIG-->
 </body></html>

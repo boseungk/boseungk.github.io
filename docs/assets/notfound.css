@@ -1,0 +1,35 @@
+/* 404 page (owner E). Loads after site/base.css and site/chrome.css, before ui/wash.css.
+   One flat vignette (the cat, no frame), a title, one help line, the Oat button, two text links.
+   Flat white paper, LINE Seed 400 only, no shadows. The page has no footer; the header is the minimal bar. */
+
+/* The minimal bar holds the wordmark and App Store only: without the empty nav and picker tracks (and their column
+   gaps) App Store ends on the right edge the picker ends on everywhere else. Row heights stay those of chrome.css. */
+.notfound-page .bar { grid-template-columns: auto minmax(0, 1fr) auto; grid-template-areas: "mark . stores"; }
+
+.nf {
+  display: flex; flex-direction: column; align-items: center; text-align: center;
+  width: min(560px, calc(100% - 48px)); min-height: calc(100svh - var(--bar)); margin-inline: auto; padding: 56px 0 96px; justify-content: center;
+}
+.nf__art { width: 160px; height: 147px; margin-bottom: 24px; }
+.nf__title { font-size: var(--fs-section); line-height: 1.3; letter-spacing: var(--track-section); }
+.nf__help { margin-top: 16px; max-width: 30em; font-size: 17px; line-height: calc(26px * var(--lh-scale)); color: var(--ink-soft); text-wrap: balance; }
+.nf__en { margin-top: 8px; max-width: 30em; font-size: 14px; line-height: 22px; color: var(--muted); text-wrap: balance; }
+.nf__home {
+  display: inline-flex; align-items: center; justify-content: center; min-height: 50px; margin-top: 32px; padding: 12px 24px; border-radius: 12px;
+  background: var(--button); color: var(--ink); font-size: 17px; line-height: 26px; text-decoration: none; white-space: nowrap;
+  transition: opacity var(--dur-choice) linear;
+}
+.nf__home:active { opacity: .76; }
+.nf__links { display: flex; flex-wrap: wrap; justify-content: center; gap: 0 12px; margin-top: 16px; color: var(--ink-soft); font-size: 15px; line-height: 23px; }
+.nf__links a { display: inline-flex; align-items: center; min-height: 44px; padding-inline: 4px; text-decoration: none; }
+.nf__links a:is(:hover, :focus-visible) { color: var(--ink); }
+
+@media (max-width: 759px) {
+  .notfound-page .bar { grid-template-columns: minmax(0, 1fr) auto; grid-template-areas: "mark stores" "nav nav"; }
+  .nf { min-height: 0; justify-content: flex-start; padding: 40px 0 72px; }
+  .nf__art { width: 128px; height: 118px; margin-bottom: 20px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .nf__home { transition: none; }
+}

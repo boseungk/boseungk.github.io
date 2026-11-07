@@ -1,0 +1,266 @@
+/* 추천하는 방 둘러보기 (owner C-rooms): the room wall (home/rooms/wall.js) and the room view (home/rooms/view.js).
+   Not render-blocking: home/rooms/index.js inserts it (#rooms-host data-rooms-css) when the wall starts to mount,
+   after site/base.css, site/chrome.css (tokens, .note, .sr-only) and ui/wash.css (.mar-choice-* for the room
+   view's time-of-day marks). The section head, the tools row and the static list are in home/home.css.
+   The wall and the room's art keep left-to-right geometry in every language; text inside follows the page direction.
+   No shadows, blur, glass or pills; 12px art radius, 18px sheet radius (the app's dialog). */
+
+/* ----- 흐르는 방의 벽 (wall.js): three rows of rooms that step along, the edges dissolving into paper ----- */
+.flow-toggle {
+  min-height: 44px; padding: 10px 2px; border: 0; background: none; cursor: pointer;
+  font-size: 15px; line-height: 23px; color: var(--ink-soft); white-space: nowrap;   /* the hint beside it wraps instead */
+}
+.flow-toggle:hover { color: var(--ink); }
+.flow-toggle:active { opacity: .76; }
+
+/* ---------- the wall ----------
+   Its breakpoints follow the wall's own width (the container .rooms-host, home.css), as wall.js measure() does,
+   so a classic scrollbar never splits CSS and script across a breakpoint. clip: focus can never scroll the rows. */
+.flow {
+  --tile: 170px; --gap: 20px; --row-gap: 26px; --cap: 30px; --gutter: 40px; --fade: max(48px, calc((100cqw - 1200px) / 2 + 40px));
+  position: relative; overflow: hidden; overflow: clip; display: flex; flex-direction: column; gap: var(--row-gap);
+  padding-block: 8px 4px; /* room for the 4px hover lift */
+  direction: ltr;         /* the rows' geometry is computed left to right (wall.js) */
+}
+/* the art dissolves into paper at both ends: plain opacity gradient, never blur */
+.flow::before, .flow::after { content: ""; position: absolute; top: 0; bottom: 0; z-index: 3; width: var(--fade); pointer-events: none; }
+.flow::before { left: 0; background: linear-gradient(90deg, var(--paper) 0, rgb(255 255 255 / .82) 30%, rgb(255 255 255 / 0)); }
+.flow::after { right: 0; background: linear-gradient(270deg, var(--paper) 0, rgb(255 255 255 / .82) 30%, rgb(255 255 255 / 0)); }
+
+.flow__row { position: relative; height: calc(var(--tile) * 430 / 390 + var(--cap)); touch-action: pan-y; cursor: grab; user-select: none; -webkit-user-select: none; }
+.flow__row.is-dragging { cursor: grabbing; }
+.flow__track { position: absolute; left: 0; top: 0; height: 100%; width: 1px; will-change: transform; }
+
+.tile { position: absolute; left: 0; top: 0; width: var(--tile); }
+.tile__btn {
+  display: block; width: 100%; padding: 0; border: 0; background: none; text-align: start; cursor: pointer;
+  -webkit-tap-highlight-color: transparent; border-radius: 12px;
+}
+.tile__btn:focus-visible { outline-offset: 4px; }
+.tile__in { display: block; transition: transform 220ms var(--ease-paper); }
+/* the app's list crop: the 390 x 844 scene, window x0 y100 w390 h430 */
+.tile__art { position: relative; display: block; aspect-ratio: 390 / 430; border-radius: 12px; overflow: hidden; }
+.tile__art img {
+  position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 24.15%;
+  -webkit-user-drag: none; opacity: 0; transition: opacity 220ms var(--ease-ink);
+}
+.tile__art img.is-in { opacity: 1; }
+.tile__name {
+  position: relative; display: block; width: max-content; max-width: 100%; margin-top: 8px; padding: 0 6px; margin-inline-start: -6px;
+  font-size: 14px; line-height: 22px; color: var(--ink); white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  unicode-bidi: plaintext; /* a right-to-left name reads right to left inside the left-to-right wall */
+}
+/* hover / focus: the tile lifts a little and the name takes the Oat selection wash (one shape, 110ms fade) */
+.tile__name::before {
+  content: ""; position: absolute; inset: 0 0 -1px; z-index: -1; opacity: 0; transition: opacity 110ms linear;
+  background: no-repeat 0 0 / 100% 100% url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100' preserveAspectRatio='none'%3E%3Cpath fill='%23EFE3DD' d='M16 8C35 2 73 4 88 12C100 20 100 70 89 87C74 100 33 98 13 89C0 81 0 31 8 18Q11 10 16 8Z'/%3E%3C/svg%3E");
+}
+.tile__name { isolation: isolate; }
+@media (hover: hover) {
+  .flow:not(.is-dragging) .tile__btn:hover .tile__in { transform: translateY(-4px); }
+  .flow:not(.is-dragging) .tile__btn:hover .tile__name::before { opacity: 1; }
+}
+.tile__btn:focus-visible .tile__name::before { opacity: 1; }
+.tile__btn:active .tile__art { opacity: .76; }
+
+/* until the wall first enters, tiles wait on the acquisition curve start (wall.js removes this) */
+.flow.is-waiting .tile__in { opacity: 0; transform: translateY(9px) scale(.88); }
+.tile__in { transform-origin: 50% 75%; }
+
+/* static wall (reduced motion): three tidy rails the visitor scrolls by hand */
+.flow[data-mode="static"] { overflow: visible; }
+.flow[data-mode="static"]::before, .flow[data-mode="static"]::after { display: none; }
+.flow[data-mode="static"] .flow__row { height: auto; cursor: auto; touch-action: auto; user-select: auto; }
+.flow[data-mode="static"] .flow__track {
+  position: static; width: auto; display: flex; gap: var(--gap); overflow-x: auto; overscroll-behavior-x: contain;
+  padding-inline: max(var(--gutter), calc((100cqw - 1200px) / 2 + var(--gutter)));
+  scroll-padding-inline: max(var(--gutter), calc((100cqw - 1200px) / 2 + var(--gutter)));
+  scroll-snap-type: x proximity; scrollbar-width: none; will-change: auto;
+}
+.flow[data-mode="static"] .flow__track::-webkit-scrollbar { display: none; }
+.flow[data-mode="static"] .tile { position: relative; flex: none; scroll-snap-align: start; transform: none !important; }
+.flow[data-mode="static"] .tile__art img { opacity: 1; transition: none; }
+
+@container (max-width: 900px) {
+  .flow { --gap: 12px; --row-gap: 18px; --fade: 24px; --gutter: 24px; }
+}
+@container (max-width: 600px) {
+  .flow { --cap: 26px; --row-gap: 14px; }
+  .tile__name { margin-top: 6px; font-size: 13px; line-height: 20px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .flow.is-waiting .tile__in { opacity: 1; transform: none; }
+}
+
+/* ---------- room view (view.js): the tile unfolds into the whole room, which builds itself with
+   "이 조합의 물건" and then passes from day to night. Stacked sheet first; two columns from 900 x 600. ---------- */
+.rmv {
+  position: fixed; inset: 0; width: 100vw; height: 100dvh; max-width: none; max-height: none; margin: 0; padding: 0; border: 0;
+  background: none; color: var(--ink); overflow: hidden;
+}
+.rmv::backdrop { background: none; }
+.rmv__scrim { position: absolute; inset: 0; background: var(--scrim); }
+.rmv__btn {
+  display: inline-flex; align-items: center; gap: 6px; min-height: 50px; padding-block: 12px; padding-inline: 12px 16px; border: 0; border-radius: 8px;
+  background: var(--soft); color: var(--ink); font-size: 17px; line-height: 26px; cursor: pointer;
+}
+.rmv__btn[data-go="1"] { padding-inline: 16px 12px; }
+.rmv__btn:active { opacity: .76; }
+/* hand-drawn glyphs of the close and 이전/다음 buttons only: the time-of-day marks keep their own fills */
+.rmv__btn svg path, .rmv__close svg path { fill: none; stroke: var(--ink); stroke-width: 1.45; stroke-linecap: round; stroke-linejoin: round; }
+.rmv__btn svg path.g, .rmv__close svg path.g { stroke: var(--paper); stroke-width: 3.85; }
+.rmv__btn svg path.g { stroke: var(--soft); }
+.rmv__btn svg { flex: none; }
+[dir="rtl"] .rmv__btn svg { transform: scaleX(-1); }   /* 이전 / 다음 point to the reading direction */
+.rmv__close {
+  position: absolute; top: 12px; inset-inline-end: 12px; width: 44px; height: 44px; display: grid; place-items: center;
+  border: 0; background: none; cursor: pointer; border-radius: 8px;
+}
+.rmv__close:active { opacity: .76; }
+
+.rmv__sheet {
+  --canvas: var(--cream); --below: 391px;
+  position: absolute; left: 0; top: 0; width: 100vw; height: 100dvh; isolation: isolate;
+  overflow-x: hidden; overflow-y: auto; overscroll-behavior: contain;
+  display: grid; justify-content: center; align-content: start; grid-template-columns: minmax(0, 520px);
+  grid-template-areas: "head" "stage" "items" "desc" "nav"; padding: 12px 24px 32px;
+}
+/* the white paper is its own layer so the room can travel above it */
+.rmv__sheet::before { content: ""; position: fixed; inset: 0; z-index: -1; background: var(--paper); }
+.rmv__close { top: 8px; inset-inline-end: 12px; z-index: 3; }
+.rmv__head { grid-area: head; padding-inline-end: 48px; }
+.rmv__kicker { font-size: 13px; line-height: 20px; color: var(--muted); }
+.rmv__name { font-size: 20px; line-height: 28px; letter-spacing: -.01em; }
+.rmv__stage { grid-area: stage; display: flex; flex-direction: column; align-items: center; margin-top: 8px; min-width: 0; }
+.rmv__art {
+  --y0: 40; position: relative; z-index: 2; width: 100%; aspect-ratio: 390 / 554; margin: 0;
+  max-height: max(280px, calc(100dvh - var(--below)));
+  border-radius: 12px; overflow: hidden; background: var(--canvas); transform-origin: 0 0; touch-action: pan-y;
+  -webkit-user-select: none; user-select: none; -webkit-tap-highlight-color: transparent; direction: ltr;
+}
+.rmv[data-phase="unfold"] .rmv__art, .rmv[data-phase="build"] .rmv__art, .rmv[data-phase="hold"] .rmv__art,
+.rmv[data-phase="light"] .rmv__art, .rmv[data-phase="swap"] .rmv__art { cursor: pointer; }
+.rmv__room { position: absolute; inset: 0; transform-origin: 50% 60%; }
+.rmv__scene { position: absolute; left: 0; top: 0; width: 100%; aspect-ratio: 390 / 844; transform: translateY(calc(var(--y0) * -100% / 844)); }
+.rmv__base, .rmv__build { position: absolute; inset: 0; }
+.rmv__base { z-index: 0; }
+.rmv__build { z-index: 1; }
+.rmv__base > img, .rmv__cover { position: absolute; inset: 0; width: 100%; height: 100%; max-width: none; -webkit-user-drag: none; }
+.rmv__tod, .rmv__cover { opacity: 0; }
+.rmv__cover { z-index: 3; pointer-events: none; }
+.rmv__set { position: absolute; inset: 0; z-index: 0; }
+.rmv__slot { position: absolute; inset: 0; pointer-events: none; }
+.rmv__layer, .rmv__pieces, .rmv__hole { position: absolute; display: block; max-width: none; }
+.rmv__hole { background: var(--canvas); }
+.rmv__pieces img { position: absolute; inset: 0; width: 100%; height: 100%; max-width: none; }
+
+/* 낮 / 노을 / 밤: the hero's time-of-day marks; the measured wash (ui/selection.js) sits behind the label span */
+.rmv__marks { position: relative; display: flex; gap: 4px; margin-top: 8px; }
+.rmv__marks button {
+  position: relative; z-index: 1; display: inline-flex; align-items: center; min-height: 44px; padding: 0 2px;
+  border: 0; background: none; cursor: pointer; font-size: 15px; line-height: 23px; color: var(--ink-soft); -webkit-tap-highlight-color: transparent;
+  transition: opacity 220ms var(--ease-paper);
+}
+.rmv__marks .mar-choice-label { display: inline-flex; align-items: center; gap: 6px; }
+.rmv__marks button[aria-checked="true"] { color: var(--ink); }
+.rmv__marks button[aria-disabled="true"] { opacity: .46; cursor: default; }
+.rmv__marks .tod { flex: none; width: 28px; height: 28px; overflow: visible; }
+.rmv__marks[data-off] { visibility: hidden; }
+/* mark replay, 620ms (the hero's .tod recipe, own keyframe names) */
+.rmv__marks .tod * { transform-box: fill-box; transform-origin: center; }
+@keyframes rmv-swell { 0% { transform: var(--from, none); animation-timing-function: var(--ease-swell); } 40% { transform: var(--peak); animation-timing-function: var(--ease-return); } 100% { transform: var(--from, none); } }
+@keyframes rmv-turn { from { transform: none; } to { transform: rotate(45deg); } }
+@keyframes rmv-star { 0% { transform: none; } 50% { transform: rotate(61deg) scale(1.35); } 100% { transform: rotate(90deg); } }
+.rmv__marks .tod.play .sun { --peak: scale(1.06); animation: rmv-swell 339ms both; }
+.rmv__marks .tod.play .rays { animation: rmv-turn 418ms var(--ease-warm-air) both; }
+.rmv__marks .tod.play .crescent { --peak: rotate(-18deg); animation: rmv-swell 405ms both; }
+.rmv__marks .tod.play .glint { --peak: scaleX(.45); animation: rmv-swell 313ms calc(39ms + var(--i) * 52ms) both; }
+.rmv__marks .tod.play .moon { --peak: rotate(-12deg); animation: rmv-swell 418ms both; }
+.rmv__marks .tod.play .cloud { --peak: translateX(2.5px); animation: rmv-swell 418ms 39ms both; }
+.rmv__marks .tod.play .star { animation: rmv-star 339ms 91ms both; }
+
+/* 이 조합의 물건 */
+.rmv__items { grid-area: items; margin-top: 12px; min-width: 0; }
+.rmv__items-k { margin: 0; font-weight: 400; font-size: 15px; line-height: 23px; color: var(--ink); }
+.rmv__items[hidden] { display: none; }
+.rmv__recipe { position: relative; margin: 4px -6px 0; }
+/* the selection wash: the choice shape without a CSS transition (the view's clock writes its transform, in step with the build) */
+.rmv__wash {
+  position: absolute; left: 0; top: 0; width: 100px; height: 100px; pointer-events: none; z-index: 0; transform-origin: 0 0; opacity: 0;
+  background: no-repeat 0 0 / 100% 100% url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100' preserveAspectRatio='none'%3E%3Cpath fill='%23EFE3DD' d='M16 8C35 2 73 4 88 12C100 20 100 70 89 87C74 100 33 98 13 89C0 81 0 31 8 18Q11 10 16 8Z'/%3E%3C/svg%3E");
+}
+.rmv__list { position: relative; z-index: 1; display: grid; grid-template-columns: repeat(var(--cols, 4), minmax(0, 1fr)); gap: 4px; }
+.rmv__item { position: relative; min-width: 0; padding: 6px; }
+.rmv__draw { position: relative; display: block; height: 52px; }
+.rmv__draw img { position: absolute; inset: 0; width: 100%; height: 100%; max-width: none; object-fit: contain; -webkit-user-drag: none; }
+.rmv__draw img.is-material { inset: 4px 8%; width: 84%; height: calc(100% - 8px); object-fit: cover; border-radius: 6px; }
+/* a drawing that could not load (view.js missing()): a quiet swatch in the material swatch's place */
+.rmv__draw.is-missing::before { content: ""; position: absolute; inset: 4px 8%; border-radius: 6px; background: var(--soft); }
+/* lamps and wall frames are small drawings in a large canvas: drawn a little larger so they read beside the swatches */
+.rmv__item[data-slot="light"] .rmv__draw:not(.is-missing), .rmv__item[data-slot="wallDeco"] .rmv__draw:not(.is-missing) { transform: scale(1.35); transform-origin: 50% 70%; }
+.rmv__iname {
+  margin-top: 4px; font-size: 13px; line-height: 20px; color: var(--ink); text-align: center; text-wrap: balance;
+  display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2; overflow: hidden; overflow-wrap: anywhere;
+}
+:lang(ko) .rmv__iname { word-break: keep-all; }
+.rmv__note { margin-top: 8px; font-size: 13px; line-height: 20px; color: var(--muted); }
+.rmv__desc { grid-area: desc; margin-top: 20px; font-size: 15px; line-height: 23px; color: var(--ink-soft); text-wrap: pretty; }
+.rmv__nav { grid-area: nav; display: flex; gap: 8px; margin-top: 24px; }
+.rmv__nav .rmv__btn { flex: 1; justify-content: center; }
+/* short phones: smaller drawings, names on one line; the room window sits a little lower so the rug is in view */
+@media (max-width: 899px) and (max-height: 739px), (max-height: 599px) {
+  .rmv__sheet { --below: 323px; }
+  .rmv__art { --y0: 70; }
+  .rmv__draw { height: 40px; }
+  .rmv__iname { margin-top: 2px; display: block; white-space: nowrap; text-overflow: ellipsis; }
+}
+/* short or landscape windows in the stacked sheet: the room keeps at least 410 of its 554 scene rows in view
+   (as on a 375 x 667 phone) and narrows, instead of being cropped to a strip of wall and window */
+@media (max-width: 899px), (max-height: 599px) {
+  .rmv__art { width: min(100%, calc(max(280px, 100dvh - var(--below)) * 390 / 410)); }
+}
+/* two columns: the whole room on one side with the marks under it; theme, name, description, the list and 이전/다음 on the other */
+@media (min-width: 900px) and (min-height: 600px) {
+  .rmv__sheet {
+    --sheet-h: min(840px, calc(100dvh - 64px)); --pad: 24px; --col: 440px;
+    --art-h: calc(var(--sheet-h) - 2 * var(--pad) - 56px); --art-w: calc(var(--art-h) * 390 / 844);
+    left: 50%; top: 50%; height: var(--sheet-h); transform: translate(-50%, -50%); overflow: visible;
+    width: min(calc(var(--art-w) + 48px + var(--col) + 2 * var(--pad)), calc(100vw - 48px));
+    grid-template-columns: var(--art-w) minmax(0, var(--col)); column-gap: 48px; justify-content: start; align-content: stretch;
+    grid-template-rows: auto auto auto 1fr; grid-template-areas: "stage head" "stage desc" "stage items" "stage nav";
+    padding: var(--pad);
+  }
+  .rmv__sheet::before { position: absolute; border-radius: 18px; }
+  .rmv__close { top: 12px; inset-inline-end: 12px; }
+  .rmv__head { padding-block: 40px 0; padding-inline: 0 48px; }
+  .rmv__kicker { font-size: 14px; line-height: 22px; }
+  .rmv__name { margin-top: 4px; font-size: 28px; line-height: 36px; letter-spacing: -.012em; }
+  .rmv__stage { margin-top: 0; }
+  .rmv__art { --y0: 0; width: var(--art-w); height: var(--art-h); aspect-ratio: auto; max-height: none; }
+  .rmv__marks { margin-top: 12px; }
+  .rmv__desc { margin-top: 12px; max-width: 26em; font-size: 16px; line-height: 25px; }
+  .rmv__items { margin-top: 28px; }
+  .rmv__items-k { font-size: 16px; line-height: 25px; }
+  .rmv__recipe { margin: 8px -8px 0; }
+  .rmv__list { gap: 8px; }
+  .rmv__item { padding: 8px; }
+  .rmv__draw { height: 80px; }
+  .rmv__draw img.is-material, .rmv__draw.is-missing::before { inset: 8px 6%; width: 88%; height: calc(100% - 16px); border-radius: 8px; }
+  .rmv__iname { margin-top: 6px; font-size: 14px; line-height: 22px; }
+  .rmv__note { margin-top: 12px; }
+  .rmv__nav { align-self: end; }
+  .rmv__nav .rmv__btn { flex: none; }
+}
+/* room names in joined and complex scripts are never tracked (both sizes above) */
+html:is(:lang(ar), :lang(he), :lang(th), :lang(hi), :lang(bn), :lang(ta)) .rmv__name { letter-spacing: 0; }
+@media (min-width: 900px) and (min-height: 600px) and (max-height: 819px) {
+  .rmv__head { padding-top: 24px; }
+  .rmv__desc { margin-top: 8px; }
+  .rmv__items { margin-top: 20px; }
+  .rmv__draw { height: 64px; }
+  .rmv__note { display: none; }
+}
+@media (min-width: 900px) and (min-height: 600px) and (max-height: 679px) {
+  .rmv__head { padding-top: 16px; }
+  .rmv__items { margin-top: 14px; }
+}
