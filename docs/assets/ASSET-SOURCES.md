@@ -43,7 +43,7 @@ Hashed files under `docs/assets/art/`, encoded by `tools/assets/build-art.mjs` f
 | --- | --- | --- | --- | --- | --- | ---: |
 | `art/` | home | 1 | 2064×1320 | dayloom-root:design/store-listing/series/captures/ipad/ko-KR/* | webp q80; crop left:0,top:330,width:2064,height:1320 | 47,600 |
 | `art/community/` | community | 2 | 1280×262, 2560×524 | src:scenes/* | webp q84; resize width:1280; crop left:0,top:180,width:4400,height:900; resize width:2560 | 20,572 |
-| `art/decor/` | brand | 13 | 320×294, 384×353, 224×191, 224×145 | dayloom:decor/thumbnails/*<br>src:customize/* | webp q90 α100; resize width:320,height:320; resize width:384,height:384; resize width:224,height:224; webp q85 | 252,264 |
+| `art/decor/` | home | 14 | 384×353, 320×294, 224×191, 224×145 | dayloom:decor/thumbnails/*<br>src:customize/* | webp q90 α100; resize width:384,height:384; resize width:320,height:320; resize width:224,height:224; webp q85 | 263,416 |
 | `art/events/` | home | 6 | 312×260, 312×278 | dayloom:collection/events/* | webp q85 | 27,450 |
 | `art/growth/` | home | 5 | 126×65, 126×88, 126×125, 126×163 | src:growth/* | byte copy | 18,018 |
 | `art/hero/` | home | 4 | 780×1280 | src:customize/* | webp q85 | 112,894 |
@@ -54,12 +54,13 @@ Hashed files under `docs/assets/art/`, encoded by `tools/assets/build-art.mjs` f
 | `art/rooms/` | home | 2 | 2600×1688, 4400×1688 | src:scenes/* | byte copy | 106,890 |
 | `art/themes/` | home | 36 | 624×688, 192×212 | dayloom:collection/themes/* | webp q85; webp q92; resize width:192 | 392,390 |
 
-Total: 81 files, 1,086,172 bytes.
+Total: 82 files, 1,097,324 bytes.
 
 Provenance notes:
 
 - `art/community/band-1280.webp`: community band (feedback, news; also the feedback empty-state vignette): the dunes-sage wide room, rows 180-1080 of 4400x1688, with the cream cat standing on the rug in front of the seat (scene coords left 2064, top 712, width 250 = 32 % of the 780 px still, as in sample C's hero)
 - `art/community/band-2560.webp`: community band, 2x: same composition as band-1280
+- `art/decor/cat-black-bib.webp`: hero room cat (black with a white bib)
 - `art/decor/cat-cream-320.webp`: 404 vignette (tools/templates/404.ko.html): the home's cream cat at 2x of its 160 px slot
 - `art/decor/lake-day.webp`: decor demo end room (lake): tools/render-customize.cjs full run; the demo ends on lake-day (PORT-PLAN O3), dusk/night frames are its time-of-day set
 - `art/decor/lake-dusk.webp`: decor demo end room (lake): tools/render-customize.cjs full run; the demo ends on lake-day (PORT-PLAN O3), dusk/night frames are its time-of-day set

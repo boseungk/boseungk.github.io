@@ -10,6 +10,7 @@
   {"out": "art/decor/step-0.webp", "src": "src:customize/step-0.png", "webp": {"quality": 85}},
   {"out": "art/decor/lake-step-1.webp", "src": "src:customize/lake-step-1.png", "webp": {"quality": 85}, "note": "decor demo stage (lake sequence): tools/render-customize.cjs --sequence=lake; stage 3 is art/decor/lake-day.webp (byte-identical render)"},
   {"out": "art/decor/lake-step-2.webp", "src": "src:customize/lake-step-2.png", "webp": {"quality": 85}, "note": "decor demo stage (lake sequence): tools/render-customize.cjs --sequence=lake; stage 3 is art/decor/lake-day.webp (byte-identical render)"},
+  {"out": "art/decor/cat-black-bib.webp", "src": "dayloom:decor/thumbnails/drawn.cat.blackBib.png", "resize": {"width": 384, "height": 384}, "webp": {"quality": 90, "alphaQuality": 100}, "note": "hero room cat (black with a white bib)"},
   {"out": "art/decor/cat-cream.webp", "src": "dayloom:decor/thumbnails/drawn.cat.cream.png", "resize": {"width": 384, "height": 384}, "webp": {"quality": 90, "alphaQuality": 100}},
   {"out": "art/decor/pebble-lamp.webp", "src": "dayloom:decor/thumbnails/drawn.light.collection-pebble-lamp.original.png", "resize": {"width": 384, "height": 384}, "webp": {"quality": 90, "alphaQuality": 100}},
   {"out": "art/decor/drawn.seat.collection-bentwood-bench.original.webp", "src": "dayloom:decor/thumbnails/drawn.seat.collection-bentwood-bench.original.png", "resize": {"width": 224, "height": 224}, "webp": {"quality": 90, "alphaQuality": 100}},

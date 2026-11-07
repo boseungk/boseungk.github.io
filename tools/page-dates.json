@@ -1,15 +1,15 @@
 {
  "/": {
-  "lastmod": "2026-11-07",
-  "sha256": "b5a0e7939b9d616857fca857a01b519302655b2417f38ee706c66ae38fa488ae"
+  "lastmod": "2026-11-08",
+  "sha256": "1d04b20fc5d96818b81ae58a196975b487a0321301cde5cddd8f70b12ceb78bf"
  },
  "/app-privacy/": {
   "lastmod": "2026-11-07",
   "sha256": "8d493a25f0dc20a574de26adbde3d0f97faed9a90791bb8b4b4ab329da1f6001"
  },
  "/ar/": {
-  "lastmod": "2026-11-07",
-  "sha256": "4a83f110ed2a564b75338875c3a5a8f5b64780e755c9b5d63e23d1a1a505a33c"
+  "lastmod": "2026-11-08",
+  "sha256": "890ef1cf43a0ed0fd2d94b113748a4459b93e756b36ea4f95995453686dd4ae9"
  },
  "/ar/feedback/": {
   "lastmod": "2026-11-07",
@@ -20,8 +20,8 @@
   "sha256": "0be8d88271c6043dbef05e03438d2f06787d3fe06efd948dadca808776f865e3"
  },
  "/bn/": {
-  "lastmod": "2026-11-07",
-  "sha256": "ac7cf88a56968c75bf8d13ee39d1cf777f74c0cc23ef92923276b2978d88f27d"
+  "lastmod": "2026-11-08",
+  "sha256": "51033f246a178c66a5b3efa29b9e0d173abbd7639520efe859cae683de078f84"
  },
  "/bn/feedback/": {
   "lastmod": "2026-11-07",
@@ -32,8 +32,8 @@
   "sha256": "6000a82e3acedfccc417fdbc42ef2e64ce00a31f6b287bde5227e9cdde7565fd"
  },
  "/da/": {
-  "lastmod": "2026-11-07",
-  "sha256": "610d1d446f046db7cb2875df0b5b1e6cf92ab360cd6e511ce5eb8c52a91f5429"
+  "lastmod": "2026-11-08",
+  "sha256": "e9d25b03bec1344eece661a3b841a29923eb54213f1b7e88b11cc3f4b523d903"
  },
  "/da/feedback/": {
   "lastmod": "2026-11-07",
@@ -44,8 +44,8 @@
   "sha256": "eadfb2ec3f46f2e648def2dcacd6ceabb6ad1ce60c372c8e4a4f0b86a1514ca4"
  },
  "/de/": {
-  "lastmod": "2026-11-07",
-  "sha256": "57e8ca379d2df31e20574bb5e7005290b6e4ae09dac86b4693cf1f3d2bb0188c"
+  "lastmod": "2026-11-08",
+  "sha256": "8ff660418aa783824cdb47f210b6f57ad07c04336c42156272359975e5bfd88a"
  },
  "/de/feedback/": {
   "lastmod": "2026-11-07",
@@ -56,8 +56,8 @@
   "sha256": "341e58512aafcd5fd2e0c248d388d5d9ba2bcd76e3e25fc4f7d11ba56ba677e3"
  },
  "/en/": {
-  "lastmod": "2026-11-07",
-  "sha256": "a79f2f08b0993b8e9f94f3a37f59518f94bf6f2379cf6e65d1e1a7fb339a940e"
+  "lastmod": "2026-11-08",
+  "sha256": "ed65bdcc549f8a73796c16fc5b133e71e9b0ee9446421773dbb3c08bb0e8ecfb"
  },
  "/en/app-privacy/": {
   "lastmod": "2026-11-07",
@@ -76,8 +76,8 @@
   "sha256": "2f52a331f5df31545524cad489ff60a76ba404c9a88d30ab5fba06bf93bc62c1"
  },
  "/es/": {
-  "lastmod": "2026-11-07",
-  "sha256": "d70307522906bf0c419fda246f370d584e19fe3c8fd656457a0119bec9e6e614"
+  "lastmod": "2026-11-08",
+  "sha256": "b5ea72b84e8d12a508bbb75c42cbeb91d1c4df2acc39762103eedaf498488e05"
  },
  "/es/feedback/": {
   "lastmod": "2026-11-07",
@@ -92,8 +92,8 @@
   "sha256": "a0845115871ab5d9d0c71f157a6f35b68d7a2a095f15eb974ffe802b5081e7da"
  },
  "/fil/": {
-  "lastmod": "2026-11-07",
-  "sha256": "0765e4f5a55e9fa3e1d26094975941b6b76207cd653cf70f126cdbfbe462f740"
+  "lastmod": "2026-11-08",
+  "sha256": "62b31731368408e0438824b7feb747dcca4376421083f823be1b73601d0af383"
  },
  "/fil/feedback/": {
   "lastmod": "2026-11-07",
@@ -104,8 +104,8 @@
   "sha256": "242f1ab5c756631d958c7d124f0ae1edb2169fe0e1c17e1c5758a50c4f3deb07"
  },
  "/fr/": {
-  "lastmod": "2026-11-07",
-  "sha256": "36c79686f419390b35bf0a22d24579d1930c5bfa4fc5f9a71656be51eed08e77"
+  "lastmod": "2026-11-08",
+  "sha256": "a126e3409e913d3bbfc4973e0fb70002d4532e39cf2769f0fcf68cca0391f7b5"
  },
  "/fr/feedback/": {
   "lastmod": "2026-11-07",
@@ -116,8 +116,8 @@
   "sha256": "026ce0747905aac2c0a4b67c4ba3d7d16c5c915176efe9557b4b25882000e1f2"
  },
  "/he/": {
-  "lastmod": "2026-11-07",
-  "sha256": "fb508fb81701f060f27a43f58690fd5fd855b1a319a6a7f703e42a8359b893a0"
+  "lastmod": "2026-11-08",
+  "sha256": "780a50c3b75e77f7a455eb16fba9991045de29d6f354af3e03fd1450e666e718"
  },
  "/he/feedback/": {
   "lastmod": "2026-11-07",
@@ -128,8 +128,8 @@
   "sha256": "23ee587644d3b1225cc30824edf6b630e3d0395f301ab98043a937a6276d0f1e"
  },
  "/hi/": {
-  "lastmod": "2026-11-07",
-  "sha256": "b909daa01ae48bea7ef326c013f94d2db52023c25cc0686fd52e011b1e1a553f"
+  "lastmod": "2026-11-08",
+  "sha256": "ad367e6b48a391912e757c598275ab7a95b8342615a92fc0bb36af6460e6208c"
  },
  "/hi/feedback/": {
   "lastmod": "2026-11-07",
@@ -140,8 +140,8 @@
   "sha256": "5aea480b609cbeea25437ffab0441bdb5b9265ebc442706d0a9f8eaf554d90a4"
  },
  "/id/": {
-  "lastmod": "2026-11-07",
-  "sha256": "427b811eade8a24469aef64f8fa4757fdbd78b1fc7ff426a83bea426fded50e3"
+  "lastmod": "2026-11-08",
+  "sha256": "be650e6990e95c96302dcb9f3a6dda856c17258b819df0cdacf486ef269564a5"
  },
  "/id/feedback/": {
   "lastmod": "2026-11-07",
@@ -152,8 +152,8 @@
   "sha256": "cd3ae8e9afe5939539e55f0412ed811effe3f4b9b72f6705ae80e348c31bb406"
  },
  "/it/": {
-  "lastmod": "2026-11-07",
-  "sha256": "96570a4d298185f3000d2990b566659a99d4cf8574c4c2ce03c1bd95b6133f4e"
+  "lastmod": "2026-11-08",
+  "sha256": "c26535a6651737e7fb936be00787ab39df8327545e1003fe6011152c4a761916"
  },
  "/it/feedback/": {
   "lastmod": "2026-11-07",
@@ -164,8 +164,8 @@
   "sha256": "42495226dd17a1c79c9390ca66b6762479924cfab14a6df05b12c8c2aa9eeec8"
  },
  "/ja/": {
-  "lastmod": "2026-11-07",
-  "sha256": "d0a3d19e6e560acb336833c767c9fa92c34d3973021d273898c6e60824fd44a8"
+  "lastmod": "2026-11-08",
+  "sha256": "ea0fed835a6e03fa45ff9f4ceb941374b4063c28b9e84090bc8512d378c16655"
  },
  "/ja/app-privacy/": {
   "lastmod": "2026-11-07",
@@ -180,8 +180,8 @@
   "sha256": "bf3fa960926ad55604b16c4059b8e393127bd2ff171ffc738ddb134aee753a43"
  },
  "/ms/": {
-  "lastmod": "2026-11-07",
-  "sha256": "5aeb869737b2076adaf521abeef64efa32f91af2f2e3ff1d71d18d7a33f631df"
+  "lastmod": "2026-11-08",
+  "sha256": "f043952437732d686bdb97b354be229aab675ea2785bb64da5e2ce3c0df4d48f"
  },
  "/ms/feedback/": {
   "lastmod": "2026-11-07",
@@ -192,8 +192,8 @@
   "sha256": "e55c193ca225502c6e32bb6226daed92b4b054ca100df9359e1477e0c2373760"
  },
  "/nb/": {
-  "lastmod": "2026-11-07",
-  "sha256": "1f8fd96421db085686c9b46cb3363c2ccb6f1eb419d5ce503d12525239ef7be2"
+  "lastmod": "2026-11-08",
+  "sha256": "d00292f9653e1e293d1e2597ce185ef229e643379b371070e560007a3aa09a0f"
  },
  "/nb/feedback/": {
   "lastmod": "2026-11-07",
@@ -208,8 +208,8 @@
   "sha256": "720a34edcfd1e48abd345cf929e4c22bc7e3614a9e2761e5338ba44d672c6325"
  },
  "/nl/": {
-  "lastmod": "2026-11-07",
-  "sha256": "7a306ce4c0a0285b36448ec0184e85c3a74bbc0e1bd4e9397f353381cf98a7aa"
+  "lastmod": "2026-11-08",
+  "sha256": "9527efed5b17d0bbfd18a40d53a6a43a8a6a35b9bfe896a18a47d4a8e184db05"
  },
  "/nl/feedback/": {
   "lastmod": "2026-11-07",
@@ -220,8 +220,8 @@
   "sha256": "d0669206d8dfe718e6649640b23595daad40ec8b4588c5a0e6d620273c3e0312"
  },
  "/pl/": {
-  "lastmod": "2026-11-07",
-  "sha256": "75013bd2965c77b67a54098eff7ecc2b0ec15c2b35ea0c2de160b11cfc50c576"
+  "lastmod": "2026-11-08",
+  "sha256": "09d241861830bbf1c3041f0462e899983b0cebffe48cbcaf97c70bc8547b9e10"
  },
  "/pl/feedback/": {
   "lastmod": "2026-11-07",
@@ -236,8 +236,8 @@
   "sha256": "55d3238c8c1926e74f22410e49d087b04cec058ef58e355c8f1a981d4f93a12d"
  },
  "/pt-br/": {
-  "lastmod": "2026-11-07",
-  "sha256": "cc0d2c2fba3fc07bbf13b6cf6e8c24bce56a275a300eaef1247520c37153592c"
+  "lastmod": "2026-11-08",
+  "sha256": "058411b5ee7e9d22b1a375ac8488f6667b96ef55754bab55249c3e1991e224f1"
  },
  "/pt-br/feedback/": {
   "lastmod": "2026-11-07",
@@ -248,8 +248,8 @@
   "sha256": "1e9521f3cce6d8e29cfbe316eba777b8fda0ad7844967ca346008f28697f5eda"
  },
  "/pt-pt/": {
-  "lastmod": "2026-11-07",
-  "sha256": "7843e90f447435a0b60130903c4a545cc6fd2d47802f4453e1aec881e621800a"
+  "lastmod": "2026-11-08",
+  "sha256": "cbbfa5199fae02c80bfc753226cc7d66b9d5dbc66bfff090308553e3815267ea"
  },
  "/pt-pt/feedback/": {
   "lastmod": "2026-11-07",
@@ -260,8 +260,8 @@
   "sha256": "d798c2a727712cdb3ab22412323c2e26b78b5796c5ebfb7efd3e673eb52d0446"
  },
  "/ru/": {
-  "lastmod": "2026-11-07",
-  "sha256": "d0b09bc085f4eb79bf9d84f90ad59062d9c0028d96e906f39a02103e5c7be6b3"
+  "lastmod": "2026-11-08",
+  "sha256": "3d0214add69a2111724b20c41ca93cea1fe26e07a0a9008ff7da9e61507195bf"
  },
  "/ru/feedback/": {
   "lastmod": "2026-11-07",
@@ -272,8 +272,8 @@
   "sha256": "55b4f7aeaf5454ee30d60799fcbe8a0bfbc059d284df3f680fe0dac26a32424a"
  },
  "/sv/": {
-  "lastmod": "2026-11-07",
-  "sha256": "05ec49d175526f870be6ab81cf5fd58329351dbf45f66f0b6785a2e5db9724c4"
+  "lastmod": "2026-11-08",
+  "sha256": "b3886271d0ed9afdf49c677babbeacd2f278f21d110e322b2cc630c4e0da0c13"
  },
  "/sv/feedback/": {
   "lastmod": "2026-11-07",
@@ -284,8 +284,8 @@
   "sha256": "550e472b2b205e214d93219e0aebe2145f56ccecd733717dbb58526b2a285297"
  },
  "/sw/": {
-  "lastmod": "2026-11-07",
-  "sha256": "2849a03b1d3be87b6077e7f532ac7701e6d4e34433bef5e395dabc9e3e3e0fee"
+  "lastmod": "2026-11-08",
+  "sha256": "8da43666e8f8a840db10769b6fb26da3c38be8ad8beded3a45f790075d6c5d7e"
  },
  "/sw/feedback/": {
   "lastmod": "2026-11-07",
@@ -296,8 +296,8 @@
   "sha256": "0f64fa596b42a3a8befaa0c6eb5f5ca5e8341b64bed750087a6099b2a03a529a"
  },
  "/ta/": {
-  "lastmod": "2026-11-07",
-  "sha256": "cd50dbf99500936ec40970e35f422ad84356421afc38e7fecf91320e59858c02"
+  "lastmod": "2026-11-08",
+  "sha256": "798e5d58f2dcf0e8e0348b66d82af22bfc82a060b6dd8be0228d46391b089d20"
  },
  "/ta/feedback/": {
   "lastmod": "2026-11-07",
@@ -308,8 +308,8 @@
   "sha256": "df8267e2f99861efe0e1f387cfbd70101d02f4b5a0a034b5cfc9a9e7e028c9f1"
  },
  "/th/": {
-  "lastmod": "2026-11-07",
-  "sha256": "4378530ece2f444a5a42ab245a82fe311ff23e699376818e6d7518bc1a7b6608"
+  "lastmod": "2026-11-08",
+  "sha256": "0044434b488deaf80c6fdc470bebb211be1d6daca37a9685f6f2f695f3973624"
  },
  "/th/feedback/": {
   "lastmod": "2026-11-07",
@@ -320,8 +320,8 @@
   "sha256": "6db48290b97dd2730d12402f619c05c2455132e7099977380c2c55d32de8dadf"
  },
  "/tr/": {
-  "lastmod": "2026-11-07",
-  "sha256": "ffe75487576230c61cff954f2d5d37787f82b87a2655f293161516a10f99ddd3"
+  "lastmod": "2026-11-08",
+  "sha256": "9952c913a02072b7bca872fdc1fa735a7550dba87e5ec1cc910c1d6ee484e7f1"
  },
  "/tr/feedback/": {
   "lastmod": "2026-11-07",
@@ -332,8 +332,8 @@
   "sha256": "c07b20f36843af0becf2493718e79dd64156ccd767ac7cd9e48cc6b7c131fbd5"
  },
  "/uk/": {
-  "lastmod": "2026-11-07",
-  "sha256": "9f81a11faedd4892cba2ce86dcd125bdaaebc3dd009e92a32490cebedfde3629"
+  "lastmod": "2026-11-08",
+  "sha256": "bd6eac4b40ce996aa29bf5bad49d4eeb22268f0ef61324100e81deeebb3ef86d"
  },
  "/uk/feedback/": {
   "lastmod": "2026-11-07",
@@ -344,8 +344,8 @@
   "sha256": "2572ec7b41cb090d77c4320cb72a6cf4e39679e6234ba4851a0f2e13c632c4b2"
  },
  "/vi/": {
-  "lastmod": "2026-11-07",
-  "sha256": "130ba9a63846b3a57fb79b0c9f5f1a883139dcd78f4c5f028bd9d40b42185fea"
+  "lastmod": "2026-11-08",
+  "sha256": "4c0342a5bf893d4767bd1c539791a2adfc9789167fba83a9839ada40583b67f2"
  },
  "/vi/feedback/": {
   "lastmod": "2026-11-07",
@@ -356,8 +356,8 @@
   "sha256": "4fd8763db70299cf626334b2824fecbc06a6ca334ee7b7caa696bd791c76ac96"
  },
  "/zh-hans/": {
-  "lastmod": "2026-11-07",
-  "sha256": "0767dc2c29849f695225c1fbcb376bc22ddbc56a925b3b5c789e74eb962c4c1c"
+  "lastmod": "2026-11-08",
+  "sha256": "6b5e26e953d3415acfd934dd57121fd5f4da755cea3311e9effcb10f82d9cf3f"
  },
  "/zh-hans/feedback/": {
   "lastmod": "2026-11-07",
@@ -368,8 +368,8 @@
   "sha256": "27aadb68cbea81b04a9a805fd98bbb3b8653906ca7b97449e9fa15e33b87c27b"
  },
  "/zh-hant/": {
-  "lastmod": "2026-11-07",
-  "sha256": "974479969097b94d1c9be2e42e2cf42a086815b9d22125a69e4bc2c13fb69ae7"
+  "lastmod": "2026-11-08",
+  "sha256": "855bc5e0fab834ea2d37366b12b4d4a1b5721751aefa108aa2bf8e337f7944bc"
  },
  "/zh-hant/app-privacy/": {
   "lastmod": "2026-11-07",
