@@ -397,6 +397,8 @@ class Build:
                     text = draft.mark(text, locale, (used | runtime) & self.fallback[locale['lang']])
                 self.pages[page.output(locale)] = text
                 self.page_used[page.output(locale)] = used | runtime
+        from . import entrypoints
+        entrypoints.add(self)
         for fn, owner, after in OUTPUTS:
             if after and (owner is None and self.only is None or owner is not None and self.selected(owner)):
                 generated.update(fn(self))

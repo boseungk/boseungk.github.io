@@ -403,7 +403,7 @@ def page_key(item, entry):
 
 
 def policy_routes(page):
-    routes = [('ko', ''), ('en', 'en/')]
+    routes = [('ko', 'ko/'), ('en', 'en/')]
     if page == 'app-privacy':
         routes += [('ja', 'ja/'), ('zh-Hant', 'zh-hant/')]
     return routes
@@ -711,7 +711,7 @@ def check_locale_contracts(pages):
                 for needed in ('id="new-idea"', 'id="idea-form"', 'id="idea-list"', 'id="ideas"', '/assets/feedback/feedback.js'):
                     if needed not in source:
                         fail('locales', f'{tag}: feedback markup lost {needed}')
-                koopt = 'href="/feedback/" lang="ko"'
+                koopt = 'href="/ko/feedback/" lang="ko"'
                 if koopt not in source or 'href="/en/feedback/" lang="en"' not in source:
                     fail('locales', f'{tag}: language picker lost the ko/en feedback links')
             if name == 'news':
@@ -869,7 +869,12 @@ def check_seo(pages):
     expected = []
     for file in pages:
         key = file.relative_to(DOCS).as_posix()
-        if key != '404.html':
+        aliases = {'index.html': '/en/', **{name + '/index.html': '/ko/' + name + '/'
+                   for name in ('feedback', 'news', 'privacy', 'app-privacy')}}
+        if key in aliases:
+            if pages[file].canonical != ORIGIN + aliases[key]:
+                fail('seo', f'{key}: compatibility alias must canonicalize to {aliases[key]}')
+        elif key != '404.html':
             expected.append(ORIGIN + '/' + key.removesuffix('index.html'))
     if sorted(locs) != sorted(expected):
         fail('seo', f'sitemap.xml lists {len(locs)} URLs, pages are {len(expected)} (differences: {sorted(set(locs) ^ set(expected))[:4]})')

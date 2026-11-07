@@ -148,7 +148,7 @@ class Urls(unittest.TestCase):
         self.assertEqual(translator.url('/news/#latest'), '/en/news/#latest')
         self.assertEqual(translator.url(core.ORIGIN + '/feedback/'), core.ORIGIN + '/en/feedback/')
         self.assertEqual(translator.url('https://example.com/feedback/'), 'https://example.com/feedback/')
-        self.assertEqual(Translate(KO, {}).url('/feedback/?idea=abc'), '/feedback/?idea=abc')
+        self.assertEqual(Translate(KO, {}).url('/feedback/?idea=abc'), '/ko/feedback/?idea=abc')
 
 
 class Draft(unittest.TestCase):
@@ -248,7 +248,7 @@ class Only(unittest.TestCase):
     def test_only_writes_one_page_set(self):
         outputs = Build(Site(), 'draft', only=['feedback']).run()
         pages = [path for path in outputs if path.endswith('index.html')]
-        self.assertEqual(len(pages), len(LOCALES))
+        self.assertEqual(len(pages), len(LOCALES) + 1)  # canonical pages plus the legacy Korean alias
         self.assertTrue(all(re.fullmatch(r'docs/([\w-]+/)?feedback/index\.html', path) for path in pages), pages)
         self.assertEqual(set(outputs) - set(pages), set())   # no shared output (sitemap, runtime text, reports) from --only
 

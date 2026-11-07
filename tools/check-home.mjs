@@ -13,7 +13,7 @@ const strip = js => js.replace(/\/\*[\s\S]*?\*\//g, '').replace(/(^|[^:'"`\\])\/
 const SECTIONS = {hero: 'hero', focus: 'focus', decor: 'decor', collection: 'themes', records: 'records', night: 'night'};
 
 const template = read('tools/templates/home.ko.html');
-const ko = read('docs/index.html');
+const ko = read('docs/ko/index.html');
 const main = strip(read('docs/assets/home/main.js'));
 
 test('every section module exports mount(root, ctx) and main.js mounts it on an element that exists', () => {

@@ -31,7 +31,7 @@ picker.addEventListener('keydown',e=>{
 // root page (/) stops sending this visitor to their browser's language.
 links.forEach(link=>link.addEventListener('click',()=>{
  const target=new URL(link.href,location.href);
- try{localStorage.setItem('mar-lang',target.pathname.split('/')[1]||'ko');}catch(e){}
+ try{localStorage.setItem('mar-lang',target.pathname.split('/')[1]||'en');}catch(e){}
  if(location.hash)target.hash=location.hash;
  link.href=target.href;
 }));

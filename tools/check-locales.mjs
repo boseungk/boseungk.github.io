@@ -109,7 +109,7 @@ test('authored policy routes, language choices and alternates match available tr
   const origin = 'https://www.myanimalroom.com';
   const sitemap = read('sitemap.xml');
   for (const page of ['privacy', 'app-privacy']) {
-    const routes = [{lang: 'ko', path: `/${page}/`}, {lang: 'en', path: `/en/${page}/`}];
+    const routes = [{lang: 'ko', path: `/ko/${page}/`}, {lang: 'en', path: `/en/${page}/`}];
     if (page === 'app-privacy') routes.push({lang: 'ja', path: '/ja/app-privacy/'}, {lang: 'zh-Hant', path: '/zh-hant/app-privacy/'});
     for (const {lang, path} of routes) {
       const source = read(`.${path}index.html`);
@@ -138,7 +138,7 @@ test('authored policy routes, language choices and alternates match available tr
 
 test('published pages use the spaced app brand while preserving channel handles', () => {
   const pages = readdirSync(docs, {recursive: true}).filter(path => path.endsWith('.html'));
-  const expected = locales.length * 3 + 2 + 4 + 1;   // home, board, news in every language; privacy ko/en; app-privacy ko/en/ja/zh-Hant; 404
+  const expected = locales.length * 3 + 2 + 4 + 1 + 5;   // canonical pages, 404, English root and four legacy Korean URLs
   assert.equal(pages.length, expected);
   const brand = /<a class="[^"]*\bbrand\b[^"]*"[^>]*>(?:<img[^>]*>)?<span class="mar-choice-label">My Animal Room<\/span><\/a>/;
   for (const page of pages) {
