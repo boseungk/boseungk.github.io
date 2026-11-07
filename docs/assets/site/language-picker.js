@@ -27,9 +27,11 @@ picker.addEventListener('keydown',e=>{
   visible[index<0?(step===1?0:visible.length-1):(index+step+visible.length)%visible.length].focus();
  }
 });
-// Keep a shared suggestion and the corresponding section when changing language.
+// Keep a shared suggestion and the corresponding section when changing language, and remember the choice so the
+// root page (/) stops sending this visitor to their browser's language.
 links.forEach(link=>link.addEventListener('click',()=>{
  const target=new URL(link.href,location.href);
+ try{localStorage.setItem('mar-lang',target.pathname.split('/')[1]||'ko');}catch(e){}
  if(location.hash)target.hash=location.hash;
  link.href=target.href;
 }));
