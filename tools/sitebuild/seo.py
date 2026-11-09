@@ -46,7 +46,7 @@ THEME_COLOR = '#FFFFFF'
 # or later, iPhone and iPad, category Productivity (Apple encodes it as BusinessApplication). The listing names are
 # per storefront; locales without a verified storefront name omit alternateName.
 APP_STORE_NAME = {'ko': 'My Animal Room: 집중 타이머', 'en': 'My Animal Room: Focus Timer'}
-OPERATING_SYSTEM = 'iOS 16.4+, iPadOS 16.4+'
+OPERATING_SYSTEM = 'iOS 16.4+, iPadOS 16.4+, Android'
 ORGANIZATION_DESCRIPTION = 'My Animal Room develops a mobile app for focus, daily memories and room customization, alongside character animation content.'
 SOCIAL = ['https://www.youtube.com/@MyAnimalRoomLife', 'https://www.threads.com/@myanimalroomlife', 'https://www.instagram.com/myanimalroomlife']
 
@@ -79,7 +79,7 @@ def structured_data(ctx, description):
         app['alternateName'] = APP_STORE_NAME[lang]
     app.update({
         'url': ORIGIN + route(locale), 'description': description,
-        'operatingSystem': OPERATING_SYSTEM, 'availableOnDevice': 'iPhone, iPad', 'applicationCategory': 'BusinessApplication',
+        'operatingSystem': OPERATING_SYSTEM, 'availableOnDevice': 'iPhone, iPad, Android', 'applicationCategory': 'BusinessApplication',
         'offers': {'@type': 'Offer', 'price': '0', 'priceCurrency': 'KRW' if lang == 'ko' else 'USD'},
         'installUrl': app_store, 'sameAs': [app_store] + ([STORES['play']] if STORES.get('play_live') else []),
         'image': APP_ICON, 'publisher': {'@id': project},

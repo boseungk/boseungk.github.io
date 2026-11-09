@@ -30,7 +30,7 @@ NAV = [('feedback', '기능 제안'), ('news', '새 소식')]
 
 STORES = {'app': 'https://apps.apple.com/app/id6826182682',
           'play': 'https://play.google.com/store/apps/details?id=com.myanimalroom.app',
-          'play_live': False}
+          'play_live': True}
 STORE_NAMES = (('app', 'App Store'), ('play', 'Google Play'))
 STORE_LABEL = '{store}에서 받기'
 STORE_SOON = '곧 출시'
