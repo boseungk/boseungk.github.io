@@ -3,8 +3,8 @@
    The bar is solid white, never translucent; its 1px line fades in once the page has scrolled (chrome.js .is-solid).
    Layout (PORT-PLAN 2.11): one sticky row from 760px (60px tall, 56px below 900px). Below 760px two rows that do
    not stick: wordmark, App Store and picker, then the nav as two centred columns. chrome.js adds .is-stacked when
-   one row does not fit (long translations); the bar then uses the two-row layout at any width. Google Play leaves
-   the bar below 720px (the footer keeps it). Below 420px the picker shows its short code; at 360px and below the
+   one row does not fit (long translations); the bar then uses the two-row layout at any width. Below 720px the bar
+   keeps one store: Google Play on Android, the App Store elsewhere (the hero and footer keep both). Below 560px the picker shows its short code; at 360px and below the
    wordmark drops its icon. No shadows anywhere, the language panel included. Selection washes come from
    ui/selection.js (nav, footer links, wordmarks, picker). */
 
@@ -147,7 +147,10 @@
 }
 
 @media (max-width: 719px) {
-  .stores--bar .store:not(:first-child) { display: none; }   /* Google Play, live or not; the hero and footer keep it */
+  /* one store fits: the App Store, or Google Play on Android (html.is-android, chrome.py DEVICE_FLAG); the hero and footer keep both */
+  .stores--bar .store:not(:first-child) { display: none; }
+  .is-android .stores--bar .store[href]:not(:first-child) { display: inline-flex; }
+  .is-android .stores--bar .store:first-child:has(+ .store[href]) { display: none; }
   .stores--bar .store { min-height: 44px; }
 }
 
@@ -158,15 +161,20 @@
   .stores:not(.stores--bar) .store__soon { margin-inline-start: 0; font-size: 13px; line-height: 18px; }
 }
 
-@media (max-width: 419px) {
+@media (max-width: 559px) {
   .language-picker [data-language-current] { display: none; }
   .language-short { display: inline; }
+}
+
+@media (max-width: 479px) {
+  .is-android .wordmark img { display: none; }   /* Google Play is wider than the App Store: the icon makes room */
 }
 
 @media (max-width: 360px) {
   .wordmark img { display: none; }
   .bar, .bar.is-stacked { column-gap: 8px; padding-inline: 16px 12px; }
   .stores--bar .store { padding-inline: 12px; }
+  .is-android .stores--bar .store { padding-inline: 10px; font-size: 14px; }
 }
 
 @media (prefers-reduced-motion: reduce) {

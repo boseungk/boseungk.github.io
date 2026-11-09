@@ -35,6 +35,9 @@ STORE_NAMES = (('app', 'App Store'), ('play', 'Google Play'))
 STORE_LABEL = '{store}에서 받기'
 STORE_SOON = '곧 출시'
 STORE_VARIANTS = ('bar', 'footer', 'hero', 'closing')
+# Below 720px the bar has room for one store: Google Play on Android, the App Store everywhere else
+# (chrome.css). Set before first paint so the bar never swaps buttons.
+DEVICE_FLAG = "<script>/Android/i.test(navigator.userAgent)&&document.documentElement.classList.add('is-android')</script>"
 PLAY_LANG = {'zh-Hans': 'zh-CN', 'zh-Hant': 'zh-TW'}
 
 PARTIALS = {'header': ('partials/header.ko.html', ('full', 'minimal'), 'full'),

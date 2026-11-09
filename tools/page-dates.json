@@ -1,386 +1,386 @@
 {
  "/ar/": {
   "lastmod": "2026-11-09",
-  "sha256": "13e395612a91338d8a17009c8c6458b4073721077939ea4003d7130978e24f6b"
+  "sha256": "0ff0d70159a0e4d0d97190c9ee84b5839893b4891d0eb58879463e6ebdfdca2b"
  },
  "/ar/feedback/": {
   "lastmod": "2026-11-09",
-  "sha256": "75957eb0874a6181d1ecf93ab38a284229f1a7001bfcc078c1252b89cd439660"
+  "sha256": "6cbd36681d77da6f0d1d681296090e0272878d2611da6c97b37ba551925a1083"
  },
  "/ar/news/": {
   "lastmod": "2026-11-09",
-  "sha256": "4d410cb2e6191e735ec0f7449b90abae842ea4106d7d9fdd3224742f7cee2a35"
+  "sha256": "fc8f6b51fafba9b09e424f8fdd471358046f606193a6ce00e15aa124e4aeba18"
  },
  "/bn/": {
   "lastmod": "2026-11-09",
-  "sha256": "3d2f5bf5084844e441567220b62401b33815631f38bded9bcd94ad1d3215737b"
+  "sha256": "8419479df685a81ded4594cd856b28f394ef8e4dc1c90d59d3f7fd3d4e99d0af"
  },
  "/bn/feedback/": {
   "lastmod": "2026-11-09",
-  "sha256": "04b6ec09191092ec473fd0177f58f523fa795087d5125857fc19030b894b7046"
+  "sha256": "f7e938862557ab1a030d0639a6a8e676b69593463af9deb8a01d3295f080b764"
  },
  "/bn/news/": {
   "lastmod": "2026-11-09",
-  "sha256": "25afb81c554e24d62ff0bbbe6a542b28b42f825519f4f20bcd706c59c1c86cd0"
+  "sha256": "a556e0110dbe399fd771bc37eef0a33a545d035fc4c6eb9294e316d59356c9cf"
  },
  "/da/": {
   "lastmod": "2026-11-09",
-  "sha256": "73b52c45a34e1646dfa2b6f3df6fd8e6ba10807664dcb821042d60878111f303"
+  "sha256": "4535b6843720ca1e264d42623232d5cb816573b5f73a03cf969c697b62f05bdd"
  },
  "/da/feedback/": {
   "lastmod": "2026-11-09",
-  "sha256": "311b2a195af6e14b12f0d94ff83a9c4d04ff1a0f8587980564b5a814614b4e62"
+  "sha256": "f077a0219a8643363a925fae70354ecee19642cf80a65a8294a25baec735d945"
  },
  "/da/news/": {
   "lastmod": "2026-11-09",
-  "sha256": "e030139b15122dbb9055c894f748f8c1915d03645a088eddafe21b035dbe455f"
+  "sha256": "0a13996f12d3f48543392b238ccb1ce15326687ab98fe446585fc62ed35202fa"
  },
  "/de/": {
   "lastmod": "2026-11-09",
-  "sha256": "97898ab7ddd674281cced784d1a0fd25ae4dcc88e55ee4fcf42d61febda82f71"
+  "sha256": "41c75ef9cf6ea49ca2fb573ba6f4885f2233e913ed23ec4b462ff04f2151295b"
  },
  "/de/feedback/": {
   "lastmod": "2026-11-09",
-  "sha256": "e2b164ca20b029fdf112a96922e52e5e3f6a87d9f818259a829292ddede5357e"
+  "sha256": "3cf512fe0b8ba0b93f030ed06cb2b21fce7d2e642c3beb2cc89ad61b49d3e26b"
  },
  "/de/news/": {
   "lastmod": "2026-11-09",
-  "sha256": "4e3cd68d3e45801bd9a5007c8f71966f8f9655feba8edb6ae00a926fe10a5551"
+  "sha256": "e957ebcb581076e9a34d26e4f8eea149945c1a0515ca3b9179213f7c5b13c9e2"
  },
  "/en/": {
   "lastmod": "2026-11-09",
-  "sha256": "b4eab7372b57d0f5dd53a136b7a1b19d9e1fd98624428057f9c71eb6a6dcc4f7"
+  "sha256": "5095c0cd50008194fea9323aac5e9d8236a6d5cf1d3448497ae7b74110bda5d5"
  },
  "/en/app-privacy/": {
   "lastmod": "2026-11-09",
-  "sha256": "47f2d2f970aab4c86fff7d45de9279cb464522977cbe2a8a8492c3b65bd30aad"
+  "sha256": "92ab36519f438a5c1eabdafa4a5520dee29dea286db1f47518107f380418dc6c"
  },
  "/en/feedback/": {
   "lastmod": "2026-11-09",
-  "sha256": "06b001f0f40d7130deeccfd7c9fd07e2c36cf04d7e80d49ef7514758c84bf867"
+  "sha256": "c982a1d03110c0b0416d80d99021f90b233c2d7fa126981b5ceba883471c11ea"
  },
  "/en/news/": {
   "lastmod": "2026-11-09",
-  "sha256": "9fec833ed7bcae6efaf5dde0aef20b679363523c329bd9cb136d2aa51090db97"
+  "sha256": "b20625c06121f647acea298064a71eccdb122c4437eb5ed5d8100a0f82a55dfa"
  },
  "/en/privacy/": {
   "lastmod": "2026-11-09",
-  "sha256": "3a69d75d779f5135b9219ff10a75b3f30c80dc7e88207295eec814e368c03ca3"
+  "sha256": "7a35834541edc740ec5e8f7b3a07e80ef12c52d3580e653ea7a9b1fce12e6c35"
  },
  "/es/": {
   "lastmod": "2026-11-09",
-  "sha256": "8af0c76c74f56c7a14661e01e05dfb860b3e480ad299c08e6cf423646fc2344c"
+  "sha256": "fc08338516b49398bf32d5a1a6e24f8dccab608c1d888a481f04423e039bf603"
  },
  "/es/feedback/": {
   "lastmod": "2026-11-09",
-  "sha256": "4d3472003fd51efd76621d628a338c1da94e9b9c9fd5385a1a36534818f7e43e"
+  "sha256": "1166c45b19b06f0521bf5de4fdaf87c253bdc47c2a734af82716a48a87d71d8e"
  },
  "/es/news/": {
   "lastmod": "2026-11-09",
-  "sha256": "9b52db77b0eb573bfc738e06202e2ebea3e28cabd57a0236f755082319741c9f"
+  "sha256": "81d7d28ad24ff224125730ad88e3d3a9bb0302bc446ad250d131812c436b6966"
  },
  "/fil/": {
   "lastmod": "2026-11-09",
-  "sha256": "be34dbb2db3cc5d0d351939f71329b2b13fb58bbcad5cf8f283500915eb59995"
+  "sha256": "cc0a183d47548c4cd0bf49bfecd6eedefe7df6f087cdc2adae58bfca9f176c44"
  },
  "/fil/feedback/": {
   "lastmod": "2026-11-09",
-  "sha256": "4588df6936aba01bdf18daa6d7c47abf024ac86e590165b7d0b6b60a3d0020aa"
+  "sha256": "f1da1db34e1bd3eb3a381a1c07804dc0078efaad82b5c4c50aff99df28704edb"
  },
  "/fil/news/": {
   "lastmod": "2026-11-09",
-  "sha256": "143ae15133149c22a879a4bb6bc50bb5c9a73afc6c841580ee1f337129c9b833"
+  "sha256": "23d095121cf2ee9166f1e9a79b5e9548ed002ed5bafcf81ad31ab39d88e8a3d5"
  },
  "/fr/": {
   "lastmod": "2026-11-09",
-  "sha256": "7f9c69b8ea01537580b58e48e816ff3f43222a279872f3947184a2527081dde3"
+  "sha256": "86c1109116036425f379d8e7cff6b4fe67c77d2c682dc6179997c9576340badb"
  },
  "/fr/feedback/": {
   "lastmod": "2026-11-09",
-  "sha256": "cafca219c373e169e42c15b6c8357fce8be8d8d9d9b629989dcc73b04a5485f6"
+  "sha256": "00ea75822122caabe744ff8445c1d628564e2254adb4e0b6c840a52bbfc6412f"
  },
  "/fr/news/": {
   "lastmod": "2026-11-09",
-  "sha256": "6e48cbf473f50391977ecf8ae0e162dbe8b5250e94caf5af964b6ee543e63804"
+  "sha256": "4ef146fc83a6d567983ad84abf14219de45d3329999651b2351a0e1b3d5bb312"
  },
  "/he/": {
   "lastmod": "2026-11-09",
-  "sha256": "53e9934870cc29a57d63581dbe48631339b09c2ddb4e5369a3a0f520b63dde53"
+  "sha256": "48758e8e2af50bfe2ea1ccd568d94ed056f7f770991499f3e527eb1d141cd44a"
  },
  "/he/feedback/": {
   "lastmod": "2026-11-09",
-  "sha256": "d44bc27cbbfaccf91c62805546233b4e05684400f7ffba03679963fd4bd4e9f0"
+  "sha256": "e99000ea0f81c6559c43d149adfcc074633209b64577b22a3b1e7dad34a89420"
  },
  "/he/news/": {
   "lastmod": "2026-11-09",
-  "sha256": "26f8c5031f85a5a80e9d77269b8039f8eac46874c4a18d277a4801401f47da61"
+  "sha256": "49a7f7eb3a7bb78a13f9a23a07fbbfa73c0ba2cba98314f8ce528bfa85d630c4"
  },
  "/hi/": {
   "lastmod": "2026-11-09",
-  "sha256": "81761129b639eebcc89e4de52812bc444b51888a68458db5bbe0371f82d6785f"
+  "sha256": "1e8b4bd3ac2f00e091049db287d4c5183c62b877121e9c9c2203df50cbcbf38d"
  },
  "/hi/feedback/": {
   "lastmod": "2026-11-09",
-  "sha256": "f54138ecd359c00d6fcdcd4177480f578111eabcf789d9550d63c7f35967ada6"
+  "sha256": "f5d4ed7e1a73d63113a0d04e924583daa478dd11f26721bc3e90fb84e098ad8f"
  },
  "/hi/news/": {
   "lastmod": "2026-11-09",
-  "sha256": "ae9a4873748e6cbff2e0c6f991e17f972c3ea4ca791664025d46e04afbb3ce10"
+  "sha256": "fd64436dbacddf6456dcf3510aec1b4ca3c60c35e4b7f8cb038caf63924fd72c"
  },
  "/id/": {
   "lastmod": "2026-11-09",
-  "sha256": "e33f70775da2d0c5c5a98845a6e45b235add6c7cef2230364d388f2746c82fcb"
+  "sha256": "a8b4fcdbb9bd5f4025036129a29f9f039a94276b0e56023738dfb226bd06857c"
  },
  "/id/feedback/": {
   "lastmod": "2026-11-09",
-  "sha256": "9db41a08e60069c6a3bfeaacc2c10f21d0977cd7a62f1b95df59077c803d1be9"
+  "sha256": "14475625606e3386b1419b721489fa11a3ac1dc3d837825ebd236714b77646d1"
  },
  "/id/news/": {
   "lastmod": "2026-11-09",
-  "sha256": "64f2f448efdc3b5813893e8963f9fff31ba711fe465ab8d7bbd8d978a4152257"
+  "sha256": "dc373d83f6c530f341f56495b3e65326d8582cbf21e070b179e2cdf17f1e0ff8"
  },
  "/it/": {
   "lastmod": "2026-11-09",
-  "sha256": "d1f8928a16a20d489783c4a244bb1f74c8e66a0262e7b171274972e50b001b6a"
+  "sha256": "f19c3ff00f53b4935d3c7030d7cccd71e530b4458d5c243cce89a4e268986e32"
  },
  "/it/feedback/": {
   "lastmod": "2026-11-09",
-  "sha256": "a468cce1e4d8d26cfc016648083b2973a9918fceaeaa0b2829a4942814e92bd3"
+  "sha256": "7a33ca056c2ce9b8d59189a16505963ef240f2c4f1fe9bf32247d67cc49c2a16"
  },
  "/it/news/": {
   "lastmod": "2026-11-09",
-  "sha256": "8dc4542dd99b17c998405aed05e1361002d8b48a3d8cb62769b1bb48b86a4636"
+  "sha256": "ac952624982c7a832040e1969d343a33855699bce4f58b23ff24b18d634de8c3"
  },
  "/ja/": {
   "lastmod": "2026-11-09",
-  "sha256": "22befec7361b855d2019379c27971a095b5d1d43753bf019e6f2c401cbbd6218"
+  "sha256": "c073090f33c02673aac3177adb8e60158f15b756753b729491f4e44240aebb8a"
  },
  "/ja/app-privacy/": {
   "lastmod": "2026-11-09",
-  "sha256": "3ec6ce0c5064a58c11c94fe719c4cee2f79808519b1822a3e977a3de628a369c"
+  "sha256": "0654daa0cb8ca57faec0901dc0087ece39b5fd6cb6e5328059d96e9b236f3add"
  },
  "/ja/feedback/": {
   "lastmod": "2026-11-09",
-  "sha256": "7f1f40bb2d60cc3828f9f113d1cef94133952ecac33537e52f2bba8dc794ba0c"
+  "sha256": "69da877a28e45199ddb5ea58cc1a96ba7fdfc67a4fa3473af096c6532b6721d3"
  },
  "/ja/news/": {
   "lastmod": "2026-11-09",
-  "sha256": "63574578a02c6bc65302aacb31858cd0ba5ab1f7a6d8b56bf7866ce32e299b7f"
+  "sha256": "ce566ffbdddacbf626e334e8f0195474bc05f86bb630e6448953a314ed7cd95a"
  },
  "/ko/": {
   "lastmod": "2026-11-09",
-  "sha256": "3fc9f39c064b4cc4664cd035247881eb1ffedec58f87fb3a0dc8a6f2b63b212b"
+  "sha256": "134c4188bc2a8a375e6b76346b942107cfda6ec6d7a72f6d4e452673dd7d21a4"
  },
  "/ko/app-privacy/": {
   "lastmod": "2026-11-09",
-  "sha256": "ae798f3cf4c8a7e9ea157ccd4cd13be7aefd25c469f90dec3aa9ed5da98ee174"
+  "sha256": "be7c11dced8d9ed72b4327c8dbeda702d2d5206bbde344cc00529622a868cf83"
  },
  "/ko/feedback/": {
   "lastmod": "2026-11-09",
-  "sha256": "12baff16628c373339ed35a90fce42f8b593cdc6f75d39bb8489f556dfa6b9b4"
+  "sha256": "cb141ad24302d01e6d1e73fbd9df24d4be1bd3f19d2b204bca445ece4e9362a1"
  },
  "/ko/news/": {
   "lastmod": "2026-11-09",
-  "sha256": "7e083f5e6e0b5f3e33781cd2d42e31ddcb927abd632ef48b9e787ef9fb07abe2"
+  "sha256": "016b15f0df3e88bbf79e059a4aa5af5506b64af4ed5c3c10c4c45456e09502fb"
  },
  "/ko/privacy/": {
   "lastmod": "2026-11-09",
-  "sha256": "adcf31353781254c049058a75653b129951aebbbd3860048d48102cf11d6b03c"
+  "sha256": "9bd80c2c0f21ff673539f887c70259cab011f3c3a4d7de8ab1bc086cdac8b057"
  },
  "/ms/": {
   "lastmod": "2026-11-09",
-  "sha256": "86c083d91b3b02f41c008c7707b0af314d4787353aba2799d853ee90612e8df4"
+  "sha256": "23e2003f7337e12d8040397d7d49eaff048e3abbafd5cde8376259d92a512262"
  },
  "/ms/feedback/": {
   "lastmod": "2026-11-09",
-  "sha256": "be8df6849968a6ae5a15ef3e74ef8e2ac72a15b286a04b40ae09519f8b4e8194"
+  "sha256": "549a1a30b089faa6f91e26ceded23b11c658435850e92396971061a881dd12ee"
  },
  "/ms/news/": {
   "lastmod": "2026-11-09",
-  "sha256": "02d9242d00e39fcb2b34be1e29b8559c79bb2b915d643d303dab0db8f22d4293"
+  "sha256": "9a7e4c7cb4bbe964a6fb0745e02cf42401a875f6b1a565e9a4a2569c4d2c17de"
  },
  "/nb/": {
   "lastmod": "2026-11-09",
-  "sha256": "f36eda8ebfff33e3dd66b30f80456209e8cc1c0055d11251f057c921a08d5da3"
+  "sha256": "d309c056ba307f18929cc62c66fb7f6af8aa96147f53f97f8e72fea807e0544c"
  },
  "/nb/feedback/": {
   "lastmod": "2026-11-09",
-  "sha256": "ce56274354c6e6bcfbcce390377e442ab34f6c3cd0f2e84348d7d19f94bf5ad0"
+  "sha256": "aa991ce1f4fe53bca0fb93736ec3d89e342a309bfd89021187bf9db876aaf891"
  },
  "/nb/news/": {
   "lastmod": "2026-11-09",
-  "sha256": "73e7e21cc57bd2f321e851cc956cc70a4ee135aeffc500b535155aebca91c783"
+  "sha256": "feca2320bdc03ded4c68232dd154f55385c6457f5ee6fcc639bea23a54373a10"
  },
  "/nl/": {
   "lastmod": "2026-11-09",
-  "sha256": "04387b6ad38b200d2b889636c9fdb23adb31f870302df0a891df206c619930d7"
+  "sha256": "e7d5596f0a3ea3730a09cab33a56907219eb486c60c4df1f065501422ca68015"
  },
  "/nl/feedback/": {
   "lastmod": "2026-11-09",
-  "sha256": "39fb5cacec88a4a4fc7fe9bb7d9c40b36407930dd38a793f2b319df29765b1ff"
+  "sha256": "e4cab71c054c38fffa3a448d9fe7ac373409e51f091ab8b66641750f608aa09d"
  },
  "/nl/news/": {
   "lastmod": "2026-11-09",
-  "sha256": "19e2f7cfaeef727577437e8ef3cd69fc7124fa50448c0ee611129c2e27cd6b46"
+  "sha256": "40732bf0dbf552409f2008d4365e381948bcd89934885068b657fbcedd6c4d1e"
  },
  "/pl/": {
   "lastmod": "2026-11-09",
-  "sha256": "5d18f812294a531b9e57e327e75c9e5af59b596ae82d9888033be6bf2d47783b"
+  "sha256": "241a748de37fafcd463c364125a24c499be68d3bc30129417ff2fdf5176949ea"
  },
  "/pl/feedback/": {
   "lastmod": "2026-11-09",
-  "sha256": "47589fa4e2e99112958fc7c0a6cc703a309a9c3c5e42c5f9c73839050484eb35"
+  "sha256": "c065d4a05eaeeda9c63642deb23a23a9a314b2dbe876659480da95f108f86e3f"
  },
  "/pl/news/": {
   "lastmod": "2026-11-09",
-  "sha256": "8762f97bb6c615f308ca47557a01099c9ca2aad462bc4f95147b5ba6db52e6fc"
+  "sha256": "bab0524aad23e7c426ae0640b112ae329deb4e57aea1abe698112014ba387b7b"
  },
  "/pt-br/": {
   "lastmod": "2026-11-09",
-  "sha256": "ad324d5fba7543ed090babe770b9e0c6c165b3f489f177e65b10524d8f5f9a1f"
+  "sha256": "8a08405b9fbb28f4e4fa2f023ffaf5737f11d03e6efd91469b2d9cc33b577815"
  },
  "/pt-br/feedback/": {
   "lastmod": "2026-11-09",
-  "sha256": "44b35ab39d411bc9922fa7253767aee234a6fc18a820679660396ccdad84120c"
+  "sha256": "fcd01c87434202f8f75d0b18bb1dea4e1a558c1f2c90ffc259f2b64f1b131cb4"
  },
  "/pt-br/news/": {
   "lastmod": "2026-11-09",
-  "sha256": "d6019ce575775d2b48bf771adade5d56da1afab54891054275eec085d729362a"
+  "sha256": "6127e87fa00a8ed23f5662188beb556709b2c4133ea9004d3470e88d8137238b"
  },
  "/pt-pt/": {
   "lastmod": "2026-11-09",
-  "sha256": "b4711534092bfc7673b4ac2af02c0d9bcb0b85f7eec353982ad6d3f7d5fdf656"
+  "sha256": "1b17deedfc6eb165f5f41a2788839bcc80bfc98e45368e5e93540baf9d5e1bb4"
  },
  "/pt-pt/feedback/": {
   "lastmod": "2026-11-09",
-  "sha256": "df0c67097049f91feff95ce87691a679532aa601d8a2e1ed8ccf62424d3d62bc"
+  "sha256": "ff61230efc1d7b76a98db63cdc3e5f0f85cc529d1cc5e761535800d43c18f154"
  },
  "/pt-pt/news/": {
   "lastmod": "2026-11-09",
-  "sha256": "293fdf2dd9693a44c6e2452185a9c627ceb69331392612b7ba899e09a33318e6"
+  "sha256": "8192e7a9c5571ea9ed3fc6a35e2886f6b28ab5dd550d7ee62a93cc23333a280d"
  },
  "/ru/": {
   "lastmod": "2026-11-09",
-  "sha256": "9910f32dd2e5b9a16c3312ceb928881ad7d71fff57c6bc07672fbe3857c76346"
+  "sha256": "e30f117e628c0aaff9fd698896dce33b1c67e3684c4845b5e0e0aa0a7ed991ee"
  },
  "/ru/feedback/": {
   "lastmod": "2026-11-09",
-  "sha256": "8a9273337cef2314aeb6a52bcae5ae2f38121549c5cb9e34bd3a849d93d5d02a"
+  "sha256": "a5935f190270343076e5166d6a7e0af3f7030dcaea1a8ac1674088f408d94193"
  },
  "/ru/news/": {
   "lastmod": "2026-11-09",
-  "sha256": "8c151953e4ecc482b3cb4ebffc09dd5a2cb20a802534131bb6619da5ce8c9cb9"
+  "sha256": "aab3af5c53f73b93273b1dd2c9a1c6b5dea0347e3fd13e628cd541645a5d379f"
  },
  "/sv/": {
   "lastmod": "2026-11-09",
-  "sha256": "d800af6a0f5e84c24b694051ff718934b5c317496634c659cef949ed37ff7057"
+  "sha256": "ffcbe452a7e8103a0a63efaa19bbf0a0f96930e2fbc0103556bba8c7daff1de3"
  },
  "/sv/feedback/": {
   "lastmod": "2026-11-09",
-  "sha256": "b6c52637c4136c72c21aa77cfdc34aeead02a9958f113c60fb5d841c4edb69ba"
+  "sha256": "c2044be10e3add838d82b9910a6cd8fa507334c00ca3947d6c0746365f2a7dc8"
  },
  "/sv/news/": {
   "lastmod": "2026-11-09",
-  "sha256": "4fb246abc7d71f561524ad9289367486d1774d1445a0166bda75916193371887"
+  "sha256": "aaf703dcc695fdc2a111eb5994871c98753bc084938ea55624452702547c736e"
  },
  "/sw/": {
   "lastmod": "2026-11-09",
-  "sha256": "068f946dc548e7d76791b59be1387852c286b5361aa21b485ce213a9b020ca50"
+  "sha256": "d83ea09ebae23a85bb96377262dec9eb68f092618e22716f593684628c691c72"
  },
  "/sw/feedback/": {
   "lastmod": "2026-11-09",
-  "sha256": "fd8ad92a76ce9264a6f89802a1965830434760c3e83407343024c4f201cfff4f"
+  "sha256": "197fb3d9ebb1e9376e559974da131a53f3660985e75f3a2ca782230f3f204ed3"
  },
  "/sw/news/": {
   "lastmod": "2026-11-09",
-  "sha256": "fc1e2cdf44852d2916de00149726a2e278405f31628ec3328fbe9cfd6798b017"
+  "sha256": "0fd3f992fa96ba122ad1ab8683cd454e2bc94e33726501ebaaed3a1ac64aee16"
  },
  "/ta/": {
   "lastmod": "2026-11-09",
-  "sha256": "ef7fe5509ec283842030abafaf78505d31a03f17414057ce106f9e550e155a1f"
+  "sha256": "9ede54bc4b9a0602fe8c486c9756db65a484e277ca70d5ef12caf7876f695233"
  },
  "/ta/feedback/": {
   "lastmod": "2026-11-09",
-  "sha256": "e5b2ed9606bc47583419ccc3338ba494f245707a01fe11c0d2f64ac4d9565b2a"
+  "sha256": "3b20d34e1bb3079744d53b3aa0b6aa33d107c2c9e092c9fb36b6772b33d69844"
  },
  "/ta/news/": {
   "lastmod": "2026-11-09",
-  "sha256": "2c75dae4028457ce7bb60a891935d5ab408bef0cd464d010075f13907cea7661"
+  "sha256": "73702bfe3e0015e59992621a8cf4400216a129e492b2c8375115faeea338311e"
  },
  "/th/": {
   "lastmod": "2026-11-09",
-  "sha256": "b3a9f6f79e7c74c3d721d11e54a25d7ef362e11c8f974667224b7ad84b3384bf"
+  "sha256": "f25d65049c1cf0d17835ac2a5e67f9cc20a7ed0f5d2ef0ea5871c56d2be17c71"
  },
  "/th/feedback/": {
   "lastmod": "2026-11-09",
-  "sha256": "7001c3b7ae6f5fa99e301b4f7edcc47d928c31ccd182fa41170eb264bfc6c5e5"
+  "sha256": "7aff2da3874b3a475c0f233add230519dfed3d00c54c4f934e9311bab06ce862"
  },
  "/th/news/": {
   "lastmod": "2026-11-09",
-  "sha256": "22eda832172a0f516ded57d405d6780cfbd4e02033ec43017b9e31a36a7f72e1"
+  "sha256": "88c95aafa5578b6b5aadc186c1092e929f9ac8d852a73ca6aedd0e024acaf3df"
  },
  "/tr/": {
   "lastmod": "2026-11-09",
-  "sha256": "4defa88584b2b185c2c35c0bffc67aaed915fff3edad1179a95edf7906c2b376"
+  "sha256": "d24e4d03cfceab4ebadaa8addb494025b49efdf6b77ef76e5a52ec980468c753"
  },
  "/tr/feedback/": {
   "lastmod": "2026-11-09",
-  "sha256": "afa9cf387ff9fd124b06d7928d21750da5a41675f59283a3e135df6c3eaa9697"
+  "sha256": "e38b2b6ff02ad2d0c6b26da20ec0439daa1c89e1512b0b7aa2d6682dc2734949"
  },
  "/tr/news/": {
   "lastmod": "2026-11-09",
-  "sha256": "12324e42d0fa01fce92ec3661fabc8fec140cc3bd4748564586654976d77434d"
+  "sha256": "347e575fc59279b80fd32d05043914336dfd9f820c4b7368270aa2fa7d10de05"
  },
  "/uk/": {
   "lastmod": "2026-11-09",
-  "sha256": "dd6df3ec7d750c047ca19093dacccb2b608177641a7a0662e141f623b784f02c"
+  "sha256": "23aaa821812fbe30d74dd8056a6f30b4b5edf8aeff58526d2684fd2d7e9b6aa8"
  },
  "/uk/feedback/": {
   "lastmod": "2026-11-09",
-  "sha256": "28109bd1acf0f3cc136069a2c6a21aceec3c58ccb6c9a08ba3641962ba520c10"
+  "sha256": "3d9f2f78b3adeb638ae5e3ae7c40c368721a4bb483266cbb6fe41c63c7ffd23c"
  },
  "/uk/news/": {
   "lastmod": "2026-11-09",
-  "sha256": "c05ea730f33a5d7f71f7012a235fd331e0149d5caffcf05bf242100dd25b4815"
+  "sha256": "83c66842cf48931b83a9d494e207332358bf05662beba681591d23cb59c9bd60"
  },
  "/vi/": {
   "lastmod": "2026-11-09",
-  "sha256": "bd16357e500fe116a25ff91814d1c9a84e352ca16a066f440d43006d69632a84"
+  "sha256": "92aca9786e66247962db5ca6db86222ae3fd1162847a092b94066e66e5a6448e"
  },
  "/vi/feedback/": {
   "lastmod": "2026-11-09",
-  "sha256": "ef7d916cba5a6fa414798746d382e70e57a97ea668fbce49d2156b0936d5aa43"
+  "sha256": "182c48d6c9ab6e36858cfb170310b6d361ea4d49337df2f6f86424855e67e96e"
  },
  "/vi/news/": {
   "lastmod": "2026-11-09",
-  "sha256": "fbc5fc04ddb336cdfc99f01b6ccbc85b0bd9f7684f1efdec7fb1a0df4de8045a"
+  "sha256": "3a763be66ef8b67d471637ed7272dd1caa47d8e8172121b7c1a3b2715d54aada"
  },
  "/zh-hans/": {
   "lastmod": "2026-11-09",
-  "sha256": "266558e94f586cfaef79f2262fab11d87b8df4e989068367f14909667b1e942c"
+  "sha256": "0a6875bb67691c44c91b29919750e361da81d4a7c3c00dd06f8c23bb4d155f53"
  },
  "/zh-hans/feedback/": {
   "lastmod": "2026-11-09",
-  "sha256": "50a3b8f0e4ee8cf12258b5faeece43ac383b8005bc849e7dc6e3a7cf6f9fc24c"
+  "sha256": "83534aab758b5d0d16ae6722d5224820de9f24c3433f0699b45f565098347295"
  },
  "/zh-hans/news/": {
   "lastmod": "2026-11-09",
-  "sha256": "0aa28b53ac477db5ffce1dd38b39dab0a745a67d902b325b00ad0ca1daf3f0ca"
+  "sha256": "6a43c8d4fecf8dee213f127b5c6573ef5a06a33391df9b33665eacce24162469"
  },
  "/zh-hant/": {
   "lastmod": "2026-11-09",
-  "sha256": "f0cd03887ae6be574c125dac2458df21a35992c988e53e230df383b4ae8c6178"
+  "sha256": "4447c524e772fb1d56dedd5b449fb65fc75f8e081208749cf4370fb213edb78e"
  },
  "/zh-hant/app-privacy/": {
   "lastmod": "2026-11-09",
-  "sha256": "a3b14e0a4ea5a4f93bb925ebe848988002bbb5b087edc3dd660e3307df21d4bf"
+  "sha256": "2613b167051d548afe07e072c472c065ce6f7e52b7addb1ede87bbdfeca6ed04"
  },
  "/zh-hant/feedback/": {
   "lastmod": "2026-11-09",
-  "sha256": "f8f6867d09016a6dd6f8bb6eff889b0471d461bcedcb29852d4ef629c4353b8a"
+  "sha256": "7bfb4ea80fcc49eaac66974e965e10b2a144cf2193b9ecde77e18257b5addf82"
  },
  "/zh-hant/news/": {
   "lastmod": "2026-11-09",
-  "sha256": "5b9eddd8ecfc288a272bc84a04af9bf4625ff45c95b5f1e752f2c328991edc80"
+  "sha256": "e8baf44cb3ea5076241e7be2c8006b2fdfb8f90f3051856073a0725109c62f3c"
  }
 }

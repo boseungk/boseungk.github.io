@@ -189,9 +189,9 @@ def art_vars(ctx, arg):
 def head_common(ctx, arg):
     """Per-page head block right after the viewport meta: font preloads and inline @font-face
     (fonts.py), the reserved import map (importmap.py, filled after stamping) and the SW
-    registration (B2, sw.py)."""
-    from . import fonts, importmap, sw
-    return fonts.head(ctx) + importmap.head(ctx) + sw.head(ctx)
+    registration (B2, sw.py), then the device flag the phone bar uses to pick its store (chrome.py)."""
+    from . import chrome, fonts, importmap, sw
+    return fonts.head(ctx) + importmap.head(ctx) + sw.head(ctx) + chrome.DEVICE_FLAG
 
 
 core.register('HEAD_COMMON', head_common)
