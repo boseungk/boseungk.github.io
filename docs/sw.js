@@ -4,7 +4,7 @@
    stored only when its bytes hash to the sha10 in its URL. No precache, no offline page. Kill switch: ?sw=off. */
 'use strict';
 const CACHE = 'mar-immutable-v1';
-const KEEP = '/assets/cache-keep.dde7846bb2.json';
+const KEEP = '/assets/cache-keep.67fbe3bbd2.json';
 const MAX = 1600;
 const HASHED = /\.([0-9a-f]{10})\.(?:webp|png|jpg|svg|otf|ttf|woff2|json)$/;
 const VERSIONED = /[?&]v=([0-9a-f]{10})$/;

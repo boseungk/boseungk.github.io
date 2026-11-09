@@ -147,7 +147,7 @@
 }
 
 @media (max-width: 719px) {
-  .stores--bar .store:not([href]) { display: none; }
+  .stores--bar .store:not(:first-child) { display: none; }   /* Google Play, live or not; the hero and footer keep it */
   .stores--bar .store { min-height: 44px; }
 }
 
