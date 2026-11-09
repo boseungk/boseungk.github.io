@@ -1,6 +1,6 @@
 {
-  "source": "./assets/images/app-icon/icon.png",
-  "sourceSha256": "0ad6c49012151e83a474dc4c457115af182b39944bdb73680598483f717c2d8a",
+  "source": ".omx/first-user-review/app-icon/out-ios.png",
+  "sourceSha256": "bee9005524515f10af8713a80dba0ad5f67aef33293a6ce185af72613d1730a3",
   "sourceSize": 1024,
   "outputs": [
     {
@@ -9,8 +9,8 @@
       "cornerRadius": 10.56,
       "opaque": false,
       "role": "link rel=icon 48",
-      "bytes": 4058,
-      "sha256": "880be712d69238f70d4846f44443044e4a66ae2c82713c1e89507bd38ddc6b9a"
+      "bytes": 2343,
+      "sha256": "d5c1867b82c4ea166cda9f1c7ada62f9fafbd0ad3c9df2ef1866dfb9c8f85c10"
     },
     {
       "file": "icons/icon-96.png",
@@ -18,8 +18,8 @@
       "cornerRadius": 21.12,
       "opaque": false,
       "role": "link rel=icon 96",
-      "bytes": 13470,
-      "sha256": "fc8cdc61d4b58ae89586bd51c1b15e70607f3cd5d84564092da0ab13d6ee76fd"
+      "bytes": 5804,
+      "sha256": "4f1368d5ed0f50095fdead643e110610d5ce51d051b6451f246eb9574d8e5181"
     },
     {
       "file": "icons/icon-192.png",
@@ -27,8 +27,8 @@
       "cornerRadius": 42.24,
       "opaque": false,
       "role": "link rel=icon 192",
-      "bytes": 44412,
-      "sha256": "dc19a136ce2d5424c9fa8f3cec585f2735684f7a9188bf397aba8db0a91edac6"
+      "bytes": 16541,
+      "sha256": "aab374c91865f19ec7d2241674393730cf6c2cbd3f9a157f695006b193759b7f"
     },
     {
       "file": "icons/app-icon-56.png",
@@ -36,8 +36,8 @@
       "cornerRadius": 12.32,
       "opaque": false,
       "role": "wordmark in header and footer (shown at 28 px)",
-      "bytes": 5267,
-      "sha256": "5528b19727803e986d5e3c1990e05b69cbef6660e72a6fe8c00a27918feeca6c"
+      "bytes": 3237,
+      "sha256": "ee3dec07e163cba2afe35eec19939ecd109d3279fc1687325f7e8eaf741f3207"
     },
     {
       "file": "icons/app-icon-512.png",
@@ -45,8 +45,8 @@
       "cornerRadius": 112.64,
       "opaque": false,
       "role": "JSON-LD image and logo",
-      "bytes": 242510,
-      "sha256": "dd6ae00db2c347975f6a193ecd8eb6b825f9a1e2ce76c67e2296ff9399ed8f2c"
+      "bytes": 72473,
+      "sha256": "c3593ceaeb5f191e142fc2952df54a9183bc46157f8f878c266e2d763a416988"
     },
     {
       "file": "icons/apple-touch-icon-180.png",
@@ -54,8 +54,8 @@
       "cornerRadius": 0,
       "opaque": true,
       "role": "apple-touch-icon: opaque full-bleed square",
-      "bytes": 38018,
-      "sha256": "372d763f9def3f4e017c4d04da06991a7b4e04c7042eaf4c18463d90a8f76a16"
+      "bytes": 13905,
+      "sha256": "2e1b95469f6a7335007d397c59bfa68ec16eb11bf845668301deb9644af96be0"
     },
     {
       "file": "../apple-touch-icon.png",
@@ -63,8 +63,8 @@
       "cornerRadius": 0,
       "opaque": true,
       "role": "root copy of apple-touch-icon-180",
-      "bytes": 38018,
-      "sha256": "372d763f9def3f4e017c4d04da06991a7b4e04c7042eaf4c18463d90a8f76a16"
+      "bytes": 13905,
+      "sha256": "2e1b95469f6a7335007d397c59bfa68ec16eb11bf845668301deb9644af96be0"
     },
     {
       "file": "../favicon.ico",
@@ -76,8 +76,8 @@
       "cornerRadius": 0.22,
       "opaque": false,
       "role": "PNG-in-ICO 16/32/48",
-      "bytes": 7014,
-      "sha256": "ac694a024a94877a7c8303c38846adf7323ed3aeaf1a4f251d040bef2acd0081"
+      "bytes": 4527,
+      "sha256": "d0476bf1dde182bc172bfb614f12cbcffaceead915a0613b5acaa42f6d878f3d"
     }
   ]
 }

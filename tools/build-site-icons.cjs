@@ -31,7 +31,9 @@ function ico(images) {
 }
 (async () => {
   const config = JSON.parse(fs.readFileSync(path.join(app, 'app.json')));
-  const source = path.resolve(app, config.expo.icon), bytes = fs.readFileSync(source);
+  // ICON_SOURCE (a path under the app repo) overrides app.json while a new store icon is out before the app adopts it.
+  const sourceRel = process.env.ICON_SOURCE || config.expo.icon;
+  const source = path.resolve(app, sourceRel), bytes = fs.readFileSync(source);
   const image = await loadImage(bytes);
   if (image.width !== image.height) throw new Error('The configured app icon must be square');
   const docs = path.resolve(__dirname, '../docs'), output = path.join(docs, 'assets'), icons = path.join(output, 'icons');
@@ -58,6 +60,6 @@ function ico(images) {
   const sizes = [16, 32, 48], pngs = sizes.map(size => ({size, png: draw(image, size, true)})), icon = ico(pngs);
   fs.writeFileSync(path.join(docs, 'favicon.ico'), icon);
   outputs.push({file: '../favicon.ico', size: sizes, cornerRadius: +RADIUS, opaque: false, role: 'PNG-in-ICO 16/32/48', bytes: icon.length, sha256: sha(icon)});
-  fs.writeFileSync(path.join(output, 'app-icon-source.json'), JSON.stringify({source: config.expo.icon, sourceSha256: sha(bytes), sourceSize: image.width, outputs}, null, 2) + '\n');
-  console.log('PASS browser icons exported from ' + config.expo.icon + ': ' + outputs.map(o => o.file + ' ' + o.bytes + ' B').join(', '));
+  fs.writeFileSync(path.join(output, 'app-icon-source.json'), JSON.stringify({source: sourceRel, sourceSha256: sha(bytes), sourceSize: image.width, outputs}, null, 2) + '\n');
+  console.log('PASS browser icons exported from ' + sourceRel + ': ' + outputs.map(o => o.file + ' ' + o.bytes + ' B').join(', '));
 })().catch(error => {console.error(error); process.exitCode = 1;});

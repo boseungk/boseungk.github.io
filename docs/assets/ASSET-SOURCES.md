@@ -35,7 +35,7 @@ The room images under `art/` are rendered from the native room compositor by `to
 Both native export commands share `tools/native-renderer.cjs`. Its napi-rs contour correction preserves independent SVG subpaths and is covered by `tools/check-native-contours.cjs`; this prevents diagonal triangles in cloud/mineral room art without changing the app source.
 
 <!-- generated:art begin (tools/assets: do not edit by hand) -->
-## Site art (generated 2026-11-07)
+## Site art (generated 2026-11-09)
 
 Hashed files under `docs/assets/art/`, encoded by `tools/assets/build-art.mjs` from the lists in `tools/assets/art/`. The lock `architecture/art-asset-sources.json` records every output's source, source hash and encode parameters (sharp 0.35.5, libwebp 1.6.0). Dayloom commit: `71d5e2f6e1`.
 
@@ -48,13 +48,13 @@ Hashed files under `docs/assets/art/`, encoded by `tools/assets/build-art.mjs` f
 | `art/growth/` | home | 5 | 126×65, 126×88, 126×125, 126×163 | src:growth/* | byte copy | 18,018 |
 | `art/hero/` | home | 4 | 780×1280 | src:customize/* | webp q85 | 112,894 |
 | `art/kicker/` | home | 4 | 64×64 | src:kicker/* | byte copy | 11,300 |
-| `art/og/` | brand | 1 | 1200×630 | src:og/* | jpeg q85 | 43,444 |
+| `art/og/` | brand | 1 | 1200×630 | src:og/* | jpeg q85 | 44,121 |
 | `art/pieces/` | home | 4 | 96×96, 256×256 | dayloom:ui/pieces/* | webp lossless; webp q90 α100; resize width:256; webp q75 α100 | 36,604 |
 | `art/records/` | home | 3 | 92×114, 144×132, 168×168 | src:records/* | webp lossless | 16,746 |
 | `art/rooms/` | home | 2 | 2600×1688, 4400×1688 | src:scenes/* | byte copy | 106,890 |
 | `art/themes/` | home | 36 | 624×688, 192×212 | dayloom:collection/themes/* | webp q85; webp q92; resize width:192 | 392,390 |
 
-Total: 82 files, 1,097,324 bytes.
+Total: 82 files, 1,098,001 bytes.
 
 Provenance notes:
 
@@ -93,20 +93,20 @@ Provenance notes:
 <!-- generated:art end -->
 
 <!-- generated:icons begin (tools/assets: do not edit by hand) -->
-## Site icons (generated 2026-11-07)
+## Site icons (generated 2026-11-09)
 
-Exported by `tools/build-site-icons.cjs` from `./assets/images/app-icon/icon.png` (Dayloom, sha256 `0ad6c4901215…`, 1024 px). The artwork is not redrawn. These names are stable (class 2); the build stamps `?v=`.
+Exported by `tools/build-site-icons.cjs` from `.omx/first-user-review/app-icon/out-ios.png` (Dayloom, sha256 `bee900552451…`, 1024 px). The artwork is not redrawn. These names are stable (class 2); the build stamps `?v=`.
 
 | File (under docs/ or docs/assets/) | Size | Corners | Use | Bytes |
 | --- | --- | --- | --- | ---: |
-| `icons/icon-48.png` | 48 | rounded (22 %), transparent | link rel=icon 48 | 4,058 |
-| `icons/icon-96.png` | 96 | rounded (22 %), transparent | link rel=icon 96 | 13,470 |
-| `icons/icon-192.png` | 192 | rounded (22 %), transparent | link rel=icon 192 | 44,412 |
-| `icons/app-icon-56.png` | 56 | rounded (22 %), transparent | wordmark in header and footer (shown at 28 px) | 5,267 |
-| `icons/app-icon-512.png` | 512 | rounded (22 %), transparent | JSON-LD image and logo | 242,510 |
-| `icons/apple-touch-icon-180.png` | 180 | opaque, full bleed | apple-touch-icon: opaque full-bleed square | 38,018 |
-| `../apple-touch-icon.png` | 180 | opaque, full bleed | root copy of apple-touch-icon-180 | 38,018 |
-| `../favicon.ico` | 16/32/48 | rounded (22 %), transparent | PNG-in-ICO 16/32/48 | 7,014 |
+| `icons/icon-48.png` | 48 | rounded (22 %), transparent | link rel=icon 48 | 2,343 |
+| `icons/icon-96.png` | 96 | rounded (22 %), transparent | link rel=icon 96 | 5,804 |
+| `icons/icon-192.png` | 192 | rounded (22 %), transparent | link rel=icon 192 | 16,541 |
+| `icons/app-icon-56.png` | 56 | rounded (22 %), transparent | wordmark in header and footer (shown at 28 px) | 3,237 |
+| `icons/app-icon-512.png` | 512 | rounded (22 %), transparent | JSON-LD image and logo | 72,473 |
+| `icons/apple-touch-icon-180.png` | 180 | opaque, full bleed | apple-touch-icon: opaque full-bleed square | 13,905 |
+| `../apple-touch-icon.png` | 180 | opaque, full bleed | root copy of apple-touch-icon-180 | 13,905 |
+| `../favicon.ico` | 16/32/48 | rounded (22 %), transparent | PNG-in-ICO 16/32/48 | 4,527 |
 <!-- generated:icons end -->
 
 <!-- generated:fonts begin (tools/assets: do not edit by hand) -->
