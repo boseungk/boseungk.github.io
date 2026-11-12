@@ -387,9 +387,32 @@ def check_inline_style_hex(pages):
 # --------------------------------------------------------------------------------------------------------------
 # Main checks
 
+# Short links for social profiles (hand-written docs/<name>/index.html, not built): a noindex page that only
+# forwards to the home page with the channel's utm_* tags (site/chrome.js reads them). Not a site page.
+SHORT_LINKS = {'yt': ('youtube', 'yt-ko'), 'yt-en': ('youtube', 'yt-en'),
+               'ig': ('instagram', 'ig-ko'), 'ig-en': ('instagram', 'ig-en')}
+
+
+def check_short_links():
+    for name, (source, campaign) in SHORT_LINKS.items():
+        file = DOCS / name / 'index.html'
+        seen('short-links')
+        if not file.is_file():
+            fail('short-links', f'{name}/index.html is missing')
+            continue
+        text = file.read_text()
+        target = f'/?utm_source={source}&utm_medium=social&utm_campaign={campaign}'
+        if '<meta name="robots" content="noindex">' not in text:
+            fail('short-links', f'{name}/index.html must be noindex')
+        if f"location.replace('{target}')" not in text or text.count(target.replace('&', '&amp;')) != 2:
+            fail('short-links', f'{name}/index.html must forward to {target} (script, meta refresh and link)')
+
+
 def load_pages():
     pages = {}
     for file in sorted(DOCS.rglob('*.html')):
+        if file.parent.parent == DOCS and file.name == 'index.html' and file.parent.name in SHORT_LINKS:
+            continue
         parser = Page(file)
         parser.feed(file.read_text())
         parser.close()
@@ -596,6 +619,7 @@ def check_orphans(pages, listed):
     allow_names = {'ASSET-SOURCES.md', 'app-icon-source.json'}
     allow_root = {'CNAME', '.nojekyll', 'robots.txt', 'sitemap.xml', 'favicon.ico', 'apple-touch-icon.png', 'sw.js'}
     files = {p for p in DOCS.rglob('*') if p.is_file()}
+    files -= {DOCS / name / 'index.html' for name in SHORT_LINKS}   # entry points from social profiles
     reached = set()
     queue = []
     token = re.compile(r"""(?<![\w])(/assets/[\w.\-@/%]+)""")
@@ -1145,6 +1169,7 @@ def main():
         seen('deploy-guard', 0)
         NOTES.append('deploy guard skipped (--allow-draft)')
     check_service_worker(pages, locks, listed)
+    check_short_links()
     shown = [g for g in GROUPS if not args.group or g in args.group]
     if args.list_groups:
         print('\n'.join(GROUPS))
