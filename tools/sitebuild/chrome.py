@@ -38,6 +38,12 @@ STORE_VARIANTS = ('bar', 'footer', 'hero', 'closing')
 # Below 720px the bar has room for one store: Google Play on Android, the App Store everywhere else
 # (chrome.css). Set before first paint so the bar never swaps buttons.
 DEVICE_FLAG = "<script>/Android/i.test(navigator.userAgent)&&document.documentElement.classList.add('is-android')</script>"
+# Cloudflare Web Analytics (cookieless; site privacy notice). Loaded only on the production host so local
+# previews and test hosts send nothing. The token is public (it ships in every page).
+CF_ANALYTICS_TOKEN = '43bbbb020527483ca76d778dee407eae'
+CF_ANALYTICS = ("<script>location.hostname==='www.myanimalroom.com'&&!navigator.webdriver&&addEventListener('load',function(){"
+                "var s=document.createElement('script');s.defer=1;s.src='https://static.cloudflareinsights.com/beacon.min.js';"
+                f"s.setAttribute('data-cf-beacon','{{\"token\":\"{CF_ANALYTICS_TOKEN}\"}}');document.head.appendChild(s)}})</script>")
 PLAY_LANG = {'zh-Hans': 'zh-CN', 'zh-Hant': 'zh-TW'}
 
 PARTIALS = {'header': ('partials/header.ko.html', ('full', 'minimal'), 'full'),
