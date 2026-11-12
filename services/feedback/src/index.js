@@ -271,10 +271,38 @@ async function setVote(env, visitor, id, data) {
   return { idea: publicIdea(batch[3].results[0]) };
 }
 
+// Site counters: POST /v1/hit from site/chrome.js via sendBeacon (text/plain, so no preflight).
+const HIT_KINDS = ['visit', 'store'];
+const HIT_STORES = ['', 'app', 'play'];
+const TAG = /^[a-z0-9][a-z0-9._-]{0,39}$/;
+async function recordHit(request, env) {
+  if (!/^(text\/plain|application\/json)\b/i.test(request.headers.get('Content-Type') || '')) throw invalid('Use text/plain or application/json.', 'content_type');
+  const text = await request.text();
+  if (text.length > 1024) throw new ApiError(400, 'body_too_large', 'Request body exceeds 1 KiB.');
+  let data;
+  try { data = JSON.parse(text); } catch { throw new ApiError(400, 'invalid_json', 'Provide valid JSON.'); }
+  if (!data || typeof data !== 'object' || Array.isArray(data)) throw invalid('Provide a JSON object.');
+  const kind = data.kind, store = data.store ?? '';
+  if (!HIT_KINDS.includes(kind)) throw invalid('Unknown kind.', 'kind');
+  if (!HIT_STORES.includes(store) || (kind === 'store') !== (store !== '')) throw invalid('Unknown store.', 'store');
+  const page = typeof data.page === 'string' && /^\/[a-z0-9/_-]{0,80}$/.test(data.page) ? data.page : 'other';
+  const tag = (value, fallback) => {
+    if (value === undefined || value === '') return fallback;
+    const text = typeof value === 'string' ? value.trim().toLowerCase() : '';
+    return TAG.test(text) ? text : 'other';
+  };
+  const day = new Date(Date.now() + 9 * 3_600_000).toISOString().slice(0, 10);  // KST
+  await statement(env, `INSERT INTO site_stats(day, kind, page, source, campaign, store, count) VALUES (?, ?, ?, ?, ?, ?, 1)
+    ON CONFLICT(day, kind, page, source, campaign, store) DO UPDATE SET count = count + 1`,
+  day, kind, page, tag(data.source, 'direct'), tag(data.campaign, ''), store).run();
+  return { data: { ok: true } };
+}
+
 async function route(request, env) {
   if (!['development', 'production'].includes(env.ENVIRONMENT) || !env.DB) throw new ApiError(503, 'not_configured', 'Service is not configured.');
   const url = new URL(request.url);
   const method = request.method;
+  if (method === 'POST' && url.pathname === '/v1/hit') return recordHit(request, env);
   const visitor = await visitorFor(request, env);
   if (method === 'GET') {
     if (url.pathname === '/v1/ideas') return { data: await listIdeas(env, url, visitor) };

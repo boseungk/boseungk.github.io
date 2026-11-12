@@ -42,7 +42,7 @@ before(async () => { mf = runtime(); db = await mf.getD1Database('DB'); await mi
 after(async () => { await mf?.dispose(); });
 beforeEach(async () => {
   usedTokens = new Set(); verifyCalls = 0;
-  await db.batch(['votes', 'comments', 'ideas', 'visitors'].map((table) => db.prepare(`DELETE FROM ${table}`)));
+  await db.batch(['votes', 'comments', 'ideas', 'visitors', 'site_stats'].map((table) => db.prepare(`DELETE FROM ${table}`)));
 });
 async function req(path, { method = 'GET', data, cookie, origin = ORIGIN, headers = {}, target = mf, rawBody } = {}) {
   const init = { method, headers: { ...(origin === null ? {} : { Origin: origin }), ...(cookie ? { Cookie: cookie } : {}), ...headers } };
@@ -484,4 +484,27 @@ test('migration 0003 creates the status and operator reply indexes', async () =>
   const names = (await db.prepare("SELECT name FROM sqlite_master WHERE type='index'").all()).results.map((r) => r.name);
   assert.ok(names.includes('ideas_public_status_created'));
   assert.ok(names.includes('comments_operator_latest'));
+});
+
+test('site hits: counted per day, page and source without cookies; bad values fold into other', async () => {
+  const hit = (data, opts = {}) => req('/v1/hit', { method: 'POST', rawBody: JSON.stringify(data), headers: { 'Content-Type': 'text/plain;charset=UTF-8' }, ...opts });
+  assert.equal((await hit({ kind: 'visit', page: '/ko/', source: 'instagram', campaign: 'ig-bio' })).status, 200);
+  assert.equal((await hit({ kind: 'visit', page: '/ko/', source: 'Instagram', campaign: 'ig-bio' })).status, 200);
+  const click = await hit({ kind: 'store', store: 'play', page: '/ko/', source: 'instagram', campaign: 'ig-bio' });
+  assert.equal(click.status, 200);
+  assert.equal(click.cookie, undefined, 'no cookie');
+  assert.equal((await hit({ kind: 'visit', page: '/<script>', source: 'a b' })).status, 200);
+  const rows = (await db.prepare('SELECT kind, page, source, campaign, store, count FROM site_stats ORDER BY kind, page, source').all()).results;
+  assert.deepEqual(rows.map(r => ({ ...r })), [
+    { kind: 'store', page: '/ko/', source: 'instagram', campaign: 'ig-bio', store: 'play', count: 1 },
+    { kind: 'visit', page: '/ko/', source: 'instagram', campaign: 'ig-bio', store: '', count: 2 },
+    { kind: 'visit', page: 'other', source: 'other', campaign: '', store: '', count: 1 },
+  ]);
+  assert.equal((await hit({ kind: 'store', page: '/ko/' })).status, 400, 'store click needs a store');
+  assert.equal((await hit({ kind: 'visit', store: 'app' })).status, 400, 'visit has no store');
+  assert.equal((await hit({ kind: 'nope' })).status, 400);
+  assert.equal((await hit({ kind: 'visit' }, { origin: 'https://evil.example' })).status, 403);
+  assert.equal((await hit({ kind: 'visit' }, { origin: null })).status, 403);
+  const defaults = (await db.prepare("SELECT source, campaign FROM site_stats WHERE page = 'other' AND source != 'other'").all()).results;
+  assert.deepEqual(defaults, [], 'rejected hits write nothing');
 });

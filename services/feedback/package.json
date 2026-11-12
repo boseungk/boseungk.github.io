@@ -9,7 +9,9 @@
     "db:reset": "rm -rf .wrangler/state && npm run db:migrate && npm run db:seed",
     "test": "node --test --test-concurrency=1 test/*.test.js",
     "check": "node --check src/index.js && node --check test/api.test.js",
-    "build": "wrangler deploy --dry-run --outdir dist"
+    "build": "wrangler deploy --dry-run --outdir dist",
+    "db:migrate:prod": "wrangler d1 migrations apply myanimalroom-feedback --remote --config wrangler.production.jsonc",
+    "stats": "wrangler d1 execute myanimalroom-feedback --remote --config wrangler.production.jsonc --command \"SELECT source, campaign, SUM(CASE WHEN kind='visit' THEN count END) AS visits, SUM(CASE WHEN store='app' THEN count END) AS app_taps, SUM(CASE WHEN store='play' THEN count END) AS play_taps FROM site_stats WHERE day >= date('now', '-30 days') GROUP BY source, campaign ORDER BY visits DESC\""
   },
   "devDependencies": {
     "miniflare": "4.20260730.0",
