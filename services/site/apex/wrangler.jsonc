@@ -1,0 +1,11 @@
+// myanimalroom.com (no www) -> https://www.myanimalroom.com, same path and query, as GitHub Pages did.
+// A zone route: it acts only while the apex DNS records are proxied (orange cloud).
+{
+  "$schema": "../../feedback/node_modules/wrangler/config-schema.json",
+  "name": "myanimalroom-apex",
+  "main": "index.js",
+  "compatibility_date": "2026-08-01",
+  "workers_dev": false,
+  "preview_urls": false,
+  "routes": [{ "pattern": "myanimalroom.com/*", "zone_name": "myanimalroom.com" }]
+}

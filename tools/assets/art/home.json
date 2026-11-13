@@ -1,4 +1,5 @@
 [
+  {"out": "art/hero/sea-day.webp", "src": "src:customize/sea-day.png", "webp": {"quality": 85}, "note": "hero phone poster: the first frame of the live room (sea room, day, before focus) from the native product frame at 440 x 956 pt, scratchpad poster.mjs"},
   {"out": "art/hero/garden-day.webp", "src": "src:customize/garden.png", "webp": {"quality": 85}, "note": "hero phone room (garden, PORT-PLAN O3), native export from tools/render-customize.cjs"},
   {"out": "art/hero/garden-dusk.webp", "src": "src:customize/garden-dusk.png", "webp": {"quality": 85}, "note": "hero phone room (garden, PORT-PLAN O3), native export from tools/render-customize.cjs"},
   {"out": "art/hero/garden-night-unlit.webp", "src": "src:customize/garden-night-unlit.png", "webp": {"quality": 85}, "note": "hero phone room (garden, PORT-PLAN O3), native export from tools/render-customize.cjs"},

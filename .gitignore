@@ -2,3 +2,5 @@
 .omx/
 __pycache__/
 outputs/
+docs/assets/live/
+samples/skia-lab/

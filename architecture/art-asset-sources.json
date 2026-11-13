@@ -10,15 +10,11 @@
  },
  "dayloom": {
   "path": "/Users/gpt/Projects/dayloom",
-  "commit": "71d5e2f6e1beaf37c063488d6a907820775ef760",
-  "dirty": true
+  "commit": "5775381dd8d9699e8f42496f753529795ab151bb",
+  "dirty": false
  },
  "extra": {
   "lists": {
-   "home": {
-    "file": "tools/assets/art/home.json",
-    "sha256": "c70a8b2cf4d8b65fea15d788e0c8222ecd16b4407121d2bac9c6574b738be859"
-   },
    "brand": {
     "file": "tools/assets/art/brand.json",
     "sha256": "fca2f92223ae4a57c488721c096ebf58d5c72ed39cc1bfe242db861269199e7d"
@@ -26,6 +22,10 @@
    "community": {
     "file": "tools/assets/art/community.json",
     "sha256": "719e870faa3efb73d132f49840c5357dfe2176a2e37c480b9fdcbc471bbc0b4a"
+   },
+   "home": {
+    "file": "tools/assets/art/home.json",
+    "sha256": "3ed60e7192fd0a4fa868f58b4c9cb8ab50a24ed628bbd8434d649ad7bac1d592"
    }
   }
  },
@@ -61,6 +61,7 @@
   {"logical":"art/hero/garden-dusk.webp","file":"art/hero/garden-dusk.30cc003051.webp","sha256":"30cc0030514e695211909bf9c3ad2ddfe963c18471c014fc6d451d6a974eb291","bytes":32770,"w":780,"h":1280,"source":"src:customize/garden-dusk.png","sourceSha256":"8206d3936fe25f310aeb506187ba4e3c4f94784f5098e598224a0dd7d1e70866","op":{"webp":{"quality":85,"effort":6,"smartSubsample":true}},"key":"4fca51a8378d94ec","list":"home","provenance":"hero phone room (garden, PORT-PLAN O3), native export from tools/render-customize.cjs"},
   {"logical":"art/hero/garden-night-unlit.webp","file":"art/hero/garden-night-unlit.dc91545e22.webp","sha256":"dc91545e222dec7d5eb82031debb8047ca4d553c9e340b1c8511e5874d07614c","bytes":22476,"w":780,"h":1280,"source":"src:customize/garden-night-unlit.png","sourceSha256":"bc8523f62765c27d07aa7f593911235445e6eb2458bd51c90a76c936f54bfb98","op":{"webp":{"quality":85,"effort":6,"smartSubsample":true}},"key":"c718f8702177a698","list":"home","provenance":"hero phone room (garden, PORT-PLAN O3), native export from tools/render-customize.cjs"},
   {"logical":"art/hero/garden-night.webp","file":"art/hero/garden-night.0dcfb1a1e3.webp","sha256":"0dcfb1a1e31c900e2186988fb768887b96139eb30d74ebac9f95dccff1965eb8","bytes":22644,"w":780,"h":1280,"source":"src:customize/garden-night.png","sourceSha256":"b8e87947b71a2e2140d3c3d346f9ec1d6de199fcd1d8d4c701d7210114870c57","op":{"webp":{"quality":85,"effort":6,"smartSubsample":true}},"key":"f1721b677c49d742","list":"home","provenance":"hero phone room (garden, PORT-PLAN O3), native export from tools/render-customize.cjs"},
+  {"logical":"art/hero/sea-day.webp","file":"art/hero/sea-day.6458795e33.webp","sha256":"6458795e337aa0fe42af3f141e20c6e9dbae1f0c8bfb3a9ecf0918ebcef33f89","bytes":24856,"w":880,"h":1912,"source":"src:customize/sea-day.png","sourceSha256":"893d604e20e89ca16dc993079b05e65b3c5d709247872e29eb31903bcc1d127a","op":{"webp":{"quality":85,"effort":6,"smartSubsample":true}},"key":"e53770d470c3a8a4","list":"home","provenance":"hero phone poster: the first frame of the live room (sea room, day, before focus) from the native product frame at 440 x 956 pt, scratchpad poster.mjs"},
   {"logical":"art/kicker/collection.svg","file":"art/kicker/collection.75f64b582d.svg","sha256":"75f64b582d6f28d303404831921939042a1b16c84531f6ea9504fc0f16a54eba","bytes":2926,"w":64,"h":64,"source":"src:kicker/collection.svg","sourceSha256":"75f64b582d6f28d303404831921939042a1b16c84531f6ea9504fc0f16a54eba","op":{"copy":true},"key":"7524b26383c97e48","list":"home","provenance":"section kicker icon (모음집): sample C's inline drawing (paths byte for byte), moved to a file for the 15 KB first-view HTML budget; drawn with the Dayloom object-icon port (tools/assets/src/provenance/icon-port*.mjs)"},
   {"logical":"art/kicker/decor.svg","file":"art/kicker/decor.0ac25ae3e7.svg","sha256":"0ac25ae3e7e0cfb2be66c81798c53b6f6c57b1ca6f2c44fd40375f6174d43d2d","bytes":1963,"w":64,"h":64,"source":"src:kicker/decor.svg","sourceSha256":"0ac25ae3e7e0cfb2be66c81798c53b6f6c57b1ca6f2c44fd40375f6174d43d2d","op":{"copy":true},"key":"20f42f17a8b6efd2","list":"home","provenance":"section kicker icon (꾸미기): sample C's inline drawing (paths byte for byte), moved to a file for the 15 KB first-view HTML budget; drawn with the Dayloom object-icon port (tools/assets/src/provenance/icon-port*.mjs)"},
   {"logical":"art/kicker/focus.svg","file":"art/kicker/focus.2d9fe9306b.svg","sha256":"2d9fe9306b51cac1ec000488ad4837d476bfa51b7ddbe872294eca5ed5a72c57","bytes":3138,"w":64,"h":64,"source":"src:kicker/focus.svg","sourceSha256":"2d9fe9306b51cac1ec000488ad4837d476bfa51b7ddbe872294eca5ed5a72c57","op":{"copy":true},"key":"34edeb9808c0b327","list":"home","provenance":"section kicker icon (집중): sample C's inline drawing (paths byte for byte), moved to a file for the 15 KB first-view HTML budget; drawn with the Dayloom object-icon port (tools/assets/src/provenance/icon-port*.mjs)"},

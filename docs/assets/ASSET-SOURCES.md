@@ -35,9 +35,9 @@ The room images under `art/` are rendered from the native room compositor by `to
 Both native export commands share `tools/native-renderer.cjs`. Its napi-rs contour correction preserves independent SVG subpaths and is covered by `tools/check-native-contours.cjs`; this prevents diagonal triangles in cloud/mineral room art without changing the app source.
 
 <!-- generated:art begin (tools/assets: do not edit by hand) -->
-## Site art (generated 2026-11-09)
+## Site art (generated 2026-11-13)
 
-Hashed files under `docs/assets/art/`, encoded by `tools/assets/build-art.mjs` from the lists in `tools/assets/art/`. The lock `architecture/art-asset-sources.json` records every output's source, source hash and encode parameters (sharp 0.35.5, libwebp 1.6.0). Dayloom commit: `71d5e2f6e1`.
+Hashed files under `docs/assets/art/`, encoded by `tools/assets/build-art.mjs` from the lists in `tools/assets/art/`. The lock `architecture/art-asset-sources.json` records every output's source, source hash and encode parameters (sharp 0.35.5, libwebp 1.6.0). Dayloom commit: `5775381dd8`.
 
 | Group | List | Files | Dimensions | Source | Encode | Bytes |
 | --- | --- | --- | --- | --- | --- | ---: |
@@ -46,7 +46,7 @@ Hashed files under `docs/assets/art/`, encoded by `tools/assets/build-art.mjs` f
 | `art/decor/` | home | 14 | 384×353, 320×294, 224×191, 224×145 | dayloom:decor/thumbnails/*<br>src:customize/* | webp q90 α100; resize width:384,height:384; resize width:320,height:320; resize width:224,height:224; webp q85 | 263,416 |
 | `art/events/` | home | 6 | 312×260, 312×278 | dayloom:collection/events/* | webp q85 | 27,450 |
 | `art/growth/` | home | 5 | 126×65, 126×88, 126×125, 126×163 | src:growth/* | byte copy | 18,018 |
-| `art/hero/` | home | 4 | 780×1280 | src:customize/* | webp q85 | 112,894 |
+| `art/hero/` | home | 5 | 780×1280, 880×1912 | src:customize/* | webp q85 | 137,750 |
 | `art/kicker/` | home | 4 | 64×64 | src:kicker/* | byte copy | 11,300 |
 | `art/og/` | brand | 1 | 1200×630 | src:og/* | jpeg q85 | 44,121 |
 | `art/pieces/` | home | 4 | 96×96, 256×256 | dayloom:ui/pieces/* | webp lossless; webp q90 α100; resize width:256; webp q75 α100 | 36,604 |
@@ -54,7 +54,7 @@ Hashed files under `docs/assets/art/`, encoded by `tools/assets/build-art.mjs` f
 | `art/rooms/` | home | 2 | 2600×1688, 4400×1688 | src:scenes/* | byte copy | 106,890 |
 | `art/themes/` | home | 36 | 624×688, 192×212 | dayloom:collection/themes/* | webp q85; webp q92; resize width:192 | 392,390 |
 
-Total: 82 files, 1,098,001 bytes.
+Total: 83 files, 1,122,857 bytes.
 
 Provenance notes:
 
@@ -77,6 +77,7 @@ Provenance notes:
 - `art/hero/garden-dusk.webp`: hero phone room (garden, PORT-PLAN O3), native export from tools/render-customize.cjs
 - `art/hero/garden-night-unlit.webp`: hero phone room (garden, PORT-PLAN O3), native export from tools/render-customize.cjs
 - `art/hero/garden-night.webp`: hero phone room (garden, PORT-PLAN O3), native export from tools/render-customize.cjs
+- `art/hero/sea-day.webp`: hero phone poster: the first frame of the live room (sea room, day, before focus) from the native product frame at 440 x 956 pt, scratchpad poster.mjs
 - `art/kicker/collection.svg`: section kicker icon (모음집): sample C's inline drawing (paths byte for byte), moved to a file for the 15 KB first-view HTML budget; drawn with the Dayloom object-icon port (tools/assets/src/provenance/icon-port*.mjs)
 - `art/kicker/decor.svg`: section kicker icon (꾸미기): sample C's inline drawing (paths byte for byte), moved to a file for the 15 KB first-view HTML budget; drawn with the Dayloom object-icon port (tools/assets/src/provenance/icon-port*.mjs)
 - `art/kicker/focus.svg`: section kicker icon (집중): sample C's inline drawing (paths byte for byte), moved to a file for the 15 KB first-view HTML budget; drawn with the Dayloom object-icon port (tools/assets/src/provenance/icon-port*.mjs)
@@ -93,7 +94,7 @@ Provenance notes:
 <!-- generated:art end -->
 
 <!-- generated:icons begin (tools/assets: do not edit by hand) -->
-## Site icons (generated 2026-11-09)
+## Site icons (generated 2026-11-13)
 
 Exported by `tools/build-site-icons.cjs` from `.omx/first-user-review/app-icon/out-ios.png` (Dayloom, sha256 `bee900552451…`, 1024 px). The artwork is not redrawn. These names are stable (class 2); the build stamps `?v=`.
 
@@ -110,7 +111,7 @@ Exported by `tools/build-site-icons.cjs` from `.omx/first-user-review/app-icon/o
 <!-- generated:icons end -->
 
 <!-- generated:fonts begin (tools/assets: do not edit by hand) -->
-## Font subsets (generated 2026-11-07)
+## Font subsets (generated 2026-11-13)
 
 Subsets produced by `tools/assets/build-fonts.mjs` with hb-subset 14.2.1 and listed in `architecture/font-asset-sources.json`. Each page declares and preloads only the faces of its language, the same font the app uses for that language (Dayloom `src/core/localization/locale-fonts.ts`).
 
@@ -126,9 +127,9 @@ Subsets produced by `tools/assets/build-fonts.mjs` with hb-subset 14.2.1 and lis
 | `fonts/line-seed-jp-latin.ttf` | `LINE Seed JP` | en, ja, es, fr, de, it, pt-BR, pt-PT, pl, uk, ru, sv, nb, da, id, ms, fil, tr, sw | 236 | 35,616 | 16,994 |
 | `fonts/line-seed-jp-latin-ext.ttf` | `LINE Seed JP` | en, ja, es, fr, de, it, pt-BR, pt-PT, pl, uk, ru, sv, nb, da, id, ms, fil, tr, sw | 118 | 17,976 | 7,191 |
 | `fonts/line-seed-jp-cyrillic.ttf` | `LINE Seed JP` | en, ja, es, fr, de, it, pt-BR, pt-PT, pl, uk, ru, sv, nb, da, id, ms, fil, tr, sw | 136 | 16,548 | 9,639 |
-| `fonts/line-seed-jp-ja.ttf` | `LINE Seed JP` | ja | 923 | 296,448 | 171,249 |
-| `fonts/noto-sans-sc.ttf` | `Noto Sans SC` | zh-Hans | 1,262 | 280,976 | 185,557 |
-| `fonts/noto-sans-tc.ttf` | `Noto Sans TC` | zh-Hant | 1,415 | 356,156 | 232,308 |
+| `fonts/line-seed-jp-ja.ttf` | `LINE Seed JP` | ja | 925 | 297,288 | 171,784 |
+| `fonts/noto-sans-sc.ttf` | `Noto Sans SC` | zh-Hans | 1,263 | 281,168 | 185,681 |
+| `fonts/noto-sans-tc.ttf` | `Noto Sans TC` | zh-Hant | 1,416 | 356,348 | 232,445 |
 | `fonts/noto-sans-latin.ttf` | `Noto Sans` | nl, vi | 318 | 26,280 | 16,110 |
 | `fonts/noto-sans-latin-ext.ttf` | `Noto Sans` | nl, vi | 701 | 72,584 | 35,520 |
 | `fonts/line-seed-th.otf` | `LINE Seed TH` | th | 234 | 38,532 | 21,139 |
@@ -138,7 +139,7 @@ Subsets produced by `tools/assets/build-fonts.mjs` with hb-subset 14.2.1 and lis
 | `fonts/noto-sans-bengali.ttf` | `Noto Sans Bengali` | bn | 306 | 113,924 | 60,249 |
 | `fonts/noto-sans-tamil.ttf` | `Noto Sans Tamil` | ta | 285 | 56,276 | 28,892 |
 
-The `ko` face holds KS X 1001's 2,350 syllables, the jamo blocks and 0 further syllables found in the Korean pages, catalogs, templates and room text; `rare` holds the other syllables and loads only when a post uses one. Han faces hold the ideographs their language's pages use (jp-ja 607, sc 846, tc 956); a missing one falls back to the system font for that character.
+The `ko` face holds KS X 1001's 2,350 syllables, the jamo blocks and 0 further syllables found in the Korean pages, catalogs, templates and room text; `rare` holds the other syllables and loads only when a post uses one. Han faces hold the ideographs their language's pages use (jp-ja 609, sc 847, tc 957); a missing one falls back to the system font for that character.
 <!-- generated:fonts end -->
 
 <!-- generated:rooms begin (tools/assets: do not edit by hand) -->

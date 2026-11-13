@@ -68,7 +68,7 @@
   font-size: calc(15 * var(--pt)); line-height: calc(23 * var(--pt)); letter-spacing: 0;
 }
 .room__art { position: absolute; left: 0; top: 0; width: 100%; aspect-ratio: 780 / 1280; overflow: hidden; isolation: isolate; background: var(--cream); }
-.room__art > img { position: absolute; inset: 0; width: 100%; height: 100%; max-width: none; }
+.room__art > img, .room__art > picture > img { position: absolute; inset: 0; width: 100%; height: 100%; max-width: none; }
 /* hero: running focus over the living room (day -> dusk -> unlit -> night) */
 .room__l--dusk, .room__l--unlit, .room__l--night { opacity: 0; transition: opacity 1400ms var(--ease-ink); }
 .room[data-phase="dusk"] .room__l--dusk { opacity: 1; }
@@ -108,9 +108,21 @@
 @keyframes breathe { 0%, 100% { transform: none; } 50% { transform: scale(1.006, 1.016); } }
 
 .room__fade {
-  position: absolute; left: 0; right: 0; z-index: 4; top: calc(563 * var(--pt)); height: calc(160 * var(--pt));
-  background: linear-gradient(rgb(255 255 255 / 0), rgb(255 255 255 / .38) 35%, rgb(255 255 255 / .82) 70%, var(--paper));
+  /* reaches paper at 718pt, before the art's bottom edge (722pt), so the edge never shows as a hairline */
+  position: absolute; left: 0; right: 0; z-index: 4; top: calc(563 * var(--pt)); height: calc(172 * var(--pt));
+  background: linear-gradient(rgb(255 255 255 / 0), rgb(255 255 255 / .38) 32%, rgb(255 255 255 / .82) 63%, var(--paper) 90%);
 }
+/* Live room (hero.js + /assets/live, the app's own drawn world): with motion allowed the phone shows the whole app
+   screen, 440 x 956 pt: the sea poster (the live room's first frame), then the scene on a canvas, under the app's own
+   paper wash (focus-overlay.tsx focusPaperWashStops: clear to 48%, .58 at 72%, .88 at the bottom). Reduced motion,
+   or a scene that cannot run (.is-still), keeps the greenhouse stills and their fade. */
+@media (prefers-reduced-motion: no-preference) {
+  .room:not(.is-still) .room__art { aspect-ratio: 440 / 956; }
+  .room:not(.is-still) :is(.room__cat, .room__win, .room__l--dusk, .room__l--unlit, .room__l--night) { display: none; }
+  .room:not(.is-still) .room__fade { top: 0; height: 100%; background: linear-gradient(rgb(255 255 255 / 0) 48%, rgb(255 255 255 / .58) 72%, rgb(255 255 255 / .88)); }
+}
+.room__scene { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 1; opacity: 0; transition: opacity 300ms var(--ease-ink); }
+.room__scene.is-ready { opacity: 1; }
 .hud { position: absolute; z-index: 5; left: 50%; top: calc(720 * var(--pt)); transform: translateX(-50%); display: flex; align-items: center; gap: calc(16 * var(--pt)); }
 .hud__glass { display: block; width: calc(60 * var(--pt)); height: calc(90 * var(--pt)); }
 .hud__glass svg, .mini svg { display: block; width: 100%; height: 100%; overflow: visible; }
@@ -125,6 +137,16 @@
 }
 .hud__stop i { width: calc(12 * var(--pt)); height: calc(12 * var(--pt)); border-radius: calc(2.5 * var(--pt)); background: var(--ink); }
 .hud__hint { position: absolute; z-index: 5; left: 0; right: 0; top: calc(900 * var(--pt)); text-align: center; font-size: calc(15 * var(--pt)); line-height: calc(23 * var(--pt)); color: var(--ink-soft); }
+
+/* hero intro, once (hero.js): the focus section's prep sheet, cloned into the phone at app points (an inner
+   440 x 956 box scaled by --k); its start button is pressed and the sheet slides away as focus starts */
+.room[data-intro="prep"] :is(.hud, .hud__stop, .hud__hint) { opacity: 0; }
+.room :is(.hud, .hud__stop, .hud__hint) { transition: opacity 260ms var(--ease-paper); }
+.intro { position: absolute; inset: 0; z-index: 10; overflow: hidden; pointer-events: none; }
+.intro__app { position: absolute; left: 0; top: 0; width: 440px; height: 956px; transform: scale(var(--k, .6)); transform-origin: 0 0; }
+.intro .fprep { left: 0; right: 0; bottom: 0; width: auto; margin: 0; padding: 0 24px 34px; border-radius: 22px 22px 0 0; transform: translateY(105%); }
+.intro.is-prep .fprep { transform: none; }
+.intro .appbtn.is-pressed { background: var(--soft); }
 
 /* opal pearl light, 1800ms, once */
 .opal { position: relative; display: block; width: 84px; aspect-ratio: 1; }
@@ -623,6 +645,12 @@ html.js .rooms-host:not(.is-still):not([data-variant])::before {
 /* the HUD's tag and hint would be 7-8px text at phone widths: they leave the mockup below 600px */
 @media (max-width: 599px) {
   .hud__tag, .hud__hint { display: none; }
+  /* the whole phone in the first view: title, lead, phone, then the store pair and the body */
+  .hero__stage { margin-top: 20px; }
+  .phone--l { --w: clamp(200px, calc((100svh - 300px) / 2.05), 300px); }
+  .hero .stores { order: 6; margin-top: 24px; }
+  .hero .note { order: 7; }
+  .hero .body { order: 8; }
 }
 
 /* under 350px: the balanced row with less air */
