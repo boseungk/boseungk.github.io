@@ -8,9 +8,9 @@ on the next deployment. Inline event attributes, source maps and common secret f
 fail staging before anything is published.
 
 The policy permits the site's scripts, the exact inline hashes, Cloudflare Analytics
-and Turnstile. Inline styles and WebAssembly compilation remain permitted for the
-existing visuals. Arbitrary inline scripts, event attributes and JavaScript eval are
-not permitted. `frame-ancestors 'none'` prevents embedding this site; `frame-src`
+and Turnstile. Inline styles remain permitted for the existing visuals. WebAssembly
+compilation, arbitrary inline scripts, event attributes and JavaScript eval are not
+permitted. `frame-ancestors 'none'` prevents embedding this site; `frame-src`
 still allows Turnstile's verification frame. No COEP, CORP, cross-origin isolation,
 HSTS preload or blanket subdomain HSTS is enabled.
 
