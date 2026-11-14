@@ -74,7 +74,7 @@ assert(spec.path(state.frame).includes('C'),'native curve, not rectangle');
  const again=ctx.MARSelection.mount(group,items);assert.notEqual(again,refresh,'a destroyed group mounts anew');assert.equal(washes().length,1,'the remounted group has one wash');
  ctx.MARSelection.destroy(group);assert.equal(washes().length,0,'MARSelection.destroy(group) unmounts');
 })();
-const {loadImage,createCanvas}=require('/Users/gpt/.cache/codex-runtimes/codex-primary-runtime/dependencies/node/node_modules/@napi-rs/canvas');
+const {loadImage,createCanvas}=require(require('node:path').join(process.env.NATIVE_NODE_MODULES || require('node:path').join(require('node:os').homedir(), '.cache/codex-runtimes/codex-primary-runtime/dependencies/node/node_modules'), '@napi-rs/canvas'));
 (async()=>{
  for(const size of [48,96,192]){
   const icon=await loadImage(path.join(docs,'assets/icons',`icon-${size}.png`));

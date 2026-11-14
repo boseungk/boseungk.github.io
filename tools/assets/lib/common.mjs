@@ -1,6 +1,7 @@
 // Shared helpers for tools/rooms/build-room-assets.mjs, tools/assets/build-art.mjs and tools/assets/build-fonts.mjs.
 // Nothing here writes to docs/ by itself. Locks live in architecture/*-asset-sources.json (PORT-PLAN 2.9).
 import fs from 'node:fs';
+import {homedir} from 'node:os';
 import path from 'node:path';
 import crypto from 'node:crypto';
 import {createRequire} from 'node:module';
@@ -13,10 +14,10 @@ export const ASSETS = path.join(DOCS, 'assets');
 export const SRC = path.join(ROOT, 'tools/assets/src');
 export const ARCH = path.join(ROOT, 'architecture');
 export const OUTPUTS = path.join(ROOT, 'outputs');
-export const DAYLOOM = process.env.DAYLOOM_SOURCE || '/Users/gpt/Projects/dayloom';
+export const DAYLOOM = process.env.DAYLOOM_SOURCE || path.join(OUTPUTS, 'app-source-not-configured');
 export const DAYLOOM_IMAGES = path.join(DAYLOOM, 'assets/images');
 // Same default as tools/native-renderer.cjs.
-export const NATIVE_NODE_MODULES = process.env.NATIVE_NODE_MODULES || '/Users/gpt/.cache/codex-runtimes/codex-primary-runtime/dependencies/node/node_modules';
+export const NATIVE_NODE_MODULES = process.env.NATIVE_NODE_MODULES || path.join(homedir(), '.cache/codex-runtimes/codex-primary-runtime/dependencies/node/node_modules');
 const req = createRequire(NATIVE_NODE_MODULES + '/');
 export const sharp = req('sharp');
 sharp.cache(false);
@@ -38,8 +39,8 @@ export function toolVersions() {
 
 export function dayloomInfo() {
   const git = (...a) => execFileSync('git', ['-C', DAYLOOM, ...a], {encoding: 'utf8'}).trim();
-  try { return {path: DAYLOOM, commit: git('rev-parse', 'HEAD'), dirty: git('status', '--porcelain', '--', 'assets', 'design/store-listing').length > 0}; }
-  catch { return {path: DAYLOOM, commit: null, dirty: null}; }
+  try { return {path: 'env:DAYLOOM_SOURCE', commit: git('rev-parse', 'HEAD'), dirty: git('status', '--porcelain', '--', 'assets', 'design/store-listing').length > 0}; }
+  catch { return {path: 'env:DAYLOOM_SOURCE', commit: null, dirty: null}; }
 }
 
 export async function pool(limit, items, fn) {
@@ -60,6 +61,13 @@ export function headLock(file) {
 }
 // Pretty header, one output per line (stable, diff-friendly, keeps a 2,000-entry lock readable).
 export function writeLock(file, lock) {
+  // Provenance is public: keep logical source names, never a developer's absolute checkout path.
+  lock = JSON.parse(JSON.stringify(lock, (_key, value) => {
+    if (typeof value !== 'string') return value;
+    if (value === DAYLOOM) return 'env:DAYLOOM_SOURCE';
+    if (value.startsWith(DAYLOOM + path.sep)) return 'dayloom:' + value.slice(DAYLOOM.length + 1);
+    return value;
+  }));
   const {outputs, ...rest} = lock;
   const head = JSON.stringify(rest, null, 1).replace(/\[\s+(-?\d+),\s+(-?\d+)\s+\]/g, '[$1,$2]');   // [lo,hi] runs on one line
   const body = outputs.map(o => '  ' + JSON.stringify(o)).join(',\n');

@@ -3,6 +3,7 @@ import assert from 'node:assert/strict';
 import { readFile, readdir } from 'node:fs/promises';
 import { createHash, randomUUID } from 'node:crypto';
 import { Miniflare } from 'miniflare';
+import worker from '../src/index.js';
 
 const ORIGIN = 'https://www.myanimalroom.com';
 const API = 'https://feedback-api.myanimalroom.com';
@@ -11,13 +12,20 @@ let db;
 let usedTokens = new Set();
 let verifyCalls = 0;
 
-function runtime(bindings = {}) {
+function runtime(bindings = {}, rateOverrides = {}) {
   return new Miniflare({
     modules: true,
     scriptPath: new URL('../src/index.js', import.meta.url).pathname,
     compatibilityDate: '2026-08-01',
     bindings: { ENVIRONMENT: 'production', TURNSTILE_SECRET: 'integration-test-only', ...bindings },
     d1Databases: ['DB'],
+    ratelimits: {
+      API_RATE_LIMITER: { namespace_id: '1001', simple: { limit: 600, period: 60 } },
+      VISITOR_RATE_LIMITER: { namespace_id: '1002', simple: { limit: 60, period: 60 } },
+      HIT_RATE_LIMITER: { namespace_id: '1003', simple: { limit: 100000, period: 60 } },
+      HIT_TOTAL_LIMITER: { namespace_id: '1004', simple: { limit: 100000, period: 60 } },
+      ...rateOverrides,
+    },
     outboundService: async (request) => {
       assert.equal(request.url, 'https://challenges.cloudflare.com/turnstile/v0/siteverify');
       const data = await request.json();
@@ -45,7 +53,7 @@ beforeEach(async () => {
   await db.batch(['votes', 'comments', 'ideas', 'visitors', 'site_stats'].map((table) => db.prepare(`DELETE FROM ${table}`)));
 });
 async function req(path, { method = 'GET', data, cookie, origin = ORIGIN, headers = {}, target = mf, rawBody } = {}) {
-  const init = { method, headers: { ...(origin === null ? {} : { Origin: origin }), ...(cookie ? { Cookie: cookie } : {}), ...headers } };
+  const init = { method, headers: { 'CF-Connecting-IP': '203.0.113.8', ...(origin === null ? {} : { Origin: origin }), ...(cookie ? { Cookie: cookie } : {}), ...headers } };
   if (data !== undefined || rawBody !== undefined) {
     init.headers['Content-Type'] ??= 'application/json';
     init.body = rawBody ?? JSON.stringify(data);
@@ -507,4 +515,91 @@ test('site hits: counted per day, page and source without cookies; bad values fo
   assert.equal((await hit({ kind: 'visit' }, { origin: null })).status, 403);
   const defaults = (await db.prepare("SELECT source, campaign FROM site_stats WHERE page = 'other' AND source != 'other'").all()).results;
   assert.deepEqual(defaults, [], 'rejected hits write nothing');
+});
+
+test('site hit body is bounded by bytes, including streams and malformed UTF-8', async () => {
+  for (const body of ['x'.repeat(1025), JSON.stringify({kind: 'visit', source: '한'.repeat(800)})]) {
+    const result = await req('/v1/hit', {method: 'POST', rawBody: body, headers: {'Content-Type': 'text/plain'}});
+    assert.equal(result.status, 400);
+    assert.equal(result.json.error.code, 'body_too_large');
+  }
+  const streamed = await mf.dispatchFetch(`${API}/v1/hit`, {
+    method: 'POST', headers: {Origin: ORIGIN, 'CF-Connecting-IP': '203.0.113.8', 'Content-Type': 'text/plain'},
+    body: new ReadableStream({start(controller) {controller.enqueue(new Uint8Array(1025)); controller.close();}}), duplex: 'half',
+  });
+  assert.equal((await streamed.json()).error.code, 'body_too_large');
+  const utf8 = await req('/v1/hit', {method: 'POST', rawBody: new Uint8Array([0xff])});
+  assert.equal(utf8.json.error.code, 'invalid_json');
+  const field = await req('/v1/hit', {method: 'POST', data: {kind: 'visit', arbitrary: 'value'}});
+  assert.equal(field.status, 400);
+  assert.equal(await count('site_stats'), 0);
+});
+
+test('stat routes are finite; daily row cap admits existing counters but no new dimensions', async () => {
+  const hit = data => req('/v1/hit', {method: 'POST', data: {kind: 'visit', ...data}});
+  for (const page of ['/ko/', '/pt-br/feedback/', '/zh-hant/news/', '/privacy/']) {
+    assert.equal((await hit({page})).status, 200);
+  }
+  for (const page of ['/arbitrary-path/', '/ko/not-a-page/', '/new-language/feedback/']) await hit({page});
+  assert.equal((await db.prepare("SELECT count FROM site_stats WHERE page='other'").first()).count, 3);
+  const day = (await db.prepare('SELECT day FROM site_stats LIMIT 1').first()).day;
+  // Seed locally in one SQL statement; no HTTP flood or production database involved.
+  await db.prepare(`WITH RECURSIVE n(i) AS (VALUES(1) UNION ALL SELECT i+1 FROM n WHERE i<1995)
+    INSERT INTO site_stats(day,kind,page,source,campaign,store,count)
+    SELECT ?, 'visit', '/ko/', 'fixture', 'campaign-'||i, '', 1 FROM n`).bind(day).run();
+  assert.equal(await count('site_stats'), 2000);
+  await hit({page: '/ko/', source: 'new-dimension'});
+  assert.equal(await count('site_stats'), 2000);
+  await hit({page: '/ko/'});
+  assert.equal((await db.prepare("SELECT count FROM site_stats WHERE page='/ko/' AND source='direct'").first()).count, 2);
+});
+
+test('edge limit failures preserve the board; rejected analytics never touch D1', async () => {
+  const neverDB = {prepare() {assert.fail('limited requests must not touch D1');}};
+  const request = path => new Request(API + path, {method: 'POST', headers: {Origin: ORIGIN, 'CF-Connecting-IP': '203.0.113.8', 'Content-Type': 'application/json'}, body: JSON.stringify({kind: 'visit'})});
+  for (const limiter of [undefined, {limit: async () => ({success: false})}, {limit: async () => {throw Error('unavailable');}}]) {
+    const response = await worker.fetch(request('/v1/hit'), {ENVIRONMENT: 'production', DB: neverDB, HIT_RATE_LIMITER: limiter});
+    assert.equal(response.status, 202);
+    assert.deepEqual(await response.json(), {ok: true});
+  }
+  const limited = await worker.fetch(request('/v1/ideas'), {ENVIRONMENT: 'production', DB: neverDB, API_RATE_LIMITER: {limit: async () => ({success: false})}});
+  assert.equal(limited.status, 429);
+  assert.equal(limited.headers.get('Retry-After'), '60');
+  const unavailable = await worker.fetch(request('/v1/ideas'), {ENVIRONMENT: 'production', DB: neverDB, API_RATE_LIMITER: {limit: async () => {throw Error('unavailable');}}});
+  assert.equal(unavailable.status, 400, 'normal input validation still runs when the edge limiter is unavailable');
+});
+
+test('edge keys never expose raw IP and preflight bypasses the limiter', async () => {
+  const keys = [];
+  const env = {ENVIRONMENT: 'production', DB: {}, API_RATE_LIMITER: {limit: async ({key}) => {keys.push(key); return {success: false};}}};
+  const request = (method, ip) => new Request(API + '/v1/ideas', {method, headers: {Origin: ORIGIN, 'CF-Connecting-IP': ip, 'Access-Control-Request-Method': 'POST'}});
+  assert.equal((await worker.fetch(request('OPTIONS', '203.0.113.8'), env)).status, 204);
+  assert.equal(keys.length, 0);
+  for (const ip of ['203.0.113.8', '203.0.113.8', '203.0.113.9']) assert.equal((await worker.fetch(request('GET', ip), env)).status, 429);
+  keys.forEach(key => assert.match(key, /^[0-9a-f]{64}$/));
+  assert.equal(keys[0], keys[1]); assert.notEqual(keys[0], keys[2]);
+});
+
+test('real edge bindings enforce their budget while ordinary shared-network browsing has headroom', async () => {
+  const local = runtime({}, {HIT_RATE_LIMITER: {namespace_id: '1003', simple: {limit: 2, period: 60}}});
+  try {
+    const database = await local.getD1Database('DB'); await migrate(database);
+    const browsing = await Promise.all(Array.from({length: 50}, () => req('/v1/ideas', {target: local})));
+    assert.ok(browsing.every(result => result.status === 200));
+    const hit = () => req('/v1/hit', {target: local, method: 'POST', data: {kind: 'visit', page: '/ko/'}});
+    assert.equal((await hit()).status, 200);
+    assert.equal((await hit()).status, 200);
+    assert.equal((await hit()).status, 202);
+    assert.equal((await database.prepare('SELECT count FROM site_stats').first()).count, 2);
+    assert.equal((await req('/v1/ideas', {target: local})).status, 200, 'analytics cannot block the board');
+    assert.ok(await visitor(local), 'normal verification still works after a browsing burst');
+  } finally {await local.dispose();}
+  const restricted = runtime({}, {API_RATE_LIMITER: {namespace_id: '1001', simple: {limit: 2, period: 60}}});
+  try {
+    await migrate(await restricted.getD1Database('DB'));
+    assert.equal((await req('/v1/ideas', {target: restricted})).status, 200);
+    assert.equal((await req('/v1/ideas', {target: restricted})).status, 200);
+    assert.equal((await req('/v1/ideas', {target: restricted})).status, 429);
+    assert.equal((await req('/v1/ideas', {target: restricted, headers: {'CF-Connecting-IP': '203.0.113.9'}})).status, 200);
+  } finally {await restricted.dispose();}
 });

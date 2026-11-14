@@ -5,7 +5,7 @@
 const B = require('./boot.cjs');
 const { fs, createCanvas, skia, RC, pf, resolveScenerySeason, createDrawnScenePreparation, DEFAULT_ROOM_LIGHT_PREFERENCES } = B;
 const path = require('node:path');
-const { loadImage } = require(path.join(process.env.NATIVE_NODE_MODULES || '/Users/gpt/.cache/codex-runtimes/codex-primary-runtime/dependencies/node/node_modules', '@napi-rs/canvas'));
+const { loadImage } = require(path.join(process.env.NATIVE_NODE_MODULES || path.join(require('node:os').homedir(), '.cache/codex-runtimes/codex-primary-runtime/dependencies/node/node_modules'), '@napi-rs/canvas'));
 const ROOT = process.env.ROOMS_OUT || path.join(__dirname, '../../outputs/rooms-png'), META = path.join(ROOT, 'meta');
 const SHIP = path.join(B.app, 'assets/images/collection/recommendations/');
 const SW = 390, SH = 844, LS = 2.5;                      // scene units; layer scale (B format: 975x2110 scene)

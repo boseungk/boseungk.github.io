@@ -1,5 +1,6 @@
 .DS_Store
 .omx/
+.wrangler/
 __pycache__/
 outputs/
 docs/assets/live/

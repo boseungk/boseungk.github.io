@@ -6,7 +6,7 @@ The site frontend is static HTML, CSS and browser JavaScript, without Jekyll or 
 
 ## Develop and verify
 
-From the repository root (Node is not on `PATH`: use the bundled Codex runtime, `/Users/gpt/.cache/codex-runtimes/codex-primary-runtime/dependencies/node/bin/node`, below as `node`):
+From the repository root, use Node 22.12+ (`node` below). Set `NATIVE_NODE_MODULES` for optional native-renderer dependencies. Private app sources are read only when `DAYLOOM_SOURCE` is explicitly set.
 
 ```sh
 python3 -m http.server 8765 --directory docs

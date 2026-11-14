@@ -3,8 +3,8 @@
    Opaque full-bleed square (iOS draws transparent touch-icon pixels black): icons/apple-touch-icon-180, copied to docs/apple-touch-icon.png.
    docs/favicon.ico is a hand-written PNG-in-ICO (16/32/48). Outputs keep stable names (class 2 in PORT-PLAN 2.3; the build stamps ?v=). */
 const fs = require('node:fs'), path = require('node:path'), crypto = require('node:crypto');
-const app = process.env.DAYLOOM_SOURCE || '/Users/gpt/Projects/dayloom';
-const modules = process.env.NATIVE_NODE_MODULES || '/Users/gpt/.cache/codex-runtimes/codex-primary-runtime/dependencies/node/node_modules';
+const app = process.env.DAYLOOM_SOURCE || path.resolve(__dirname, '../outputs/app-source-not-configured');
+const modules = process.env.NATIVE_NODE_MODULES || path.join(require('node:os').homedir(), '.cache/codex-runtimes/codex-primary-runtime/dependencies/node/node_modules');
 const {createCanvas, loadImage} = require(path.join(modules, '@napi-rs/canvas'));
 const RADIUS = .22;
 const sha = bytes => crypto.createHash('sha256').update(bytes).digest('hex');

@@ -64,13 +64,10 @@ async function visitorFor(request, env) {
   return statement(env, 'SELECT id FROM visitors WHERE token_hash=? AND expires_at>?', await sha256(token), Date.now()).first();
 }
 
-async function readJson(request, allowed) {
-  if (!/^application\/json(?:\s*;\s*charset=utf-8)?\s*$/i.test(request.headers.get('Content-Type') || '')) {
-    throw invalid('Use application/json.', 'content_type');
-  }
+async function readBody(request, max = MAX_BODY) {
   const declared = request.headers.get('Content-Length');
-  if (declared && (!/^\d+$/.test(declared) || Number(declared) > MAX_BODY)) {
-    throw new ApiError(400, 'body_too_large', 'Request body exceeds 16 KiB.');
+  if (declared && (!/^\d+$/.test(declared) || Number(declared) > max)) {
+    throw new ApiError(400, 'body_too_large', `Request body exceeds ${max} bytes.`);
   }
   const reader = request.body?.getReader();
   const chunks = [];
@@ -80,9 +77,9 @@ async function readJson(request, allowed) {
       const { done, value } = await reader.read();
       if (done) break;
       total += value.byteLength;
-      if (total > MAX_BODY) {
+      if (total > max) {
         await reader.cancel();
-        throw new ApiError(400, 'body_too_large', 'Request body exceeds 16 KiB.');
+        throw new ApiError(400, 'body_too_large', `Request body exceeds ${max} bytes.`);
       }
       chunks.push(value);
     }
@@ -90,6 +87,16 @@ async function readJson(request, allowed) {
   const bytes = new Uint8Array(total);
   let offset = 0;
   for (const chunk of chunks) { bytes.set(chunk, offset); offset += chunk.byteLength; }
+  return bytes;
+}
+
+async function readJson(request, allowed, { max = MAX_BODY, beacon = false } = {}) {
+  const type = request.headers.get('Content-Type') || '';
+  if (!/^(?:application\/json)(?:\s*;\s*charset=utf-8)?\s*$/i.test(type) &&
+      !(beacon && /^text\/plain(?:\s*;\s*charset=utf-8)?\s*$/i.test(type))) {
+    throw invalid(beacon ? 'Use text/plain or application/json.' : 'Use application/json.', 'content_type');
+  }
+  const bytes = await readBody(request, max);
   let data;
   try { data = JSON.parse(new TextDecoder('utf-8', { fatal: true }).decode(bytes)); }
   catch { throw new ApiError(400, 'invalid_json', 'Provide valid JSON.'); }
@@ -275,26 +282,52 @@ async function setVote(env, visitor, id, data) {
 const HIT_KINDS = ['visit', 'store'];
 const HIT_STORES = ['', 'app', 'play'];
 const TAG = /^[a-z0-9][a-z0-9._-]{0,39}$/;
+const SITE_LANGUAGES = new Set(['ko', 'en', 'ja', 'zh-hans', 'zh-hant', 'es', 'fr', 'de', 'it', 'pt-br', 'pt-pt', 'nl', 'pl', 'uk', 'ru', 'sv', 'nb', 'da', 'vi', 'th', 'id', 'ms', 'fil', 'hi', 'bn', 'ta', 'tr', 'ar', 'he', 'sw']);
+const SITE_PAGES = new Set(['feedback', 'news', 'privacy', 'app-privacy']);
+const MAX_STAT_ROWS_PER_DAY = 2000;
+function statPage(value) {
+  if (value === '/' || value === '/index.html') return '/';
+  if (typeof value !== 'string') return 'other';
+  const match = /^\/([a-z-]+)(?:\/([a-z-]+))?\/$/.exec(value);
+  if (!match) return 'other';
+  if (SITE_LANGUAGES.has(match[1]) && (!match[2] || SITE_PAGES.has(match[2]))) return value;
+  return !match[2] && SITE_PAGES.has(match[1]) ? value : 'other';
+}
+
+// Edge protection supplements the transactional visitor quotas. No IP is stored in D1 or logs.
+// Hashes are namespaced by day; shared/mobile networks get generous budgets. If the limiter is
+// unavailable, the board stays usable; optional analytics are dropped without affecting the page.
+async function edgeAllowed(request, env, binding, { analytics = false, global = false } = {}) {
+  const limiter = env[binding];
+  if (!limiter) return isDev(env) || !analytics;
+  try {
+    const ip = request.headers.get('CF-Connecting-IP');
+    if (!global && !ip) return isDev(env) || !analytics;
+    const key = global ? 'site-hits' : await sha256(`${new Date().toISOString().slice(0, 10)}:${ip}`);
+    return (await limiter.limit({ key })).success === true;
+  } catch { return !analytics; }
+}
+
 async function recordHit(request, env) {
-  if (!/^(text\/plain|application\/json)\b/i.test(request.headers.get('Content-Type') || '')) throw invalid('Use text/plain or application/json.', 'content_type');
-  const text = await request.text();
-  if (text.length > 1024) throw new ApiError(400, 'body_too_large', 'Request body exceeds 1 KiB.');
-  let data;
-  try { data = JSON.parse(text); } catch { throw new ApiError(400, 'invalid_json', 'Provide valid JSON.'); }
-  if (!data || typeof data !== 'object' || Array.isArray(data)) throw invalid('Provide a JSON object.');
+  const data = await readJson(request, ['kind', 'store', 'page', 'source', 'campaign'], { max: 1024, beacon: true });
   const kind = data.kind, store = data.store ?? '';
   if (!HIT_KINDS.includes(kind)) throw invalid('Unknown kind.', 'kind');
   if (!HIT_STORES.includes(store) || (kind === 'store') !== (store !== '')) throw invalid('Unknown store.', 'store');
-  const page = typeof data.page === 'string' && /^\/[a-z0-9/_-]{0,80}$/.test(data.page) ? data.page : 'other';
+  const page = statPage(data.page);
   const tag = (value, fallback) => {
     if (value === undefined || value === '') return fallback;
     const text = typeof value === 'string' ? value.trim().toLowerCase() : '';
     return TAG.test(text) ? text : 'other';
   };
   const day = new Date(Date.now() + 9 * 3_600_000).toISOString().slice(0, 10);  // KST
-  await statement(env, `INSERT INTO site_stats(day, kind, page, source, campaign, store, count) VALUES (?, ?, ?, ?, ?, ?, 1)
+  const source = tag(data.source, 'direct'), campaign = tag(data.campaign, '');
+  // Bound new dimensions atomically; existing counters still increment when the daily cap is full.
+  await statement(env, `INSERT INTO site_stats(day, kind, page, source, campaign, store, count)
+    SELECT ?, ?, ?, ?, ?, ?, 1 WHERE
+      EXISTS(SELECT 1 FROM site_stats WHERE day=? AND kind=? AND page=? AND source=? AND campaign=? AND store=?)
+      OR (SELECT COUNT(*) FROM site_stats WHERE day=?) < ?
     ON CONFLICT(day, kind, page, source, campaign, store) DO UPDATE SET count = count + 1`,
-  day, kind, page, tag(data.source, 'direct'), tag(data.campaign, ''), store).run();
+  day, kind, page, source, campaign, store, day, kind, page, source, campaign, store, day, MAX_STAT_ROWS_PER_DAY).run();
   return { data: { ok: true } };
 }
 
@@ -302,7 +335,16 @@ async function route(request, env) {
   if (!['development', 'production'].includes(env.ENVIRONMENT) || !env.DB) throw new ApiError(503, 'not_configured', 'Service is not configured.');
   const url = new URL(request.url);
   const method = request.method;
-  if (method === 'POST' && url.pathname === '/v1/hit') return recordHit(request, env);
+  if (method === 'POST' && url.pathname === '/v1/hit') {
+    if (!await edgeAllowed(request, env, 'HIT_RATE_LIMITER', { analytics: true }) ||
+        !await edgeAllowed(request, env, 'HIT_TOTAL_LIMITER', { analytics: true, global: true })) {
+      return { status: 202, data: { ok: true } };
+    }
+    return recordHit(request, env);
+  }
+  if (!await edgeAllowed(request, env, 'API_RATE_LIMITER')) throw limited(60);
+  if (method === 'POST' && url.pathname === '/v1/visitor' &&
+      !await edgeAllowed(request, env, 'VISITOR_RATE_LIMITER')) throw limited(60);
   const visitor = await visitorFor(request, env);
   if (method === 'GET') {
     if (url.pathname === '/v1/ideas') return { data: await listIdeas(env, url, visitor) };
@@ -329,7 +371,8 @@ export default {
   async fetch(request, env) {
     const origin = request.headers.get('Origin');
     const originAllowed = origin === PRODUCTION_ORIGIN || (isDev(env) && LOCAL_ORIGINS.has(origin));
-    const headers = new Headers({ 'Cache-Control': 'no-store', 'Vary': 'Origin', 'X-Content-Type-Options': 'nosniff' });
+    const headers = new Headers({ 'Cache-Control': 'no-store', 'Vary': 'Origin', 'X-Content-Type-Options': 'nosniff',
+      'Strict-Transport-Security': 'max-age=31556952', 'Referrer-Policy': 'strict-origin-when-cross-origin' });
     if (originAllowed) {
       headers.set('Access-Control-Allow-Origin', origin);
       headers.set('Access-Control-Allow-Credentials', 'true');

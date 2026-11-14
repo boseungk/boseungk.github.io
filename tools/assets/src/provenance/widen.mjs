@@ -1,6 +1,6 @@
 // node widen.mjs <src.png> <out> <outWidth> [fmt=webp|png] [q]
 import {createRequire} from 'node:module'; import fs from 'node:fs';
-const require = createRequire('/Users/gpt/.cache/codex-runtimes/codex-primary-runtime/dependencies/node/node_modules/');
+const require = createRequire((process.env.NATIVE_NODE_MODULES || (await import('node:path')).join((await import('node:os')).homedir(), '.cache/codex-runtimes/codex-primary-runtime/dependencies/node/node_modules')) + '/');
 const {createCanvas, loadImage} = require('@napi-rs/canvas');
 const [src, out, ow, fmt = 'webp', q = '92'] = process.argv.slice(2);
 const im = await loadImage(src); const W = im.width, H = im.height, OW = +ow, pad = Math.round((OW - W) / 2);

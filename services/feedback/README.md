@@ -132,6 +132,27 @@ Errors use `{error:{code,message,field?}}` without SQL or internal details:
 
 ## Atomic limits and tests
 
+### Edge budgets and optional analytics
+
+Wrangler's production and local configs define separate per-minute budgets:
+600 board requests per connecting IP, 60 visitor preparations per IP, 120 site hits
+per IP and 1,000 site hits across each Cloudflare location. These are generous burst
+guards for shared/mobile networks, not per-person quotas. The transactional quotas
+below remain the authoritative writing/voting limits. Preflight is not counted.
+Rate-limit keys use a daily SHA-256 namespace; raw IPs are not stored in D1 or app logs.
+
+If a board limiter is unavailable, the normal API and existing D1 quotas continue.
+If an analytics limiter is missing, unavailable or exhausted, `/v1/hit` returns 202
+without accessing D1. The website and board remain usable; only optional counts are
+dropped. Cloudflare's edge budgets are approximate and local to each location.
+
+Stats requests accept at most 1,024 bytes, checked while streaming, and only declared
+fields. Page dimensions are limited to the site's language/route vocabulary. The
+conditional INSERT atomically caps new stats rows at 2,000 per KST day while allowing
+existing counters to increase; older rows are not deleted. No migration is needed.
+Tests use Miniflare/local D1 and verify rejection, shared-network headroom, normal
+quotas, limiter failures, the daily cap and UTF-8/streamed bodies without production writes.
+
 Each visitor may create 3 ideas and 20 comments in the preceding 24 hours,
 including hidden rows. Conditional INSERT, unique constraint handling, and
 idempotency/quota reads are one D1 batch transaction, not an application

@@ -2,7 +2,7 @@
 
 > Note (2026-11-07): This plan targeted the old v4/v5 home, which was replaced by the redesigned home (`docs/assets/home/**`, `site/**`). The current structure is in [website.md](website.md); this file is kept as history.
 
-Apply `/Users/gpt/Projects/dayloom/.codex/skills/ai-slop-cleaner/SKILL.md` to the session-owned static website in `docs/`, its `tools/`, and architecture/run documentation. The primary Dayloom app is read-only. Preserve its six copied `growth-motion/` files byte-for-byte, upstream license/provenance, and existing product/privacy/contact/social pages. Later user authorization explicitly includes removing the obsolete root Jekyll blog. No dependency, framework, push, deployment, or nested agent workflow.
+Apply `env:DAYLOOM_SOURCE/.codex/skills/ai-slop-cleaner/SKILL.md` to the session-owned static website in `docs/`, its `tools/`, and architecture/run documentation. The primary Dayloom app is read-only. Preserve its six copied `growth-motion/` files byte-for-byte, upstream license/provenance, and existing product/privacy/contact/social pages. Later user authorization explicitly includes removing the obsolete root Jekyll blog. No dependency, framework, push, deployment, or nested agent workflow.
 
 ## Behavior lock before cleanup
 

@@ -25,7 +25,7 @@ from . import core
 from .core import LOCALES, PAGES, PLACEHOLDER_NAME, TAG, HL, KeyUse, PageContext, Copy, expand, invalid_reason
 
 REPORT = 'translation/untranslated.json'
-DAYLOOM = Path(os.environ.get('DAYLOOM_SOURCE', '/Users/gpt/Projects/dayloom'))
+DAYLOOM = os.environ.get('DAYLOOM_SOURCE')
 APP_CATALOGS = 'src/core/localization/catalogs'
 APP_AUTHORED = 'src/core/localization/authored-english.json'
 ROOMS_SOURCE = 'assets/i18n/rooms/source.json'
@@ -134,7 +134,9 @@ def mark(text, locale, keys):
 # App suggestions (read-only Dayloom catalogs)
 
 @lru_cache(maxsize=None)
-def app_catalogs(root=str(DAYLOOM)):
+def app_catalogs(root=DAYLOOM):
+    if not root:
+        return {}, {}
     base = Path(root) / APP_CATALOGS
     if not (base / 'ko-KR.json').exists():
         return {}, {}
@@ -151,8 +153,10 @@ def app_catalogs(root=str(DAYLOOM)):
 
 
 @lru_cache(maxsize=None)
-def app_authored(root=str(DAYLOOM)):
+def app_authored(root=DAYLOOM):
     """The app's own Korean -> English map for catalog labels (room, item and colour names)."""
+    if not root:
+        return {}
     file = Path(root) / APP_AUTHORED
     return json.loads(file.read_text()) if file.exists() else {}
 

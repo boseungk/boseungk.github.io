@@ -96,7 +96,7 @@ test('CSS keeps the motion and design contract of the app design language', () =
 });
 
 test('decor and theme names are the app catalog\'s own words (read-only Dayloom checkout)', t => {
-  const app = process.env.DAYLOOM_SOURCE || '/Users/gpt/Projects/dayloom';
+  const app = process.env.DAYLOOM_SOURCE || new URL('../outputs/app-source-not-configured', import.meta.url).pathname;
   const catalogFile = join(app, 'src/core/localization/catalogs/ko-KR.json');
   const themesFile = join(app, 'src/features/collection/domain/collection-themes.ts');
   if (!existsSync(catalogFile) || !existsSync(themesFile)) return t.skip(`app checkout not found at ${app}`);

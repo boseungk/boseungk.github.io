@@ -2,7 +2,7 @@
 // exported from Dayloom's own drawing code by tools/export-growth.cjs --svg-only. This check re-runs that export
 // into a scratch tree and compares bytes, and compares the recorded source hashes with the app files.
 // Skips (with a reason) when the app checkout or TypeScript cannot be found:
-//   DAYLOOM_SOURCE=/Users/gpt/Projects/dayloom  TYPESCRIPT_PATH=<a typescript 5 package directory>
+//   DAYLOOM_SOURCE=<private-app-checkout>  TYPESCRIPT_PATH=<a typescript 5 package directory>
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {spawnSync} from 'node:child_process';
@@ -12,9 +12,9 @@ import {tmpdir} from 'node:os';
 import {join} from 'node:path';
 
 const repo = new URL('../', import.meta.url).pathname;
-const app = process.env.DAYLOOM_SOURCE || '/Users/gpt/Projects/dayloom';
+const app = process.env.DAYLOOM_SOURCE || join(repo, 'outputs/app-source-not-configured');
 // TypeScript: the env var, the app's own install, then the copy npx left on this workstation.
-const typescript = [process.env.TYPESCRIPT_PATH, join(app, 'node_modules/typescript'), '/Users/gpt/.npm/_npx/6bc7bae5c2059953/node_modules/typescript']
+const typescript = [process.env.TYPESCRIPT_PATH, join(app, 'node_modules/typescript')]
   .find(path => path && existsSync(join(path, 'package.json'))) || join(app, 'node_modules/typescript');
 const masters = join(repo, 'tools/assets/src/growth');
 

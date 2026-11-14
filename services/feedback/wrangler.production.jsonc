@@ -22,5 +22,39 @@
       "migrations_dir": "migrations"
     }
   ],
-  "account_id": "4eb04f774d2c0cd79b2de3f9668c8545"
+  "account_id": "4eb04f774d2c0cd79b2de3f9668c8545",
+  "ratelimits": [
+    {
+      "name": "API_RATE_LIMITER",
+      "namespace_id": "1001",
+      "simple": {
+        "limit": 600,
+        "period": 60
+      }
+    },
+    {
+      "name": "VISITOR_RATE_LIMITER",
+      "namespace_id": "1002",
+      "simple": {
+        "limit": 60,
+        "period": 60
+      }
+    },
+    {
+      "name": "HIT_RATE_LIMITER",
+      "namespace_id": "1003",
+      "simple": {
+        "limit": 120,
+        "period": 60
+      }
+    },
+    {
+      "name": "HIT_TOTAL_LIMITER",
+      "namespace_id": "1004",
+      "simple": {
+        "limit": 1000,
+        "period": 60
+      }
+    }
+  ]
 }

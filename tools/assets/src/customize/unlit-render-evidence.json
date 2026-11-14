@@ -1,5 +1,5 @@
 {
-  "source": "/Users/gpt/Projects/dayloom",
+  "source": "env:DAYLOOM_SOURCE",
   "projection": {
     "width": 780,
     "height": 1280,

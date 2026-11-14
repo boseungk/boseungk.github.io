@@ -9,7 +9,7 @@
   "hbSubset": "14.2.1"
  },
  "dayloom": {
-  "path": "/Users/gpt/Projects/dayloom",
+  "path": "env:DAYLOOM_SOURCE",
   "commit": "5775381dd8d9699e8f42496f753529795ab151bb",
   "dirty": false
  },

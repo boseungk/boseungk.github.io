@@ -6,7 +6,7 @@ Scope: session-owned MyAnimalRoom landing website (`docs/`, `tools/`), architect
 
 Behavior Lock: baseline `check-narrative.cjs` and `check-hero-scroll.cjs` PASS before cleanup; added/ran `check-interactions.cjs` against the original task/carousel/English/menu behavior before replacing locale boundaries. `check-phone.cjs` exercised the primary/missing-library/WebGL/GLB paths before adding failure diagnostics.
 
-Cleanup Plan: [cleanup-plan.md](cleanup-plan.md), recorded before cleanup and updated with explicit blog removal/brand-wash authorization. Skill applied: `/Users/gpt/Projects/dayloom/.codex/skills/ai-slop-cleaner/SKILL.md`.
+Cleanup Plan: [cleanup-plan.md](cleanup-plan.md), recorded before cleanup and updated with explicit blog removal/brand-wash authorization. Skill applied: `env:DAYLOOM_SOURCE/.codex/skills/ai-slop-cleaner/SKILL.md`.
 
 ## Passes completed
 
@@ -28,7 +28,7 @@ Cleanup Plan: [cleanup-plan.md](cleanup-plan.md), recorded before cleanup and up
 - Lint/typecheck: **N/A**, no lint/typecheck toolchain in this static repository; syntax and focused integration checks run instead. No dependencies added.
 - Static/security tooling: **N/A**, no configured security scanner. Active local asset/anchor/import contracts are checked.
 
-Node used: `/Users/gpt/.cache/codex-runtimes/codex-primary-runtime/dependencies/node/bin/node`.
+Node used: `<developer-home>/.cache/codex-runtimes/codex-primary-runtime/dependencies/node/bin/node`.
 
 ## UI/design findings
 

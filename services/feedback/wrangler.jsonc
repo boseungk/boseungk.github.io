@@ -5,12 +5,50 @@
   "compatibility_date": "2026-08-01",
   "workers_dev": false,
   "preview_urls": false,
-  "vars": { "ENVIRONMENT": "development" },
-  "d1_databases": [{
-    "binding": "DB",
-    "database_name": "feedback-local",
-    "database_id": "local-feedback-only",
-    "migrations_dir": "migrations",
-    "remote": false
-  }]
+  "vars": {
+    "ENVIRONMENT": "development"
+  },
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "feedback-local",
+      "database_id": "local-feedback-only",
+      "migrations_dir": "migrations",
+      "remote": false
+    }
+  ],
+  "ratelimits": [
+    {
+      "name": "API_RATE_LIMITER",
+      "namespace_id": "1001",
+      "simple": {
+        "limit": 600,
+        "period": 60
+      }
+    },
+    {
+      "name": "VISITOR_RATE_LIMITER",
+      "namespace_id": "1002",
+      "simple": {
+        "limit": 60,
+        "period": 60
+      }
+    },
+    {
+      "name": "HIT_RATE_LIMITER",
+      "namespace_id": "1003",
+      "simple": {
+        "limit": 120,
+        "period": 60
+      }
+    },
+    {
+      "name": "HIT_TOTAL_LIMITER",
+      "namespace_id": "1004",
+      "simple": {
+        "limit": 1000,
+        "period": 60
+      }
+    }
+  ]
 }

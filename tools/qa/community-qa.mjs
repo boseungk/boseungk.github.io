@@ -1,5 +1,5 @@
 // Community pages QA (owner D): 기능 제안 (/feedback/) and 새 소식 (/news/) against the local API.
-//   N=/Users/gpt/.cache/codex-runtimes/codex-primary-runtime/dependencies/node/bin/node
+//   N=<node-executable>
 //   $N tools/qa/community-qa.mjs [--base http://127.0.0.1:8765] [--out <dir>] [--only matrix,filter,...] [--live-writes] [--json]
 // Needs the static site on --base (docs/, built with --only feedback,news) and the API on 127.0.0.1:8789 with
 // services/feedback/seed/local.sql loaded. Drives the Chrome already running on CDP :9333 (tools/qa/cdp.mjs);
