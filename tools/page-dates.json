@@ -52,8 +52,8 @@
   "sha256": "e02085146e23e48148a7c640602968ef7ecf385bd636d3fb6e7c83c0afaa9b81"
  },
  "/en/app-privacy/": {
-  "lastmod": "2026-11-12",
-  "sha256": "89bfd1c05386acd4e16474eb1f8f53f339406335a52fd4b84aa3e2804fe1df6f"
+  "lastmod": "2026-11-19",
+  "sha256": "9a93cf359eda9d0b14aa003c97a06b48d93eb438e4d424050b636447f44edced"
  },
  "/en/feedback/": {
   "lastmod": "2026-11-14",
@@ -152,28 +152,28 @@
   "sha256": "44a44072e319d29a92b213bb2435a1aec83fbf9c10cfc75a31ec065e74412010"
  },
  "/ja/": {
-  "lastmod": "2026-11-13",
-  "sha256": "1aadce80af5ee151bd6c3bf433fa14283e2148e77e2d9e5a9255ca8f8b9678c8"
+  "lastmod": "2026-11-19",
+  "sha256": "207f99d46383b1891ea5ad8edf856f77c01426e9ebbf26fac64b02acf4d8d341"
  },
  "/ja/app-privacy/": {
-  "lastmod": "2026-11-13",
-  "sha256": "81e11c64254f53c9bf1fdacefc98d6473f078a69d78f83325815894e994d4465"
+  "lastmod": "2026-11-19",
+  "sha256": "f6e30370fc13e95894e44f66f1cd0397ecc58b37305c15f49662ad83a69ced94"
  },
  "/ja/feedback/": {
-  "lastmod": "2026-11-14",
-  "sha256": "1e71813f8d9a035875ee798ae86bd315abeea1f03a3e98b38745f35556b96fa6"
+  "lastmod": "2026-11-19",
+  "sha256": "14308cc6337456bd2c4e207f06f2607bbde612fc26819f616eee5c8ee8e81edd"
  },
  "/ja/news/": {
-  "lastmod": "2026-11-13",
-  "sha256": "225f9a5cddc48a469d9741fd0df9cc8214752a3246dbb165246063745c8ccc2a"
+  "lastmod": "2026-11-19",
+  "sha256": "22ecaff2857b6e6761bcba815d71adefa233612fabae4cae3eecc6c3adb358f0"
  },
  "/ko/": {
   "lastmod": "2026-11-13",
   "sha256": "f9877796d72f9e0374007935ed366361a90c9e6d613465e799f503ee74b86b52"
  },
  "/ko/app-privacy/": {
-  "lastmod": "2026-11-12",
-  "sha256": "c51625c3be01f0eaacb4bedc1664f332c23e54637e0e7445f1111a91f4ab5019"
+  "lastmod": "2026-11-19",
+  "sha256": "25154aecc6d5c75bd77db5822e72653026baeab6912938a739306a94789f6c90"
  },
  "/ko/feedback/": {
   "lastmod": "2026-11-14",
@@ -368,19 +368,19 @@
   "sha256": "32224546113afc49ad54131bf2af9e26781338d8a0f15b0748efb7acb02638e4"
  },
  "/zh-hant/": {
-  "lastmod": "2026-11-13",
-  "sha256": "ca6a5fdc71b2d84631a306fabe3e8523c9e7147b0625051841c44116229e023b"
+  "lastmod": "2026-11-19",
+  "sha256": "a68f632e3ac8a37115bd3b4e94a50c0678a617b07f3f78dd1c7c00bfbf53a363"
  },
  "/zh-hant/app-privacy/": {
-  "lastmod": "2026-11-13",
-  "sha256": "937a87675e118a0a65437831ad2e5d726c448f6496264ad42a2893fa7405db40"
+  "lastmod": "2026-11-19",
+  "sha256": "d60ff757b112c4266402a65596486739578b6a308fec0b0122a10ec73f985fb4"
  },
  "/zh-hant/feedback/": {
-  "lastmod": "2026-11-14",
-  "sha256": "83c972ec3a862378aa3eed6e3bdee93cfced14e4b1fbfe44942a3254bd141c5b"
+  "lastmod": "2026-11-19",
+  "sha256": "fca058ce977afc768c8dc7ba076f5bcf9b0019af26d047655b615a47b183048f"
  },
  "/zh-hant/news/": {
-  "lastmod": "2026-11-13",
-  "sha256": "7ac3ba3d02eeddc12df6e773dc1db54d1f12f20048805b9055807c6993ab1608"
+  "lastmod": "2026-11-19",
+  "sha256": "ff8fc1256f254de6d5a77793683e1d568f5873ea03553a70b0a9c5415fe4a48a"
  }
 }

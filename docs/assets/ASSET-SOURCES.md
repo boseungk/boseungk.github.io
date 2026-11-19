@@ -111,7 +111,7 @@ Exported by `tools/build-site-icons.cjs` from `.omx/first-user-review/app-icon/o
 <!-- generated:icons end -->
 
 <!-- generated:fonts begin (tools/assets: do not edit by hand) -->
-## Font subsets (generated 2026-11-13)
+## Font subsets (generated 2026-11-19)
 
 Subsets produced by `tools/assets/build-fonts.mjs` with hb-subset 14.2.1 and listed in `architecture/font-asset-sources.json`. Each page declares and preloads only the faces of its language, the same font the app uses for that language (Dayloom `src/core/localization/locale-fonts.ts`).
 
@@ -127,9 +127,9 @@ Subsets produced by `tools/assets/build-fonts.mjs` with hb-subset 14.2.1 and lis
 | `fonts/line-seed-jp-latin.ttf` | `LINE Seed JP` | en, ja, es, fr, de, it, pt-BR, pt-PT, pl, uk, ru, sv, nb, da, id, ms, fil, tr, sw | 236 | 35,616 | 16,994 |
 | `fonts/line-seed-jp-latin-ext.ttf` | `LINE Seed JP` | en, ja, es, fr, de, it, pt-BR, pt-PT, pl, uk, ru, sv, nb, da, id, ms, fil, tr, sw | 118 | 17,976 | 7,191 |
 | `fonts/line-seed-jp-cyrillic.ttf` | `LINE Seed JP` | en, ja, es, fr, de, it, pt-BR, pt-PT, pl, uk, ru, sv, nb, da, id, ms, fil, tr, sw | 136 | 16,548 | 9,639 |
-| `fonts/line-seed-jp-ja.ttf` | `LINE Seed JP` | ja | 925 | 297,288 | 171,784 |
+| `fonts/line-seed-jp-ja.ttf` | `LINE Seed JP` | ja | 932 | 299,672 | 173,256 |
 | `fonts/noto-sans-sc.ttf` | `Noto Sans SC` | zh-Hans | 1,263 | 281,168 | 185,681 |
-| `fonts/noto-sans-tc.ttf` | `Noto Sans TC` | zh-Hant | 1,416 | 356,348 | 232,445 |
+| `fonts/noto-sans-tc.ttf` | `Noto Sans TC` | zh-Hant | 1,424 | 359,068 | 234,083 |
 | `fonts/noto-sans-latin.ttf` | `Noto Sans` | nl, vi | 318 | 26,280 | 16,110 |
 | `fonts/noto-sans-latin-ext.ttf` | `Noto Sans` | nl, vi | 701 | 72,584 | 35,520 |
 | `fonts/line-seed-th.otf` | `LINE Seed TH` | th | 234 | 38,532 | 21,139 |
@@ -139,7 +139,7 @@ Subsets produced by `tools/assets/build-fonts.mjs` with hb-subset 14.2.1 and lis
 | `fonts/noto-sans-bengali.ttf` | `Noto Sans Bengali` | bn | 306 | 113,924 | 60,249 |
 | `fonts/noto-sans-tamil.ttf` | `Noto Sans Tamil` | ta | 285 | 56,276 | 28,892 |
 
-The `ko` face holds KS X 1001's 2,350 syllables, the jamo blocks and 0 further syllables found in the Korean pages, catalogs, templates and room text; `rare` holds the other syllables and loads only when a post uses one. Han faces hold the ideographs their language's pages use (jp-ja 609, sc 847, tc 957); a missing one falls back to the system font for that character.
+The `ko` face holds KS X 1001's 2,350 syllables, the jamo blocks and 0 further syllables found in the Korean pages, catalogs, templates and room text; `rare` holds the other syllables and loads only when a post uses one. Han faces hold the ideographs their language's pages use (jp-ja 616, sc 847, tc 965); a missing one falls back to the system font for that character.
 <!-- generated:fonts end -->
 
 <!-- generated:rooms begin (tools/assets: do not edit by hand) -->
